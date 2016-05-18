@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="400dp"
+    android:layout_height="500dp"
+    android:id="@+id/add_event_popup"
+    android:weightSum="1"
+    android:background="@drawable/borderpopup">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Category"
+        android:id="@+id/lbl_eventInfo_journey"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="35dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/lbl_noteDetail_journey"
+        android:gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/lbl_TimeInfoDetail_journey"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/lbl_TimeInfoDetail_journey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/lbl_eventInfo_journey"
+        android:hint="Time"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="4dp"
+        android:id="@+id/imageView3"
+        android:background="#040303"
+        android:layout_below="@+id/lbl_noteDetail_journey"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="4dp"
+        android:id="@+id/imageView4"
+        android:background="#040303"
+        android:layout_marginBottom="125dp"
+        android:layout_above="@+id/btn_deleteEvent_journey"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="STATIC INFO"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/imageView3"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="RAITING"
+        android:id="@+id/textView6"
+        android:layout_alignTop="@+id/imageView4"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/btn_deleteEvent_journey"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/img_detailcategory_journey"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>

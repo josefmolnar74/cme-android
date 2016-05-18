@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cancercarecompany.ccc.ccc.MainActivity"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="0.14"
+        android:background="@drawable/border"
+        android:weightSum="100">
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:id="@+id/logoButton"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo"
+            android:background="@null"
+            android:layout_weight="10"
+            />
+
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:id="@+id/contactsButton"
+            android:layout_weight="16"
+            android:padding="8dp"
+            android:src="@drawable/careteam"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:cropToPadding="false"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:id="@+id/journeyButton"
+            android:layout_weight="16"
+            android:padding="4dp"
+            android:src="@drawable/myjourney"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:cropToPadding="false"
+            android:layout_marginLeft="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/journalButton" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:id="@+id/myWallButton"
+            android:layout_weight="16"
+            android:padding="4dp"
+            android:src="@drawable/cwall"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:cropToPadding="false"
+            android:layout_marginLeft="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/journeyButton" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:id="@+id/journalButton"
+            android:layout_weight="16"
+            android:padding="8dp"
+            android:src="@drawable/myjournal"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:cropToPadding="false"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/contactsButton"
+            android:layout_marginLeft="28dp" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:padding="5dp"
+            android:id="@+id/userSettingsButton"
+            android:layout_weight="10"
+            android:background="@null"
+            android:src="@drawable/settings"
+            android:scaleType="fitCenter"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/myWallButton"
+            android:layout_marginLeft="28dp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.86"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logobackground"/>
+
+</LinearLayout>

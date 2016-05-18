@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CCC</string>
+    <string name="title_activity_journal">JournalActivity</string>
+    <string name="robin">Robin</string>
+
+    <string name="chb_title">CHB</string>
+    <string name="lbl_contactinfo_caretem">Contact Informationn</string>
+</resources>
