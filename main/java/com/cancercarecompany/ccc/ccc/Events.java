@@ -15,6 +15,7 @@ public class Events {
     Date endDate;
     Date endTime;
 
+
     public Events(String category, String notes, Date startDate, Date startTime, Date endDate, Date endTime){
 
 

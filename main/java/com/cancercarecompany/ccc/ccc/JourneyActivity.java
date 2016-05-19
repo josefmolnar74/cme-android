@@ -51,7 +51,6 @@ import java.util.Date;
 import java.util.Locale;
 import android.view.DragEvent;
 import android.view.MotionEvent;
-
 import pl.polidea.view.ZoomView;
 
 public class JourneyActivity extends AppCompatActivity  {
@@ -65,14 +64,16 @@ public class JourneyActivity extends AppCompatActivity  {
     RelativeLayout relativeLayout;
     RelativeLayout cloudLayout;
     int topMargin = 0;
-    Calendar currentDate;
-    int eventsPassed;
     ImageView car;
+    long startDate;
+    long currentEvent;
+    Date currentDate;
     HorizontalScrollView eventScroll;
     HorizontalScrollView heavenScroll;
     HorizontalScrollView bottomScroll;
     RelativeLayout layoutButtons;
     RelativeLayout eventLayout;
+    RelativeLayout bottomLayout;
 
     ImageButton cloud1;
     ImageButton cloud2;
@@ -81,10 +82,6 @@ public class JourneyActivity extends AppCompatActivity  {
     ImageButton cloud5;
 
     View vID;
-
-
-
-
 
 
     @Override
@@ -110,6 +107,7 @@ public class JourneyActivity extends AppCompatActivity  {
         cloud5 = (ImageButton) findViewById(R.id.btn_cloud5_journey);
         layoutButtons = (RelativeLayout) findViewById(R.id.relativeLayout3);
         eventLayout = (RelativeLayout) findViewById(R.id.eventLayoutJourney);
+        bottomLayout = (RelativeLayout) findViewById(R.id.bottom_layout);
 
         addDialys.setOnTouchListener(new MyTouchListener());
         eventLayout.setOnDragListener(new MyDragListener());
@@ -118,8 +116,16 @@ public class JourneyActivity extends AppCompatActivity  {
         addSurgery.setOnTouchListener(new MyTouchListener());
         addXray.setOnTouchListener(new MyTouchListener());
 
-///yguygyigygygy
-        // hej hej 
+        currentDate = Calendar.getInstance().getTime();
+        Events diagnoseStart = new Events("Start", "Journey starts here", currentDate, null, null, null );
+        eventList.add(diagnoseStart);
+
+
+        ExampleJourney();
+        refreshEvents();
+
+
+
 
         eventScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 
@@ -128,12 +134,11 @@ public class JourneyActivity extends AppCompatActivity  {
                 int scrollX = eventScroll.getScrollX();
 
                 heavenScroll.setScrollX(scrollX/4);
-                bottomScroll.setScrollX(scrollX*2);
+                bottomScroll.setScrollX(scrollX*3);
 
 
             }
         });
-
 
 
     }
@@ -153,8 +158,6 @@ public class JourneyActivity extends AppCompatActivity  {
             layout.removeView(imageButton);
         }
 
-        int currentEvent = 0;
-
         Collections.sort(eventList, new Comparator<Events>() {
             @Override
             public int compare(Events lhs, Events rhs) {
@@ -164,41 +167,17 @@ public class JourneyActivity extends AppCompatActivity  {
             }
         });
 
-        eventsPassed = 0;
-        for (int i = 0; i < eventList.size(); i++) {
+        startDate = eventList.get(0).startDate.getTime();
 
-
-            Calendar eventDate = Calendar.getInstance();
-            currentDate = Calendar.getInstance();
-            eventDate.setTime(eventList.get(i).startDate);
-            if (eventDate.before(currentDate)) {
-                eventsPassed ++;
-            } else {
-
-            }
-
-        }
-        relativeLayout = (RelativeLayout) findViewById(R.id.eventLayoutJourney);
+        relativeLayout = (RelativeLayout) findViewById(R.id.bottom_layout);
         RelativeLayout.LayoutParams paramsCar = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        System.out.println(eventsPassed);
-        if(eventsPassed == 0){
-            eventsPassed = 1;
-        }else{
-            eventsPassed = eventsPassed + 1;
-        }
 
-        RelativeLayout.LayoutParams paramsCar0 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-        paramsCar0.setMargins((eventsPassed * 400)-200,200,0,0);
-        paramsCar0.width = 300;
-        paramsCar0.height = 200;
-        car.setLayoutParams(paramsCar0);
-
-
+        int carPosition = (int) currentDate.getTime() -(int) startDate;
+        paramsCar.setMargins(carPosition + 200,0,0,0);
+        paramsCar.width = 300;
+        paramsCar.height = 200;
 
 
         for (int i = 0; i < eventList.size(); i++) {
@@ -212,11 +191,10 @@ public class JourneyActivity extends AppCompatActivity  {
             final int id_ = btn.getId();
 
             if (i%2==0) {
-                    topMargin = 100;
+                    topMargin = 0;
             }else{
-                    topMargin = 400;
+                    topMargin = 200;
                 }
-
 
 
             btn.setOnClickListener(new View.OnClickListener() {
@@ -230,19 +208,22 @@ public class JourneyActivity extends AppCompatActivity  {
 
             switch (subCategory){
                 case "Surgery":
-                    btn.setBackgroundResource(R.drawable.kirurgi);
+                    btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
                 case "Xray":
-                    btn.setBackgroundResource(R.drawable.xray);
+                    btn.setBackgroundResource(R.drawable.orangebubblee);
                     break;
                 case "Heart":
-                    btn.setBackgroundResource(R.drawable.heartex);
+                    btn.setBackgroundResource(R.drawable.bluebubble);
                     break;
                 case "Blood":
-                    btn.setBackgroundResource(R.drawable.blodtest);
+                    btn.setBackgroundResource(R.drawable.pinkbubble);
                     break;
                 case "Dialys":
-                    btn.setBackgroundResource(R.drawable.dialys);
+                    btn.setBackgroundResource(R.drawable.orangebubble);
+                    break;
+                case "Start":
+                    btn.setBackgroundResource(R.drawable.journeystart);
                     break;
             }
 
@@ -253,12 +234,22 @@ public class JourneyActivity extends AppCompatActivity  {
 
             ImageButton indexButton = ((ImageButton) findViewById(i));
 
-            params.setMargins((currentEvent + 400), topMargin, 0, 0);
-            params.width = 120;
-            params.height = 120;
-            indexButton.setLayoutParams(params);
+            currentEvent = eventList.get(i).startDate.getTime() - startDate;
+            currentEvent = currentEvent / 1000000;
+            System.out.println(currentEvent);
+            int currentIntEvent = (int)currentEvent;
+            System.out.println(currentIntEvent);
 
-            currentEvent = currentEvent + 500;
+
+            params.setMargins((currentIntEvent * 2) + 300, topMargin, 0, 0);
+            params.width = 150;
+            params.height = 150;
+            if (subCategory == "Start"){
+                params.setMargins((currentIntEvent * 2), topMargin, 0, 0);
+                params.width = 300;
+                params.height = 300;
+            }
+            indexButton.setLayoutParams(params);
 
 
         }
@@ -274,19 +265,19 @@ public class JourneyActivity extends AppCompatActivity  {
 
                 switch (v.getId()){
 
-                    case 2131493011:
+                    case 2131493010:
                         vCategory = "Surgery";
                         break;
-                    case 2131493012:
+                    case 2131493011:
                          vCategory = "Xray";
                         break;
-                    case 2131493013:
+                    case 2131493012:
                          vCategory = "Heart";
                         break;
-                    case 2131493014:
+                    case 2131493013:
                         vCategory = "Blood";
                         break;
-                    case 2131493015:
+                    case 2131493014:
                         vCategory = "Dialys";
                         break;
 
@@ -316,19 +307,19 @@ public class JourneyActivity extends AppCompatActivity  {
 
                 switch (subCategory){
                     case "Surgery":
-                        categoryImage.setBackgroundResource(R.drawable.kirurgi);
+                        categoryImage.setBackgroundResource(R.drawable.greenbubble);
                         break;
                     case "Xray":
-                        categoryImage.setBackgroundResource(R.drawable.xray);
+                        categoryImage.setBackgroundResource(R.drawable.orangebubblee);
                         break;
                     case "Heart":
-                        categoryImage.setBackgroundResource(R.drawable.heartex);
+                        categoryImage.setBackgroundResource(R.drawable.bluebubble);
                         break;
                     case "Blood":
-                        categoryImage.setBackgroundResource(R.drawable.blodtest);
+                        categoryImage.setBackgroundResource(R.drawable.pinkbubble);
                         break;
                     case "Dialys":
-                        categoryImage.setBackgroundResource(R.drawable.dialys);
+                        categoryImage.setBackgroundResource(R.drawable.orangebubble);
                         break;
                 }
 
@@ -358,7 +349,6 @@ public class JourneyActivity extends AppCompatActivity  {
                         eventList.add(event);
 
                         refreshEvents();
-
 
                     }});
 
@@ -463,6 +453,8 @@ public class JourneyActivity extends AppCompatActivity  {
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
 
+
+
                     break;
                 case DragEvent.ACTION_DRAG_ENTERED:
 
@@ -471,6 +463,7 @@ public class JourneyActivity extends AppCompatActivity  {
 
                     break;
                 case DragEvent.ACTION_DROP:
+
 
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
@@ -486,6 +479,213 @@ public class JourneyActivity extends AppCompatActivity  {
             return true;
         }
     }
+
+    private void ExampleJourney(){
+        Calendar c = Calendar.getInstance();
+        c.setTime(currentDate);
+
+        c.add(Calendar.DATE, 1);
+        Events event1 = new Events("Surgery", "at hospital", c.getTime(), null, null, null );
+        eventList.add(event1);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 2);
+        Events event2 = new Events("Heart", "take meds before!", c.getTime(), null, null, null );
+        eventList.add(event2);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 5);
+        Events event3 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event3);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 6);
+        Events event4 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event4);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 7);
+        Events event5 = new Events("Dialys", "Dialys at Dr Edith", c.getTime(), null, null, null );
+        eventList.add(event5);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 8);
+        Events event6 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event6);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 9);
+        Events event7 = new Events("Xray", "Xray whole day", c.getTime(), null, null, null );
+        eventList.add(event7);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 10);
+        Events event8 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event8);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 12);
+        Events event9 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event9);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 13);
+        Events event10 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event10);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 14);
+        Events event11 = new Events("Surgery", "at hospital", c.getTime(), null, null, null );
+        eventList.add(event11);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 15);
+        Events event12 = new Events("Heart", "take meds before!", c.getTime(), null, null, null );
+        eventList.add(event12);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 17);
+        Events event13 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event13);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 18);
+        Events event14 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event14);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 19);
+        Events event15 = new Events("Dialys", "Dialys at Dr Edith", c.getTime(), null, null, null );
+        eventList.add(event15);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 22);
+        Events event16 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event16);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 24);
+        Events event17 = new Events("Xray", "Xray whole day", c.getTime(), null, null, null );
+        eventList.add(event17);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 26);
+        Events event18 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event18);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 27);
+        Events event19 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event19);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 28);
+        Events event20 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event20);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 29);
+        Events event21 = new Events("Surgery", "at hospital", c.getTime(), null, null, null );
+        eventList.add(event21);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 30);
+        Events event22 = new Events("Heart", "take meds before!", c.getTime(), null, null, null );
+        eventList.add(event22);
+        c.add(Calendar.DATE, 31);
+        Events event23 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event23);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 32);
+        Events event24 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event24);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 34);
+        Events event25 = new Events("Dialys", "Dialys at Dr Edith", c.getTime(), null, null, null );
+        eventList.add(event25);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 36);
+        Events event26 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event26);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 40);
+        Events event27 = new Events("Xray", "Xray whole day", c.getTime(), null, null, null );
+        eventList.add(event27);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 41);
+        Events event28 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event28);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 45);
+        Events event29 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event29);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 46);
+        Events event30 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event30);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 48);
+        Events event31 = new Events("Surgery", "at hospital", c.getTime(), null, null, null );
+        eventList.add(event31);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 52);
+        Events event32 = new Events("Heart", "take meds before!", c.getTime(), null, null, null );
+        eventList.add(event32);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 55);
+        Events event33 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event33);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 57);
+        Events event34 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event34);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 61);
+        Events event35 = new Events("Dialys", "Dialys at Dr Edith", c.getTime(), null, null, null );
+        eventList.add(event35);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 62);
+        Events event36 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event36);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 64);
+        Events event37 = new Events("Xray", "Xray whole day", c.getTime(), null, null, null );
+        eventList.add(event37);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 66);
+        Events event38 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event38);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 70);
+        Events event39 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event39);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 71);
+        Events event40 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event40);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 74);
+        Events event41 = new Events("Surgery", "at hospital", c.getTime(), null, null, null );
+        eventList.add(event41);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 76);
+        Events event42 = new Events("Heart", "take meds before!", c.getTime(), null, null, null );
+        eventList.add(event42);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 78);
+        Events event43 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event43);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 80);
+        Events event44 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event44);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 82);
+        Events event45 = new Events("Dialys", "Dialys at Dr Edith", c.getTime(), null, null, null );
+        eventList.add(event45);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 84);
+        Events event46 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event46);
+        c.add(Calendar.DATE, 86);
+        Events event47 = new Events("Xray", "Xray whole day", c.getTime(), null, null, null );
+        eventList.add(event47);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 88);
+        Events event48 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event48);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 89);
+        Events event49 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event49);
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 90);
+        Events event50 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
+        eventList.add(event50);
+        c.setTime(currentDate);
+
+
+    }
+
 }
 
 
