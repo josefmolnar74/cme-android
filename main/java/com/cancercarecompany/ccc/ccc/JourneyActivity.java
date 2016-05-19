@@ -119,6 +119,7 @@ public class JourneyActivity extends AppCompatActivity  {
         addXray.setOnTouchListener(new MyTouchListener());
 
 ///yguygyigygygy
+        // hej hej 
 
         eventScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 
