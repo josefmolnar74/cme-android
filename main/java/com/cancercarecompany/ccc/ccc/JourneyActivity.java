@@ -118,7 +118,7 @@ public class JourneyActivity extends AppCompatActivity  {
         addSurgery.setOnTouchListener(new MyTouchListener());
         addXray.setOnTouchListener(new MyTouchListener());
 
-
+///yguygyigygygy
 
         eventScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 
