@@ -126,6 +126,7 @@
 
         <RelativeLayout
            android:layout_width="880dp"
+            android:animateLayoutChanges="true"
             android:id="@+id/eventLayoutJourney"
             android:layout_height="wrap_content"
             android:focusable="false"
@@ -230,120 +231,6 @@
             android:layout_below="@+id/relativeLayout"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="false">
-
-            <ImageButton
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:id="@+id/btn_cloud1_journey"
-                android:background="@drawable/cloud1"
-                android:layout_alignParentStart="false"
-                android:layout_alignParentRight="true" />
-
-            <ImageButton
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:id="@+id/btn_cloud2_journey"
-                android:background="@drawable/cloud2"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="800dp" />
-
-            <ImageButton
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:id="@+id/btn_cloud3_journey"
-                android:background="@drawable/cloud3"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="1200dp" />
-
-            <ImageButton
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:id="@+id/btn_cloud4_journey"
-                android:background="@drawable/cloud1"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentStart="true"
-                android:visibility="invisible"
-                android:layout_marginLeft="1800dp" />
-
-            <ImageButton
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:id="@+id/btn_cloud5_journey"
-                android:background="@drawable/cloud2"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentStart="true"
-                android:visibility="invisible"
-                android:layout_marginLeft="2500dp" />
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button2"
-                android:layout_marginLeft="15000dp" />
-
-            <ImageButton
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:id="@+id/imageButton"
-                android:background="@drawable/cloud3"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentStart="true"
-                android:visibility="invisible"
-                android:layout_marginLeft="2900dp" />
-
-            <ImageButton
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:id="@+id/imageButton2"
-                android:background="@drawable/cloud1"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentStart="true"
-                android:visibility="invisible"
-                android:layout_marginLeft="3300dp" />
-
-            <ImageButton
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:id="@+id/imageButton3"
-                android:background="@drawable/cloud2"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentStart="true"
-                android:visibility="invisible"
-                android:layout_marginLeft="3600dp" />
-
-            <ImageButton
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:id="@+id/imageButton4"
-                android:background="@drawable/cloud3"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentStart="true"
-                android:visibility="invisible"
-                android:layout_marginLeft="4000dp" />
-
-            <ImageButton
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:id="@+id/imageButton5"
-                android:background="@drawable/cloud2"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentStart="true"
-                android:visibility="invisible"
-                android:layout_marginLeft="4500dp" />
-
-            <ImageButton
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:id="@+id/imageButton6"
-                android:background="@drawable/cloud1"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentStart="true"
-                android:visibility="invisible"
-                android:layout_marginLeft="5000dp" />
 
         </RelativeLayout>
     </HorizontalScrollView>

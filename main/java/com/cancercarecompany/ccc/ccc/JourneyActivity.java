@@ -76,12 +76,6 @@ public class JourneyActivity extends AppCompatActivity {
     RelativeLayout layoutButtons;
     RelativeLayout eventLayout;
     RelativeLayout bottomLayout;
-    int buttonID = 0;
-    ImageButton cloud1;
-    ImageButton cloud2;
-    ImageButton cloud3;
-    ImageButton cloud4;
-    ImageButton cloud5;
 
     View vID;
 
@@ -102,11 +96,6 @@ public class JourneyActivity extends AppCompatActivity {
         heavenScroll = (HorizontalScrollView) findViewById(R.id.scroll_heaven_journey);
         bottomScroll = (HorizontalScrollView) findViewById(R.id.scroll_bottom_journey);
         cloudLayout = (RelativeLayout) findViewById(R.id.heavenRelativeLayout);
-        cloud1 = (ImageButton) findViewById(R.id.btn_cloud1_journey);
-        cloud2 = (ImageButton) findViewById(R.id.btn_cloud2_journey);
-        cloud3 = (ImageButton) findViewById(R.id.btn_cloud3_journey);
-        cloud4 = (ImageButton) findViewById(R.id.btn_cloud4_journey);
-        cloud5 = (ImageButton) findViewById(R.id.btn_cloud5_journey);
         layoutButtons = (RelativeLayout) findViewById(R.id.relativeLayout3);
         eventLayout = (RelativeLayout) findViewById(R.id.eventLayoutJourney);
         bottomLayout = (RelativeLayout) findViewById(R.id.bottom_layout);
@@ -127,7 +116,7 @@ public class JourneyActivity extends AppCompatActivity {
         ExampleJourney();
         refreshEvents();
         journeyStart = eventList.get(0).startDate;
-        buttonID = eventList.size();
+        generateClouds();
 
         eventScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 
@@ -135,7 +124,7 @@ public class JourneyActivity extends AppCompatActivity {
             public void onScrollChanged() {
                 int scrollX = eventScroll.getScrollX();
 
-                heavenScroll.setScrollX(scrollX / 4);
+                heavenScroll.setScrollX(scrollX / 5);
                 bottomScroll.setScrollX(scrollX * 3);
 
 
@@ -362,6 +351,7 @@ public class JourneyActivity extends AppCompatActivity {
                     Events event = new Events(subCategory, notes.getText().toString(), date, null, null, null);
                     eventList.add(event);
                     createEventButton();
+                    popupWindow.dismiss();
                 }else {
                     System.out.println("can't set date before start");
                 }
@@ -424,6 +414,7 @@ public class JourneyActivity extends AppCompatActivity {
 
 
         relativeLayout = (RelativeLayout) findViewById(R.id.eventLayoutJourney);
+
         relativeLayout.addView(btn, params);
 
         ImageButton indexButton = ((ImageButton) findViewById(eventList.size() -1));
@@ -442,6 +433,7 @@ public class JourneyActivity extends AppCompatActivity {
             params.width = 300;
             params.height = 300;
         }
+
         indexButton.setLayoutParams(params);
 
 
@@ -450,6 +442,7 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void checkDetail(final int id_){
         System.out.println(id_);
+
         LayoutInflater layoutInflater
                 = (LayoutInflater)getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -530,6 +523,41 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
+    private void generateClouds(){
+
+        Collections.sort(eventList, new Comparator<Events>() {
+            @Override
+            public int compare(Events lhs, Events rhs) {
+
+                return lhs.startDate.compareTo(rhs.startDate);
+
+            }
+        });
+        int lastEvent = eventList.size() -1;
+        long lastEventLong = eventList.get(lastEvent).startDate.getTime();
+        long screenSize = lastEventLong - startDate;
+        long cloudCount = screenSize/1000000;
+        cloudCount = cloudCount/5;
+        cloudCount = cloudCount/400;
+
+
+        for (int i = 0; i <= cloudCount; i++) {
+
+            ImageButton btn = new ImageButton(this);
+            btn.setId(i+1000);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(i*1000,0,0,0);
+            params.width = 400;
+            params.height = 200;
+            btn.setBackgroundResource(R.drawable.cloud1);
+            cloudLayout.addView(btn, params);
+            System.out.println(btn.getId());
+        }
+
+    }
+
     private void reArrangeBtnId(int removedIndex){
 
 
@@ -550,9 +578,6 @@ public class JourneyActivity extends AppCompatActivity {
                     checkDetail(newID);
                 }
             });
-
-
-
             }
             }
 
@@ -785,11 +810,6 @@ public class JourneyActivity extends AppCompatActivity {
         c.add(Calendar.DATE, 89);
         Events event49 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
         eventList.add(event49);
-        c.setTime(currentDate);
-        c.add(Calendar.DATE, 90);
-        Events event50 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
-        eventList.add(event50);
-        c.setTime(currentDate);
 
 
     }
