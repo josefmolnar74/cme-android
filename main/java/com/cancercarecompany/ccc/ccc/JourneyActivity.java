@@ -53,7 +53,7 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import pl.polidea.view.ZoomView;
 
-public class JourneyActivity extends AppCompatActivity  {
+public class JourneyActivity extends AppCompatActivity {
 
     ArrayList<Events> eventList;
     ImageButton addDialys;
@@ -67,14 +67,16 @@ public class JourneyActivity extends AppCompatActivity  {
     ImageView car;
     long startDate;
     long currentEvent;
+    int eventLocation = 0;
     Date currentDate;
+    Date journeyStart;
     HorizontalScrollView eventScroll;
     HorizontalScrollView heavenScroll;
     HorizontalScrollView bottomScroll;
     RelativeLayout layoutButtons;
     RelativeLayout eventLayout;
     RelativeLayout bottomLayout;
-
+    int buttonID = 0;
     ImageButton cloud1;
     ImageButton cloud2;
     ImageButton cloud3;
@@ -109,6 +111,7 @@ public class JourneyActivity extends AppCompatActivity  {
         eventLayout = (RelativeLayout) findViewById(R.id.eventLayoutJourney);
         bottomLayout = (RelativeLayout) findViewById(R.id.bottom_layout);
 
+
         addDialys.setOnTouchListener(new MyTouchListener());
         eventLayout.setOnDragListener(new MyDragListener());
         addBlood.setOnTouchListener(new MyTouchListener());
@@ -117,15 +120,14 @@ public class JourneyActivity extends AppCompatActivity  {
         addXray.setOnTouchListener(new MyTouchListener());
 
         currentDate = Calendar.getInstance().getTime();
-        Events diagnoseStart = new Events("Start", "Journey starts here", currentDate, null, null, null );
+        Events diagnoseStart = new Events("Start", "Journey starts here", currentDate, null, null, null);
         eventList.add(diagnoseStart);
 
 
         ExampleJourney();
         refreshEvents();
-
-
-
+        journeyStart = eventList.get(0).startDate;
+        buttonID = eventList.size();
 
         eventScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 
@@ -133,8 +135,8 @@ public class JourneyActivity extends AppCompatActivity  {
             public void onScrollChanged() {
                 int scrollX = eventScroll.getScrollX();
 
-                heavenScroll.setScrollX(scrollX/4);
-                bottomScroll.setScrollX(scrollX*3);
+                heavenScroll.setScrollX(scrollX / 4);
+                bottomScroll.setScrollX(scrollX * 3);
 
 
             }
@@ -143,9 +145,9 @@ public class JourneyActivity extends AppCompatActivity  {
 
     }
 
-    public void addTreatment(View v){
+    public void addTreatment(View v, int location) {
         System.out.println(v.getId());
-        popup(v);
+        popup(v, location);
 
     }
 
@@ -174,10 +176,12 @@ public class JourneyActivity extends AppCompatActivity  {
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-        int carPosition = (int) currentDate.getTime() -(int) startDate;
-        paramsCar.setMargins(carPosition + 200,0,0,0);
+        int carPosition = (int) currentDate.getTime() - (int) startDate;
+        paramsCar.setMargins(carPosition + 200, 0, 0, 0);
         paramsCar.width = 300;
         paramsCar.height = 200;
+
+        car.setLayoutParams(paramsCar);
 
 
         for (int i = 0; i < eventList.size(); i++) {
@@ -190,11 +194,11 @@ public class JourneyActivity extends AppCompatActivity  {
             btn.setId(i);
             final int id_ = btn.getId();
 
-            if (i%2==0) {
-                    topMargin = 0;
-            }else{
-                    topMargin = 200;
-                }
+            if (i % 2 == 0) {
+                topMargin = 0;
+            } else {
+                topMargin = 200;
+            }
 
 
             btn.setOnClickListener(new View.OnClickListener() {
@@ -206,7 +210,7 @@ public class JourneyActivity extends AppCompatActivity  {
 
             String subCategory = eventList.get(i).category.toString();
 
-            switch (subCategory){
+            switch (subCategory) {
                 case "Surgery":
                     btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
@@ -228,7 +232,6 @@ public class JourneyActivity extends AppCompatActivity  {
             }
 
 
-
             relativeLayout = (RelativeLayout) findViewById(R.id.eventLayoutJourney);
             relativeLayout.addView(btn, params);
 
@@ -236,15 +239,14 @@ public class JourneyActivity extends AppCompatActivity  {
 
             currentEvent = eventList.get(i).startDate.getTime() - startDate;
             currentEvent = currentEvent / 1000000;
-            System.out.println(currentEvent);
-            int currentIntEvent = (int)currentEvent;
-            System.out.println(currentIntEvent);
+            int currentIntEvent = (int) currentEvent;
+
 
 
             params.setMargins((currentIntEvent * 2) + 300, topMargin, 0, 0);
             params.width = 150;
             params.height = 150;
-            if (subCategory == "Start"){
+            if (subCategory == "Start") {
                 params.setMargins((currentIntEvent * 2), topMargin, 0, 0);
                 params.width = 300;
                 params.height = 300;
@@ -258,109 +260,196 @@ public class JourneyActivity extends AppCompatActivity  {
     }
 
 
-            public void popup(View v) {
+    public void popup(View v, int location) {
 
 
-                String vCategory = "";
+        String vCategory = "";
 
-                switch (v.getId()){
+        switch (v.getId()) {
 
-                    case 2131493010:
-                        vCategory = "Surgery";
-                        break;
-                    case 2131493011:
-                         vCategory = "Xray";
-                        break;
-                    case 2131493012:
-                         vCategory = "Heart";
-                        break;
-                    case 2131493013:
-                        vCategory = "Blood";
-                        break;
-                    case 2131493014:
-                        vCategory = "Dialys";
-                        break;
+            case 2131493009:
+                vCategory = "Surgery";
+                break;
+            case 2131493010:
+                vCategory = "Xray";
+                break;
+            case 2131493011:
+                vCategory = "Heart";
+                break;
+            case 2131493012:
+                vCategory = "Blood";
+                break;
+            case 2131493013:
+                vCategory = "Dialys";
+                break;
 
+        }
+        final String subCategory = vCategory;
+
+        LayoutInflater layoutInflater
+                = (LayoutInflater) getBaseContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.addeventpopup, null);
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView, 1000, 800);
+
+        popupWindow.setFocusable(true);
+        popupWindow.update();
+
+
+        TextView categoryText = (TextView) popupView.findViewById(R.id.txt_category_journey);
+        Button saveButton = (Button) popupView.findViewById(R.id.btn_saveEvent_Journey);
+        ImageView categoryImage = (ImageView) popupView.findViewById(R.id.img_category_addevent_journey);
+        final EditText notes = (EditText) popupView.findViewById(R.id.txt_notes_journey);
+        final DatePicker datePicker = (DatePicker) popupView.findViewById(R.id.datepicker_journey);
+        final TimePicker timePicker = (TimePicker) popupView.findViewById(R.id.timepicker_journey);
+        timePicker.setIs24HourView(true);
+        categoryText.setText(vCategory);
+
+
+        System.out.println("popup location = " + location + "     popup id = " + vID.getId());
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(journeyStart);
+        location = (location/172);
+        c.add(Calendar.DATE, location-2);
+
+
+
+        datePicker.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+
+
+        switch (subCategory) {
+            case "Surgery":
+                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                break;
+            case "Xray":
+                categoryImage.setBackgroundResource(R.drawable.orangebubblee);
+                break;
+            case "Heart":
+                categoryImage.setBackgroundResource(R.drawable.bluebubble);
+                break;
+            case "Blood":
+                categoryImage.setBackgroundResource(R.drawable.pinkbubble);
+                break;
+            case "Dialys":
+                categoryImage.setBackgroundResource(R.drawable.orangebubble);
+                break;
+        }
+
+
+        notes.setFocusableInTouchMode(true);
+
+
+        saveButton.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, datePicker.getYear());
+                cal.set(Calendar.MONTH, datePicker.getMonth());
+                cal.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+                cal.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
+                cal.set(Calendar.MINUTE, timePicker.getMinute());
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MILLISECOND, 0);
+
+
+                Date date = cal.getTime();
+
+                if(date.getTime() > currentDate.getTime()) {
+
+                    Events event = new Events(subCategory, notes.getText().toString(), date, null, null, null);
+                    eventList.add(event);
+                    createEventButton();
+                }else {
+                    System.out.println("can't set date before start");
                 }
-                final String subCategory = vCategory;
-
-                LayoutInflater layoutInflater
-                        = (LayoutInflater)getBaseContext()
-                        .getSystemService(LAYOUT_INFLATER_SERVICE);
-                final View popupView = layoutInflater.inflate(R.layout.addeventpopup, null);
-                final PopupWindow popupWindow = new PopupWindow(
-                        popupView, 1000, 800 );
-
-                popupWindow.setFocusable(true);
-                popupWindow.update();
-
-
-                TextView  categoryText = (TextView)popupView.findViewById(R.id.txt_category_journey);
-                Button saveButton = (Button)popupView.findViewById(R.id.btn_saveEvent_Journey);
-                ImageView categoryImage = (ImageView)popupView.findViewById(R.id.img_category_addevent_journey);
-                final EditText notes  = (EditText)popupView.findViewById(R.id.txt_notes_journey);
-                final DatePicker datePicker = (DatePicker)popupView.findViewById(R.id.datepicker_journey);
-                final TimePicker timePicker = (TimePicker)popupView.findViewById(R.id.timepicker_journey);
-                timePicker.setIs24HourView(true);
-                categoryText.setText(vCategory);
-
-
-                switch (subCategory){
-                    case "Surgery":
-                        categoryImage.setBackgroundResource(R.drawable.greenbubble);
-                        break;
-                    case "Xray":
-                        categoryImage.setBackgroundResource(R.drawable.orangebubblee);
-                        break;
-                    case "Heart":
-                        categoryImage.setBackgroundResource(R.drawable.bluebubble);
-                        break;
-                    case "Blood":
-                        categoryImage.setBackgroundResource(R.drawable.pinkbubble);
-                        break;
-                    case "Dialys":
-                        categoryImage.setBackgroundResource(R.drawable.orangebubble);
-                        break;
-                }
-
-
-
-                notes.setFocusableInTouchMode(true);
-
-
-                saveButton.setOnClickListener(new Button.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        Calendar cal = Calendar.getInstance();
-                        cal.set(Calendar.YEAR, datePicker.getYear());
-                        cal.set(Calendar.MONTH, datePicker.getMonth());
-                        cal.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
-                        cal.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-                        cal.set(Calendar.MINUTE, timePicker.getMinute());
-                        cal.set(Calendar.SECOND, 0);
-                        cal.set(Calendar.MILLISECOND, 0);
-
-
-                        Date date = cal.getTime();
-
-
-                        Events event = new Events(subCategory, notes.getText().toString(), date, null, null, null);
-                        eventList.add(event);
-
-                        refreshEvents();
-
-                    }});
-
-                relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
-
-                popupWindow.showAsDropDown(relativeLayout, 450, 140);
-
             }
+        });
+
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+
+        popupWindow.showAsDropDown(relativeLayout, 450, 140);
+
+
+    }
+
+    private void createEventButton() {
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        ImageButton btn = new ImageButton(this);
+        btn.setId(eventList.size() -1);
+        final int id_ = btn.getId();
+
+        if (eventList.size() % 2 == 0) {
+            topMargin = 0;
+        } else {
+            topMargin = 200;
+        }
+
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkDetail(id_);
+            }
+        });
+
+        String subCategory = eventList.get(id_).category.toString();
+
+        switch (subCategory) {
+            case "Surgery":
+                btn.setBackgroundResource(R.drawable.greenbubble);
+                break;
+            case "Xray":
+                btn.setBackgroundResource(R.drawable.orangebubblee);
+                break;
+            case "Heart":
+                btn.setBackgroundResource(R.drawable.bluebubble);
+                break;
+            case "Blood":
+                btn.setBackgroundResource(R.drawable.pinkbubble);
+                break;
+            case "Dialys":
+                btn.setBackgroundResource(R.drawable.orangebubble);
+                break;
+            case "Start":
+                btn.setBackgroundResource(R.drawable.journeystart);
+                break;
+        }
+
+
+        relativeLayout = (RelativeLayout) findViewById(R.id.eventLayoutJourney);
+        relativeLayout.addView(btn, params);
+
+        ImageButton indexButton = ((ImageButton) findViewById(eventList.size() -1));
+
+        currentEvent = eventList.get(id_).startDate.getTime() - startDate;
+        currentEvent = currentEvent / 1000000;
+        int currentIntEvent = (int) currentEvent;
+        System.out.println(currentIntEvent);
+
+
+        params.setMargins((currentIntEvent * 2) + 300, topMargin, 0, 0);
+        params.width = 150;
+        params.height = 150;
+        if (subCategory == "Start") {
+            params.setMargins((currentIntEvent * 2), topMargin, 0, 0);
+            params.width = 300;
+            params.height = 300;
+        }
+        indexButton.setLayoutParams(params);
+
+
+    }
 
 
     private void checkDetail(final int id_){
-
+        System.out.println(id_);
         LayoutInflater layoutInflater
                 = (LayoutInflater)getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -406,19 +495,16 @@ public class JourneyActivity extends AppCompatActivity  {
         deleteEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                for (int i = 0; i < eventList.size(); i++) {
-
-                    ViewGroup layout = (ViewGroup) findViewById(R.id.eventLayoutJourney);
-                    View imageButton = layout.findViewById(i);
-                    layout.removeView(imageButton);
-
-
-                }
+                System.out.println(id_);
+                ViewGroup layout = (ViewGroup) findViewById(R.id.eventLayoutJourney);
+                View imageButton = layout.findViewById(id_);
+                layout.removeView(imageButton);
                 eventList.remove(id_);
+                reArrangeBtnId(id_);
                 popupWindow.dismiss();
-                refreshEvents();
-            }
+                }
+
+
         });
 
 
@@ -444,6 +530,31 @@ public class JourneyActivity extends AppCompatActivity  {
         }
     }
 
+    private void reArrangeBtnId(int removedIndex){
+
+
+        for (int i = removedIndex + 1; i <= eventList.size(); i++) {
+
+            ViewGroup layout = (ViewGroup) findViewById(R.id.eventLayoutJourney);
+
+            View imageButton = layout.findViewById(i);
+
+                int buttonOldId = imageButton.getId();
+                final int newID = buttonOldId - 1;
+                imageButton.setId(newID);
+
+            imageButton.setOnClickListener(null);
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkDetail(newID);
+                }
+            });
+
+
+
+            }
+            }
 
     class MyDragListener implements View.OnDragListener {
 
@@ -453,8 +564,6 @@ public class JourneyActivity extends AppCompatActivity  {
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
 
-
-
                     break;
                 case DragEvent.ACTION_DRAG_ENTERED:
 
@@ -463,14 +572,13 @@ public class JourneyActivity extends AppCompatActivity  {
 
                     break;
                 case DragEvent.ACTION_DROP:
-
+                    eventLocation = (int) event.getX();
 
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
+                    if (event.getResult() == true) {
 
-                    if (event.getResult() == true){
-                        addTreatment(vID);
-
+                        addTreatment(vID, eventLocation);
                     }
 
                 default:
