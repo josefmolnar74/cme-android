@@ -486,7 +486,7 @@ public class JourneyActivity extends AppCompatActivity {
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.detailpopup, null);
         final PopupWindow popupWindow = new PopupWindow(
-                popupView, 700, 1200 );
+                popupView, 700, 800 );
 
         popupWindow.setFocusable(true);
         popupWindow.update();
