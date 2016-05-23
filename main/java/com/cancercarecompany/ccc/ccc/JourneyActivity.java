@@ -49,8 +49,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
+
 import android.view.DragEvent;
 import android.view.MotionEvent;
+import android.widget.Toast;
+
 import pl.polidea.view.ZoomView;
 
 public class JourneyActivity extends AppCompatActivity {
@@ -187,9 +191,9 @@ public class JourneyActivity extends AppCompatActivity {
             if (i % 3 == 0) {
                 topMargin = 0;
             } else if (i % 3 == 1) {
-                topMargin = 150;
+                topMargin = 160;
             } else if (i % 3 == 2) {
-                topMargin = 300;
+                topMargin = 320;
             }
 
 
@@ -259,19 +263,19 @@ public class JourneyActivity extends AppCompatActivity {
 
         switch (v.getId()) {
 
-            case 2131493009:
+            case 2131493018:
                 vCategory = "Surgery";
                 break;
-            case 2131493010:
+            case 2131493019:
                 vCategory = "Xray";
                 break;
-            case 2131493011:
+            case 2131493020:
                 vCategory = "Heart";
                 break;
-            case 2131493012:
+            case 2131493021:
                 vCategory = "Blood";
                 break;
-            case 2131493013:
+            case 2131493022:
                 vCategory = "Dialys";
                 break;
 
@@ -448,8 +452,8 @@ public class JourneyActivity extends AppCompatActivity {
                     eventsSameDate = eventsSameDate +1;
                     ImageButton collidateButton= ((ImageButton) findViewById(i));
 
-                    topMargin = (int)collidateButton.getY() + 150;
-                    if (topMargin > 300){
+                    topMargin = (int)collidateButton.getY() + 160;
+                    if (topMargin > 330){
                         topMargin = 0;
                     }
 
@@ -585,7 +589,21 @@ public class JourneyActivity extends AppCompatActivity {
             params.setMargins(i*1000,0,0,0);
             params.width = 400;
             params.height = 200;
-            btn.setBackgroundResource(R.drawable.cloud1);
+            Random r = new Random();
+            int cloudRandom = r.nextInt(3);
+            System.out.println(cloudRandom);
+            switch (cloudRandom) {
+                case 0:
+                    btn.setBackgroundResource(R.drawable.cloud1);
+                    break;
+                case 1:
+                    btn.setBackgroundResource(R.drawable.cloud2);
+                    break;
+                case 2:
+                    btn.setBackgroundResource(R.drawable.cloud3);
+                    break;
+            }
+
             cloudLayout.addView(btn, params);
             System.out.println(btn.getId());
         }
@@ -638,6 +656,7 @@ public class JourneyActivity extends AppCompatActivity {
                     if (event.getResult() == true) {
 
                         addTreatment(vID, eventLocation);
+                        System.out.println(vID);
                     }
 
                 default:
@@ -645,6 +664,14 @@ public class JourneyActivity extends AppCompatActivity {
             }
             return true;
         }
+    }
+
+    private void toastFunction(){
+        Toast.makeText(this, "this is my Toast message!!! =)",
+                Toast.LENGTH_LONG).show();
+
+
+
     }
 
     private void ExampleJourney(){
