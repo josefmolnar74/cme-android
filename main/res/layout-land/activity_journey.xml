@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
         android:layout_weight="12"
         android:background="@drawable/border"
@@ -113,7 +113,7 @@
 
     <HorizontalScrollView
         android:layout_width="wrap_content"
-        android:layout_height="230dp"
+        android:layout_height="280dp"
         android:id="@+id/Scroll_event_journey"
         android:scrollbars="none"
         android:layout_weight="63"
@@ -216,7 +216,7 @@
 
     <HorizontalScrollView
         android:layout_width="wrap_content"
-        android:layout_height="230dp"
+        android:layout_height="200dp"
         android:id="@+id/scroll_heaven_journey"
         android:scrollbars="none"
         android:layout_below="@+id/relativeLayout"

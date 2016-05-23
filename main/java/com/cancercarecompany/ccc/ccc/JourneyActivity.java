@@ -76,6 +76,7 @@ public class JourneyActivity extends AppCompatActivity {
     RelativeLayout layoutButtons;
     RelativeLayout eventLayout;
     RelativeLayout bottomLayout;
+    int eventsSameDate = 0;
 
     View vID;
 
@@ -183,10 +184,12 @@ public class JourneyActivity extends AppCompatActivity {
             btn.setId(i);
             final int id_ = btn.getId();
 
-            if (i % 2 == 0) {
+            if (i % 3 == 0) {
                 topMargin = 0;
-            } else {
-                topMargin = 200;
+            } else if (i % 3 == 1) {
+                topMargin = 150;
+            } else if (i % 3 == 2) {
+                topMargin = 300;
             }
 
 
@@ -342,18 +345,34 @@ public class JourneyActivity extends AppCompatActivity {
                 cal.set(Calendar.MINUTE, timePicker.getMinute());
                 cal.set(Calendar.SECOND, 0);
                 cal.set(Calendar.MILLISECOND, 0);
-
+                eventsSameDate = 0;
 
                 Date date = cal.getTime();
 
-                if(date.getTime() > currentDate.getTime()) {
+                for (int i = 0; i < eventList.size(); i++) {
 
-                    Events event = new Events(subCategory, notes.getText().toString(), date, null, null, null);
-                    eventList.add(event);
-                    createEventButton();
-                    popupWindow.dismiss();
-                }else {
-                    System.out.println("can't set date before start");
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                        String thisEvent = df.format(date);
+                        String indexEvent = df.format(eventList.get(i).startDate);
+
+                        if (thisEvent.equals(indexEvent)) {
+                            eventsSameDate = eventsSameDate +1;
+                      System.out.println(eventsSameDate);
+
+                        }
+                    }
+                if (eventsSameDate < 3) {
+                    if (date.getTime() > currentDate.getTime()) {
+
+                        Events event = new Events(subCategory, notes.getText().toString(), date, null, null, null);
+                        eventList.add(event);
+                        createEventButton();
+                        popupWindow.dismiss();
+                    } else {
+                        System.out.println("can't set date before start");
+                    }
+                }else{
+                    System.out.println("cant have more than 3 events at the same date");
                 }
             }
         });
@@ -375,11 +394,6 @@ public class JourneyActivity extends AppCompatActivity {
         btn.setId(eventList.size() -1);
         final int id_ = btn.getId();
 
-        if (eventList.size() % 2 == 0) {
-            topMargin = 0;
-        } else {
-            topMargin = 200;
-        }
 
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -424,19 +438,39 @@ public class JourneyActivity extends AppCompatActivity {
         int currentIntEvent = (int) currentEvent;
         System.out.println(currentIntEvent);
 
+        for (int i = 0; i < eventList.size(); i++) {
+            if (i != id_) {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String thisEvent = df.format(eventList.get(id_).startDate);
+                String indexEvent = df.format(eventList.get(i).startDate);
 
-        params.setMargins((currentIntEvent * 2) + 300, topMargin, 0, 0);
-        params.width = 150;
-        params.height = 150;
-        if (subCategory == "Start") {
-            params.setMargins((currentIntEvent * 2), topMargin, 0, 0);
-            params.width = 300;
-            params.height = 300;
+                if (thisEvent.equals(indexEvent)) {
+                    eventsSameDate = eventsSameDate +1;
+                    ImageButton collidateButton= ((ImageButton) findViewById(i));
+
+                    topMargin = (int)collidateButton.getY() + 150;
+                    if (topMargin > 300){
+                        topMargin = 0;
+                    }
+
+
+                }
+            }
+
         }
 
-        indexButton.setLayoutParams(params);
+            params.setMargins((currentIntEvent * 2) + 300, topMargin, 0, 0);
+            params.width = 150;
+            params.height = 150;
+            if (subCategory == "Start") {
+                params.setMargins((currentIntEvent * 2), topMargin, 0, 0);
+                params.width = 300;
+                params.height = 300;
+            }
 
+            indexButton.setLayoutParams(params);
 
+            topMargin = 0;
     }
 
 
