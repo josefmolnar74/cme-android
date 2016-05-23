@@ -263,19 +263,19 @@ public class JourneyActivity extends AppCompatActivity {
 
         switch (v.getId()) {
 
-            case 2131493018:
+            case 2131493019:
                 vCategory = "Surgery";
                 break;
-            case 2131493019:
+            case 2131493020:
                 vCategory = "Xray";
                 break;
-            case 2131493020:
+            case 2131493021:
                 vCategory = "Heart";
                 break;
-            case 2131493021:
+            case 2131493022:
                 vCategory = "Blood";
                 break;
-            case 2131493022:
+            case 2131493023:
                 vCategory = "Dialys";
                 break;
 
@@ -372,11 +372,14 @@ public class JourneyActivity extends AppCompatActivity {
                         eventList.add(event);
                         createEventButton();
                         popupWindow.dismiss();
+                        String toastMessage = "Event created!";
+                        toastFunction(toastMessage);
                     } else {
                         System.out.println("can't set date before start");
                     }
                 }else{
-                    System.out.println("cant have more than 3 events at the same date");
+                    String message = "you can maximum have three events per day!";
+                    toastFunction(message);
                 }
             }
         });
@@ -533,6 +536,8 @@ public class JourneyActivity extends AppCompatActivity {
                 eventList.remove(id_);
                 reArrangeBtnId(id_);
                 popupWindow.dismiss();
+                String toastMessage = "Event deleted!";
+                toastFunction(toastMessage);
                 }
 
 
@@ -666,9 +671,10 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
-    private void toastFunction(){
-        Toast.makeText(this, "this is my Toast message!!! =)",
-                Toast.LENGTH_LONG).show();
+    private void toastFunction(String toastMessage){
+
+        Toast.makeText(this, toastMessage,
+                Toast.LENGTH_SHORT).show();
 
 
 
