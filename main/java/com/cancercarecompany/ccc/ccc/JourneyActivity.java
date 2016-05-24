@@ -51,7 +51,6 @@ import java.util.Date;
 import java.util.Locale;
 import android.view.DragEvent;
 import android.view.MotionEvent;
-import pl.polidea.view.ZoomView;
 
 public class JourneyActivity extends AppCompatActivity {
 
