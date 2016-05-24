@@ -49,8 +49,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
+
 import android.view.DragEvent;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 public class JourneyActivity extends AppCompatActivity {
 
@@ -75,12 +78,7 @@ public class JourneyActivity extends AppCompatActivity {
     RelativeLayout layoutButtons;
     RelativeLayout eventLayout;
     RelativeLayout bottomLayout;
-    int buttonID = 0;
-    ImageButton cloud1;
-    ImageButton cloud2;
-    ImageButton cloud3;
-    ImageButton cloud4;
-    ImageButton cloud5;
+    int eventsSameDate = 0;
 
     View vID;
 
@@ -101,11 +99,6 @@ public class JourneyActivity extends AppCompatActivity {
         heavenScroll = (HorizontalScrollView) findViewById(R.id.scroll_heaven_journey);
         bottomScroll = (HorizontalScrollView) findViewById(R.id.scroll_bottom_journey);
         cloudLayout = (RelativeLayout) findViewById(R.id.heavenRelativeLayout);
-        cloud1 = (ImageButton) findViewById(R.id.btn_cloud1_journey);
-        cloud2 = (ImageButton) findViewById(R.id.btn_cloud2_journey);
-        cloud3 = (ImageButton) findViewById(R.id.btn_cloud3_journey);
-        cloud4 = (ImageButton) findViewById(R.id.btn_cloud4_journey);
-        cloud5 = (ImageButton) findViewById(R.id.btn_cloud5_journey);
         layoutButtons = (RelativeLayout) findViewById(R.id.relativeLayout3);
         eventLayout = (RelativeLayout) findViewById(R.id.eventLayoutJourney);
         bottomLayout = (RelativeLayout) findViewById(R.id.bottom_layout);
@@ -126,7 +119,7 @@ public class JourneyActivity extends AppCompatActivity {
         ExampleJourney();
         refreshEvents();
         journeyStart = eventList.get(0).startDate;
-        buttonID = eventList.size();
+        generateClouds();
 
         eventScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 
@@ -134,7 +127,7 @@ public class JourneyActivity extends AppCompatActivity {
             public void onScrollChanged() {
                 int scrollX = eventScroll.getScrollX();
 
-                heavenScroll.setScrollX(scrollX / 4);
+                heavenScroll.setScrollX(scrollX / 5);
                 bottomScroll.setScrollX(scrollX * 3);
 
 
@@ -193,10 +186,12 @@ public class JourneyActivity extends AppCompatActivity {
             btn.setId(i);
             final int id_ = btn.getId();
 
-            if (i % 2 == 0) {
+            if (i % 3 == 0) {
                 topMargin = 0;
-            } else {
-                topMargin = 200;
+            } else if (i % 3 == 1) {
+                topMargin = 160;
+            } else if (i % 3 == 2) {
+                topMargin = 320;
             }
 
 
@@ -266,19 +261,19 @@ public class JourneyActivity extends AppCompatActivity {
 
         switch (v.getId()) {
 
-            case 2131493009:
+            case 2131493019:
                 vCategory = "Surgery";
                 break;
-            case 2131493010:
+            case 2131493020:
                 vCategory = "Xray";
                 break;
-            case 2131493011:
+            case 2131493021:
                 vCategory = "Heart";
                 break;
-            case 2131493012:
+            case 2131493022:
                 vCategory = "Blood";
                 break;
-            case 2131493013:
+            case 2131493023:
                 vCategory = "Dialys";
                 break;
 
@@ -352,17 +347,37 @@ public class JourneyActivity extends AppCompatActivity {
                 cal.set(Calendar.MINUTE, timePicker.getMinute());
                 cal.set(Calendar.SECOND, 0);
                 cal.set(Calendar.MILLISECOND, 0);
-
+                eventsSameDate = 0;
 
                 Date date = cal.getTime();
 
-                if(date.getTime() > currentDate.getTime()) {
+                for (int i = 0; i < eventList.size(); i++) {
 
-                    Events event = new Events(subCategory, notes.getText().toString(), date, null, null, null);
-                    eventList.add(event);
-                    createEventButton();
-                }else {
-                    System.out.println("can't set date before start");
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                        String thisEvent = df.format(date);
+                        String indexEvent = df.format(eventList.get(i).startDate);
+
+                        if (thisEvent.equals(indexEvent)) {
+                            eventsSameDate = eventsSameDate +1;
+                      System.out.println(eventsSameDate);
+
+                        }
+                    }
+                if (eventsSameDate < 3) {
+                    if (date.getTime() > currentDate.getTime()) {
+
+                        Events event = new Events(subCategory, notes.getText().toString(), date, null, null, null);
+                        eventList.add(event);
+                        createEventButton();
+                        popupWindow.dismiss();
+                        String toastMessage = "Event created!";
+                        toastFunction(toastMessage);
+                    } else {
+                        System.out.println("can't set date before start");
+                    }
+                }else{
+                    String message = "you can maximum have three events per day!";
+                    toastFunction(message);
                 }
             }
         });
@@ -384,11 +399,6 @@ public class JourneyActivity extends AppCompatActivity {
         btn.setId(eventList.size() -1);
         final int id_ = btn.getId();
 
-        if (eventList.size() % 2 == 0) {
-            topMargin = 0;
-        } else {
-            topMargin = 200;
-        }
 
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -423,6 +433,7 @@ public class JourneyActivity extends AppCompatActivity {
 
 
         relativeLayout = (RelativeLayout) findViewById(R.id.eventLayoutJourney);
+
         relativeLayout.addView(btn, params);
 
         ImageButton indexButton = ((ImageButton) findViewById(eventList.size() -1));
@@ -432,29 +443,51 @@ public class JourneyActivity extends AppCompatActivity {
         int currentIntEvent = (int) currentEvent;
         System.out.println(currentIntEvent);
 
+        for (int i = 0; i < eventList.size(); i++) {
+            if (i != id_) {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String thisEvent = df.format(eventList.get(id_).startDate);
+                String indexEvent = df.format(eventList.get(i).startDate);
 
-        params.setMargins((currentIntEvent * 2) + 300, topMargin, 0, 0);
-        params.width = 150;
-        params.height = 150;
-        if (subCategory == "Start") {
-            params.setMargins((currentIntEvent * 2), topMargin, 0, 0);
-            params.width = 300;
-            params.height = 300;
+                if (thisEvent.equals(indexEvent)) {
+                    eventsSameDate = eventsSameDate +1;
+                    ImageButton collidateButton= ((ImageButton) findViewById(i));
+
+                    topMargin = (int)collidateButton.getY() + 160;
+                    if (topMargin > 330){
+                        topMargin = 0;
+                    }
+
+
+                }
+            }
+
         }
-        indexButton.setLayoutParams(params);
 
+            params.setMargins((currentIntEvent * 2) + 300, topMargin, 0, 0);
+            params.width = 150;
+            params.height = 150;
+            if (subCategory == "Start") {
+                params.setMargins((currentIntEvent * 2), topMargin, 0, 0);
+                params.width = 300;
+                params.height = 300;
+            }
 
+            indexButton.setLayoutParams(params);
+
+            topMargin = 0;
     }
 
 
     private void checkDetail(final int id_){
         System.out.println(id_);
+
         LayoutInflater layoutInflater
                 = (LayoutInflater)getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.detailpopup, null);
         final PopupWindow popupWindow = new PopupWindow(
-                popupView, 700, 1200 );
+                popupView, 700, 800 );
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -501,6 +534,8 @@ public class JourneyActivity extends AppCompatActivity {
                 eventList.remove(id_);
                 reArrangeBtnId(id_);
                 popupWindow.dismiss();
+                String toastMessage = "Event deleted!";
+                toastFunction(toastMessage);
                 }
 
 
@@ -529,6 +564,55 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
+    private void generateClouds(){
+
+        Collections.sort(eventList, new Comparator<Events>() {
+            @Override
+            public int compare(Events lhs, Events rhs) {
+
+                return lhs.startDate.compareTo(rhs.startDate);
+
+            }
+        });
+        int lastEvent = eventList.size() -1;
+        long lastEventLong = eventList.get(lastEvent).startDate.getTime();
+        long screenSize = lastEventLong - startDate;
+        long cloudCount = screenSize/1000000;
+        cloudCount = cloudCount/5;
+        cloudCount = cloudCount/400;
+
+
+        for (int i = 0; i <= cloudCount; i++) {
+
+            ImageButton btn = new ImageButton(this);
+            btn.setId(i+1000);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(i*1000,0,0,0);
+            params.width = 400;
+            params.height = 200;
+            Random r = new Random();
+            int cloudRandom = r.nextInt(3);
+            System.out.println(cloudRandom);
+            switch (cloudRandom) {
+                case 0:
+                    btn.setBackgroundResource(R.drawable.cloud1);
+                    break;
+                case 1:
+                    btn.setBackgroundResource(R.drawable.cloud2);
+                    break;
+                case 2:
+                    btn.setBackgroundResource(R.drawable.cloud3);
+                    break;
+            }
+
+            cloudLayout.addView(btn, params);
+            System.out.println(btn.getId());
+        }
+
+    }
+
     private void reArrangeBtnId(int removedIndex){
 
 
@@ -549,9 +633,6 @@ public class JourneyActivity extends AppCompatActivity {
                     checkDetail(newID);
                 }
             });
-
-
-
             }
             }
 
@@ -578,6 +659,7 @@ public class JourneyActivity extends AppCompatActivity {
                     if (event.getResult() == true) {
 
                         addTreatment(vID, eventLocation);
+                        System.out.println(vID);
                     }
 
                 default:
@@ -585,6 +667,15 @@ public class JourneyActivity extends AppCompatActivity {
             }
             return true;
         }
+    }
+
+    private void toastFunction(String toastMessage){
+
+        Toast.makeText(this, toastMessage,
+                Toast.LENGTH_SHORT).show();
+
+
+
     }
 
     private void ExampleJourney(){
@@ -784,71 +875,8 @@ public class JourneyActivity extends AppCompatActivity {
         c.add(Calendar.DATE, 89);
         Events event49 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
         eventList.add(event49);
-        c.setTime(currentDate);
-        c.add(Calendar.DATE, 90);
-        Events event50 = new Events("Blood", "Bloodtest", c.getTime(), null, null, null );
-        eventList.add(event50);
-        c.setTime(currentDate);
 
 
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
