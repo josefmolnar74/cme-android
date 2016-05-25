@@ -17,11 +17,13 @@ public class Patients implements Serializable {
 
 
 
-    public Patients(int patient_ID, String patient_name, String relationship, Care_team[] care_team){
+//    public Patients(int patient_ID, String patient_name, String relationship, Care_team[] care_team){
+    public Patients(int patient_ID, String patient_name, String relationship, ArrayList<Care_team> care_team) {
         this.patient_ID = patient_ID;
         this.patient_name = patient_name;
         this.relationship = relationship;
-        this.care_team = new ArrayList<>(Arrays.asList(care_team));
+//        this.care_team = new ArrayList<>(Arrays.asList(care_team));
+        this.care_team = care_team;
 
     }
 

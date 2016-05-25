@@ -124,22 +124,43 @@
 
             <ListView
                 android:layout_width="fill_parent"
-                android:layout_height="500dp"
+                android:layout_height="0dp"
                 android:id="@+id/careTeamListView"
                 android:visibility="visible"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="false"
+                android:layout_below="@+id/textView" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Select CareTeam"
+                android:text="@string/txt_choose_CT"
                 android:id="@+id/textView"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:textSize="@dimen/XLARGE" />
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/btn_add_CT"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/addcontact" />
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/btn_del_CT"
+                android:layout_alignTop="@+id/btn_add_CT"
+                android:layout_marginEnd="192dp"
+                android:background="@drawable/garbage"
+                android:layout_marginLeft="5dp"
+                android:layout_alignParentStart="false" />
 
         </RelativeLayout>
 
@@ -152,17 +173,39 @@
             android:id="@+id/contactInformation">
 
 
+            <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="500dp"
+                android:id="@+id/careTeamMemberListView"
+                android:visibility="visible"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/lbl_friends" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Create CareTeam"
-                android:id="@+id/textView4"
+                android:id="@+id/lbl_friends"
                 android:textSize="@dimen/XLARGE"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:text="Välj CareTeam" />
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/btn_add_CTmember"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/addcontact" />
+
         </RelativeLayout>
 
     </LinearLayout>
+
 </LinearLayout>
 

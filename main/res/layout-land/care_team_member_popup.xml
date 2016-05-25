@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="500dp"
+    android:layout_height="300dp"
+    android:id="@+id/care_team_member_popup"
+    android:weightSum="1"
+    android:nestedScrollingEnabled="false"
+    android:background="#ffffff">
+
+    <ImageView
+        android:layout_width="160dp"
+        android:layout_height="180dp"
+        android:id="@+id/img_profilePic_careteam"
+        android:src="@drawable/profilepic"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentBottom="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Förnamn"
+        android:id="@+id/lbl_firstName_careteam"
+        android:textSize="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textAlignment="center" />
+
+
+    <EditText
+        android:id="@+id/txt_firstName_careteam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:visibility="invisible"
+        android:inputType="textPersonName"
+        android:text="Förnamn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:textAppearance="?android:attr/textAppearanceLarge">
+    </EditText>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Efternamn"
+        android:id="@+id/lbl_secondName_careteam"
+        android:textSize="30dp"
+        android:layout_below="@+id/lbl_firstName_careteam"
+        android:layout_alignLeft="@+id/lbl_firstName_careteam"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/txt_secondName_careteam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:textSize="30dp"
+        android:visibility="invisible"
+        android:inputType="textPersonName"
+        android:text="Efternamn"
+        android:layout_alignLeft="@+id/txt_firstName_careteam"
+        android:textStyle="bold"
+        android:layout_below="@+id/lbl_firstName_careteam"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Phone:"
+        android:id="@+id/lbl_phone_headline_careteam"
+        android:layout_alignRight="@+id/img_profilePic_careteam"
+        android:layout_below="@+id/img_profilePic_careteam"
+        android:textAlignment="textEnd"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Skapa senare!"
+        android:id="@+id/lbl_phone_careteam"
+        android:layout_alignBottom="@+id/lbl_phone_headline_careteam"
+        android:textAlignment="center"
+        android:layout_toRightOf="@+id/lbl_phone_headline_careteam" />
+
+    <EditText
+        android:id="@+id/txt_phone_careteam"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Phone"
+        android:textSize="@dimen/MEDIUM"
+        android:visibility="invisible"
+        android:inputType="phone"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/lbl_phone_headline_careteam"
+        android:layout_alignBottom="@+id/lbl_phone_headline_careteam"
+        android:textAlignment="center">
+    </EditText>
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Email:"
+        android:id="@+id/lbl_email_headline_careteam"
+        android:layout_below="@+id/lbl_phone_headline_careteam"
+        android:layout_alignLeft="@+id/lbl_phone_headline_careteam"
+        android:textAlignment="textEnd"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Email@gmail.com"
+        android:id="@+id/lbl_email_careteam"
+        android:layout_toRightOf="@+id/lbl_email_headline_careteam"
+        android:layout_alignBottom="@+id/lbl_email_headline_careteam"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/txt_email_careteam"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:textSize="@dimen/MEDIUM"
+        android:visibility="invisible"
+        android:inputType="textEmailAddress"
+        android:layout_toRightOf="@+id/lbl_email_headline_careteam"
+        android:layout_alignBottom="@+id/lbl_email_headline_careteam"
+        android:textAlignment="center">
+    </EditText>
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Relation:"
+        android:id="@+id/lbl_relation_headline_careteam"
+        android:layout_alignLeft="@+id/lbl_email_headline_careteam"
+        android:layout_below="@+id/lbl_email_headline_careteam"
+        android:textAlignment="textEnd"
+        android:textStyle="bold"
+        android:layout_alignParentTop="false" />
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Family"
+        android:id="@+id/lbl_relation_careteam"
+        android:layout_toRightOf="@+id/lbl_relation_headline_careteam"
+        android:layout_alignBottom="@+id/lbl_relation_headline_careteam"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:id="@+id/spinner_relation_careteam"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dialog"
+        android:visibility="invisible"
+        android:layout_toRightOf="@+id/lbl_relation_headline_careteam"
+        android:layout_alignBottom="@+id/lbl_relation_headline_careteam" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Admin:"
+        android:id="@+id/lbl_admin_headline_careteam"
+        android:layout_below="@+id/lbl_relation_headline_careteam"
+        android:layout_alignLeft="@+id/lbl_relation_headline_careteam"
+        android:textAlignment="textEnd"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Skapa Senare!"
+        android:id="@+id/lbl_admin_careteam"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/lbl_admin_headline_careteam"
+        android:layout_alignBottom="@+id/lbl_admin_headline_careteam"
+        android:textAlignment="center" />
+
+    <Spinner
+        android:id="@+id/spinner_admin_careteam"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dialog"
+        android:visibility="invisible"
+        android:layout_alignBottom="@+id/lbl_admin_headline_careteam"
+        android:layout_alignLeft="@+id/spinner_relation_careteam"
+        android:layout_toRightOf="@+id/lbl_admin_headline_careteam" />
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/btn_edit_careteam"
+        android:background="@drawable/edit"
+        android:visibility="visible"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp" />
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/btn_save_careteam"
+        android:visibility="invisible"
+        android:layout_alignParentEnd="false"
+        android:background="@drawable/mark"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp" />
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/btn_cancel_careteam"
+        android:visibility="invisible"
+        android:background="@drawable/delete"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="false"
+        android:layout_toLeftOf="@+id/btn_edit_careteam"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5dp" />
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/btn_del_ct_memb"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/garbage" />
+
+</RelativeLayout>
