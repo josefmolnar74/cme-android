@@ -1,8 +1,16 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="app_name">CCC</string>
     <string name="title_activity_journal">JournalActivity</string>
     <string name="robin">Robin</string>
 
     <string name="chb_title">CHB</string>
     <string name="lbl_contactinfo_caretem">Contact Informationn</string>
+    <string name="txt_choose_CT">Välj CareTeam</string>
+    <string name="txt_friends">Vänner till <xliff:g name="patient_name">%s</xliff:g></string>
+    <string name="txt_info">Information</string>
+    <string name="firstname">Förnamn</string>
+    <string name="lastname">Efternamn</string>
+    <string name="phone">Telefon</string>
+    <string name="delete_name">Ta bort CT <xliff:g name="patient_name">%s</xliff:g>?</string>
 </resources>
+

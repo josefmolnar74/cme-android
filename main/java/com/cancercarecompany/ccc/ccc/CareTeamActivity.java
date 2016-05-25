@@ -57,6 +57,8 @@ public class CareTeamActivity extends AppCompatActivity {
     RelativeLayout contactInformation;
     TextView loggedInText;
 
+//    EditText firstName_popup;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,30 +68,30 @@ public class CareTeamActivity extends AppCompatActivity {
 
 
         ImageButton infoButton = (ImageButton) findViewById(R.id.logoButton);
-        editButton = (Button) findViewById(R.id.btn_edit_careteam);
-        saveButton = (Button) findViewById(R.id.btn_save_careteam);
-        cancelButton = (Button) findViewById(R.id.btn_cancel_careteam);
-        contactName = (TextView) findViewById(R.id.lbl_firstName_careteam);
-        contactLastName = (TextView) findViewById(R.id.lbl_secondName_careteam);
-        contactPhone = (TextView) findViewById(R.id.lbl_phone_careteam);
-        contactEmail = (TextView) findViewById(R.id.lbl_email_careteam);
-        contactRelation = (TextView) findViewById(R.id.lbl_relation_careteam);
-        contactAdmin = (TextView) findViewById(R.id.lbl_admin_careteam);
-        nameEdit = (EditText) findViewById(R.id.txt_firstName_careteam);
-        lastNameEdit = (EditText) findViewById(R.id.txt_lastName_careteam);
-        phoneEdit = (EditText) findViewById(R.id.txt_phone_careteam);
-        emailEdit = (EditText) findViewById(R.id.txt_email_careteam);
-        information = (TextView) findViewById(R.id.lbl_contactInfo_careteam);
-        addButton = (Button) findViewById(R.id.btn_add_careteam);
-        contactInformation = (RelativeLayout) findViewById(R.id.contactInformation);
-        contact1 = (TextView) findViewById(R.id.lbl_contact_careteam);
-        other1 = (TextView) findViewById(R.id.lbl_other_careteam);
-        text1 = (TextView) findViewById(R.id.lbl_phone_headline_careteam);
-        text2 = (TextView) findViewById(R.id.lbl_email_headline_careteam);
-        text3 = (TextView) findViewById(R.id.lbl_relation_headline_careteam);
-        text4 = (TextView) findViewById(R.id.lbl_admin_headline_careteam);
-        loggedInText = (TextView) findViewById(R.id.loggedIn);
-
+        editButton             = (Button) findViewById(R.id.btn_edit_careteam);
+        saveButton             = (Button) findViewById(R.id.btn_save_careteam);
+        cancelButton           = (Button) findViewById(R.id.btn_cancel_careteam);
+        addButton              = (Button) findViewById(R.id.btn_add_CTmember);
+        contactName            = (TextView) findViewById(R.id.lbl_firstName_careteam);
+        contactLastName        = (TextView) findViewById(R.id.lbl_secondName_careteam);
+        contactPhone           = (TextView) findViewById(R.id.lbl_phone_careteam);
+        contactEmail           = (TextView) findViewById(R.id.lbl_email_careteam);
+        contactRelation        = (TextView) findViewById(R.id.lbl_relation_careteam);
+        contactAdmin           = (TextView) findViewById(R.id.lbl_admin_careteam);
+        nameEdit               = (EditText) findViewById(R.id.txt_firstName_careteam);
+        lastNameEdit           = (EditText) findViewById(R.id.txt_lastName_careteam);
+        phoneEdit              = (EditText) findViewById(R.id.txt_phone_careteam);
+        emailEdit              = (EditText) findViewById(R.id.txt_email_careteam);
+        information            = (TextView) findViewById(R.id.lbl_contactInfo_careteam);
+        addButton              = (Button) findViewById(R.id.btn_add_careteam);
+        contactInformation     = (RelativeLayout) findViewById(R.id.contactInformation);
+        contact1               = (TextView) findViewById(R.id.lbl_contact_careteam);
+        other1                 = (TextView) findViewById(R.id.lbl_other_careteam);
+        text1                  = (TextView) findViewById(R.id.lbl_phone_headline_careteam);
+        text2                  = (TextView) findViewById(R.id.lbl_email_headline_careteam);
+        text3                  = (TextView) findViewById(R.id.lbl_relation_headline_careteam);
+        text4                  = (TextView) findViewById(R.id.lbl_admin_headline_careteam);
+        loggedInText           = (TextView) findViewById(R.id.loggedIn);
 
         Typeface face1 = Typeface.createFromAsset(getAssets(), "OpenSans-Semibold.ttf");
         Typeface face2 = Typeface.createFromAsset(getAssets(), "Arimo-Regular.ttf");
@@ -176,35 +178,15 @@ public class CareTeamActivity extends AppCompatActivity {
 
     private void checkDetail(int position) {
         System.out.println(position);
-/*
-//tst!!
-        for (int i = 0; i < lcl.patients.get(position).care_team.size(); i++) {
 
-            System.out.println("check-detail");
-            System.out.println(i);
-            if(lcl.patients.get(position).relationship == "patient") {
-                information.setText(lcl.patients.get(position).patient_name);
-            }
-            System.out.println(lcl.patients.get(position).relationship);
-
-
-        };
-//tst!!
-*/
-//        if (careTeamList.get(position).relationship == "patient") {
-//            information.setText(careTeamList.get(position).first_name.toString());
-//            System.out.println("patienttt");
-//        }
-///    };
         System.out.println(careTeamList.get(position).relationship.toString());
-//        information.setText(lcl.first_name);
-//        information.setText(careTeamList.get(position).first_name.toString());
         addMode = false;
         contactName.setText(careTeamList.get(position).first_name.toString());
         contactLastName.setText(careTeamList.get(position).last_name.toString());
         contactEmail.setText(careTeamList.get(position).email.toString());
         contactRelation.setText(careTeamList.get(position).relationship.toString());
-        System.out.println("n");
+//        firstName_popup.setText(careTeamList.get(position).first_name);
+        System.out.println("nN");
     }
 
     private void editContact() {
