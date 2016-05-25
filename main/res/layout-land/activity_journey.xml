@@ -13,7 +13,7 @@
 
         android:id="@+id/topbarLinear"
         android:layout_height="0dp"
-        android:layout_weight="12">
+        android:layout_weight="8">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -124,13 +124,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:weightSum="100"
-        android:layout_weight="88">
+        android:layout_weight="92">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="85">
+            android:layout_weight="90">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -171,10 +171,10 @@
                 android:id="@+id/landscapeLinear"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="55">
+                android:layout_weight="57">
 
                 <HorizontalScrollView
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:id="@+id/Scroll_event_journey"
                     android:scrollbars="none"
@@ -182,8 +182,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_toStartOf="@+id/relativeLayout3"
                     android:layout_below="@+id/scroll_heaven_journey"
-                    android:fillViewport="false"
-                    android:background="#0cacd9">
+                    android:fillViewport="false">
 
                     <RelativeLayout
                        android:layout_width="880dp"
@@ -200,13 +199,13 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:id="@+id/roadLinear"
                 android:layout_height="0dp"
-                android:layout_weight="20">
+                android:layout_weight="14">
 
                 <HorizontalScrollView
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:id="@+id/scroll_bottom_journey"
                     android:layout_alignParentBottom="true"
@@ -247,7 +246,7 @@
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="15">
+            android:layout_weight="10">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -314,16 +313,6 @@
                     android:layout_marginTop="20dp"
                     android:onClick="addTreatment"
                     android:layout_below="@+id/btn_blood_journey" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Treatments"
-                    android:id="@+id/lbl_treatment_journey"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:textStyle="bold" />
 
             </RelativeLayout>
         </LinearLayout>
