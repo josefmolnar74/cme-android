@@ -63,6 +63,12 @@ public class JourneyActivity extends AppCompatActivity {
     ImageButton addXray;
     ImageButton addHeart;
     ImageButton addBlood;
+
+    ImageButton journeyButton;
+    ImageButton careTeamButton;
+    ImageButton journalButton;
+    ImageButton logoButton;
+
     RelativeLayout relativeLayout;
     RelativeLayout cloudLayout;
     int topMargin = 0;
@@ -102,6 +108,9 @@ public class JourneyActivity extends AppCompatActivity {
         layoutButtons = (RelativeLayout) findViewById(R.id.relativeLayout3);
         eventLayout = (RelativeLayout) findViewById(R.id.eventLayoutJourney);
         bottomLayout = (RelativeLayout) findViewById(R.id.bottom_layout);
+        careTeamButton = (ImageButton) findViewById(R.id.contactsButton);
+        journalButton = (ImageButton) findViewById(R.id.journalButton);
+        logoButton = (ImageButton) findViewById(R.id.logoButton);
 
 
         addDialys.setOnTouchListener(new MyTouchListener());
@@ -121,6 +130,7 @@ public class JourneyActivity extends AppCompatActivity {
         journeyStart = eventList.get(0).startDate;
         generateClouds();
 
+
         eventScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 
             @Override
@@ -134,7 +144,36 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
+        heavenScroll.setOnTouchListener(new View.OnTouchListener() {
 
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                return true;
+            }
+        });
+
+        bottomScroll.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                return true;
+            }
+        });
+
+        careTeamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+       //      careTeam();
+            }
+        });
+
+    }
+
+    private void careTeam(){
+        Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+        startActivity(myIntent);
     }
 
     public void addTreatment(View v, int location) {
@@ -285,14 +324,14 @@ public class JourneyActivity extends AppCompatActivity {
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.addeventpopup, null);
         final PopupWindow popupWindow = new PopupWindow(
-                popupView, 1000, 800);
+                popupView, 1200, 900);
 
         popupWindow.setFocusable(true);
         popupWindow.update();
 
 
         TextView categoryText = (TextView) popupView.findViewById(R.id.txt_category_journey);
-        Button saveButton = (Button) popupView.findViewById(R.id.btn_saveEvent_Journey);
+        ImageButton saveButton = (ImageButton) popupView.findViewById(R.id.btn_saveEvent_Journey);
         ImageView categoryImage = (ImageView) popupView.findViewById(R.id.img_category_addevent_journey);
         final EditText notes = (EditText) popupView.findViewById(R.id.txt_notes_journey);
         final DatePicker datePicker = (DatePicker) popupView.findViewById(R.id.datepicker_journey);
@@ -384,7 +423,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 
-        popupWindow.showAsDropDown(relativeLayout, 450, 140);
+        popupWindow.showAsDropDown(relativeLayout, 450, 50);
 
 
     }
