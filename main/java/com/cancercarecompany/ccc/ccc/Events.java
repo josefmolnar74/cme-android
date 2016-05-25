@@ -15,16 +15,15 @@ public class Events {
     Date endDate;
     Date endTime;
 
-
     public Events(String category, String notes, Date startDate, Date startTime, Date endDate, Date endTime){
 
 
-        this.category = category;
-        this.notes = notes;
+        this.category  = category;
+        this.notes     = notes;
         this.startDate = startDate;
         this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
+        this.endDate   = endDate;
+        this.endTime   = endTime;
     }
 
 }

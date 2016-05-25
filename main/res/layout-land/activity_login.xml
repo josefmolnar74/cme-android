@@ -17,18 +17,7 @@
         android:id="@+id/registerlayout"
         android:layout_gravity="center"
         android:layout_centerInParent="true"
-        android:visibility="invisible"><![CDATA[
-
-
-
-        />
-
-
-
-
-
-
-        ]]>
+        android:visibility="invisible">
 
         <TextView
             android:layout_width="wrap_content"
