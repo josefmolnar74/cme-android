@@ -1,7 +1,10 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -46,6 +51,9 @@ public class ManageCareTeamActivity extends AppCompatActivity {
     String lbl_friends;
     String lbl_delete;
     Button add_CTmember;
+    ImageButton journeyButton;
+    ImageButton journalButton;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -62,8 +70,14 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         final Button btn_add_Memb = (Button) findViewById(R.id.btn_add_CTmember);
         final Button btn_add_CT   = (Button) findViewById(R.id.btn_add_CT);
         final Button btn_del_CT   = (Button) findViewById(R.id.btn_del_CT);
+        journeyButton = (ImageButton) findViewById(R.id.journeyButton);
+        journalButton = (ImageButton) findViewById(R.id.journalButton);
 
-        lclString = (String) getIntent().getSerializableExtra("Person");
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        lclString = (String) preferences.getString("Person", "");
+
+        System.out.println(lclString);
         Gson gson = new Gson();
 
         lcl = gson.fromJson(lclString, Lcl_work_area.class);
@@ -80,6 +94,21 @@ public class ManageCareTeamActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int CTp, long id) {
                 GCTp = CTp;
                 showCareTeamMembers(CTp);
+            }
+        });
+
+        journeyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                journeyActivity();
+
+            }
+        });
+
+        journalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -240,7 +269,10 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         });
 
         relativeLayout = (RelativeLayout) popupView.findViewById(R.id.create_care_team_member_popup);
-        popupWindow.showAsDropDown(relativeLayout, 500, -700);
+      //  LinearLayout layout = (LinearLayout) findViewById(R.id.careTeamScreen);
+        popupWindow.showAsDropDown(relativeLayout, 500, -900);
+        popupWindow.isFocusable();
+
 
     }
 
@@ -318,7 +350,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         });
 
         relativeLayout = (RelativeLayout) popupView.findViewById(R.id.create_care_team_popup);
-        popupWindow.showAsDropDown(relativeLayout, 500, -700);
+        popupWindow.showAsDropDown(relativeLayout, 500, -900);
 
     }
 
@@ -396,7 +428,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         btn_save.setVisibility(View.INVISIBLE);
 
         relativeLayout = (RelativeLayout) popupView.findViewById(R.id.care_team_member_popup);
-        popupWindow.showAsDropDown(relativeLayout, 500, -700);
+        popupWindow.showAsDropDown(relativeLayout, 500, -900);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -578,6 +610,12 @@ public class ManageCareTeamActivity extends AppCompatActivity {
                 popupWindow.dismiss();
             }
         });
+
+    }
+
+    private void journeyActivity(){
+        Intent myIntent = new Intent(this, JourneyActivity.class);
+        startActivity(myIntent);
 
     }
 
