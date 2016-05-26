@@ -132,6 +132,7 @@ public class JourneyActivity extends AppCompatActivity {
         refreshEvents();
         journeyStart = eventList.get(0).startDate;
         generateClouds();
+        generateBushes();
 
 
         eventScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
@@ -718,6 +719,65 @@ public class JourneyActivity extends AppCompatActivity {
 
 
     }
+
+    private void generateBushes() {
+
+        Collections.sort(eventList, new Comparator<Events>() {
+            @Override
+            public int compare(Events lhs, Events rhs) {
+
+                return lhs.startDate.compareTo(rhs.startDate);
+
+            }
+        });
+        int lastEvent = eventList.size() - 1;
+        long lastEventLong = eventList.get(lastEvent).startDate.getTime();
+        long screenSize = lastEventLong - startDate;
+        long signCount = screenSize / 1000000;
+        signCount = signCount / 200;
+
+
+        for (int i = 0; i <= signCount; i++) {
+
+            ImageButton btn = new ImageButton(this);
+            btn.setId(i + 2000);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+
+
+            Random r = new Random();
+            int bushesRandom = r.nextInt(3);
+
+            switch (bushesRandom) {
+                case 0:
+                    btn.setBackgroundResource(R.drawable.bushes1);
+                    params.setMargins(i * 1000, 100, 0, 0);
+                    params.width = 150;
+                    params.height = 100;
+                    break;
+                case 1:
+                    btn.setBackgroundResource(R.drawable.bushes2);
+                    params.setMargins(i * 1000, 60, 0, 0);
+                    params.width = 300;
+                    params.height = 150;
+                    break;
+                case 2:
+                    btn.setBackgroundResource(R.drawable.bushes3);
+                    params.setMargins(i * 1000, 100, 0, 0);
+                    params.width = 150;
+                    params.height = 100;
+                    break;
+
+
+            }
+            bottomLayout.addView(btn, params);
+            System.out.println(btn.getId());
+
+        }
+    }
+
 
     private void ExampleJourney(){
         Calendar c = Calendar.getInstance();

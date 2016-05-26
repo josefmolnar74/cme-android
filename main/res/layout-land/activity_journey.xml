@@ -135,14 +135,14 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:id="@+id/heavenLinear"
                 android:layout_height="0dp"
-                android:layout_weight="25">
+                android:layout_weight="20">
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_height="200dp"
                     android:id="@+id/scroll_heaven_journey"
                     android:scrollbars="none"
                     android:layout_below="@+id/relativeLayout"
@@ -203,7 +203,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/roadLinear"
                 android:layout_height="0dp"
-                android:layout_weight="15">
+                android:layout_weight="20">
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
@@ -229,14 +229,6 @@
                             android:src="@drawable/car"
                             android:layout_centerVertical="true"
                             android:layout_alignParentStart="true" />
-
-                        <Button
-                            style="?android:attr/buttonStyleSmall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="New Button"
-                            android:id="@+id/button"
-                            android:layout_marginLeft="40000dp" />
 
                     </RelativeLayout>
                 </HorizontalScrollView>
