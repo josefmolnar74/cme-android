@@ -114,61 +114,64 @@
         android:layout_weight="0.88"
         android:baselineAligned="false">
 
-        <RelativeLayout
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:weightSum="100"
             android:background="@drawable/border"
-            android:layout_weight="45">
+            android:layout_weight="70">
 
-            <ListView
-                android:layout_width="fill_parent"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:id="@+id/careTeamListView"
-                android:visibility="visible"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="false"
-                android:layout_below="@+id/diary_header" />
+                android:layout_weight="10">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/txt_choose_CT"
-                android:id="@+id/diary_header"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:textSize="@dimen/XLARGE" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/txt_journal_headline"
+                    android:id="@+id/diary_header"
+                    android:layout_alignParentTop="true"
+                    android:textSize="@dimen/XLARGE"
+                    android:layout_alignParentStart="true" />
+            </RelativeLayout>
 
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/btn_add_CT"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/addcontact" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40">
 
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/btn_del_CT"
-                android:layout_alignTop="@+id/btn_add_CT"
-                android:layout_marginEnd="192dp"
-                android:background="@drawable/garbage"
-                android:layout_marginLeft="5dp"
-                android:layout_alignParentStart="false" />
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/editText2"
+                    android:layout_marginTop="10dp" />
 
-        </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="25">
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/editText"
+                    android:layout_below="@+id/diary_header"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="55"
+            android:layout_weight="30"
             android:background="@drawable/border"
             android:id="@+id/contactInformation">
 
