@@ -165,7 +165,7 @@ public class JourneyActivity extends AppCompatActivity {
         careTeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-       //      careTeam();
+             careTeam();
             }
         });
 
@@ -324,7 +324,7 @@ public class JourneyActivity extends AppCompatActivity {
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.addeventpopup, null);
         final PopupWindow popupWindow = new PopupWindow(
-                popupView, 1200, 900);
+                popupView, 1200, 1200);
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -369,7 +369,6 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.orangebubble);
                 break;
         }
-
 
         notes.setFocusableInTouchMode(true);
 
@@ -423,7 +422,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 
-        popupWindow.showAsDropDown(relativeLayout, 450, 50);
+        popupWindow.showAsDropDown(relativeLayout, 450, 0);
 
 
     }

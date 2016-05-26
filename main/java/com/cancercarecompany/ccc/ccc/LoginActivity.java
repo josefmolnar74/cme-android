@@ -1,7 +1,9 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -113,11 +115,12 @@ public class LoginActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String jsonPerson = gson.toJson(lcl);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("Person",jsonPerson);
+        editor.apply();
+
             Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
-            myIntent.putExtra("Person",jsonPerson);
-            setResult(RESULT_OK, myIntent);
-
-
             startActivity(myIntent);
     }
 

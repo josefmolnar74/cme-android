@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/journeyLayout"
     android:orientation="vertical"
     android:weightSum="100">
 
@@ -135,14 +136,14 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:id="@+id/heavenLinear"
                 android:layout_height="0dp"
                 android:layout_weight="25">
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
-                    android:layout_height="200dp"
+                    android:layout_height="fill_parent"
                     android:id="@+id/scroll_heaven_journey"
                     android:scrollbars="none"
                     android:layout_below="@+id/relativeLayout"
@@ -170,7 +171,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:id="@+id/landscapeLinear"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="57">
 
@@ -203,7 +204,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/roadLinear"
                 android:layout_height="0dp"
-                android:layout_weight="14">
+                android:layout_weight="15">
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
