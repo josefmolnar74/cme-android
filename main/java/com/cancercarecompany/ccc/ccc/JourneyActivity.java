@@ -212,9 +212,9 @@ public class JourneyActivity extends AppCompatActivity {
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         int carPosition = (int) currentDate.getTime() - (int) startDate;
-        paramsCar.setMargins(carPosition + 200, 0, 0, 0);
-        paramsCar.width = 300;
-        paramsCar.height = 200;
+        paramsCar.setMargins(carPosition + 200, -10, 0, 0);
+        paramsCar.width = 280;
+        paramsCar.height = 180;
 
         car.setLayoutParams(paramsCar);
 
