@@ -1320,18 +1320,17 @@ public class JourneyActivity extends AppCompatActivity {
 
 
         TranslateAnimation transAnimation1= new TranslateAnimation(0, 0, 0, 0);
-        transAnimation1.setDuration(1000);
-        transAnimation1.getRepeatMode();
+        transAnimation1.setDuration(500);
+        transAnimation1.setRepeatCount(-1);
+        transAnimation1.setRepeatMode(Animation.INFINITE);
         sun.startAnimation(transAnimation1);
 
         transAnimation1.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                System.out.println("animation sun start");
-                TransitionDrawable transition = (TransitionDrawable) sun.getBackground();
-                transition.startTransition(1000);
-                transition.reverseTransition(500);
 
+                System.out.println("animation sun start");
+                
             }
 
             @Override
@@ -1341,6 +1340,9 @@ public class JourneyActivity extends AppCompatActivity {
             @Override
             public void onAnimationRepeat(Animation animation) {
                 System.out.println("animation repeat");
+                TransitionDrawable transition = (TransitionDrawable) sun.getBackground();
+                transition.startTransition(1000);
+                transition.reverseTransition(500);
             }
         });
 
