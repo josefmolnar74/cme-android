@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="500dp"
-    android:layout_height="300dp"
+    android:layout_height="500dp"
     android:id="@+id/create_care_team_popup"
     android:weightSum="1"
     android:background="#ffffff"

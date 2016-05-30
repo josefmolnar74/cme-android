@@ -6,7 +6,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class journal extends AppCompatActivity {
+public class journal2 extends AppCompatActivity {
 
     String lbl_datum;
     TextView header;

@@ -31,7 +31,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".journal"></activity>
+        <activity android:name=".journal" />
+        <activity android:name=".journal2"></activity>
     </application>
 
 </manifest>

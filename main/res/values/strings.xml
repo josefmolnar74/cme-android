@@ -13,5 +13,24 @@
     <string name="phone">Telefon</string>
     <string name="delete_name">Ta bort CT <xliff:g name="patient_name">%s</xliff:g>?</string>
     <string name="txt_journal_headline">Dagbok <xliff:g name="">%s</xliff:g></string>
+    <string name="txt_frukost">Frukost </string>
+    <string name="txt_lunch">Lunch</string>
+    <string name="txt_middag">Middag</string>
+    <string name="txt_medicinering">Medicinering</string>
+    <string name="txt_biverkningar">Biverkningar</string>
+    <string name="txt_tagit_med">Antal tagna</string>
+    <string name="txt_magstatus">Magstatus</string>
+    <string name="txt_mag_diarre">Diarré</string>
+    <string name="txt_mag_norm">Normal</string>
+    <string name="txt_mag_forst">Förstoppning</string>
+    <string name="txt_fat_1">Ingen</string>
+    <string name="txt_fat_2">Trött</string>
+    <string name="txt_fat_3">Betydande</string>
+    <string name="txt_fat_head">Fatigue</string>
+    <string name="txt_yrs_ngn">Någon</string>
+    <string name="txt_yrs_head">Yrsel</string>
+    <string name="txt_bi_krk_head">Kräkningar</string>
+    <string name="txt_krk_ngn">1-2 ggr</string>
+
 </resources>
 
