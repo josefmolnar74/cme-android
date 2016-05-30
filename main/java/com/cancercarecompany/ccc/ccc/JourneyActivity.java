@@ -412,16 +412,16 @@ public class JourneyActivity extends AppCompatActivity {
 
         switch (v.getId()) {
 
-            case 2131558556:
+            case 2131558599:
                 vCategory = "Appointment";
                 break;
-            case 2131558557:
+            case 2131558600:
                 vCategory = "Treatment";
                 break;
-            case 2131558558:
+            case 2131558601:
                 vCategory = "Test";
                 break;
-            case 2131558559:
+            case 2131558602:
                 vCategory = "Other";
                 break;
 
@@ -1330,7 +1330,7 @@ public class JourneyActivity extends AppCompatActivity {
             public void onAnimationStart(Animation animation) {
 
                 System.out.println("animation sun start");
-                
+
             }
 
             @Override
