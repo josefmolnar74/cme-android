@@ -133,14 +133,14 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="false"
-                android:layout_below="@+id/textView" />
+                android:layout_below="@+id/diary_header" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/txt_choose_CT"
-                android:id="@+id/textView"
+                android:id="@+id/diary_header"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:textSize="@dimen/XLARGE" />

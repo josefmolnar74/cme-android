@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
+import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.SystemClock;
 import android.print.PrintAttributes;
 import android.support.v7.app.AppCompatActivity;
@@ -66,6 +69,7 @@ public class JourneyActivity extends AppCompatActivity {
     ImageButton addTreatment;
     ImageButton addTest;
     ImageButton addOther;
+    ImageButton sun;
 
     ImageButton journeyButton;
     ImageButton careTeamButton;
@@ -90,7 +94,7 @@ public class JourneyActivity extends AppCompatActivity {
     int eventsSameDate = 0;
     String subCategoryClicked = "";
     Date date;
-    LinearLayout wholeScreen;
+    RelativeLayout wholeScreen;
 
     View vID;
 
@@ -116,8 +120,8 @@ public class JourneyActivity extends AppCompatActivity {
         careTeamButton = (ImageButton) findViewById(R.id.contactsButton);
         journalButton = (ImageButton) findViewById(R.id.journalButton);
         logoButton = (ImageButton) findViewById(R.id.logoButton);
-        wholeScreen = (LinearLayout) findViewById(R.id.journeyscreen);
-
+        wholeScreen = (RelativeLayout) findViewById(R.id.journeyscreen);
+        sun = (ImageButton) findViewById(R.id.btn_sun_journey);
 
         addAppointment.setOnTouchListener(new MyTouchListener());
         eventLayout.setOnDragListener(new MyDragListener());
@@ -153,8 +157,13 @@ public class JourneyActivity extends AppCompatActivity {
         Events diagnoseStart = new Events("Start", "Start", "Journey starts here", date , null, null, null);
         eventList.add(diagnoseStart);
         journeyStart = eventList.get(0).startDate;
-        System.out.println();
 
+        TransitionDrawable transition = (TransitionDrawable) sun.getBackground();
+        transition.startTransition(1000);
+        transition.reverseTransition(500);
+
+
+        animateSun();
         ExampleJourney();
         refreshEvents();
         generateClouds();
@@ -243,9 +252,9 @@ public class JourneyActivity extends AppCompatActivity {
 
        // paramsCar.setMargins(carIntPosition * 6, -10, 0, 0);
         paramsCar.setMargins(0, -10, 0, 0);
-        paramsCar.width = 320;
+        paramsCar.width = 300;
         paramsCar.height = 200;
-        animateCar(carIntPosition);
+
 
         car.setLayoutParams(paramsCar);
         animateCar(carIntPosition);
@@ -375,12 +384,6 @@ public class JourneyActivity extends AppCompatActivity {
             currentEventLong = currentEventLong/1000000;
             int currentEventInt = (int) currentEventLong;
 
-           /*
-            currentEvent = eventList.get(i).startDate.getTime() - startDate;
-            currentEvent = currentEvent / 1000000;
-            int currentIntEvent = (int) currentEvent;
-            */
-
 
             params.setMargins((currentEventInt * 2) +300 , topMargin, 0, 0);
             params.width = 150;
@@ -406,16 +409,16 @@ public class JourneyActivity extends AppCompatActivity {
 
         switch (v.getId()) {
 
-            case 2131493020:
+            case 2131558599:
                 vCategory = "Appointment";
                 break;
-            case 2131493021:
+            case 2131558600:
                 vCategory = "Treatment";
                 break;
-            case 2131493022:
+            case 2131558601:
                 vCategory = "Test";
                 break;
-            case 2131493023:
+            case 2131558602:
                 vCategory = "Other";
                 break;
 
@@ -722,7 +725,7 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Photo";
+                        subCategoryClicked = "ImageMemory";
                         subCategoryText.setText(subCategoryClicked);
                     }
                 });
@@ -1265,23 +1268,27 @@ public class JourneyActivity extends AppCompatActivity {
         final RelativeLayout.LayoutParams paramsCar2 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-     paramsCar2.setMargins(carIntPosition * 6 + 100,10,0,0);
-                paramsCar2.width = 320;
+     paramsCar2.setMargins(carIntPosition * 6 + 100,-10,0,0);
+                paramsCar2.width = 300;
                 paramsCar2.height = 200;
-
 
         TranslateAnimation transAnimation1= new TranslateAnimation(0, 2000, 0, 0);
         transAnimation1.setDuration(3500);
-       car.setAnimation(transAnimation1);
+       car.startAnimation(transAnimation1);
+
         transAnimation1.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
+                System.out.println("animation start");
+                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.carsound);
+                mp.start();
+
 
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
+                System.out.println("animation end");
                 eventScroll.post(new Runnable() {
 
 
@@ -1303,9 +1310,10 @@ public class JourneyActivity extends AppCompatActivity {
         });
 
 
+    }
 
 
-
+    private void animateSun(){
 
 
     }
@@ -1332,7 +1340,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event4);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 7);
-        Events event5 = new Events("Other", "Photo", "photo of me", c.getTime(), null, null, null );
+        Events event5 = new Events("Other", "ImageMemory", "photo of me", c.getTime(), null, null, null );
         eventList.add(event5);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 8);
@@ -1352,7 +1360,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event9);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 13);
-        Events event10 = new Events("Treatment", "Biological", "evening", c.getTime(), null, null, null );
+        Events event10 = new Events("Treatment", "BiologicalTherapy", "evening", c.getTime(), null, null, null );
         eventList.add(event10);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 14);
@@ -1364,7 +1372,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event12);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 17);
-        Events event13 = new Events("Test", "Imagediagnosis", "take images", c.getTime(), null, null, null );
+        Events event13 = new Events("Test", "ImageDiagnosis", "take images", c.getTime(), null, null, null );
         eventList.add(event13);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 18);
@@ -1440,7 +1448,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event31);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 52);
-        Events event32 = new Events("Other", "Photo", "photo of me", c.getTime(), null, null, null );
+        Events event32 = new Events("Other", "ImageMemory", "photo of me", c.getTime(), null, null, null );
         eventList.add(event32);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 55);
