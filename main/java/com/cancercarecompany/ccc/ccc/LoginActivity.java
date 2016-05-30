@@ -43,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
+
+
         firstnameRegister = (EditText) findViewById(R.id.txt_firstname_register_login);
         lastnameRegister = (EditText) findViewById(R.id.txt_lastname_register_login);
         emailLogin = (EditText) findViewById(R.id.txt_email_login_login);
@@ -55,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         loginLayout = (RelativeLayout) findViewById(R.id.loginlayout);
         registerLayout = (RelativeLayout) findViewById(R.id.registerlayout);
         cancelButton = (Button) findViewById(R.id.btn_cancel_login);
-
+        registerLayout.setVisibility(View.INVISIBLE);
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
