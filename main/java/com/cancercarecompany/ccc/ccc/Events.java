@@ -9,6 +9,7 @@ import java.util.Date;
 public class Events {
 
     String category;
+    String subCategory;
     String notes;
     Date startDate;
     Date startTime;
@@ -16,7 +17,7 @@ public class Events {
     Date endTime;
 
 
-    public Events(String category, String notes, Date startDate, Date startTime, Date endDate, Date endTime){
+    public Events(String category, String subCategory, String notes, Date startDate, Date startTime, Date endDate, Date endTime){
 
 
         this.category = category;
@@ -25,6 +26,7 @@ public class Events {
         this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
+        this.subCategory = subCategory;
     }
 
 }

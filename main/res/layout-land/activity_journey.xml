@@ -123,6 +123,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:id="@+id/journeyscreen"
         android:layout_height="0dp"
         android:weightSum="100"
         android:layout_weight="92">
@@ -135,14 +136,14 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:id="@+id/heavenLinear"
                 android:layout_height="0dp"
-                android:layout_weight="25">
+                android:layout_weight="20">
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_height="200dp"
                     android:id="@+id/scroll_heaven_journey"
                     android:scrollbars="none"
                     android:layout_below="@+id/relativeLayout"
@@ -203,7 +204,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/roadLinear"
                 android:layout_height="0dp"
-                android:layout_weight="15">
+                android:layout_weight="20">
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
@@ -230,14 +231,6 @@
                             android:layout_centerVertical="true"
                             android:layout_alignParentStart="true" />
 
-                        <Button
-                            style="?android:attr/buttonStyleSmall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="New Button"
-                            android:id="@+id/button"
-                            android:layout_marginLeft="40000dp" />
-
                     </RelativeLayout>
                 </HorizontalScrollView>
             </LinearLayout>
@@ -262,7 +255,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="centerCrop"
-                    android:id="@+id/btn_surgery_journey"
+                    android:id="@+id/btn_appointment_journey"
                     android:src="@drawable/greenbubble"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
@@ -273,47 +266,36 @@
                 <ImageButton
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:id="@+id/btn_xray_journey"
+                    android:id="@+id/btn_treatment_journey"
                     android:src="@drawable/orangebubblee"
                     android:scaleType="centerCrop"
                     android:layout_marginTop="20dp"
-                    android:layout_below="@+id/btn_surgery_journey"
+                    android:layout_below="@+id/btn_appointment_journey"
                     android:onClick="addTreatment"
-                    android:layout_alignStart="@+id/btn_surgery_journey" />
+                    android:layout_alignStart="@+id/btn_appointment_journey" />
 
                 <ImageButton
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:id="@+id/btn_heart_journey"
+                    android:id="@+id/btn_test_journey"
                     android:src="@drawable/bluebubble"
                     android:scaleType="centerCrop"
-                    android:layout_below="@+id/btn_xray_journey"
+                    android:layout_below="@+id/btn_treatment_journey"
                     android:onClick="addTreatment"
-                    android:layout_alignStart="@+id/btn_xray_journey"
+                    android:layout_alignStart="@+id/btn_treatment_journey"
                     android:layout_marginTop="20dp" />
 
                 <ImageButton
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:id="@+id/btn_blood_journey"
+                    android:id="@+id/btn_other_journey"
                     android:src="@drawable/pinkbubble"
                     android:scaleType="centerCrop"
                     android:layout_marginTop="20dp"
-                    android:layout_below="@+id/btn_heart_journey"
+                    android:layout_below="@+id/btn_test_journey"
                     android:onClick="addTreatment"
                     android:layout_centerHorizontal="true" />
-
-                <ImageButton
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:id="@+id/btn_dialys_journey"
-                    android:src="@drawable/orangebubble"
-                    android:scaleType="centerCrop"
-                    android:layout_alignParentBottom="false"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:onClick="addTreatment"
-                    android:layout_below="@+id/btn_blood_journey" />
+                />
 
             </RelativeLayout>
         </LinearLayout>
