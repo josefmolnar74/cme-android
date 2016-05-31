@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.cancercarecompany.ccc.ccc.WelcomeActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_marginTop="132dp"
+        android:text="@string/welcome"
+        android:textSize="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_create_care_team"
+        android:id="@+id/create"
+        android:onClick="onClickCreateCareTeam"
+        android:layout_above="@+id/join"
+        android:layout_alignStart="@+id/join" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_join_care_team"
+        android:id="@+id/join"
+        android:onClick="onClickJoinCareTeam"
+        android:layout_above="@+id/login"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_login"
+        android:id="@+id/login"
+        android:onClick="onClickLogin"
+        android:layout_marginBottom="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView5"
+        android:background="@drawable/myjourney"
+        android:maxHeight="90dp"
+        android:maxWidth="90dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView6"
+        android:background="@drawable/careteam"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/create"
+        android:layout_marginEnd="50dp" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView7"
+        android:background="@drawable/myjournal"
+        android:layout_marginStart="70dp"
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_toEndOf="@+id/create" />
+
+
+</RelativeLayout>

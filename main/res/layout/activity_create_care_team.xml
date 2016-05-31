@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.cancercarecompany.ccc.ccc.CreateCareTeamActivity"
+    android:id="@+id/loginBackground">
+
+
+    <RelativeLayout
+        android:layout_width="400dp"
+        android:layout_height="500dp"
+        android:background="@drawable/logginbackground"
+        android:layout_alignParentTop="false"
+        android:id="@+id/registerlayout"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="New care team"
+            android:id="@+id/textView3"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/txt_patient_name"
+            android:hint="Patient name"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/txt_year_of_birth"
+            android:hint="Year of birth"
+            android:inputType="textEmailAddress"
+            android:layout_below="@+id/txt_patient_name"
+            android:layout_alignStart="@+id/txt_patient_name" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/txt_diagnose"
+            android:hint="Diagnose"
+            android:layout_below="@+id/txt_year_of_birth"
+            android:layout_alignStart="@+id/txt_year_of_birth" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="CREATE"
+            android:id="@+id/btn_create_care_team"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="80dp"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</RelativeLayout>

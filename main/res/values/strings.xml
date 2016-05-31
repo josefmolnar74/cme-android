@@ -1,6 +1,10 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="app_name">CCC</string>
     <string name="title_activity_journal">JournalActivity</string>
+    <string name="welcome">Welcome to C-me Kids</string>
+    <string name="button_create_care_team">Create care team</string>
+    <string name="button_join_care_team">Join care team</string>
+    <string name="button_login">Login</string>
     <string name="robin">Robin</string>
 
     <string name="chb_title">CHB</string>
