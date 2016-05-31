@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="0.12"
+        android:layout_weight="0.08"
         android:background="@drawable/border"
         android:weightSum="100">
 
@@ -113,7 +113,7 @@
         android:layout_height="0dp"
         android:id="@+id/careTeamMain"
         android:weightSum="100"
-        android:layout_weight="0.88"
+        android:layout_weight="0.92"
         android:baselineAligned="false">
 
         <RelativeLayout
