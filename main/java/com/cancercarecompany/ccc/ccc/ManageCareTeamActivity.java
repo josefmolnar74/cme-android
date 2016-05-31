@@ -108,7 +108,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         journalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            journalActivity();
             }
         });
 
@@ -615,6 +615,12 @@ public class ManageCareTeamActivity extends AppCompatActivity {
 
     private void journeyActivity(){
         Intent myIntent = new Intent(this, JourneyActivity.class);
+        startActivity(myIntent);
+
+    }
+
+    private void journalActivity(){
+        Intent myIntent = new Intent(this, journal.class);
         startActivity(myIntent);
 
     }

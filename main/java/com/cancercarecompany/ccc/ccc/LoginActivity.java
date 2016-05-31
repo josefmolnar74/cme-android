@@ -43,8 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-
-
         firstnameRegister = (EditText) findViewById(R.id.txt_firstname_register_login);
         lastnameRegister = (EditText) findViewById(R.id.txt_lastname_register_login);
         emailLogin = (EditText) findViewById(R.id.txt_email_login_login);
@@ -111,19 +109,22 @@ public class LoginActivity extends AppCompatActivity {
         while (socketClass.lcl == null){
                 System.out.println("tom");
         }
-        lcl = socketClass.lcl;
-        System.out.println(lcl);
 
-        Gson gson = new Gson();
-        String jsonPerson = gson.toJson(lcl);
+            lcl = socketClass.lcl;
+            System.out.println(lcl);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("Person",jsonPerson);
-        editor.apply();
+            Gson gson = new Gson();
+            String jsonPerson = gson.toJson(lcl);
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("Person", jsonPerson);
+            editor.apply();
 
             Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
             startActivity(myIntent);
+
+
     }
 
 
