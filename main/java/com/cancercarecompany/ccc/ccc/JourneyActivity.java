@@ -70,6 +70,7 @@ public class JourneyActivity extends AppCompatActivity {
     ImageButton addTest;
     ImageButton addOther;
     ImageButton sun;
+    Boolean sunSwitch = true;
 
     ImageButton journeyButton;
     ImageButton careTeamButton;
@@ -91,6 +92,7 @@ public class JourneyActivity extends AppCompatActivity {
     RelativeLayout layoutButtons;
     RelativeLayout eventLayout;
     RelativeLayout bottomLayout;
+    RelativeLayout relativeLayout3;
     int eventsSameDate = 0;
     String subCategoryClicked = "";
     Date date;
@@ -122,6 +124,7 @@ public class JourneyActivity extends AppCompatActivity {
         logoButton = (ImageButton) findViewById(R.id.logoButton);
         wholeScreen = (RelativeLayout) findViewById(R.id.journeyscreen);
         sun = (ImageButton) findViewById(R.id.btn_sun_journey);
+        relativeLayout3 = (RelativeLayout) findViewById(R.id.relativeLayout3);
 
         addAppointment.setOnTouchListener(new MyTouchListener());
         eventLayout.setOnDragListener(new MyDragListener());
@@ -129,19 +132,6 @@ public class JourneyActivity extends AppCompatActivity {
         addTest.setOnTouchListener(new MyTouchListener());
         addOther.setOnTouchListener(new MyTouchListener());
 
-        addAppointment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                long eventPosition = currentDate.getTime() - startDate;
-                eventPosition = eventPosition / 1000000;
-                int eventIntPosition = (int) eventPosition;
-
-                addTreatment(v, eventIntPosition);
-
-            }
-        });
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -157,10 +147,6 @@ public class JourneyActivity extends AppCompatActivity {
         Events diagnoseStart = new Events("Start", "Start", "Journey starts here", date , null, null, null);
         eventList.add(diagnoseStart);
         journeyStart = eventList.get(0).startDate;
-
-        TransitionDrawable transition = (TransitionDrawable) sun.getBackground();
-        transition.startTransition(1000);
-        transition.reverseTransition(500);
 
 
         animateSun();
@@ -208,12 +194,26 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
+        journalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                journal();
+            }
+        });
+
     }
 
     private void careTeam(){
         Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
         startActivity(myIntent);
     }
+
+    private void journal(){
+        Intent myIntent = new Intent(this, journal.class);
+        startActivity(myIntent);
+    }
+
+
 
     public void addTreatment(View v, int location) {
         System.out.println(v.getId());
@@ -317,13 +317,13 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
                 case "Radiation":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.treatmentradiobubble);
                     break;
                 case "TargetedTherapy":
                     btn.setBackgroundResource(R.drawable.treatmenttargetbubble);
                     break;
                 case "Dialys":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.treatmentdialysbubble);
                     break;
                 case "BiologicalTherapy":
                     btn.setBackgroundResource(R.drawable.treatmentbiologicbubble);
@@ -456,16 +456,21 @@ public class JourneyActivity extends AppCompatActivity {
 
         System.out.println("popup location = " + location + "     popup id = " + vID.getId());
 
-        Calendar c = Calendar.getInstance();
-        c.setTime(eventList.get(0).startDate);
-        System.out.println(location);
-        location = (location/172);
-        c.add(Calendar.DATE, location-2);
+        if(location>0) {
+            Calendar c = Calendar.getInstance();
+            c.setTime(eventList.get(0).startDate);
+            System.out.println(location);
+            location = (location / 172);
+            c.add(Calendar.DATE, location - 2);
 
 
-
-        datePicker.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-
+            datePicker.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        }else{
+            Calendar c = Calendar.getInstance();
+            c.setTime(currentDate);
+            c.add(Calendar.DATE, 1);
+            datePicker.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        }
 
         switch (Category) {
             case "Appointment":
@@ -574,9 +579,9 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory6.setVisibility(View.VISIBLE);
 
                 subCategory1.setBackgroundResource(R.drawable.greenbubble);
-                subCategory2.setBackgroundResource(R.drawable.bluebubble);
+                subCategory2.setBackgroundResource(R.drawable.treatmentradio);
                 subCategory3.setBackgroundResource(R.drawable.treatmenttarget);
-                subCategory4.setBackgroundResource(R.drawable.orangebubble);
+                subCategory4.setBackgroundResource(R.drawable.treatmentdialys);
                 subCategory5.setBackgroundResource(R.drawable.treatmentbiologic);
                 subCategory6.setBackgroundResource(R.drawable.pinkbubble);
 
@@ -771,7 +776,9 @@ public class JourneyActivity extends AppCompatActivity {
                         eventList.add(event);
                         createEventButton();
                         popupWindow.dismiss();
-                        String toastMessage = "Event created!";
+                        SimpleDateFormat toastDate = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+                        String toastStringDate = toastDate.format(date);
+                        String toastMessage = "Event created at: "+ toastStringDate;
                         toastFunction(toastMessage);
 
                     } else {
@@ -840,13 +847,13 @@ public class JourneyActivity extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.greenbubble);
                 break;
             case "Radiation":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.treatmentradiobubble);
                 break;
             case "TargetedTherapy":
                 btn.setBackgroundResource(R.drawable.treatmenttargetbubble);
                 break;
             case "Dialys":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.treatmentdialysbubble);
                 break;
             case "BiologicalTherapy":
                 btn.setBackgroundResource(R.drawable.treatmentbiologicbubble);
@@ -908,13 +915,6 @@ public class JourneyActivity extends AppCompatActivity {
         currentEventLong = currentEventLong/1000000;
         int currentEventInt = (int) currentEventLong;
 
-       /*
-        currentEvent = eventList.get(id_).startDate.getTime() - startDate;
-        currentEvent = currentEvent / 1000000;
-        int currentIntEvent = (int) currentEvent;
-        System.out.println(currentIntEvent);
-*/
-
         for (int i = 0; i < eventList.size(); i++) {
             if (i != id_) {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -973,7 +973,8 @@ public class JourneyActivity extends AppCompatActivity {
 
             eventDetail.setText(eventList.get(id_).subCategory.toString());
             noteDetail.setText(eventList.get(id_).notes.toString());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd-hh:mm");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd-HH:mm");
+
             String dateString = simpleDateFormat.format(eventList.get(id_).startDate.getTime());
             timeDetail.setText(dateString);
 
@@ -1006,13 +1007,13 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.greenbubble);
                 break;
             case "Radiation":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.treatmentradiobubble);
                 break;
             case "TargetedTherapy":
                 categoryImage.setBackgroundResource(R.drawable.treatmenttargetbubble);
                 break;
             case "Dialys":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.treatmentdialysbubble);
                 break;
             case "BiologicalTherapy":
                 categoryImage.setBackgroundResource(R.drawable.treatmentbiologicbubble);
@@ -1182,10 +1183,12 @@ public class JourneyActivity extends AppCompatActivity {
 
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
-                    if (event.getResult() == true) {
 
+                    if (event.getResult() == true) {
                         addTreatment(vID, eventLocation);
                         System.out.println(vID);
+                    }else{
+                        addTreatment(vID, 0);
                     }
 
                 default:
@@ -1197,10 +1200,18 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void toastFunction(String toastMessage){
 
-        Toast.makeText(this, toastMessage,
-                Toast.LENGTH_SHORT).show();
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_layout,
+                (ViewGroup) findViewById(R.id.toast_layout_root));
 
+        TextView text = (TextView) layout.findViewById(R.id.text);
+        text.setText(toastMessage);
 
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
 
     }
 
@@ -1314,6 +1325,40 @@ public class JourneyActivity extends AppCompatActivity {
 
 
     private void animateSun(){
+
+        TranslateAnimation transAnimation1= new TranslateAnimation(0, 0, 0, 0);
+        transAnimation1.setDuration(300);
+        transAnimation1.setRepeatCount(-1);
+        transAnimation1.setRepeatMode(Animation.INFINITE);
+        sun.setAnimation(transAnimation1);
+
+        transAnimation1.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+                if(sunSwitch == true){
+                    sun.setBackgroundResource(R.drawable.sun);
+
+                    sunSwitch = false;
+                }else{
+                    sun.setBackgroundResource(R.drawable.sun2);
+                    sunSwitch = true;
+                }
+
+
+
+            }
+        });
 
 
     }

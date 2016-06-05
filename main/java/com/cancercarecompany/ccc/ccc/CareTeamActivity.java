@@ -56,6 +56,7 @@ public class CareTeamActivity extends AppCompatActivity {
     TextView text4;
     RelativeLayout contactInformation;
     TextView loggedInText;
+    ImageButton journalButton;
 
 //    EditText firstName_popup;
 

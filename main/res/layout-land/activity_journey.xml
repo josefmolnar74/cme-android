@@ -251,12 +251,12 @@
                 android:layout_alignParentEnd="true"
                 android:id="@+id/relativeLayout3"
                 android:layout_alignParentTop="false"
-                android:background="@drawable/border">
+                android:background="@drawable/borderpopup">
 
                 <ImageButton
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:scaleType="matrix"
                     android:id="@+id/btn_appointment_journey"
                     android:background="@drawable/appointment"
                     android:layout_alignParentTop="true"
@@ -266,8 +266,8 @@
                     />
 
                 <ImageButton
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     android:id="@+id/btn_treatment_journey"
                     android:background="@drawable/otherdrop"
                     android:scaleType="centerCrop"
@@ -277,8 +277,8 @@
                     android:layout_alignStart="@+id/btn_appointment_journey" />
 
                 <ImageButton
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     android:id="@+id/btn_test_journey"
                     android:background="@drawable/test"
                     android:scaleType="centerCrop"
@@ -288,8 +288,8 @@
                     android:layout_marginTop="40dp" />
 
                 <ImageButton
-                    android:layout_width="85dp"
-                    android:layout_height="80dp"
+                    android:layout_width="75dp"
+                    android:layout_height="65dp"
                     android:id="@+id/btn_other_journey"
                     android:background="@drawable/photo"
                     android:scaleType="centerCrop"
@@ -312,7 +312,7 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:id="@+id/btn_sun_journey"
-            android:background="@drawable/sunanimation"
+            android:background="@drawable/sun"
             android:layout_gravity="right"
             android:layout_toLeftOf="@+id/linearLayout" />
     </RelativeLayout>

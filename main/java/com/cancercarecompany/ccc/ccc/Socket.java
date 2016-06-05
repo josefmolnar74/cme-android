@@ -55,14 +55,11 @@ public class Socket extends AppCompatActivity {
                 public void call(final Object... args) {
                     if (function == "login") {
                         result = args[0].toString();
-                       // System.out.println(result);
-
+                        System.out.println(result);
                         Gson gson = new Gson();
 
                         result = result.substring(2);
                         lcl = gson.fromJson(result, Lcl_work_area.class);
-
-
 
                     }
 
