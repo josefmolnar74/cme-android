@@ -18,8 +18,9 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onJoinCreateCareTeam(View view){
-
+    public void onClickJoinCareTeam(View view){
+        Intent intent = new Intent(this, JoinCareTeamActivity.class);
+        startActivity(intent);
     }
 
     public void onClickLogin(View view){

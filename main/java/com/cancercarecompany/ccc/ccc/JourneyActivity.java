@@ -62,9 +62,6 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
-
-import pl.polidea.view.ZoomView;
-
 public class JourneyActivity extends AppCompatActivity {
 
     ArrayList<Events> eventList;
@@ -1572,61 +1569,3 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

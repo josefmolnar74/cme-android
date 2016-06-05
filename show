@@ -1,0 +1,41 @@
+[33mcommit 9399ab0a420c2d6ba29f8969fb40a387d3a305f8[m
+Author: Molnar <23047371@corpusers.net>
+Date:   Tue May 24 10:54:12 2016 +0200
+
+    merge
+
+[33mcommit cb05605c3fbcc879082a422aea8055ce859b20ef[m
+Author: robinlarsson <Robin@cancercarecompany.com>
+Date:   Fri May 20 13:06:38 2016 +0200
+
+    -Not possible to add events before Start anymore---drag and drop place the event at exact position(and set date picker to correct date)--refresh events no longer needed just rearrange the index ID,s
+
+[33mcommit ba5186fae9424681653a440f58f74a36a90c7c13[m
+Author: josefmolnar74 <molnar.josef@gmail.com>
+Date:   Thu May 19 14:58:20 2016 +0200
+
+    fixed images
+
+[33mcommit ca26880c60d0f329fd06bfed4fd91f601756becd[m
+Author: robinlarsson <Robin@cancercarecompany.com>
+Date:   Thu May 19 14:04:13 2016 +0200
+
+    time X axel for Journey events, design
+
+[33mcommit cc6d520a01308f0a363dfe14eea5875d49a12237[m
+Author: josefmolnar74 <molnar.josef@gmail.com>
+Date:   Thu May 19 13:57:33 2016 +0200
+
+    test hej hej
+
+[33mcommit f6318e0190da44c12a5d096311f468eea7b1160c[m
+Author: robinlarsson <Robin@cancercarecompany.com>
+Date:   Thu May 19 13:50:31 2016 +0200
+
+    ändrad kommentar
+
+[33mcommit 3c4e41dabcd16cd87e837d2b8f33b3e42ac608b8[m
+Author: josefmolnar74 <molnar.josef@gmail.com>
+Date:   Wed May 18 22:50:50 2016 +0200
+
+    initial commit
