@@ -336,7 +336,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
                 memberlist.add(newCT);
 
                 Patients newPatient = new Patients(0, edt_firstN.getText().toString(), edt_Relation.getSelectedItem().toString(),
-                        memberlist);
+                        memberlist, null);
                // Care_team newMember = new Care_team(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
                //         edt_Relation.getSelectedItem().toString(), 0);
                 lcl.patients.add(newPatient);

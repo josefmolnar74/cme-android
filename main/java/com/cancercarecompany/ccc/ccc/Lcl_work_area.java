@@ -9,11 +9,11 @@ import java.util.Arrays;
  */
 public class Lcl_work_area implements Serializable {
 
-   public int person_ID;
-   public String first_name;
-   public String last_name;
-   public String email;
-   public String password;
+    public int person_ID;
+    public String first_name;
+    public String last_name;
+    public String email;
+    public String password;
     public ArrayList<Patients> patients;
 
 
