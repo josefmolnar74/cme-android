@@ -32,10 +32,16 @@ public class LoginActivity extends AppCompatActivity {
     Button cancelButton;
     Lcl_work_area lcl;
 
+    private String patientName;
+    private String yearOfBirth;
+    private String diagnose;
 
-    io.socket.client.Socket mSocket;
+    private Socket socket = new Socket();
 
-
+    public static final String PATIENT_NAME = "patient name"; //From create care team
+    public static final String YEAR_OF_BIRTH = "year of birth"; //From create care team
+    public static final String DIAGNOSE = "diagnose"; //From create care team
+    public static final String JOIN_EMAIL   = "join email"; //From join care team
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,12 @@ public class LoginActivity extends AppCompatActivity {
         cancelButton = (Button) findViewById(R.id.btn_cancel_login);
         registerLayout.setVisibility(View.INVISIBLE);
 
+        // Get values sent from Create team and join activity
+        Intent intent = getIntent();
+        patientName = intent.getStringExtra(PATIENT_NAME);
+        yearOfBirth = intent.getStringExtra(YEAR_OF_BIRTH);
+        diagnose = intent.getStringExtra(DIAGNOSE);
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         registerRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                register();
+               register();
             }
         });
 
@@ -90,27 +102,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void register(){
-        Socket socketClass = new Socket();
         Person newUser = new Person(0 , firstnameRegister.getText().toString(), lastnameRegister.getText().toString(), emailRegister.getText().toString(), passwordRegister.getText().toString());
-
-        mSocket = socketClass.createUser(newUser);
-
+        socket.createUser(newUser);
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getApplicationContext(), "User has been created!", duration);
         toast.show();
-
     }
 
     private void login(){
-        Socket socketClass = new Socket();
         Person newUser = new Person(0, null, null, emailLogin.getText().toString(), passwordLogin.getText().toString());
+        socket.login(newUser);
 
-        mSocket = socketClass.login(newUser);
-        while (socketClass.lcl == null){
+        while (socket.lcl == null){
                 System.out.println("tom");
         }
 
-            lcl = socketClass.lcl;
+            lcl = socket.lcl;
             System.out.println(lcl);
 
             Gson gson = new Gson();

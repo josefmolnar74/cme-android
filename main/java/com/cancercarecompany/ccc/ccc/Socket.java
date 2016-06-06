@@ -35,36 +35,37 @@ import io.socket.emitter.Emitter;
  */
 public class Socket extends AppCompatActivity {
 
-    String server_url;
     public io.socket.client.Socket mSocket;
     String result;
     String function;
 
-   public Lcl_work_area lcl;
+    public Lcl_work_area lcl;
 
     JSONObject findUser;
 
-    {
+    private void initializeSocket(){
         try {
-            server_url = "http://cancermeapp-cancerme.rhcloud.com";
+            String server_url = "http://cancermeapp-cancerme.rhcloud.com";
             mSocket = IO.socket(server_url);
             mSocket.connect();
             mSocket.open();
+            lcl.
             mSocket.on("data", new Emitter.Listener() {
                 @Override
                 public void call(final Object... args) {
-                    if (function == "login") {
-                        result = args[0].toString();
-                        System.out.println(result);
-                        Gson gson = new Gson();
+                    result = args[0].toString();
+                    System.out.println(result);
+                    switch (function){
+                        case "login":
+//                            result = result.substring(2);
+                            Gson gson = new Gson();
+                            lcl = gson.fromJson(result, Lcl_work_area.class);
+                            break;
 
-                        result = result.substring(2);
-                        lcl = gson.fromJson(result, Lcl_work_area.class);
-
+                        case "create":
+                            break;
                     }
-
-                    }
-
+                }
             });
 
 
@@ -72,20 +73,24 @@ public class Socket extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-
     }
 
-    public io.socket.client.Socket createUser(Person newUser) {
+    public void createUser(Person newUser) {
+        if (mSocket == null){
+            initializeSocket();
+        }
         function = "create";
         Gson gson = new Gson();
+        String content = "person";
         String newUserString = gson.toJson(newUser);
+        newUserString = new StringBuilder(newUserString).insert(1, "\"content\": \"person\", ").toString();
         mSocket.emit("create", newUserString);
-
-
-        return mSocket;
     }
 
-    public io.socket.client.Socket login (Person newUser){
+    public void login (Person newUser){
+        if (mSocket == null){
+            initializeSocket();
+        }
         function = "login";
         findUser = new JSONObject();
         LoginActivity loginActivity = new LoginActivity();
@@ -93,8 +98,6 @@ public class Socket extends AppCompatActivity {
         final Gson gson = new Gson();
         String newUserString = gson.toJson(newUser);
         mSocket.emit("login", newUserString);
-
-        return mSocket;
     }
 
 
