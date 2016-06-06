@@ -49,7 +49,6 @@ public class Socket extends AppCompatActivity {
             mSocket = IO.socket(server_url);
             mSocket.connect();
             mSocket.open();
-            lcl.
             mSocket.on("data", new Emitter.Listener() {
                 @Override
                 public void call(final Object... args) {
