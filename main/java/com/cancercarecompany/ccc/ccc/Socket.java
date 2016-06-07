@@ -56,7 +56,8 @@ public class Socket extends AppCompatActivity {
                     System.out.println(result);
                     switch (function){
                         case "login":
-//                            result = result.substring(2);
+                            int index = result.indexOf("}");
+                            result = result.substring(index+1);
                             Gson gson = new Gson();
                             lcl = gson.fromJson(result, Lcl_work_area.class);
                             break;
@@ -96,6 +97,8 @@ public class Socket extends AppCompatActivity {
 
         final Gson gson = new Gson();
         String newUserString = gson.toJson(newUser);
+        String content = "person";
+        newUserString = new StringBuilder(newUserString).insert(1, "\"content\": \"person\", ").toString();
         mSocket.emit("login", newUserString);
     }
 
