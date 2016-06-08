@@ -36,12 +36,41 @@ import io.socket.emitter.Emitter;
 public class Socket extends AppCompatActivity {
 
     public io.socket.client.Socket mSocket;
+
     String result;
     String function;
+
 
     public Lcl_work_area lcl;
 
     JSONObject findUser;
+
+    public static final String MESSAGE_LOGIN = "login";
+    public static final String MESSAGE_CREATE = "create";
+    public static final String MESSAGE_GET = "read";
+    public static final String MESSAGE_UPDATE = "update";
+    public static final String MESSAGE_DELETE = "delete";
+
+    public static final String CONTENT_PERSON = "person";
+    public static final String CONTENT_PATIENT = "patient";
+    public static final String CONTENT_EVENT = "event";
+    public static final String CONTENT_STATUS = "status";
+
+    private void sendMessage(String serverFunction, String messageContent, String messageData){
+        if (mSocket == null){
+            initializeSocket();
+        }
+        function = serverFunction;
+        String content = messageContent;
+        String messageHeader = "\"content\": \"" + messageContent + "\", ";
+        messageData = new StringBuilder(messageData).insert(1, messageHeader).toString();
+        mSocket.emit("login", messageData);
+    };
+
+    private String RecieveMessage(String data){
+
+        return data;
+    };
 
     private void initializeSocket(){
         try {
@@ -76,30 +105,16 @@ public class Socket extends AppCompatActivity {
     }
 
     public void createUser(Person newUser) {
-        if (mSocket == null){
-            initializeSocket();
-        }
-        function = "create";
         Gson gson = new Gson();
-        String content = "person";
         String newUserString = gson.toJson(newUser);
         newUserString = new StringBuilder(newUserString).insert(1, "\"content\": \"person\", ").toString();
-        mSocket.emit("create", newUserString);
+        sendMessage(MESSAGE_CREATE, CONTENT_PERSON, newUserString);
     }
 
     public void login (Person newUser){
-        if (mSocket == null){
-            initializeSocket();
-        }
-        function = "login";
-        findUser = new JSONObject();
-        LoginActivity loginActivity = new LoginActivity();
-
         final Gson gson = new Gson();
         String newUserString = gson.toJson(newUser);
-        String content = "person";
-        newUserString = new StringBuilder(newUserString).insert(1, "\"content\": \"person\", ").toString();
-        mSocket.emit("login", newUserString);
+        sendMessage(MESSAGE_LOGIN, CONTENT_PERSON, newUserString);
     }
 
 
