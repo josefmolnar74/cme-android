@@ -1,45 +1,26 @@
 package com.cancercarecompany.ccc.ccc;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.internal.Streams;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.SynchronousQueue;
 
 import io.socket.client.IO;
 import io.socket.emitter.Emitter;
 
 /**
- * Created by robinlarsson on 25/04/16.
+ * Created by 23047371 on 2016-06-09.
  */
-public class Socket extends AppCompatActivity {
+public class ConnectionHandler {
+    private static ConnectionHandler ourInstance = new ConnectionHandler();
 
-    public io.socket.client.Socket mSocket;
+    public io.socket.client.Socket socket;
 
     String result;
     String function;
 
+    // To be moved to data management Singleton class TBD
     public Lcl_work_area lcl;
     public Person person;
     public Patient patient;
@@ -58,24 +39,34 @@ public class Socket extends AppCompatActivity {
     public static final String CONTENT_EVENT = "event";
     public static final String CONTENT_STATUS = "status";
 
+    public static ConnectionHandler getInstance() {
+        return ourInstance;
+    }
+
+    private ConnectionHandler() {
+        // Constructor
+        initializeSocket();
+    }
+
     private void sendMessage(String function, String content, String message){
-        if (mSocket == null){
+        if (socket == null){
             initializeSocket();
         }
 
         int message_ID = 0;
         String messageHeader = String.format("\"message_ID\": \"%d\", \"function\": \"%s\", \"content\": \"%s\", ",message_ID, function, content);
         message = new StringBuilder(message).insert(1, messageHeader).toString();
-        mSocket.emit(function, message);
+        socket.emit(function, message);
     };
 
     private void initializeSocket(){
         try {
             String server_url = "http://cancermeapp-cancerme.rhcloud.com";
-            mSocket = IO.socket(server_url);
-            mSocket.connect();
-            mSocket.open();
-            mSocket.on("data", new Emitter.Listener() {
+//            String server_url = "http://127.0.0.1:8083/";
+            socket = IO.socket(server_url);
+            socket.connect();
+            socket.open();
+            socket.on("data", new Emitter.Listener() {
                 @Override
                 public void call(final Object... args) {
                     Gson gson = new Gson();
@@ -151,7 +142,4 @@ public class Socket extends AppCompatActivity {
         String msgData = String.format("{\"email\":\"%s\"}", email);
         sendMessage(MESSAGE_GET, CONTENT_PERSON, msgData);
     }
-
 }
-
-

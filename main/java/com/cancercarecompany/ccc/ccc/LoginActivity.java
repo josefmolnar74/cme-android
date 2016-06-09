@@ -36,18 +36,18 @@ public class LoginActivity extends AppCompatActivity {
     private String yearOfBirth;
     private String diagnose;
 
-    private Socket socket = new Socket();
-
     public static final String PATIENT_NAME = "patient name"; //From create care team
     public static final String YEAR_OF_BIRTH = "year of birth"; //From create care team
     public static final String DIAGNOSE = "diagnose"; //From create care team
     public static final String JOIN_EMAIL   = "join email"; //From join care team
 
+    private ConnectionHandler connectHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        connectHandler = ConnectionHandler.getInstance();
 
         firstnameRegister = (EditText) findViewById(R.id.txt_firstname_register_login);
         lastnameRegister = (EditText) findViewById(R.id.txt_lastname_register_login);
@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void register(){
         Person newUser = new Person(0 , firstnameRegister.getText().toString(), lastnameRegister.getText().toString(), emailRegister.getText().toString(), passwordRegister.getText().toString(), null);
-        socket.createUser(newUser);
+        connectHandler. createUser(newUser);
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getApplicationContext(), "User has been created!", duration);
         toast.show();
@@ -111,14 +111,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(){
         Person newUser = new Person(0, null, null, emailLogin.getText().toString(), passwordLogin.getText().toString(), null);
-        socket.login(newUser);
+        connectHandler.login(newUser);
 
-        while (socket.lcl == null){
-                System.out.println("tom");
-        }
+        while (connectHandler.lcl == null){}
 
-            lcl = socket.lcl;
-            System.out.println(lcl);
+            lcl = connectHandler.lcl;
 
             Gson gson = new Gson();
             String jsonPerson = gson.toJson(lcl);

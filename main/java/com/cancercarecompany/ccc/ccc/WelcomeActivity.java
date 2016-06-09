@@ -11,6 +11,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        ConnectionHandler.getInstance(); //initialize socket and server connection
     }
 
     public void onClickCreateCareTeam(View view){

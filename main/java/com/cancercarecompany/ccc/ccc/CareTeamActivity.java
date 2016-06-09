@@ -1,5 +1,6 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,6 +59,7 @@ public class CareTeamActivity extends AppCompatActivity {
     TextView loggedInText;
     ImageButton journalButton;
 
+    private Socket socket;
 //    EditText firstName_popup;
 
 
@@ -117,13 +119,14 @@ public class CareTeamActivity extends AppCompatActivity {
         position = (int) getIntent().getIntExtra("Position", 0);
         Gson gson = new Gson();
 
-        lcl = gson.fromJson(lclString, Lcl_work_area.class);
+        Intent myIntent = getIntent();
+        String socketString = myIntent.getStringExtra("socket");
+        socket = gson.fromJson(socketString, Socket.class);
 
 
+        for (int i = 0; i < socket.lcl.patient.get(position).care_team.size(); i++) {
+            careTeamList.add(socket.lcl.patient.get(position).care_team.get(i));
 
-        for (int i = 0; i < lcl.patient.get(position).care_team.size(); i++) {
-            careTeamList.add(lcl.patient.get(position).care_team.get(i));
-//  tst
 //            System.out.println(lcl.patients.get(i).relationship.toString());
             System.out.println("Oncreate");
             System.out.println(i);
