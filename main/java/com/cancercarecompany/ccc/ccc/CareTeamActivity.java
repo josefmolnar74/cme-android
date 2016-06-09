@@ -121,8 +121,8 @@ public class CareTeamActivity extends AppCompatActivity {
 
 
 
-        for (int i = 0; i < lcl.patients.get(position).care_team.size(); i++) {
-            careTeamList.add(lcl.patients.get(position).care_team.get(i));
+        for (int i = 0; i < lcl.patient.get(position).care_team.size(); i++) {
+            careTeamList.add(lcl.patient.get(position).care_team.get(i));
 //  tst
 //            System.out.println(lcl.patients.get(i).relationship.toString());
             System.out.println("Oncreate");

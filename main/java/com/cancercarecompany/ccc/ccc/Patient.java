@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * Created by robinlarsson on 27/04/16.
  */
-public class Patients implements Serializable {
+public class Patient implements Serializable {
 
     public int patient_ID;
     public String patient_name;
@@ -19,7 +19,7 @@ public class Patients implements Serializable {
 
 
 //    public Patients(int patient_ID, String patient_name, String relationship, Care_team[] care_team){
-    public Patients(int patient_ID, String patient_name, String relationship, ArrayList<Care_team> care_team, ArrayList<Events> events) {
+    public Patient(int patient_ID, String patient_name, String relationship, ArrayList<Care_team> care_team, ArrayList<Events> events) {
         this.patient_ID = patient_ID;
         this.patient_name = patient_name;
         this.relationship = relationship;

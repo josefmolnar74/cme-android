@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void register(){
-        Person newUser = new Person(0 , firstnameRegister.getText().toString(), lastnameRegister.getText().toString(), emailRegister.getText().toString(), passwordRegister.getText().toString());
+        Person newUser = new Person(0 , firstnameRegister.getText().toString(), lastnameRegister.getText().toString(), emailRegister.getText().toString(), passwordRegister.getText().toString(), null);
         socket.createUser(newUser);
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getApplicationContext(), "User has been created!", duration);
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(){
-        Person newUser = new Person(0, null, null, emailLogin.getText().toString(), passwordLogin.getText().toString());
+        Person newUser = new Person(0, null, null, emailLogin.getText().toString(), passwordLogin.getText().toString(), null);
         socket.login(newUser);
 
         while (socket.lcl == null){
