@@ -35,11 +35,13 @@ public class LoginActivity extends AppCompatActivity {
     private String patientName;
     private String yearOfBirth;
     private String diagnose;
+    private String relationship;
     private String invitedEmail;
 
     public static final String PATIENT_NAME = "patient name"; //From create care team
     public static final String YEAR_OF_BIRTH = "year of birth"; //From create care team
     public static final String DIAGNOSE = "diagnose"; //From create care team
+    public static final String RELATIONSHIP = "relationship"; //From create care team
     public static final String INVITED_EMAIL   = "join email"; //From join care team
 
     private ConnectionHandler connectHandler;
@@ -69,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         patientName = intent.getStringExtra(PATIENT_NAME);
         yearOfBirth = intent.getStringExtra(YEAR_OF_BIRTH);
         diagnose = intent.getStringExtra(DIAGNOSE);
+        relationship = intent.getStringExtra(RELATIONSHIP);
         invitedEmail = intent.getStringExtra(INVITED_EMAIL);
         emailLogin.setText(invitedEmail);
 
@@ -106,10 +109,22 @@ public class LoginActivity extends AppCompatActivity {
 
     private void register(){
         Person newUser = new Person(0 , firstnameRegister.getText().toString(), lastnameRegister.getText().toString(), emailRegister.getText().toString(), passwordRegister.getText().toString(), null);
-        connectHandler. createUser(newUser);
+        connectHandler.createUser(newUser);
+        while (connectHandler.socketBusy){}
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getApplicationContext(), "User has been created!", duration);
         toast.show();
+        //TBD solution to choose several careTeams possible solution to save last used patient
+
+        // During register user need to either create a new care team or join and existing
+        if (patientName != null){
+            // User tries to create new patient
+            Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
+            connectHandler.createPatient(newPatient, relationship);
+        }
+        while (connectHandler.patient != null){}
+        Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+        startActivity(myIntent);
     }
 
     private void login(){

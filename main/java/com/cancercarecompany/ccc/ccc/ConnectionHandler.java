@@ -19,12 +19,12 @@ public class ConnectionHandler {
 
     String result;
     String function;
+    Boolean socketBusy = false;
 
     // To be moved to data management Singleton class TBD
     public Lcl_work_area lcl;
     public Person person;
     public Patient patient;
-
     JSONObject findUser;
 
     public static final String MESSAGE_LOGIN = "login";
@@ -56,6 +56,7 @@ public class ConnectionHandler {
         int message_ID = 0;
         String messageHeader = String.format("\"message_ID\": \"%d\", \"function\": \"%s\", \"content\": \"%s\", ",message_ID, function, content);
         message = new StringBuilder(message).insert(1, messageHeader).toString();
+        socketBusy = true;
         socket.emit(function, message);
     };
 
@@ -87,6 +88,8 @@ public class ConnectionHandler {
                                     person.person_ID = recievedPerson.person_ID;
                                     break;
                                 case CONTENT_PATIENT:
+                                    Patient recievedPatient = gson.fromJson(resultData, Patient.class);
+                                    patient.patient_ID = recievedPatient.patient_ID;
                                     break;
                             }
                             break;
@@ -102,6 +105,7 @@ public class ConnectionHandler {
                             break;
 
                     }
+                    socketBusy = false;
                 }
             });
 
@@ -121,14 +125,20 @@ public class ConnectionHandler {
 
     public void createUser(Person newUser) {
         Gson gson = new Gson();
-        String newUserString = gson.toJson(newUser);
-        sendMessage(MESSAGE_CREATE, CONTENT_PERSON, newUserString);
+        if (person == null) {
+            person = new Person(newUser.person_ID, newUser.first_name, newUser.last_name, newUser.email,newUser.password, null);
+        }
+        String messageData = gson.toJson(person);
+        sendMessage(MESSAGE_CREATE, CONTENT_PERSON, messageData);
     }
 
     public void editUser(Person newUser) {
         Gson gson = new Gson();
-        String newUserString = gson.toJson(newUser);
-        sendMessage(MESSAGE_UPDATE, CONTENT_PERSON, newUserString);
+        if (person == null) {
+            person = new Person(newUser.person_ID, newUser.first_name, newUser.last_name, newUser.email,newUser.password, null);
+        }
+        String messageData = gson.toJson(person);
+        sendMessage(MESSAGE_UPDATE, CONTENT_PERSON, messageData);
     }
 
     public void deleteUser(Person newUser) {
@@ -142,4 +152,13 @@ public class ConnectionHandler {
         String msgData = String.format("{\"email\":\"%s\"}", email);
         sendMessage(MESSAGE_GET, CONTENT_PERSON, msgData);
     }
+
+    public void createPatient(Patient newPatient, String relationship) {
+        Gson gson = new Gson();
+        String msgData = gson.toJson(newPatient);
+        String msgRelationshipData = String.format("\"relationship\":\"%s\", ", relationship);
+        msgData = new StringBuilder(msgData).insert(1, msgRelationshipData).toString();
+        sendMessage(MESSAGE_CREATE, CONTENT_PATIENT, msgData);
+    }
+
 }

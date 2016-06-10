@@ -335,12 +335,12 @@ public class ManageCareTeamActivity extends AppCompatActivity {
                         edt_Relation.getSelectedItem().toString(),1);
                 memberlist.add(newCT);
 
-                Patient newPatient = new Patient(0, edt_firstN.getText().toString(), edt_Relation.getSelectedItem().toString(),
-                        memberlist, null);
+//                Patient newPatient = new Patient();
+     //                   new Patient(0, edt_firstN.getText().toString(), edt_Relation.getSelectedItem().toString(), memberlist, null);
                // Care_team newMember = new Care_team(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
                //         edt_Relation.getSelectedItem().toString(), 0);
-                lcl.patient.add(newPatient);
-                patientList.add(newPatient);
+//                lcl.patient.add(newPatient);
+//                patientList.add(newPatient);
 //                lcl.patient.get(CTp).care_team.add(newMember);
 
                 memberAdapter.notifyDataSetChanged();
