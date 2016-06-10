@@ -133,6 +133,12 @@ public class LoginActivity extends AppCompatActivity {
 
         while (connectHandler.socketBusy){}
 
+        if (patientName != null){
+            // User tries to create new patient
+            Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
+            connectHandler.createPatient(newPatient, relationship);
+        }
+
         lcl = connectHandler.lcl;
         Gson gson = new Gson();
         String jsonPerson = gson.toJson(lcl);
