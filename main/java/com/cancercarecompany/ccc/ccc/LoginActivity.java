@@ -35,11 +35,12 @@ public class LoginActivity extends AppCompatActivity {
     private String patientName;
     private String yearOfBirth;
     private String diagnose;
+    private String invitedEmail;
 
     public static final String PATIENT_NAME = "patient name"; //From create care team
     public static final String YEAR_OF_BIRTH = "year of birth"; //From create care team
     public static final String DIAGNOSE = "diagnose"; //From create care team
-    public static final String JOIN_EMAIL   = "join email"; //From join care team
+    public static final String INVITED_EMAIL   = "join email"; //From join care team
 
     private ConnectionHandler connectHandler;
 
@@ -68,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         patientName = intent.getStringExtra(PATIENT_NAME);
         yearOfBirth = intent.getStringExtra(YEAR_OF_BIRTH);
         diagnose = intent.getStringExtra(DIAGNOSE);
+        invitedEmail = intent.getStringExtra(INVITED_EMAIL);
+        emailLogin.setText(invitedEmail);
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
