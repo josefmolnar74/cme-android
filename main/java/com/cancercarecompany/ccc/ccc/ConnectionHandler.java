@@ -113,7 +113,6 @@ public class ConnectionHandler {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public void login (Person newUser){
@@ -156,9 +155,8 @@ public class ConnectionHandler {
     public void createPatient(Patient newPatient, String relationship) {
         Gson gson = new Gson();
         String msgData = gson.toJson(newPatient);
-        String msgRelationshipData = String.format("\"relationship\":\"%s\", ", relationship);
+        String msgRelationshipData = String.format("\"person_ID\":\"%d\",\"relationship\":\"%s\",\"admin\":%d,", person.person_ID, relationship, 1);
         msgData = new StringBuilder(msgData).insert(1, msgRelationshipData).toString();
         sendMessage(MESSAGE_CREATE, CONTENT_PATIENT, msgData);
     }
-
 }

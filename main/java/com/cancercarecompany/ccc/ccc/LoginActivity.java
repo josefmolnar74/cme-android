@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         registerRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               register();
+                register();
             }
         });
 
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
             Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
             connectHandler.createPatient(newPatient, relationship);
         }
-        while (connectHandler.patient != null){}
+        while ((connectHandler.patient != null) && connectHandler.socketBusy) {}
         Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
         startActivity(myIntent);
     }
@@ -131,27 +131,20 @@ public class LoginActivity extends AppCompatActivity {
         Person newUser = new Person(0, null, null, emailLogin.getText().toString(), passwordLogin.getText().toString(), null);
         connectHandler.login(newUser);
 
-        while (connectHandler.lcl == null){}
+        while (connectHandler.socketBusy){}
 
-            lcl = connectHandler.lcl;
+        lcl = connectHandler.lcl;
+        Gson gson = new Gson();
+        String jsonPerson = gson.toJson(lcl);
 
-            Gson gson = new Gson();
-            String jsonPerson = gson.toJson(lcl);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("Person", jsonPerson);
+        editor.apply();
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("Person", jsonPerson);
-            editor.apply();
-
-            Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
-            startActivity(myIntent);
+        Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+        startActivity(myIntent);
 
 
     }
-
-
-
-
-
-
 }
