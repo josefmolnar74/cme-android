@@ -139,9 +139,6 @@ public class ConnectionHandler {
 
     public void editUser(Person newUser) {
         Gson gson = new Gson();
-        if (person == null) {
-            person = new Person(newUser.person_ID, newUser.first_name, newUser.last_name, newUser.email,newUser.password, null);
-        }
         String messageData = gson.toJson(person);
         sendMessage(MESSAGE_UPDATE, CONTENT_PERSON, messageData);
     }
@@ -159,6 +156,7 @@ public class ConnectionHandler {
     }
 
     public void createPatient(Patient newPatient, String relationship) {
+        patient = newPatient;
         Gson gson = new Gson();
         String msgData = gson.toJson(newPatient);
         String msgRelationshipData = String.format("\"person_ID\":\"%d\",\"relationship\":\"%s\",\"admin\":%d,", person.person_ID, relationship, 1);

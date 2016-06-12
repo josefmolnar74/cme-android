@@ -29,9 +29,7 @@ public class ManageCareTeamAdapter extends ArrayAdapter<Patient> {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View customlistview = inflater.inflate(R.layout.careteamlistview, parent, false);
 
-
         TextView nameTextView = (TextView) customlistview.findViewById(R.id.careteamname);
-
 
         nameTextView.setText(patientList.get(position).patient_name);
 
