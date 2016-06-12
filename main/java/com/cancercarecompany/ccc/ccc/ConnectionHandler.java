@@ -29,10 +29,9 @@ public class ConnectionHandler {
 
     public static final String MESSAGE_LOGIN = "login";
     public static final String MESSAGE_CREATE = "create";
-    public static final String MESSAGE_GET = "get";
+    public static final String MESSAGE_READ = "read";
     public static final String MESSAGE_UPDATE = "update";
     public static final String MESSAGE_DELETE = "delete";
-    public static final String MESSAGE_FIND = "find";
 
     public static final String CONTENT_PERSON = "person";
     public static final String CONTENT_PATIENT = "patient";
@@ -55,6 +54,10 @@ public class ConnectionHandler {
 
         int message_ID = 0;
         String messageHeader = String.format("\"message_ID\": \"%d\", \"function\": \"%s\", \"content\": \"%s\", ",message_ID, function, content);
+// when I want to change the send message, right now I leave it this way
+//        MsgHeader msgHeader= new MsgHeader(0, function, content, "");
+//        Gson gson = new Gson();
+//        message = new StringBuilder(message).insert(0, gson.toJson(msgHeader)).toString();
         message = new StringBuilder(message).insert(1, messageHeader).toString();
         socketBusy = true;
         socket.emit(function, message);
@@ -76,33 +79,36 @@ public class ConnectionHandler {
                     String resultHeader = result.substring(0, index+1);
                     String resultData = result.substring(index+1);
                     MsgHeader header = gson.fromJson(resultHeader, MsgHeader.class);
-                    switch (header.function){
-                        case MESSAGE_LOGIN:
-                            lcl = gson.fromJson(resultData, Lcl_work_area.class);
-                            break;
+                    if (header.errorCode == ""){
+                        switch (header.function){
+                            case MESSAGE_LOGIN:
+                                lcl = gson.fromJson(resultData, Lcl_work_area.class);
+                                break;
 
-                        case MESSAGE_CREATE:
-                            switch (header.content){
-                                case CONTENT_PERSON:
-                                    Person recievedPerson = gson.fromJson(resultData, Person.class);
-                                    person.person_ID = recievedPerson.person_ID;
-                                    break;
-                                case CONTENT_PATIENT:
-                                    Patient recievedPatient = gson.fromJson(resultData, Patient.class);
-                                    patient.patient_ID = recievedPatient.patient_ID;
-                                    break;
-                            }
-                            break;
-                        case MESSAGE_GET:
-                            switch (header.content){
-                                case CONTENT_PERSON:
-                                    person = gson.fromJson(resultData, Person.class);
-                                    break;
-                                case CONTENT_PATIENT:
-                                    Patient patient = gson.fromJson(resultData, Patient.class);
-                                    break;
-                            }
-                            break;
+                            case MESSAGE_CREATE:
+                                switch (header.content){
+                                    case CONTENT_PERSON:
+                                        Person recievedPerson = gson.fromJson(resultData, Person.class);
+                                        person.person_ID = recievedPerson.person_ID;
+                                        break;
+                                    case CONTENT_PATIENT:
+                                        Patient recievedPatient = gson.fromJson(resultData, Patient.class);
+                                        patient.patient_ID = recievedPatient.patient_ID;
+                                        break;
+                                }
+                                break;
+                            case MESSAGE_READ:
+                                switch (header.content){
+                                    case CONTENT_PERSON:
+                                        person = gson.fromJson(resultData, Person.class);
+                                        break;
+                                    case CONTENT_PATIENT:
+                                        Patient patient = gson.fromJson(resultData, Patient.class);
+                                        break;
+                                }
+                                break;
+
+                        }
 
                     }
                     socketBusy = false;
@@ -149,7 +155,7 @@ public class ConnectionHandler {
     public void findUser(String email) {
         Gson gson = new Gson();
         String msgData = String.format("{\"email\":\"%s\"}", email);
-        sendMessage(MESSAGE_GET, CONTENT_PERSON, msgData);
+        sendMessage(MESSAGE_READ, CONTENT_PERSON, msgData);
     }
 
     public void createPatient(Patient newPatient, String relationship) {

@@ -1,9 +1,11 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -30,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     RelativeLayout registerLayout;
     RelativeLayout loginLayout;
     Button cancelButton;
+    TextView registerButton;
     Lcl_work_area lcl;
 
     private String patientName;
@@ -74,6 +77,11 @@ public class LoginActivity extends AppCompatActivity {
         relationship = intent.getStringExtra(RELATIONSHIP);
         invitedEmail = intent.getStringExtra(INVITED_EMAIL);
         emailLogin.setText(invitedEmail);
+
+        if ((patientName == null) && (invitedEmail == null)){
+            registerButton = (TextView) findViewById(R.id.btn_register_login);
+            registerButton.setVisibility(View.INVISIBLE);
+        }
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,24 +141,73 @@ public class LoginActivity extends AppCompatActivity {
 
         while (connectHandler.socketBusy){}
 
-        if (patientName != null){
-            // User tries to create new patient
-            Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
-            connectHandler.createPatient(newPatient, relationship);
+        if (connectHandler.person == null){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            String alertText = String.format("Login failed");
+            alertDialogBuilder.setMessage(alertText);
+
+            alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    emailLogin.setText("");
+                    passwordLogin.setText("");
+                }
+            });
+            /*
+            alertDialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    emailLogin.setText("");
+                    passwordLogin.setText("");
+                }
+            });
+            */
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        } else if (connectHandler.person.patient == null){
+            // Login success but no care team connected
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            String alertText = String.format("Do you want to join %s care team?", patientName);
+            alertDialogBuilder.setMessage(alertText);
+
+            alertDialogBuilder.setPositiveButton("Join", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    createCareTeam();
+                }
+            });
+
+            alertDialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    emailLogin.setText("");
+                    passwordLogin.setText("");
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        } else {
+            //Login success
+
+            while (connectHandler.socketBusy){}
+
+            lcl = connectHandler.lcl;
+            Gson gson = new Gson();
+            String jsonPerson = gson.toJson(lcl);
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("Person", jsonPerson);
+            editor.apply();
+
+            Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+            startActivity(myIntent);
         }
+    }
 
-        lcl = connectHandler.lcl;
-        Gson gson = new Gson();
-        String jsonPerson = gson.toJson(lcl);
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("Person", jsonPerson);
-        editor.apply();
-
-        Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+    private void createCareTeam(){
+        Intent myIntent = new Intent(this, CreateCareTeamActivity.class);
         startActivity(myIntent);
-
-
     }
 }
