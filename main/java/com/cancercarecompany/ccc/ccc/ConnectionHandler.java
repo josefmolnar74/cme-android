@@ -82,6 +82,7 @@ public class ConnectionHandler {
                     if (header.errorCode == ""){
                         switch (header.function){
                             case MESSAGE_LOGIN:
+                                person = gson.fromJson(resultData, Person.class);
                                 lcl = gson.fromJson(resultData, Lcl_work_area.class);
                                 break;
 
