@@ -24,7 +24,9 @@
             android:src="@drawable/logo"
             android:background="@null"
             android:layout_weight="10"
-            android:layout_marginLeft="20dp" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
 
         <ImageButton
@@ -38,7 +40,8 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_toLeftOf="@+id/journalButton"
+            android:layout_toStartOf="@+id/journalButton" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -50,23 +53,9 @@
             android:scaleType="fitCenter"
             android:background="@null"
             android:cropToPadding="false"
-            android:layout_marginLeft="28dp"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/journalButton" />
-
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="90dp"
-            android:id="@+id/myWallButton"
-            android:layout_weight="16"
-            android:padding="4dp"
-            android:src="@drawable/cwall"
-            android:scaleType="fitCenter"
-            android:background="@null"
-            android:cropToPadding="false"
-            android:layout_marginLeft="28dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/journeyButton" />
+            android:layout_toLeftOf="@+id/userSettingsButton"
+            android:layout_toStartOf="@+id/userSettingsButton" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -79,8 +68,8 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/contactsButton"
-            android:layout_marginLeft="28dp" />
+            android:layout_toLeftOf="@+id/journeyButton"
+            android:layout_toStartOf="@+id/journeyButton" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -92,8 +81,8 @@
             android:src="@drawable/settings"
             android:scaleType="fitCenter"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/myWallButton"
-            android:layout_marginLeft="28dp" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -128,7 +117,7 @@
             <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:id="@+id/careTeamListView"
+                android:id="@+id/careTeamHealthCarelistView"
                 android:visibility="visible"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
@@ -151,40 +140,33 @@
                 android:id="@+id/btn_add_CT"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/addcontact" />
-
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/btn_del_CT"
-                android:layout_alignTop="@+id/btn_add_CT"
-                android:layout_marginEnd="192dp"
-                android:background="@drawable/garbage"
-                android:layout_marginLeft="5dp"
-                android:layout_alignParentStart="false" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:orientation="vertical"
             android:layout_width="0dp"
+            android:id="@+id/careTeamRight"
             android:layout_height="match_parent"
-            android:layout_weight="55"
+            android:weightSum="100"
             android:background="@drawable/border"
-            android:id="@+id/contactInformation">
-
+            android:layout_weight="50">
 
             <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="500dp"
-                android:id="@+id/careTeamMemberListView"
+                android:id="@+id/careTeamFamilyListView"
                 android:visibility="visible"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/lbl_friends" />
+                android:layout_below="@+id/lbl_friends"
+                android:layout_alignRight="@+id/btn_add_CTmember"
+                android:layout_alignEnd="@+id/btn_add_CTmember" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -200,11 +182,10 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:id="@+id/btn_add_CTmember"
+                android:background="@drawable/addcontact"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/addcontact" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
 

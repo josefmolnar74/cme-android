@@ -41,7 +41,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
 
     ListView customListView;
     ListView memberListView;
-    CareTeamListAdapter listAdapter;
+    CareTeamFamilyAdapter listAdapter;
     CareTeamHealthCareAdapter memberAdapter;
     Lcl_work_area lcl;
     String lclString;
@@ -84,7 +84,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
             patientList.add(lcl.patient.get(i));
         }
 
-//        listAdapter = new CareTeamListAdapter(this, patientList);
+//        listAdapter = new CareTeamFamilyAdapter(this, patientList);
         customListView.setAdapter(listAdapter);
 
         customListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -361,7 +361,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         memberListView.setAdapter(memberAdapter);
 
         customListView = (ListView) findViewById(R.id.careTeamListView);
-        listAdapter    = new CareTeamListAdapter(this, null);
+        listAdapter    = new CareTeamFamilyAdapter(this, null);
         customListView.setAdapter(listAdapter);
 
 // Sätt ihop rubriken

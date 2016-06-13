@@ -14,11 +14,11 @@ import java.util.ArrayList;
 /**
  * Created by robinlarsson on 27/04/16.
  */
-public class CareTeamListAdapter extends ArrayAdapter<CareTeamMember> {
+public class CareTeamFamilyAdapter extends ArrayAdapter<CareTeamMember> {
 
     ArrayList<CareTeamMember> familyList;
 
-    public CareTeamListAdapter(Context context, ArrayList<CareTeamMember> familyList){
+    public CareTeamFamilyAdapter(Context context, ArrayList<CareTeamMember> familyList){
         super(context, R.layout.careteamlistview, familyList);
         this.familyList = familyList;
     }

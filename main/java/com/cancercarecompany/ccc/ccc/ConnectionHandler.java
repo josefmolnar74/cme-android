@@ -35,6 +35,7 @@ public class ConnectionHandler {
 
     public static final String CONTENT_PERSON = "person";
     public static final String CONTENT_PATIENT = "patient";
+    public static final String CONTENT_CARE_TEAM = "care_teamgit ";
     public static final String CONTENT_EVENT = "event";
     public static final String CONTENT_STATUS = "status";
 
@@ -166,5 +167,12 @@ public class ConnectionHandler {
         String msgRelationshipData = String.format("\"person_ID\":\"%d\",\"relationship\":\"%s\",\"admin\":%d,", person.person_ID, relationship, 1);
         msgData = new StringBuilder(msgData).insert(1, msgRelationshipData).toString();
         sendMessage(MESSAGE_CREATE, CONTENT_PATIENT, msgData);
+    }
+
+    public void inviteCareTeamMember(CareTeamMember newCareTeamMember) {
+//        patient = newPatient;
+        Gson gson = new Gson();
+        String msgData = gson.toJson(newCareTeamMember);
+        sendMessage(MESSAGE_CREATE, CONTENT_CARE_TEAM, msgData);
     }
 }

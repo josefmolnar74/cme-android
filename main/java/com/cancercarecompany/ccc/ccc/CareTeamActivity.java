@@ -42,9 +42,9 @@ public class CareTeamActivity extends AppCompatActivity {
 
     ListView familyListView;
     ListView healthCareListView;
-    CareTeamListAdapter familyAdapter;
-    CareTeamListAdapter healthCareAdapter;
-    CareTeamListAdapter listAdapter = healthCareAdapter;
+    CareTeamFamilyAdapter familyAdapter;
+    CareTeamHealthCareAdapter healthCareAdapter;
+    CareTeamHealthCareAdapter listAdapter = healthCareAdapter;
     Lcl_work_area lcl;
     String lclString;
     RelativeLayout relativeLayout;
@@ -66,52 +66,26 @@ public class CareTeamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_careteam);
         connectHandler = ConnectionHandler.getInstance();
 
-        familyListView = (ListView) findViewById(R.id.careTeamListView);
-        healthCareListView = (ListView) findViewById(R.id.careTeamMemberListView);
-
-        final Button btn_add_Memb = (Button) findViewById(R.id.btn_add_CTmember);
-        final Button btn_add_CT   = (Button) findViewById(R.id.btn_add_CT);
-        final Button btn_del_CT   = (Button) findViewById(R.id.btn_del_CT);
-        journeyButton = (ImageButton) findViewById(R.id.journeyButton);
-        journalButton = (ImageButton) findViewById(R.id.journalButton);
-
-
-
+        // lclString to be removed
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         lclString = (String) preferences.getString("Person", "");
         Gson gson = new Gson();
         lcl = gson.fromJson(lclString, Lcl_work_area.class);
 
-        // Generate family and friends care team members
-        for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
-            familyList.add(connectHandler.patient.care_team.get(i));
-        }
+        familyListView = (ListView) findViewById(R.id.careTeamFamilyListView);
+        healthCareListView = (ListView) findViewById(R.id.careTeamHealthCarelistView);
 
-        familyAdapter = new CareTeamListAdapter(this, familyList);
-        familyListView.setAdapter(familyAdapter);
+        final Button buttonAddHealthCareMember = (Button) findViewById(R.id.btn_add_CTmember);
+        final Button buttonAddFamilyMember   = (Button) findViewById(R.id.btn_add_CT);
+        final Button buttonDelFamilyMember   = (Button) findViewById(R.id.btn_del_CT);
 
-        // Generate health care members
-        // TBD solution to differentiate between family and health care
-        for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
-            healthCareList.add(connectHandler.patient.care_team.get(i));
-        }
-
-        healthCareAdapter = new CareTeamListAdapter(this, healthCareList);
-        healthCareListView.setAdapter(healthCareAdapter);
-
-        // We do not need this since we are not opening care teams
-        familyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int familyListPosition, long id) {
-                popup(familyListPosition);
-            }
-        });
+        journeyButton = (ImageButton) findViewById(R.id.journeyButton);
+        journalButton = (ImageButton) findViewById(R.id.journalButton);
 
         journeyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 journeyActivity();
-
             }
         });
 
@@ -122,97 +96,59 @@ public class CareTeamActivity extends AppCompatActivity {
             }
         });
 
+        // Generate family and friends care team members
+        for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
+            familyList.add(connectHandler.patient.care_team.get(i));
+        }
 
-        btn_add_Memb.setOnClickListener(new View.OnClickListener() {
+        familyAdapter = new CareTeamFamilyAdapter(this, familyList);
+        familyListView.setAdapter(familyAdapter);
+
+        // Generate health care members
+        // TBD solution to differentiate between family and health care
+        for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
+            healthCareList.add(connectHandler.patient.care_team.get(i));
+        }
+
+        healthCareAdapter = new CareTeamHealthCareAdapter(this, healthCareList);
+        healthCareListView.setAdapter(healthCareAdapter);
+
+        //Open popup window to show user detail information and edit/delete
+        familyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                add_CTmember(GCTp);
+            public void onItemClick(AdapterView<?> parent, View view, int familyListPosition, long id) {
+                showCareTeamMember(familyListPosition);
             }
         });
 
-        btn_add_CT.setOnClickListener(new View.OnClickListener() {
+        //Open popup window to show user detail information and edit/delete
+        healthCareListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                add_CT();
+            public void onItemClick(AdapterView<?> parent, View view, int healthCareListPosition, long id) {
+                showCareTeamMember(healthCareListPosition);
             }
         });
 
-        btn_del_CT.setOnClickListener(new View.OnClickListener() {
+        buttonAddHealthCareMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (GCTp == null) {
-                    GCTp = 0;
-                }
-                del_CT(GCTp);
+                createCareTeamMember();
             }
         });
 
+        buttonAddFamilyMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createCareTeamMember();
+            }
+        });
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void del_CT(final int GCTp) {
-
-        LayoutInflater layoutInflater
-                = (LayoutInflater) getBaseContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.del_ct_popup, null);
-
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, 700, 700);
-
-        final TextView tw_delete = (TextView) popupView.findViewById(R.id.lbl_delete);
-
-        popupWindow.setFocusable(true);
-        popupWindow.update();
-
-        final Button btn_yes = (Button) popupView.findViewById(R.id.btn_yes);
-        final Button btn_cancel = (Button) popupView.findViewById(R.id.btn_cancel);
-
-        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.del_ct_pop);
-
-        popupWindow.showAsDropDown(relativeLayout, 560, -200);
-// Sätt ihop rubriken???
-        Resources res = getResources();
-        lbl_delete = String.format(res.getString(R.string.delete_name), (patientList.get(GCTp).patient_name));
-        tw_delete.setText(lbl_delete.toString());
-// Sätt ihop rubriken
-
-        btn_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                remove_CT(GCTp);
-            }
-            private void remove_CT(int GCTp) {
-                lcl.patient.get(GCTp).care_team.removeAll(lcl.patient.get(GCTp).care_team);
-                lcl.patient.remove(GCTp);
-                healthCareAdapter.notifyDataSetChanged();
-                listAdapter.notifyDataSetChanged();
-                popupWindow.dismiss();
-            }
-        });
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Avbryt");
-                popupWindow.dismiss();
-            }
-        });
-    }
-
-    private void add_CT() {
-        System.out.println("add_CT");
-        popup_create_CT();
-    }
-
-    private void add_CTmember(int GCTp) {
-        System.out.println(("add_CTmember"));
-        popup_create_CTmember(GCTp);
-    }
-
-    public void popup_create_CTmember(final int CTp) {
+    public void createCareTeamMember() {
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -224,51 +160,51 @@ public class CareTeamActivity extends AppCompatActivity {
         popupWindow.setFocusable(true);
         popupWindow.update();
 
-        final EditText edt_firstN   = (EditText) popupView.findViewById(R.id.txt_firstName_careteam);
-        final EditText edt_lastN    = (EditText) popupView.findViewById(R.id.txt_secondName_careteam);
-        final EditText edt_Phone    = (EditText) popupView.findViewById(R.id.txt_phone_careteam);
-        final EditText edt_Email    = (EditText) popupView.findViewById(R.id.txt_email_careteam);
-        final TextView Relation     = (TextView) popupView.findViewById(R.id.lbl_relation_careteam);
-        final Spinner  edt_Relation = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
-        final String[] sp_Rel       = {"Pappa", "Mamma", "Patient", "Läkare"};
-        final Spinner  edt_Admin    = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-        final String[] sp_Admin     = {"Ja", "Nej"};
-        final Button   btn_save     = (Button) popupView.findViewById(R.id.btn_save_careteam);
-        final Button   btn_cancel   = (Button) popupView.findViewById(R.id.btn_cancel_careteam);
+        final EditText editFirstName        = (EditText) popupView.findViewById(R.id.txt_firstName_careteam);
+        final EditText editLastName         = (EditText) popupView.findViewById(R.id.txt_secondName_careteam);
+        final EditText editPhoneNumber      = (EditText) popupView.findViewById(R.id.txt_phone_careteam);
+        final EditText editEmail            = (EditText) popupView.findViewById(R.id.txt_email_careteam);
+        final TextView relation             = (TextView) popupView.findViewById(R.id.lbl_relation_careteam);
+        final Spinner  editRelation         = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
+        final String[] spinnerRelValues     = {"Pappa", "Mamma", "Patient", "Läkare"};
+        final Spinner  editAdmin            = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
+        final String[] spinnerAdminValues   = {"Ja", "Nej"};
+        final Button   buttonSave           = (Button) popupView.findViewById(R.id.btn_save_careteam);
+        final Button   buttonCancel         = (Button) popupView.findViewById(R.id.btn_cancel_careteam);
 
         Spinner spinner_rel = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
         ArrayAdapter<String> adapter_rel = new ArrayAdapter<String>(CareTeamActivity.this,
-                android.R.layout.simple_spinner_item, sp_Rel);
+                android.R.layout.simple_spinner_item, spinnerRelValues);
         adapter_rel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_rel.setAdapter(adapter_rel);
         Spinner spinner_admin = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-        ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, sp_Admin);
+        ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
         adapter_admin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_admin.setAdapter(adapter_admin);
 
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
             }
         });
 
-        btn_save.setOnClickListener(new  View.OnClickListener() {
+        buttonSave.setOnClickListener(new  View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveCTMember(CTp);
+//                saveCTMember(CTp);
             }
             private void saveCTMember(int CTp) {
 
-                Relation.setText(edt_Relation.getSelectedItem().toString());
-                //Admin.setText(edt_Admin.getSelectedItem().toString());
-                if(edt_Admin.getSelectedItem() == "Ja") {
-                    CareTeamMember newMember = new CareTeamMember(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
-                            edt_Relation.getSelectedItem().toString(), 0);
+                relation.setText(editRelation.getSelectedItem().toString());
+                //Admin.setText(editAdmin.getSelectedItem().toString());
+                if(editAdmin.getSelectedItem() == "Ja") {
+                    CareTeamMember newMember = new CareTeamMember(editFirstName.getText().toString(),editLastName.getText().toString(),editEmail.getText().toString(),
+                            editRelation.getSelectedItem().toString(), 0);
                     lcl.patient.get(CTp).care_team.add(newMember);
                 } else {
-                    CareTeamMember newMember = new CareTeamMember(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
-                            edt_Relation.getSelectedItem().toString(), 1);
+                    CareTeamMember newMember = new CareTeamMember(editFirstName.getText().toString(),editLastName.getText().toString(),editEmail.getText().toString(),
+                            editRelation.getSelectedItem().toString(), 1);
                     lcl.patient.get(CTp).care_team.add(newMember);
                 }
 
@@ -283,115 +219,10 @@ public class CareTeamActivity extends AppCompatActivity {
         popupWindow.showAsDropDown(relativeLayout, 500, -900);
         popupWindow.isFocusable();
 
-
-    }
-
-    public void popup_create_CT() {
-        System.out.println("Create_CT");
-
-        LayoutInflater layoutInflater
-                = (LayoutInflater) getBaseContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.create_care_team_popup, null);
-
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, 1000, 1000);
-
-        popupWindow.setFocusable(true);
-        popupWindow.update();
-
-        final EditText edt_firstN   = (EditText) popupView.findViewById(R.id.txt_firstName_careteam);
-        final EditText edt_lastN    = (EditText) popupView.findViewById(R.id.txt_secondName_careteam);
-        final EditText edt_Phone    = (EditText) popupView.findViewById(R.id.txt_phone_careteam);
-        final EditText edt_Email    = (EditText) popupView.findViewById(R.id.txt_email_careteam);
-        final TextView Relation     = (TextView) popupView.findViewById(R.id.lbl_relation_careteam);
-        final Spinner  edt_Relation = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
-        final String[] sp_Rel       = {"Pappa", "Mamma", "Patient", "Läkare"};
-        final Spinner  edt_Admin    = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-        final String[] sp_Admin     = {"Ja", "Nej"};
-        final Button   btn_save     = (Button) popupView.findViewById(R.id.btn_save_careteam);
-        final Button   btn_cancel   = (Button) popupView.findViewById(R.id.btn_cancel_careteam);
-
-        Spinner spinner_rel = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
-        ArrayAdapter<String> adapter_rel = new ArrayAdapter<String>(CareTeamActivity.this,
-                android.R.layout.simple_spinner_item, sp_Rel);
-        adapter_rel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_rel.setAdapter(adapter_rel);
-        Spinner spinner_admin = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-        ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, sp_Admin);
-        adapter_admin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_admin.setAdapter(adapter_admin);
-
-        spinner_rel.setSelection(2);
-        spinner_rel.setEnabled(false);
-
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.dismiss();
-            }
-        });
-
-        btn_save.setOnClickListener(new  View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Save");
-                saveCT();
-            }
-            private void saveCT() {
-
-                healthCareList.clear();
-                CareTeamMember newCT = new CareTeamMember(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
-                        edt_Relation.getSelectedItem().toString(),1);
-                healthCareList.add(newCT);
-
-//                Patient newPatient = new Patient();
-                //                   new Patient(0, edt_firstN.getText().toString(), edt_Relation.getSelectedItem().toString(), healthCareList, null);
-                // CareTeamMember newMember = new CareTeamMember(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
-                //         edt_Relation.getSelectedItem().toString(), 0);
-//                lcl.patient.add(newPatient);
-//                patientList.add(newPatient);
-//                lcl.patient.get(CTp).care_team.add(newMember);
-
-                healthCareAdapter.notifyDataSetChanged();
-                listAdapter.notifyDataSetChanged();
-                popupWindow.dismiss();
-            }
-        });
-
-        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.create_care_team_popup);
-        popupWindow.showAsDropDown(relativeLayout, 500, -900);
-
     }
 
 
-
-    private void showCareTeamMembers(final int CTp) {
-
-        healthCareListView = (ListView) findViewById(R.id.careTeamMemberListView);
-        healthCareAdapter  = new CareTeamListAdapter(this, lcl.patient.get(CTp).care_team);
-        healthCareListView.setAdapter(healthCareAdapter);
-
-        familyListView = (ListView) findViewById(R.id.careTeamListView);
-        listAdapter    = new CareTeamListAdapter(this, connectHandler.patient.care_team);
-        familyListView.setAdapter(listAdapter);
-
-// Sätt ihop rubriken
-/*        Resources res = getResources();
-        lbl_friends = String.format(res.getString(R.string.txt_friends), (patientList.get(CTp).patient_name));
-        TextView lbl_careteammembers = (TextView) findViewById(R.id.lbl_friends);
-        lbl_careteammembers.setText(lbl_friends);
-// Sätt ihop rubriken
-*/
-        healthCareListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int healthCareListPosition, long healthCareListId) {
-                popup(healthCareListPosition);
-            }
-        });
-    }
-
-    public void popup(final int healthCareListPosition) {
+    public void showCareTeamMember(final int listPosition) {
 
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
@@ -404,218 +235,176 @@ public class CareTeamActivity extends AppCompatActivity {
         popupWindow.setFocusable(true);
         popupWindow.update();
 
-        final TextView Firstname   = (TextView) popupView.findViewById(R.id.lbl_firstName_careteam);
-        final EditText edt_firstN  = (EditText) popupView.findViewById(R.id.txt_firstName_careteam);
-        final TextView Lastname    = (TextView) popupView.findViewById(R.id.lbl_secondName_careteam);
-        final EditText edt_lastN   = (EditText) popupView.findViewById(R.id.txt_secondName_careteam);
-        final TextView Phone       = (TextView) popupView.findViewById(R.id.lbl_phone_careteam);
-        final EditText edt_Phone   = (EditText) popupView.findViewById(R.id.txt_phone_careteam);
-        final TextView Email       = (TextView) popupView.findViewById(R.id.lbl_email_careteam);
-        final EditText edt_Email   = (EditText) popupView.findViewById(R.id.txt_email_careteam);
-        final TextView Relation    = (TextView) popupView.findViewById(R.id.lbl_relation_careteam);
-        final Spinner edt_Relation = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
-        final String[] sp_Rel      = {"Pappa", "Mamma", "Patient", "Läkare"};
-        final TextView admin       = (TextView) popupView.findViewById(R.id.lbl_admin_careteam);
-        final Spinner edt_Admin    = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-        final String[] sp_Admin    = {"Ja", "Nej"};
+        final TextView firstName            = (TextView) popupView.findViewById(R.id.lbl_firstName_careteam);
+        final EditText editFirstName        = (EditText) popupView.findViewById(R.id.txt_firstName_careteam);
+        final TextView lastName             = (TextView) popupView.findViewById(R.id.lbl_secondName_careteam);
+        final EditText editLastName         = (EditText) popupView.findViewById(R.id.txt_secondName_careteam);
+        final TextView phoneNumber          = (TextView) popupView.findViewById(R.id.lbl_phone_careteam);
+        final EditText editPhoneNumber      = (EditText) popupView.findViewById(R.id.txt_phone_careteam);
+        final TextView email                = (TextView) popupView.findViewById(R.id.lbl_email_careteam);
+        final EditText editEmail            = (EditText) popupView.findViewById(R.id.txt_email_careteam);
+        final TextView relation             = (TextView) popupView.findViewById(R.id.lbl_relation_careteam);
+        final Spinner editrelation          = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
+        final String[] spinnerRelValues     = {"Pappa", "Mamma", "Patient", "Läkare"};
+        final TextView admin                = (TextView) popupView.findViewById(R.id.lbl_admin_careteam);
+        final Spinner editAdmin             = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
+        final String[] spinnerAdminValues   = {"Ja", "Nej"};
 
-        final Button btn_edit      = (Button) popupView.findViewById(R.id.btn_edit_careteam);
-        final Button btn_save      = (Button) popupView.findViewById(R.id.btn_save_careteam);
-        final Button btn_cancel    = (Button) popupView.findViewById(R.id.btn_cancel_careteam);
-        final Button btn_del_memb  = (Button) popupView.findViewById(R.id.btn_del_ct_memb);
+        final Button buttonEdit      = (Button) popupView.findViewById(R.id.btn_edit_careteam);
+        final Button buttonSave      = (Button) popupView.findViewById(R.id.btn_save_careteam);
+        final Button buttonCancel    = (Button) popupView.findViewById(R.id.btn_cancel_careteam);
+        final Button buttonDelete  = (Button) popupView.findViewById(R.id.btn_del_ct_memb);
 
-        Firstname.setText(connectHandler.patient.care_team.get(healthCareListPosition).first_name);
-        Lastname.setText(connectHandler.patient.care_team.get(healthCareListPosition).last_name);
-        Email.setText(connectHandler.patient.care_team.get(healthCareListPosition).email);
-        Relation.setText(connectHandler.patient.care_team.get(healthCareListPosition).relationship);
-        if ((connectHandler.patient.care_team.get(healthCareListPosition).admin) == 1) {
+        firstName.setText(connectHandler.patient.care_team.get(listPosition).first_name);
+        lastName.setText(connectHandler.patient.care_team.get(listPosition).last_name);
+        email.setText(connectHandler.patient.care_team.get(listPosition).email);
+        relation.setText(connectHandler.patient.care_team.get(listPosition).relationship);
+        if ((connectHandler.patient.care_team.get(listPosition).admin) == 1) {
             admin.setText("Ja");
         } else {
             admin.setText("Nej");
         }
-        btn_edit.setVisibility(View.VISIBLE);
-        btn_cancel.setVisibility(View.VISIBLE);
-        btn_del_memb.setVisibility(View.VISIBLE);
-        btn_save.setVisibility(View.INVISIBLE);
+        buttonEdit.setVisibility(View.VISIBLE);
+        buttonCancel.setVisibility(View.VISIBLE);
+        buttonDelete.setVisibility(View.VISIBLE);
+        buttonSave.setVisibility(View.INVISIBLE);
 
         relativeLayout = (RelativeLayout) popupView.findViewById(R.id.care_team_member_popup);
         popupWindow.showAsDropDown(relativeLayout, 500, -900);
 
-        btn_save.setOnClickListener(new View.OnClickListener() {
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_edit.setVisibility(View.VISIBLE);
-                btn_save.setVisibility(View.INVISIBLE);
-                btn_cancel.setVisibility(View.VISIBLE);
-                SaveContact(healthCareListPosition);
+                buttonEdit.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.INVISIBLE);
+                buttonCancel.setVisibility(View.VISIBLE);
+                saveContact(listPosition);
             }
 
-            private void SaveContact(int healthCareListPosition) {
-                Firstname.setText(edt_firstN.getText().toString());
-                Lastname.setText(edt_lastN.getText().toString());
-                Email.setText(edt_Email.getText().toString());
-                Relation.setText(edt_Relation.getSelectedItem().toString());
-                admin.setText(edt_Admin.getSelectedItem().toString());
+            private void saveContact(int listPosition) {
+                firstName.setText(editFirstName.getText().toString());
+                lastName.setText(editLastName.getText().toString());
+                email.setText(editEmail.getText().toString());
+                relation.setText(editrelation.getSelectedItem().toString());
+                admin.setText(editAdmin.getSelectedItem().toString());
 
-                //UPDATE CONTACT
+                CareTeamMember newCareTeamMember = new CareTeamMember(  firstName.getText().toString(),
+                                                                        lastName.getText().toString(),
+                                                                        email.getText().toString(),
+                                                                        relation.getText().toString(),1);
+//                                                                        Integer.parseInt(admin.getText().toString()));
 
-                /*
-                lcl.patient.get(CTp).care_team.get(MLp).first_name = Firstname.getText().toString();
-                lcl.patient.get(CTp).care_team.get(MLp).last_name = Lastname.getText().toString();
-                lcl.patient.get(CTp).care_team.get(MLp).email = Email.getText().toString();
-                lcl.patient.get(CTp).care_team.get(MLp).relationship = Relation.getText().toString();
-                if (admin.getText() == "Ja") {
-                    lcl.patient.get(CTp).care_team.get(MLp).admin = 1;
-                } else {
-                    lcl.patient.get(CTp).care_team.get(MLp).admin = 0;
-                }
+                connectHandler.inviteCareTeamMember(newCareTeamMember);
+                //Enable when invite has been implemented in the backend
+//                while (connectHandler.socketBusy){}
 
                 healthCareAdapter.notifyDataSetChanged();
                 listAdapter.notifyDataSetChanged();
-*/            }
-
-            private void Done(int CTp, int MLp) {
-                edt_firstN.setVisibility(View.INVISIBLE);
-                Firstname.setVisibility(View.VISIBLE);
-
-                edt_lastN.setVisibility(View.INVISIBLE);
-                Lastname.setVisibility(View.VISIBLE);
-
-                edt_Phone.setVisibility(View.INVISIBLE);
-                Phone.setVisibility(View.VISIBLE);
-
-                edt_Email.setVisibility(View.INVISIBLE);
-                Email.setVisibility(View.VISIBLE);
-
-                Spinner spinner_rel = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
-                ArrayAdapter<String> adapter_rel = new ArrayAdapter<String>(CareTeamActivity.this,
-                        android.R.layout.simple_spinner_item, sp_Rel);
-                adapter_rel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner_rel.setAdapter(adapter_rel);
-
-                Spinner spinner_admin = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-                ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, sp_Admin);
-                adapter_admin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner_admin.setAdapter(adapter_admin);
-
-                edt_Relation.setVisibility(View.INVISIBLE);
-                Relation.setVisibility(View.VISIBLE);
-
-                edt_Admin.setVisibility(View.INVISIBLE);
-                admin.setVisibility(View.VISIBLE);
-
-                System.out.println("CTp");
-                System.out.println(patientList.get(CTp).patient_name);
-                System.out.println(healthCareList.get(CTp).first_name);
-                System.out.println("MLp");
-                System.out.println(patientList.get(MLp).patient_name);
-                System.out.println(healthCareList.get(MLp).first_name);
-                System.out.println("Slut-popup");
-
             }
+
         });
 
-        btn_edit.setOnClickListener(new View.OnClickListener() {
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_edit.setVisibility(View.INVISIBLE);
-                btn_del_memb.setVisibility(View.INVISIBLE);
-                btn_save.setVisibility(View.VISIBLE);
-                btn_cancel.setVisibility(View.VISIBLE);
-                prepareForEdit(healthCareListPosition);
+                buttonEdit.setVisibility(View.INVISIBLE);
+                buttonDelete.setVisibility(View.INVISIBLE);
+                buttonSave.setVisibility(View.VISIBLE);
+                buttonCancel.setVisibility(View.VISIBLE);
+                prepareForEdit(listPosition);
             }
 
             private void prepareForEdit(int MLp) {
 
-                edt_firstN.setText(Firstname.getText());
-                edt_firstN.setVisibility(View.VISIBLE);
-                Firstname.setVisibility(View.INVISIBLE);
+                editFirstName.setText(firstName.getText());
+                editFirstName.setVisibility(View.VISIBLE);
+                firstName.setVisibility(View.INVISIBLE);
 
-                edt_lastN.setText(Lastname.getText());
-                edt_lastN.setVisibility(View.VISIBLE);
-                Lastname.setVisibility(View.INVISIBLE);
+                editLastName.setText(lastName.getText());
+                editLastName.setVisibility(View.VISIBLE);
+                lastName.setVisibility(View.INVISIBLE);
 
-                edt_Phone.setText(Phone.getText());
-                edt_Phone.setVisibility(View.VISIBLE);
-                Phone.setVisibility(View.INVISIBLE);
+                editPhoneNumber.setText(phoneNumber.getText());
+                editPhoneNumber.setVisibility(View.VISIBLE);
+                phoneNumber.setVisibility(View.INVISIBLE);
 
-                edt_Email.setText(Email.getText());
-                edt_Email.setVisibility(View.VISIBLE);
-                Email.setVisibility(View.INVISIBLE);
+                editEmail.setText(email.getText());
+                editEmail.setVisibility(View.VISIBLE);
+                email.setVisibility(View.INVISIBLE);
 
                 Spinner spinner_rel = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
                 ArrayAdapter<String> adapter_rel = new ArrayAdapter<String>(CareTeamActivity.this,
-                        android.R.layout.simple_spinner_item, sp_Rel);
+                        android.R.layout.simple_spinner_item, spinnerRelValues);
                 adapter_rel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner_rel.setAdapter(adapter_rel);
 
                 Spinner spinner_admin = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-                ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, sp_Admin);
+                ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
                 adapter_admin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner_admin.setAdapter(adapter_admin);
 
-                edt_Relation.setVisibility(View.VISIBLE);
-                Relation.setVisibility(View.INVISIBLE);
-                edt_Admin.setVisibility(View.VISIBLE);
+                editrelation.setVisibility(View.VISIBLE);
+                relation.setVisibility(View.INVISIBLE);
+                editAdmin.setVisibility(View.VISIBLE);
                 admin.setVisibility(View.INVISIBLE);
             }
         });
 
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (btn_edit.getVisibility() == View.VISIBLE) {
+                if (buttonEdit.getVisibility() == View.VISIBLE) {
                     popupWindow.dismiss();
                 }
-                btn_edit.setVisibility(View.VISIBLE);
-                btn_save.setVisibility(View.INVISIBLE);
-                btn_cancel.setVisibility(View.VISIBLE);
-                btn_del_memb.setVisibility(View.VISIBLE);
-                CancelEdit(healthCareListPosition);
+                buttonEdit.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.INVISIBLE);
+                buttonCancel.setVisibility(View.VISIBLE);
+                buttonDelete.setVisibility(View.VISIBLE);
+                CancelEdit(listPosition);
             }
 
             private void CancelEdit(int MLp) {
-                edt_firstN.setVisibility(View.INVISIBLE);
-                Firstname.setVisibility(View.VISIBLE);
+                editFirstName.setVisibility(View.INVISIBLE);
+                firstName.setVisibility(View.VISIBLE);
 
-                edt_lastN.setVisibility(View.INVISIBLE);
-                Lastname.setVisibility(View.VISIBLE);
+                editLastName.setVisibility(View.INVISIBLE);
+                lastName.setVisibility(View.VISIBLE);
 
-                edt_Phone.setVisibility(View.INVISIBLE);
-                Phone.setVisibility(View.VISIBLE);
+                editPhoneNumber.setVisibility(View.INVISIBLE);
+                phoneNumber.setVisibility(View.VISIBLE);
 
-                edt_Email.setVisibility(View.INVISIBLE);
-                Email.setVisibility(View.VISIBLE);
+                editEmail.setVisibility(View.INVISIBLE);
+                email.setVisibility(View.VISIBLE);
 
                 Spinner spinner_rel = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
                 ArrayAdapter<String> adapter_rel = new ArrayAdapter<String>(CareTeamActivity.this,
-                        android.R.layout.simple_spinner_item, sp_Rel);
+                        android.R.layout.simple_spinner_item, spinnerRelValues);
                 adapter_rel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner_rel.setAdapter(adapter_rel);
 
                 Spinner spinner_admin = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-                ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, sp_Admin);
+                ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
                 adapter_admin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner_admin.setAdapter(adapter_admin);
 
-                edt_Relation.setVisibility(View.INVISIBLE);
-                Relation.setVisibility(View.VISIBLE);
+                editrelation.setVisibility(View.INVISIBLE);
+                relation.setVisibility(View.VISIBLE);
 
-                edt_Admin.setVisibility(View.INVISIBLE);
+                editAdmin.setVisibility(View.INVISIBLE);
                 admin.setVisibility(View.VISIBLE);
             }
         });
 
-        btn_del_memb.setOnClickListener(new View.OnClickListener() {
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_edit.setVisibility(View.VISIBLE);
-                btn_save.setVisibility(View.INVISIBLE);
-                btn_cancel.setVisibility(View.VISIBLE);
-                btn_del_memb.setVisibility(View.VISIBLE);
-                del_CTmemb(healthCareListPosition);
+                buttonEdit.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.INVISIBLE);
+                buttonCancel.setVisibility(View.VISIBLE);
+                buttonDelete.setVisibility(View.VISIBLE);
+                deleteCareTeamMembers(listPosition);
             }
-            private void del_CTmemb(int MLp) {
+            private void deleteCareTeamMembers(int index) {
 
  //               lcl.patient.get(CTp).care_team.remove(MLp);
 
@@ -624,7 +413,6 @@ public class CareTeamActivity extends AppCompatActivity {
                 popupWindow.dismiss();
             }
         });
-
     }
 
     private void journeyActivity(){
@@ -649,7 +437,7 @@ public class CareTeamActivity extends AppCompatActivity {
         client.connect();
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
-                "ManageCareTeam Page", // TODO: Define a title for the content shown.
+                "CareTeamActivity", // TODO: Define a title for the content shown.
                 // TODO: If you have web page content that matches this app activity's content,
                 // make sure this auto-generated web page URL is correct.
                 // Otherwise, set the URL to null.
@@ -668,7 +456,7 @@ public class CareTeamActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
-                "ManageCareTeam Page", // TODO: Define a title for the content shown.
+                "CareTeamActivity", // TODO: Define a title for the content shown.
                 // TODO: If you have web page content that matches this app activity's content,
                 // make sure this auto-generated web page URL is correct.
                 // Otherwise, set the URL to null.
