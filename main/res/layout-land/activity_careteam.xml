@@ -194,7 +194,7 @@
                 android:textSize="@dimen/XLARGE"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:text="Välj CareTeam" />
+                android:text="Health care" />
 
             <Button
                 android:layout_width="60dp"

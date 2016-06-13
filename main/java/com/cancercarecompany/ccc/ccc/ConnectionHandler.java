@@ -83,6 +83,9 @@ public class ConnectionHandler {
                         switch (header.function){
                             case MESSAGE_LOGIN:
                                 person = gson.fromJson(resultData, Person.class);
+                                if (person.patient != null){
+                                    patient = person.patient.get(0);
+                                }
                                 lcl = gson.fromJson(resultData, Lcl_work_area.class);
                                 break;
 

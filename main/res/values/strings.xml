@@ -9,7 +9,7 @@
 
     <string name="chb_title">CHB</string>
     <string name="lbl_contactinfo_caretem">Contact Informationn</string>
-    <string name="txt_choose_CT">Välj CareTeam</string>
+    <string name="txt_choose_CT">Family/Friends</string>
     <string name="txt_friends">Vänner till <xliff:g name="patient_name">%s</xliff:g></string>
     <string name="txt_info">Information</string>
     <string name="firstname">Förnamn</string>

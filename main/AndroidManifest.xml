@@ -21,7 +21,6 @@
         <activity android:name=".CareTeamActivity" />
         <activity android:name=".Add_event_popup" />
         <activity android:name=".JourneyActivity" />
-        <activity android:name=".ManageCareTeamActivity" />
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="stateHidden" />

@@ -16,11 +16,11 @@ import java.util.ArrayList;
 /**
  * Created by robinlarsson on 04/04/16.
  */
-public class CustomAdapter extends ArrayAdapter<Care_team> {
+public class CustomAdapter extends ArrayAdapter<CareTeamMember> {
 
-    private ArrayList<Care_team> careTeamList;
+    private ArrayList<CareTeamMember> careTeamList;
 
-    public CustomAdapter(Context context, ArrayList<Care_team> careTeamList){
+    public CustomAdapter(Context context, ArrayList<CareTeamMember> careTeamList){
         super(context, R.layout.customlistview, careTeamList);
         this.careTeamList = careTeamList;
     }

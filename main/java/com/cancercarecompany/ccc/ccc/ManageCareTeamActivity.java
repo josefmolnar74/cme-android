@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -22,7 +21,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.concurrent.SynchronousQueue;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -39,12 +37,12 @@ public class ManageCareTeamActivity extends AppCompatActivity {
 
     ArrayList<Events> eventList;
     ArrayList<Patient> patientList = new ArrayList<>();
-    ArrayList<Care_team> memberlist = new ArrayList<>();
+    ArrayList<CareTeamMember> memberlist = new ArrayList<>();
 
     ListView customListView;
     ListView memberListView;
-    ManageCareTeamAdapter listAdapter;
-    ManageCareTeamMemberAdapter memberAdapter;
+    CareTeamListAdapter listAdapter;
+    CareTeamHealthCareAdapter memberAdapter;
     Lcl_work_area lcl;
     String lclString;
     RelativeLayout relativeLayout;
@@ -86,7 +84,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
             patientList.add(lcl.patient.get(i));
         }
 
-        listAdapter = new ManageCareTeamAdapter(this, patientList);
+//        listAdapter = new CareTeamListAdapter(this, patientList);
         customListView.setAdapter(listAdapter);
 
         customListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,7 +106,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         journalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            journalActivity();
+                journalActivity();
             }
         });
 
@@ -253,11 +251,11 @@ public class ManageCareTeamActivity extends AppCompatActivity {
                 Relation.setText(edt_Relation.getSelectedItem().toString());
                 //Admin.setText(edt_Admin.getSelectedItem().toString());
                 if(edt_Admin.getSelectedItem() == "Ja") {
-                    Care_team newMember = new Care_team(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
+                    CareTeamMember newMember = new CareTeamMember(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
                             edt_Relation.getSelectedItem().toString(), 0);
                     lcl.patient.get(CTp).care_team.add(newMember);
                 } else {
-                    Care_team newMember = new Care_team(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
+                    CareTeamMember newMember = new CareTeamMember(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
                             edt_Relation.getSelectedItem().toString(), 1);
                     lcl.patient.get(CTp).care_team.add(newMember);
                 }
@@ -269,7 +267,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         });
 
         relativeLayout = (RelativeLayout) popupView.findViewById(R.id.create_care_team_member_popup);
-      //  LinearLayout layout = (LinearLayout) findViewById(R.id.careTeamScreen);
+        //  LinearLayout layout = (LinearLayout) findViewById(R.id.careTeamScreen);
         popupWindow.showAsDropDown(relativeLayout, 500, -900);
         popupWindow.isFocusable();
 
@@ -331,14 +329,14 @@ public class ManageCareTeamActivity extends AppCompatActivity {
             private void saveCT() {
 
                 memberlist.clear();
-                Care_team newCT = new Care_team(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
+                CareTeamMember newCT = new CareTeamMember(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
                         edt_Relation.getSelectedItem().toString(),1);
                 memberlist.add(newCT);
 
 //                Patient newPatient = new Patient();
-     //                   new Patient(0, edt_firstN.getText().toString(), edt_Relation.getSelectedItem().toString(), memberlist, null);
-               // Care_team newMember = new Care_team(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
-               //         edt_Relation.getSelectedItem().toString(), 0);
+                //                   new Patient(0, edt_firstN.getText().toString(), edt_Relation.getSelectedItem().toString(), memberlist, null);
+                // Care_team newMember = new Care_team(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
+                //         edt_Relation.getSelectedItem().toString(), 0);
 //                lcl.patient.add(newPatient);
 //                patientList.add(newPatient);
 //                lcl.patient.get(CTp).care_team.add(newMember);
@@ -359,11 +357,11 @@ public class ManageCareTeamActivity extends AppCompatActivity {
     private void showCareTeamMembers(final int CTp) {
 
         memberListView = (ListView) findViewById(R.id.careTeamMemberListView);
-        memberAdapter  = new ManageCareTeamMemberAdapter(this, lcl.patient.get(CTp).care_team);
+        memberAdapter  = new CareTeamHealthCareAdapter(this, lcl.patient.get(CTp).care_team);
         memberListView.setAdapter(memberAdapter);
 
         customListView = (ListView) findViewById(R.id.careTeamListView);
-        listAdapter    = new ManageCareTeamAdapter(this, lcl.patient);
+        listAdapter    = new CareTeamListAdapter(this, null);
         customListView.setAdapter(listAdapter);
 
 // Sätt ihop rubriken

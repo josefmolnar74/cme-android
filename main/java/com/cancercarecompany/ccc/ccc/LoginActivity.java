@@ -201,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("Person", jsonPerson);
             editor.apply();
 
-            Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+            Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);
         }
     }
