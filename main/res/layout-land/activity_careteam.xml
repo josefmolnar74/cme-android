@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:orientation="horizontal"
         android:layout_weight="0.08"
-        android:background="@drawable/border"
+        android:background="#ffffff"
         android:weightSum="100">
 
         <ImageButton
@@ -54,8 +54,10 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/userSettingsButton"
-            android:layout_toStartOf="@+id/userSettingsButton" />
+            android:layout_toLeftOf="@+id/loggedIn"
+            android:layout_toStartOf="@+id/loggedIn"
+            android:layout_marginRight="47dp"
+            android:layout_marginEnd="47dp" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -71,28 +73,17 @@
             android:layout_toLeftOf="@+id/journeyButton"
             android:layout_toStartOf="@+id/journeyButton" />
 
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="90dp"
-            android:padding="5dp"
-            android:id="@+id/userSettingsButton"
-            android:layout_weight="10"
-            android:background="@null"
-            android:src="@drawable/settings"
-            android:scaleType="fitCenter"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/loggedIn"
+            android:text="name"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/logoButton"
-            android:layout_toEndOf="@+id/logoButton"
-            android:layout_marginLeft="100dp" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp" />
 
     </RelativeLayout>
 
@@ -111,7 +102,7 @@
             android:id="@+id/careTeamLeft"
             android:layout_height="match_parent"
             android:weightSum="100"
-            android:background="@drawable/border"
+            android:background="#ffffff"
             android:layout_weight="50">
 
             <ListView
@@ -153,7 +144,7 @@
             android:id="@+id/careTeamRight"
             android:layout_height="match_parent"
             android:weightSum="100"
-            android:background="@drawable/border"
+            android:background="#ffffff"
             android:layout_weight="50">
 
             <ListView
