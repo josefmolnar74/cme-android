@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -37,7 +38,7 @@ public class CareTeamActivity extends AppCompatActivity {
     ArrayList<CareTeamMember> healthCareList = new ArrayList<>();
 
     ListView familyListView;
-    ListView healthCareListView;
+    GridView healthCareGridView;
     CareTeamFamilyAdapter familyAdapter;
     CareTeamHealthCareAdapter healthCareAdapter;
     CareTeamHealthCareAdapter listAdapter = healthCareAdapter;
@@ -68,7 +69,7 @@ public class CareTeamActivity extends AppCompatActivity {
         lcl = gson.fromJson(lclString, Lcl_work_area.class);
 
         familyListView = (ListView) findViewById(R.id.careTeamFamilyListView);
-        healthCareListView = (ListView) findViewById(R.id.careTeamHealthCarelistView);
+        healthCareGridView = (GridView) findViewById(R.id.careTeamHealthCareGridView);
 
         final Button buttonAddHealthCareMember = (Button) findViewById(R.id.btn_add_CTmember);
         final Button buttonAddFamilyMember   = (Button) findViewById(R.id.btn_add_CT);
@@ -105,7 +106,7 @@ public class CareTeamActivity extends AppCompatActivity {
         }
 
         healthCareAdapter = new CareTeamHealthCareAdapter(this, healthCareList);
-        healthCareListView.setAdapter(healthCareAdapter);
+        healthCareGridView.setAdapter(healthCareAdapter);
 
         //Open popup window to show user detail information and edit/delete
         familyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -116,10 +117,10 @@ public class CareTeamActivity extends AppCompatActivity {
         });
 
         //Open popup window to show user detail information and edit/delete
-        healthCareListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        healthCareGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int healthCareListPosition, long id) {
-                showCareTeamMember(healthCareListPosition);
+            public void onItemClick(AdapterView<?> parent, View view, int healthCareGridPosition, long id) {
+                showCareTeamMember(healthCareGridPosition);
             }
         });
 

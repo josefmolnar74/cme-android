@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
     android:id="@+id/careTeamScreen"
     tools:context="com.cancercarecompany.ccc.ccc.MainActivity"
     android:orientation="vertical"
@@ -91,6 +95,10 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:id="@+id/careTeamMain"
         android:weightSum="100"
         android:layout_weight="0.92"
@@ -108,7 +116,11 @@
             <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:id="@+id/careTeamHealthCarelistView"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:id="@+id/careTeamFamilyListView"
                 android:visibility="visible"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
@@ -147,18 +159,6 @@
             android:background="#ffffff"
             android:layout_weight="50">
 
-            <ListView
-                android:layout_width="fill_parent"
-                android:layout_height="500dp"
-                android:id="@+id/careTeamFamilyListView"
-                android:visibility="visible"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/lbl_friends"
-                android:layout_alignRight="@+id/btn_add_CTmember"
-                android:layout_alignEnd="@+id/btn_add_CTmember" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -177,6 +177,24 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
+
+            <GridView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:columnWidth="150dp"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="50dp"
+                android:horizontalSpacing="50dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center"
+                android:id="@+id/careTeamHealthCareGridView"
+                android:layout_below="@+id/lbl_friends"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 
