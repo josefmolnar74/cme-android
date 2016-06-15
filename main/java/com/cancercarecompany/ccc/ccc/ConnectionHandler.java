@@ -25,7 +25,7 @@ public class ConnectionHandler {
     public Lcl_work_area lcl;
     public Person person;
     public Patient patient;
-    JSONObject findUser;
+    public Invite invite;
 
     public static final String MESSAGE_LOGIN = "login";
     public static final String MESSAGE_CREATE = "create";
@@ -35,7 +35,8 @@ public class ConnectionHandler {
 
     public static final String CONTENT_PERSON = "person";
     public static final String CONTENT_PATIENT = "patient";
-    public static final String CONTENT_CARE_TEAM = "care_teamgit ";
+    public static final String CONTENT_INVITE = "invite";
+    public static final String CONTENT_CARE_TEAM = "care_team ";
     public static final String CONTENT_EVENT = "event";
     public static final String CONTENT_STATUS = "status";
 
@@ -110,11 +111,25 @@ public class ConnectionHandler {
                                     case CONTENT_PATIENT:
                                         Patient patient = gson.fromJson(resultData, Patient.class);
                                         break;
+                                    case CONTENT_INVITE:
+                                        Invite invite = gson.fromJson(resultData, Invite.class);
+                                        break;
                                 }
                                 break;
 
                         }
 
+                    }
+                    // error code handling
+                    else {
+                        switch (header.errorCode){
+                            case "User not found":
+                                person = null;
+                                patient = null;
+                                break;
+                            case "Login failed":
+                                break;
+                        }
                     }
                     socketBusy = false;
                 }
@@ -142,7 +157,7 @@ public class ConnectionHandler {
         sendMessage(MESSAGE_CREATE, CONTENT_PERSON, messageData);
     }
 
-    public void editUser(Person newUser) {
+    public void updateUser(Person newUser) {
         Gson gson = new Gson();
         String messageData = gson.toJson(person);
         sendMessage(MESSAGE_UPDATE, CONTENT_PERSON, messageData);
@@ -154,12 +169,6 @@ public class ConnectionHandler {
         sendMessage(MESSAGE_DELETE, CONTENT_PERSON, msgData);
     }
 
-    public void findUser(String email) {
-        Gson gson = new Gson();
-        String msgData = String.format("{\"email\":\"%s\"}", email);
-        sendMessage(MESSAGE_READ, CONTENT_PERSON, msgData);
-    }
-
     public void createPatient(Patient newPatient, String relationship) {
         patient = newPatient;
         Gson gson = new Gson();
@@ -169,10 +178,27 @@ public class ConnectionHandler {
         sendMessage(MESSAGE_CREATE, CONTENT_PATIENT, msgData);
     }
 
-    public void inviteCareTeamMember(CareTeamMember newCareTeamMember) {
-//        patient = newPatient;
+    public void createCareTeamMember(CareTeamMember newCareTeamMember, int patientID) {
         Gson gson = new Gson();
         String msgData = gson.toJson(newCareTeamMember);
-        sendMessage(MESSAGE_CREATE, CONTENT_CARE_TEAM, msgData);
+        //Create patient with existing patient_ID only creates new care team junction
+        sendMessage(MESSAGE_CREATE, CONTENT_PATIENT, msgData);
+    }
+
+    public void inviteCareTeamMember(Invite newInvite) {
+        Gson gson = new Gson();
+        String msgData = gson.toJson(newInvite);
+        sendMessage(MESSAGE_CREATE, CONTENT_INVITE, msgData);
+    }
+
+    public void findCareTeamInvite(String email) {
+        String msgData = String.format("{\"email\":\"%s\"}", email);
+        sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
+    }
+
+    public void acceptCareTeamInvite(Invite newInvite) {
+        Gson gson = new Gson();
+        String msgData = gson.toJson(newInvite);
+        sendMessage(MESSAGE_UPDATE, CONTENT_INVITE, msgData);
     }
 }

@@ -250,6 +250,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
 
                 Relation.setText(edt_Relation.getSelectedItem().toString());
                 //Admin.setText(edt_Admin.getSelectedItem().toString());
+/*
                 if(edt_Admin.getSelectedItem() == "Ja") {
                     CareTeamMember newMember = new CareTeamMember(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
                             edt_Relation.getSelectedItem().toString(), 0);
@@ -259,7 +260,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
                             edt_Relation.getSelectedItem().toString(), 1);
                     lcl.patient.get(CTp).care_team.add(newMember);
                 }
-
+*/
                 memberAdapter.notifyDataSetChanged();
                 listAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();
@@ -327,12 +328,12 @@ public class ManageCareTeamActivity extends AppCompatActivity {
                 saveCT();
             }
             private void saveCT() {
-
+/*
                 memberlist.clear();
                 CareTeamMember newCT = new CareTeamMember(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
                         edt_Relation.getSelectedItem().toString(),1);
                 memberlist.add(newCT);
-
+*/
 //                Patient newPatient = new Patient();
                 //                   new Patient(0, edt_firstN.getText().toString(), edt_Relation.getSelectedItem().toString(), memberlist, null);
                 // Care_team newMember = new Care_team(edt_firstN.getText().toString(),edt_lastN.getText().toString(),edt_Email.getText().toString(),
@@ -415,12 +416,12 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         Lastname.setText(lcl.patient.get(CTp).care_team.get(MLp).last_name);
         Email.setText(lcl.patient.get(CTp).care_team.get(MLp).email);
         Relation.setText(lcl.patient.get(CTp).care_team.get(MLp).relationship);
-        if ((lcl.patient.get(CTp).care_team.get(MLp).admin) == 1) {
+/*        if ((lcl.patient.get(CTp).care_team.get(MLp).admin) == 1) {
             Admin.setText("Ja");
         } else {
             Admin.setText("Nej");
         }
-        btn_edit.setVisibility(View.VISIBLE);
+ */       btn_edit.setVisibility(View.VISIBLE);
         btn_cancel.setVisibility(View.VISIBLE);
         btn_del_memb.setVisibility(View.VISIBLE);
         btn_save.setVisibility(View.INVISIBLE);
@@ -449,9 +450,9 @@ public class ManageCareTeamActivity extends AppCompatActivity {
                 lcl.patient.get(CTp).care_team.get(MLp).email = Email.getText().toString();
                 lcl.patient.get(CTp).care_team.get(MLp).relationship = Relation.getText().toString();
                 if (Admin.getText() == "Ja") {
-                    lcl.patient.get(CTp).care_team.get(MLp).admin = 1;
+//                    lcl.patient.get(CTp).care_team.get(MLp).admin = 1;
                 } else {
-                    lcl.patient.get(CTp).care_team.get(MLp).admin = 0;
+//                    lcl.patient.get(CTp).care_team.get(MLp).admin = 0;
                 }
 
                 memberAdapter.notifyDataSetChanged();

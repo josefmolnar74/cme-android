@@ -204,7 +204,7 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     private void careTeam(){
-        Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+        Intent myIntent = new Intent(this, CareTeamActivity.class);
         startActivity(myIntent);
     }
 

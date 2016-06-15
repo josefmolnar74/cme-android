@@ -37,19 +37,34 @@ public class JoinCareTeamActivity extends AppCompatActivity {
     }
 
     public void onClickJoinCareTeamNext(View view){
-        connectHandler.findUser(inputEmail.getText().toString());
+        connectHandler.findCareTeamInvite(inputEmail.getText().toString());
    //     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        while (connectHandler.person == null){}
+        while (connectHandler.socketBusy){}
 
-        String patientName = connectHandler.person.patient.get(0).patient_name;
-        if (patientName != null){
-           joinCareTeam(patientName);
+        if (connectHandler.invite == null)
+        {
+            alertNoCareTeam();
+        }else
+        {
+            joinCareTeam(connectHandler.invite.patient_name);
         }
     }
 
-//        buttonFind.setVisibility(View.INVISIBLE);
-//        textAddEmail.setVisibility(View.INVISIBLE);
-//        inputEmail.setVisibility(View.INVISIBLE);
+    public void alertNoCareTeam(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        String alertText = String.format("No care team found to join");
+        alertDialogBuilder.setMessage(alertText);
+
+        alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                inputEmail.setText("");
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 
     public void joinCareTeam(String patientName){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -76,7 +91,7 @@ public class JoinCareTeamActivity extends AppCompatActivity {
 
     public void login(){
         Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra(LoginActivity.INVITED_EMAIL, connectHandler.person.email);
+        intent.putExtra(LoginActivity.INVITED_EMAIL, connectHandler.invite.invited_email);
         startActivity(intent);
     }
 }

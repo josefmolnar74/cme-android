@@ -12,15 +12,15 @@ public class CareTeamMember {
     public String last_name;
     public String email;
     public String relationship;
-    public int    admin;
+    public Boolean admin;
 
-    public CareTeamMember(String firstName, String lastName, String email, String relation, Integer admin) {
+    public CareTeamMember(int person_id, String firstName, String lastName, String email, String relation, Boolean admin) {
 
-        this.person_ID    = 0; //default value, does not matter because updated during read from database
-        this.first_name   = firstName;
-        this.last_name    = lastName;
-        this.email        = email;
+        this.person_ID = person_id; //default value, does not matter because updated during read from database
+        this.first_name = firstName;
+        this.last_name = lastName;
+        this.email = email;
         this.relationship = relation;
-        this.admin        = admin;
+        this.admin = admin;
     }
 }

@@ -119,20 +119,37 @@ public class LoginActivity extends AppCompatActivity {
         Person newUser = new Person(0 , firstnameRegister.getText().toString(), lastnameRegister.getText().toString(), emailRegister.getText().toString(), passwordRegister.getText().toString(), null);
         connectHandler.createUser(newUser);
         while (connectHandler.socketBusy){}
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getApplicationContext(), "User has been created!", duration);
-        toast.show();
-        //TBD solution to choose several careTeams possible solution to save last used patient
 
-        // During register user need to either create a new care team or join and existing
-        if (patientName != null){
-            // User tries to create new patient
-            Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
-            connectHandler.createPatient(newPatient, relationship);
+        if (connectHandler.person == null){
+            //Create user failed, show dialog
         }
-        while ((connectHandler.patient != null) && connectHandler.socketBusy) {}
-        Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
-        startActivity(myIntent);
+        else{
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(getApplicationContext(), "User has been created!", duration);
+            toast.show();
+
+            // During register user need to either create a new care team or join and existing
+            if (patientName != null){
+                // User tries to create new patient
+                Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
+                connectHandler.createPatient(newPatient, relationship);
+            }
+            else if (connectHandler.invite != null){//replace with invite object
+                CareTeamMember newCareTeamMember = new CareTeamMember(  connectHandler.person.person_ID,
+                                                                        connectHandler.person.first_name,
+                                                                        connectHandler.person.last_name,
+                                                                        connectHandler.person.email,
+                                                                        connectHandler.invite.invited_relationship,
+                                                                        connectHandler.invite.invited_admin );
+                //Join invited careteam
+                connectHandler.createCareTeamMember(newCareTeamMember, connectHandler.invite.patient_ID);
+
+            }
+            while (connectHandler.socketBusy){}
+
+            Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+            startActivity(myIntent);
+        }
     }
 
     private void login(){
@@ -153,15 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                     passwordLogin.setText("");
                 }
             });
-            /*
-            alertDialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    emailLogin.setText("");
-                    passwordLogin.setText("");
-                }
-            });
-            */
+
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         } else if (connectHandler.person.patient == null){

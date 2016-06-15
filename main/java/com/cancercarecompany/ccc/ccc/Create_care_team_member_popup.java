@@ -15,10 +15,6 @@ public class Create_care_team_member_popup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_care_team_member_popup);
 
-        System.out.println("Create_care_team_member_popup");
-        System.out.println(first_name);
-        System.out.println("first_name");
-
     }
 
 

@@ -42,8 +42,6 @@ public class CareTeamActivity extends AppCompatActivity {
     CareTeamFamilyAdapter familyAdapter;
     CareTeamHealthCareAdapter healthCareAdapter;
     CareTeamHealthCareAdapter listAdapter = healthCareAdapter;
-    Lcl_work_area lcl;
-    String lclString;
     LinearLayout linearLayout;
     ImageButton journeyButton;
     ImageButton journalButton;
@@ -63,10 +61,10 @@ public class CareTeamActivity extends AppCompatActivity {
         TextView loggedIn = (TextView) findViewById(R.id.loggedIn);
         loggedIn.setText(connectHandler.person.first_name);
         // lclString to be removed
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        lclString = (String) preferences.getString("Person", "");
-        Gson gson = new Gson();
-        lcl = gson.fromJson(lclString, Lcl_work_area.class);
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        lclString = (String) preferences.getString("Person", "");
+//        Gson gson = new Gson();
+//        lcl = gson.fromJson(lclString, Lcl_work_area.class);
 
         familyListView = (ListView) findViewById(R.id.careTeamFamilyListView);
         healthCareGridView = (GridView) findViewById(R.id.careTeamHealthCareGridView);
@@ -198,6 +196,7 @@ public class CareTeamActivity extends AppCompatActivity {
 
                 relation.setText(spinnerRelation.getSelectedItem().toString());
                 //Admin.setText(editAdmin.getSelectedItem().toString());
+/*
                 if(editAdmin.getSelectedItem() == "Ja") {
                     CareTeamMember newMember = new CareTeamMember(editFirstName.getText().toString(),editLastName.getText().toString(),editEmail.getText().toString(),
                             spinnerRelation.getSelectedItem().toString(), 0);
@@ -207,7 +206,7 @@ public class CareTeamActivity extends AppCompatActivity {
                             spinnerRelation.getSelectedItem().toString(), 1);
                     lcl.patient.get(CTp).care_team.add(newMember);
                 }
-
+*/
                 healthCareAdapter.notifyDataSetChanged();
                 listAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();
@@ -278,7 +277,7 @@ public class CareTeamActivity extends AppCompatActivity {
 
         buttonEdit.setVisibility(View.VISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
-        buttonDelete.setVisibility(View.VISIBLE);
+        buttonDelete.setVisibility(View.INVISIBLE);
         buttonSave.setVisibility(View.INVISIBLE);
 
         linearLayout = (LinearLayout) popupView.findViewById(R.id.care_team_member_popup);
@@ -291,6 +290,7 @@ public class CareTeamActivity extends AppCompatActivity {
                 buttonSave.setVisibility(View.INVISIBLE);
                 buttonCancel.setVisibility(View.VISIBLE);
                 saveContact(listPosition);
+                popupWindow.dismiss();
             }
 
             private void saveContact(int listPosition) {
@@ -299,7 +299,7 @@ public class CareTeamActivity extends AppCompatActivity {
                 email.setText(editEmail.getText().toString());
                 relation.setText(spinnerRelation.getSelectedItem().toString());
                 admin.setText(spinnerAdmin.getSelectedItem().toString());
-
+/*
                 CareTeamMember newCareTeamMember = new CareTeamMember(  firstName.getText().toString(),
                                                                         lastName.getText().toString(),
                                                                         email.getText().toString(),
@@ -309,7 +309,7 @@ public class CareTeamActivity extends AppCompatActivity {
                 connectHandler.inviteCareTeamMember(newCareTeamMember);
                 //Enable when invite has been implemented in the backend
 //                while (connectHandler.socketBusy){}
-
+*/
                 healthCareAdapter.notifyDataSetChanged();
                 listAdapter.notifyDataSetChanged();
             }
@@ -320,7 +320,7 @@ public class CareTeamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 buttonEdit.setVisibility(View.INVISIBLE);
-                buttonDelete.setVisibility(View.INVISIBLE);
+                buttonDelete.setVisibility(View.VISIBLE);
                 buttonSave.setVisibility(View.VISIBLE);
                 buttonCancel.setVisibility(View.VISIBLE);
                 prepareForEdit(listPosition);
@@ -361,14 +361,16 @@ public class CareTeamActivity extends AppCompatActivity {
                 }
                 buttonEdit.setVisibility(View.VISIBLE);
                 buttonSave.setVisibility(View.INVISIBLE);
-                buttonCancel.setVisibility(View.VISIBLE);
-                buttonDelete.setVisibility(View.VISIBLE);
-                cancelEdit(listPosition);
+                buttonCancel.setVisibility(View.INVISIBLE);
+                buttonDelete.setVisibility(View.INVISIBLE);
+                popupWindow.dismiss();
+//                cancelEdit(listPosition);
             }
 
             private void cancelEdit(int MLp) {
 
-                Spinner spinnerRelation = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
+
+/*                Spinner spinnerRelation = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
                 ArrayAdapter<String> adapter_rel = new ArrayAdapter<String>(CareTeamActivity.this,
                         android.R.layout.simple_spinner_item, spinnerRelValues);
                 adapter_rel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -378,7 +380,7 @@ public class CareTeamActivity extends AppCompatActivity {
                 ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
                 adapter_admin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner_admin.setAdapter(adapter_admin);
-
+*/
             }
         });
 
@@ -387,16 +389,14 @@ public class CareTeamActivity extends AppCompatActivity {
             public void onClick(View v) {
                 buttonEdit.setVisibility(View.VISIBLE);
                 buttonSave.setVisibility(View.INVISIBLE);
-                buttonCancel.setVisibility(View.VISIBLE);
-                buttonDelete.setVisibility(View.VISIBLE);
+                buttonCancel.setVisibility(View.INVISIBLE);
+                buttonDelete.setVisibility(View.INVISIBLE);
                 deleteCareTeamMembers(listPosition);
             }
             private void deleteCareTeamMembers(int index) {
 
- //               lcl.patient.get(CTp).care_team.remove(MLp);
-
-                healthCareAdapter.notifyDataSetChanged();
-                listAdapter.notifyDataSetChanged();
+//                healthCareAdapter.notifyDataSetChanged();
+//                listAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();
             }
         });
