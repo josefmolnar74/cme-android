@@ -16,7 +16,7 @@
     <string name="lastname">Efternamn</string>
     <string name="phone">Telefon</string>
     <string name="delete_name">Ta bort CT <xliff:g name="patient_name">%s</xliff:g>?</string>
-    <string name="txt_journal_headline">Dagbok <xliff:g name="">%s</xliff:g></string>
+    <string name="txt_journal_headline">Datum:</string>
     <string name="txt_frukost">Frukost </string>
     <string name="txt_lunch">Lunch</string>
     <string name="txt_middag">Middag</string>
@@ -35,6 +35,46 @@
     <string name="txt_yrs_head">Yrsel</string>
     <string name="txt_bi_krk_head">Kräkningar</string>
     <string name="txt_krk_ngn">1-2 ggr</string>
+    <string name="txt_biv_fatigue">Fatigue/Trötthet</string>
+    <string name="txt_biv_smarta">Smärta</string>
+    <string name="txt_biv_munfor">Munförändringar</string>
+    <string name="txt_biv_stick">Stickningar/Domningar</string>
+    <string name="txt_biv_avfr">Diarré</string>
+    <string name="txt_biv_aptit">Aptit</string>
+    <string name="txt_biv_yrs">Yrsel</string>
+    <string name="txt_krak">Kräkningar</string>
+    <string name="txt_biv_fat_head">Lider Barnet av Fatigue idag?</string>
+    <string name="txt_biv_pain_head">Lider Barnet av Smärta idag?</string>
+    <string name="txt_biv_apetite_head">Har Barnet haft bra aptit idag?</string>
+    <string name="txt_biv_yrsel_head">Har Barnet upplevt yrsel idag?</string>
+    <string name="txt_biv_forstopp_head">Har Barnet haft diarré det senaste dygnet?</string>
+    <string name="txt_biv_krakn_head">Har Barnet kräkts det senaste dygnet?</string>
+    <string name="txt_rad_yes">Ja</string>
+    <string name="txt_rad_no">Nej</string>
+    <string name="txt_stat_start">Notera hur du mår idag</string>
+    <string name="txt_med_info">Markera de tillfälle medicinerna är tagna</string>
+    <string name="txt_med_done">Alla medicinerna är tagna idag!</string>
+    <string name="txt_biv_fat_desc">Gradera Barnets fatigue</string>
+    <string name="txt_biv_pain_desc">Gradera Barnets smärta</string>
+    <string name="txt_biv_apetite_desc">Hur mycket åt barnet upp på de olika måltiderna</string>
+    <string name="txt_biv_yrsel_desc">Hur ofta har Barnet upplevt yrsel?</string>
+    <string name="txt_biv_forstopp_desc">Hur ofta har Barnet haft diarré?</string>
+    <string name="txt_biv_krakn_desc">Beskriv Barnets kräk</string>
+    <string name="txt_biv_seek_min">Minimal</string>
+    <string name="txt_biv_seek_max">Betydande</string>
+    <string name="txt_biv_seek_apetite_min">Inget alls</string>
+    <string name="txt_biv_seek_apetite_max">Åt upp allt</string>
+    <string name="txt_biv_seek_y_min">1-2 ggr</string>
+    <string name="txt_biv_seek_y_res">3-4 ggr</string>
+    <string name="txt_biv_seek_y_max">Flera ggr</string>
+    <string name="txt_biv_seek_fst_min">1 gång</string>
+    <string name="txt_biv_seek_fst_res">2-3 ggr</string>
+    <string name="txt_biv_seek_fst_max">4- ggr-</string>
+    <string name="txt_biv_seek_krk_min">Blod/röd</string>
+    <string name="txt_biv_seek_krk_med">Klar/Grönaktig</string>
+    <string name="txt_biv_seek_krk_max">Osmält</string>
+    <string name="txt_kvall">Kväll</string>
+    <string name="txt_curr_events">Händelser</string>
 
 </resources>
 

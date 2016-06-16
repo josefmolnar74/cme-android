@@ -164,9 +164,9 @@ public class CareTeamActivity extends AppCompatActivity {
         final EditText editEmail            = (EditText) popupView.findViewById(R.id.txt_email_careteam);
         final TextView relation             = (TextView) popupView.findViewById(R.id.lbl_relation_careteam);
         final Spinner  spinnerRelation         = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
-        final String[] spinnerRelValues     = {"Pappa", "Mamma", "Patient", "Läkare"};
+        final String[] spinnerRelValues     = {"Father", "Mother", "Patient", "Doctor"};
         final Spinner  editAdmin            = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-        final String[] spinnerAdminValues   = {"Ja", "Nej"};
+        final String[] spinnerAdminValues   = {"Yes", "No"};
         final Button   buttonSave           = (Button) popupView.findViewById(R.id.btn_save_careteam);
         final Button   buttonCancel         = (Button) popupView.findViewById(R.id.btn_cancel_careteam);
         final Button   buttonEdit           = (Button) popupView.findViewById(R.id.btn_edit_careteam);
