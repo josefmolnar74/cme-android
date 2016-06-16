@@ -141,11 +141,15 @@ public class ConnectionHandler {
                     // error code handling
                     else {
                         switch (header.errorCode){
-                            case "User not found":
+                            case "user_not_found":
                                 person = null;
                                 patient = null;
                                 break;
-                            case "Login failed":
+                            case "login_failed":
+                                break;
+                            case "user_already_exists":
+                                person = null;
+                                patient = null;
                                 break;
                         }
                     }

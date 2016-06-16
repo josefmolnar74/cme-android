@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String YEAR_OF_BIRTH = "year of birth"; //From create care team
     public static final String DIAGNOSE = "diagnose"; //From create care team
     public static final String RELATIONSHIP = "relationship"; //From create care team
-    public static final String INVITED_EMAIL   = "join email"; //From join care team
+    public static final String INVITED_EMAIL   = "invited email"; //From join care team
 
     private ConnectionHandler connectHandler;
 
@@ -125,8 +125,19 @@ public class LoginActivity extends AppCompatActivity {
         connectHandler.createUser(newUser);
         while (connectHandler.socketBusy){}
 
-        if (connectHandler.person ==    null){
-            //Create user failed, show dialog
+        if (connectHandler.person == null){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            String alertText = String.format("Login failed, user already exists");
+            alertDialogBuilder.setMessage(alertText);
+
+            alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    loginAgain();                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
         else{
             int duration = Toast.LENGTH_SHORT;
@@ -224,6 +235,17 @@ public class LoginActivity extends AppCompatActivity {
             Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);
         }
+    }
+
+    private void loginAgain(){
+        //User email already exist please use another email
+        Intent myIntent = new Intent(this, LoginActivity.class);
+        myIntent.putExtra(PATIENT_NAME, patientName);
+        myIntent.putExtra(YEAR_OF_BIRTH, yearOfBirth);
+        myIntent.putExtra(DIAGNOSE, diagnose);
+        myIntent.putExtra(RELATIONSHIP, relationship);
+        myIntent.putExtra(INVITED_EMAIL, invitedEmail);
+        startActivity(myIntent);
     }
 
     private void createCareTeam(){
