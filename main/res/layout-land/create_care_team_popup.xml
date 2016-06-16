@@ -242,13 +242,10 @@
         android:layout_height="60dp"
         android:id="@+id/btn_save_careteam"
         android:visibility="visible"
-        android:layout_alignParentEnd="false"
         android:background="@drawable/mark"
-        android:layout_marginBottom="5dp"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:layout_alignTop="@+id/btn_cancel_careteam"
+        android:layout_alignStart="@+id/btn_edit_careteam" />
 
     <Button
         android:layout_width="60dp"
@@ -256,10 +253,11 @@
         android:id="@+id/btn_cancel_careteam"
         android:visibility="visible"
         android:background="@drawable/delete"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
         android:layout_alignParentRight="false"
         android:layout_toLeftOf="@+id/btn_edit_careteam"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/lbl_admin_careteam" />
 
 </RelativeLayout>

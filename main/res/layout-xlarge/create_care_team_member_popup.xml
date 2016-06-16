@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="500dp"
-    android:layout_height="300dp"
+    android:layout_height="500dp"
     android:id="@+id/create_care_team_member_popup"
     android:weightSum="1"
     android:background="#ffffff"
@@ -242,13 +242,10 @@
         android:layout_height="60dp"
         android:id="@+id/btn_save_careteam"
         android:visibility="visible"
-        android:layout_alignParentEnd="false"
         android:background="@drawable/mark"
-        android:layout_marginBottom="5dp"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/spinner_admin_careteam"
+        android:layout_alignStart="@+id/btn_edit_careteam" />
 
     <Button
         android:layout_width="60dp"
@@ -256,10 +253,11 @@
         android:id="@+id/btn_cancel_careteam"
         android:visibility="visible"
         android:background="@drawable/delete"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
         android:layout_alignParentRight="false"
         android:layout_toLeftOf="@+id/btn_edit_careteam"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/lbl_admin_headline_careteam" />
 
 </RelativeLayout>

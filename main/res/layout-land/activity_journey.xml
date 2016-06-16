@@ -12,7 +12,6 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-
         android:id="@+id/topbarLinear"
         android:layout_height="0dp"
         android:layout_weight="8">
@@ -122,16 +121,14 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:id="@+id/journeyscreen"
         android:layout_height="0dp"
         android:weightSum="100"
         android:layout_weight="92">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="900dp"
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="92"
             android:layout_alignParentStart="true"
@@ -139,14 +136,13 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:id="@+id/heavenLinear"
-                android:layout_height="0dp"
-                android:layout_weight="20">
+                android:layout_height="160dp">
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
-                    android:layout_height="200dp"
+                    android:layout_height="match_parent"
                     android:id="@+id/scroll_heaven_journey"
                     android:scrollbars="none"
                     android:layout_below="@+id/relativeLayout"
@@ -171,8 +167,9 @@
                 android:orientation="horizontal"
                 android:id="@+id/landscapeLinear"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="57">
+                android:layout_height="500dp"
+                android:layout_below="@+id/heavenLinear"
+                android:layout_above="@+id/roadLinear">
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
@@ -202,8 +199,8 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:id="@+id/roadLinear"
-                android:layout_height="0dp"
-                android:layout_weight="20">
+                android:layout_alignParentBottom="true"
+                android:layout_height="160dp">
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
@@ -234,7 +231,7 @@
                     </RelativeLayout>
                 </HorizontalScrollView>
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:orientation="vertical"
