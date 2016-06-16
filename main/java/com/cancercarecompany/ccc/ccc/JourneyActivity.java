@@ -1,20 +1,24 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.media.Image;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.SystemClock;
 import android.print.PrintAttributes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -100,6 +104,8 @@ public class JourneyActivity extends AppCompatActivity {
     String subCategoryClicked = "";
     Date date;
     RelativeLayout wholeScreen;
+    int width;
+    int height;
 
     View vID;
 
@@ -135,6 +141,13 @@ public class JourneyActivity extends AppCompatActivity {
         addTest.setOnTouchListener(new MyTouchListener());
         addOther.setOnTouchListener(new MyTouchListener());
 
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        width = size.x;
+        height = size.y;
+        System.out.println(width);
+        System.out.println(height);
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -144,6 +157,8 @@ public class JourneyActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+
 
 
         currentDate = Calendar.getInstance().getTime();
@@ -254,9 +269,10 @@ public class JourneyActivity extends AppCompatActivity {
         int carIntPosition = (int) carPosition;
 
        // paramsCar.setMargins(carIntPosition * 6, -10, 0, 0);
-        paramsCar.setMargins(0, -10, 0, 0);
-        paramsCar.width = 300;
-        paramsCar.height = 200;
+        paramsCar.setMargins(0, 10, 0, 0);
+
+        paramsCar.width = 200;
+        paramsCar.height = 150;
 
 
         car.setLayoutParams(paramsCar);
@@ -273,12 +289,13 @@ public class JourneyActivity extends AppCompatActivity {
             btn.setId(i);
             final int id_ = btn.getId();
 
+
             if (i % 3 == 0) {
                 topMargin = 0;
             } else if (i % 3 == 1) {
-                topMargin = 160;
+                topMargin = height/7;
             } else if (i % 3 == 2) {
-                topMargin = 320;
+                topMargin = (height/7 *2);
             }
 
 
@@ -389,12 +406,12 @@ public class JourneyActivity extends AppCompatActivity {
 
 
             params.setMargins((currentEventInt * 2) +300 , topMargin, 0, 0);
-            params.width = 150;
-            params.height = 150;
+            params.width = height/8;
+            params.height = height/8;
             if (category == "Start") {
                 params.setMargins((currentEventInt * 2), topMargin, 0, 0);
-                params.width = 300;
-                params.height = 300;
+                params.width = (height/8) *2;
+                params.height = (height/8) *2;
             }
             indexButton.setLayoutParams(params);
 
@@ -406,7 +423,6 @@ public class JourneyActivity extends AppCompatActivity {
 
 
     public void popup(View v, int location) {
-
 
         String vCategory = "";
 
@@ -427,13 +443,15 @@ public class JourneyActivity extends AppCompatActivity {
 
         }
         final String Category = vCategory;
-
+        double popupHeight = height * 0.80;
+        double popupwidth = width * 0.70;
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.addeventpopup, null);
         final PopupWindow popupWindow = new PopupWindow(
-                popupView, 1200, 1200);
+                popupView, (int)popupwidth , (int)popupHeight);
+
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -452,7 +470,16 @@ public class JourneyActivity extends AppCompatActivity {
         final ImageView subCategory6 = (ImageView) popupView.findViewById(R.id.img_subcategory6);
         final ImageView subCategory7 = (ImageView) popupView.findViewById(R.id.img_subcategory7);
         final ImageView subCategory8 = (ImageView) popupView.findViewById(R.id.img_subcategory8);
+        ImageButton cancel = (ImageButton) popupView.findViewById(R.id.btn_cancel_addevent);
+        ScrollView addEventScroll = (ScrollView) popupView.findViewById(R.id.scrollViewAddEvent);
+        addEventScroll.setScrollY(0);
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
         timePicker.setIs24HourView(true);
 
 
@@ -746,14 +773,15 @@ public class JourneyActivity extends AppCompatActivity {
 
         saveButton.setOnClickListener(new Button.OnClickListener() {
 
+
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
                 cal.set(Calendar.YEAR, datePicker.getYear());
                 cal.set(Calendar.MONTH, datePicker.getMonth());
                 cal.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
-                cal.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-                cal.set(Calendar.MINUTE, timePicker.getMinute());
+                cal.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
+                cal.set(Calendar.MINUTE,timePicker.getCurrentMinute());
                 cal.set(Calendar.SECOND, 0);
                 cal.set(Calendar.MILLISECOND, 0);
                 eventsSameDate = 0;
@@ -796,7 +824,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 
-        popupWindow.showAsDropDown(relativeLayout, 450, 0);
+        popupWindow.showAsDropDown(relativeLayout, 300 , 0);
 
     }
 
@@ -928,8 +956,8 @@ public class JourneyActivity extends AppCompatActivity {
                     eventsSameDate = eventsSameDate +1;
                     ImageButton collidateButton= ((ImageButton) findViewById(i));
 
-                    topMargin = (int)collidateButton.getY() + 160;
-                    if (topMargin > 330){
+                    topMargin = (int)collidateButton.getY() + (height/8);
+                    if (topMargin > (height/8) *2){
                         topMargin = 0;
                     }
 
@@ -940,12 +968,12 @@ public class JourneyActivity extends AppCompatActivity {
         }
 
             params.setMargins((currentEventInt * 2) + 300, topMargin, 0, 0);
-            params.width = 150;
-            params.height = 150;
+            params.width = (height/8);
+            params.height = (height/8);
             if (subCategory == "Start") {
                 params.setMargins((currentEventInt * 2), topMargin, 0, 0);
-                params.width = 300;
-                params.height = 300;
+                params.width = (height/8) * 2;
+                params.height = (height/8) * 2;
             }
 
             indexButton.setLayoutParams(params);
@@ -962,7 +990,7 @@ public class JourneyActivity extends AppCompatActivity {
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.detailpopup, null);
         final PopupWindow popupWindow = new PopupWindow(
-                popupView, 700, 800 );
+                popupView, 400, 500);
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -972,6 +1000,14 @@ public class JourneyActivity extends AppCompatActivity {
         TextView timeDetail = (TextView)popupView.findViewById(R.id.lbl_TimeInfoDetail_journey);
         ImageView categoryImage = (ImageView)popupView.findViewById(R.id.img_detailcategory_journey);
         final Button deleteEvent = (Button)popupView.findViewById(R.id.btn_deleteEvent_journey);
+        ImageButton cancelButtonDetail = (ImageButton)popupView.findViewById(R.id.btn_cancel_detail);
+
+        cancelButtonDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
 
 
             eventDetail.setText(eventList.get(id_).subCategory.toString());
@@ -1120,8 +1156,8 @@ public class JourneyActivity extends AppCompatActivity {
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
             params.setMargins(i*1000,0,0,0);
-            params.width = 400;
-            params.height = 200;
+            params.width = width/4;
+            params.height = (height/6);
             Random r = new Random();
             int cloudRandom = r.nextInt(3);
             System.out.println(cloudRandom);
@@ -1212,7 +1248,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         Toast toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();
 
@@ -1276,15 +1312,16 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
+
     private void animateCar(final int carIntPosition){
 
 
         final RelativeLayout.LayoutParams paramsCar2 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-     paramsCar2.setMargins(carIntPosition * 6 + 100,-10,0,0);
-                paramsCar2.width = 300;
-                paramsCar2.height = 200;
+     paramsCar2.setMargins(carIntPosition * 6 + 100, 5,0,0);
+                paramsCar2.width = 200;
+                paramsCar2.height = 120;
 
         TranslateAnimation transAnimation1= new TranslateAnimation(0, 2000, 0, 0);
         transAnimation1.setDuration(3500);

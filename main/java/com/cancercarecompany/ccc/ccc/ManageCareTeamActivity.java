@@ -47,7 +47,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
     ManageCareTeamMemberAdapter memberAdapter;
     Lcl_work_area lcl;
     String lclString;
-    RelativeLayout relativeLayout;
+    LinearLayout relativeLayout;
     String lbl_friends;
     String lbl_delete;
     Button add_CTmember;
@@ -151,7 +151,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         final View popupView = layoutInflater.inflate(R.layout.del_ct_popup, null);
 
         final PopupWindow popupWindow = new PopupWindow(
-                popupView, 700, 700);
+                popupView, 500, 500);
 
         final TextView tw_delete = (TextView) popupView.findViewById(R.id.lbl_delete);
 
@@ -161,9 +161,9 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         final Button btn_yes = (Button) popupView.findViewById(R.id.btn_yes);
         final Button btn_cancel = (Button) popupView.findViewById(R.id.btn_cancel);
 
-        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.del_ct_pop);
+        relativeLayout = (LinearLayout) findViewById(R.id.careTeamMain);
 
-        popupWindow.showAsDropDown(relativeLayout, 560, -200);
+        popupWindow.showAsDropDown(relativeLayout, 400, 0);
 // Sätt ihop rubriken???
         Resources res = getResources();
         lbl_delete = String.format(res.getString(R.string.delete_name), (patientList.get(GCTp).patient_name));
@@ -207,9 +207,8 @@ public class ManageCareTeamActivity extends AppCompatActivity {
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.create_care_team_member_popup, null);
-
         final PopupWindow popupWindow = new PopupWindow(
-                popupView, 1000, 1000);
+                popupView, 500, 500);
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -268,9 +267,9 @@ public class ManageCareTeamActivity extends AppCompatActivity {
             }
         });
 
-        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.create_care_team_member_popup);
+        relativeLayout = (LinearLayout) popupView.findViewById(R.id.careTeamMain);
       //  LinearLayout layout = (LinearLayout) findViewById(R.id.careTeamScreen);
-        popupWindow.showAsDropDown(relativeLayout, 500, -900);
+        popupWindow.showAsDropDown(relativeLayout, 500, 0);
         popupWindow.isFocusable();
 
 
@@ -285,7 +284,7 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         final View popupView = layoutInflater.inflate(R.layout.create_care_team_popup, null);
 
         final PopupWindow popupWindow = new PopupWindow(
-                popupView, 1000, 1000);
+                popupView, 500, 500);
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -349,8 +348,8 @@ public class ManageCareTeamActivity extends AppCompatActivity {
             }
         });
 
-        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.create_care_team_popup);
-        popupWindow.showAsDropDown(relativeLayout, 500, -900);
+        relativeLayout = (LinearLayout) popupView.findViewById(R.id.careTeamMain);
+        popupWindow.showAsDropDown(relativeLayout, 500, 0);
 
     }
 
@@ -427,8 +426,8 @@ public class ManageCareTeamActivity extends AppCompatActivity {
         btn_del_memb.setVisibility(View.VISIBLE);
         btn_save.setVisibility(View.INVISIBLE);
 
-        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.care_team_member_popup);
-        popupWindow.showAsDropDown(relativeLayout, 500, -900);
+        relativeLayout = (LinearLayout) popupView.findViewById(R.id.careTeamMain);
+        popupWindow.showAsDropDown(relativeLayout, 500, 0);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,7 +1,10 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +19,9 @@ public class journal extends AppCompatActivity {
     private SeekBar seekFr;
     private SeekBar seekLu;
     private SeekBar seekMi;
+    ImageButton journeyButton;
+    ImageButton careTeamButton;
+
 
 
 
@@ -24,6 +30,34 @@ public class journal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
+
+        journeyButton = (ImageButton) findViewById(R.id.journeyButton);
+        careTeamButton = (ImageButton) findViewById(R.id.contactsButton);
+
+
+        journeyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), JourneyActivity.class);
+                startActivity(myIntent);
+
+            }
+        });
+
+        careTeamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent myIntent = new Intent(getApplicationContext(), CareTeamActivity.class);
+                startActivity(myIntent);
+
+            }
+        });
+
+
+
+
+
         seekFr = (SeekBar) findViewById(R.id.seek_med_fr);
         seekLu = (SeekBar) findViewById(R.id.seek_med_lu);
         seekMi = (SeekBar) findViewById(R.id.seek_med_mi);
