@@ -12,9 +12,9 @@ public class CareTeamMember {
     public String last_name;
     public String email;
     public String relationship;
-    public Boolean admin;
+    public int admin;
 
-    public CareTeamMember(int person_id, String firstName, String lastName, String email, String relation, Boolean admin) {
+    public CareTeamMember(int person_id, String firstName, String lastName, String email, String relation, int admin) {
 
         this.person_ID = person_id; //default value, does not matter because updated during read from database
         this.first_name = firstName;

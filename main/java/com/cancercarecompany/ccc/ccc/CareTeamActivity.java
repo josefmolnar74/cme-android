@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -37,7 +37,7 @@ public class CareTeamActivity extends AppCompatActivity {
     ArrayList<CareTeamMember> familyList = new ArrayList<>();
     ArrayList<CareTeamMember> healthCareList = new ArrayList<>();
 
-    ListView familyListView;
+    GridView familyGridView;
     GridView healthCareGridView;
     CareTeamFamilyAdapter familyAdapter;
     CareTeamHealthCareAdapter healthCareAdapter;
@@ -66,7 +66,7 @@ public class CareTeamActivity extends AppCompatActivity {
 //        Gson gson = new Gson();
 //        lcl = gson.fromJson(lclString, Lcl_work_area.class);
 
-        familyListView = (ListView) findViewById(R.id.careTeamFamilyListView);
+        familyGridView = (GridView) findViewById(R.id.careTeamFamilyGridView);
         healthCareGridView = (GridView) findViewById(R.id.careTeamHealthCareGridView);
 
         final Button buttonAddHealthCareMember = (Button) findViewById(R.id.btn_add_CTmember);
@@ -95,7 +95,7 @@ public class CareTeamActivity extends AppCompatActivity {
         }
 
         familyAdapter = new CareTeamFamilyAdapter(this, familyList);
-        familyListView.setAdapter(familyAdapter);
+        familyGridView.setAdapter(familyAdapter);
 
         // Generate health care members
         // TBD solution to differentiate between family and health care
@@ -107,7 +107,7 @@ public class CareTeamActivity extends AppCompatActivity {
         healthCareGridView.setAdapter(healthCareAdapter);
 
         //Open popup window to show user detail information and edit/delete
-        familyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        familyGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int familyListPosition, long id) {
                 showCareTeamMember(familyListPosition);
@@ -132,13 +132,17 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonAddFamilyMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createCareTeamMember();
+                createHealthCareMember();
             }
         });
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    public void createHealthCareMember(){
+        createCareTeamMember();
     }
 
     public void createCareTeamMember() {
@@ -190,26 +194,29 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new  View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                saveCTMember(CTp);
-            }
-            private void saveCTMember(int CTp) {
 
-                relation.setText(spinnerRelation.getSelectedItem().toString());
-                //Admin.setText(editAdmin.getSelectedItem().toString());
-/*
-                if(editAdmin.getSelectedItem() == "Ja") {
-                    CareTeamMember newMember = new CareTeamMember(editFirstName.getText().toString(),editLastName.getText().toString(),editEmail.getText().toString(),
-                            spinnerRelation.getSelectedItem().toString(), 0);
-                    lcl.patient.get(CTp).care_team.add(newMember);
-                } else {
-                    CareTeamMember newMember = new CareTeamMember(editFirstName.getText().toString(),editLastName.getText().toString(),editEmail.getText().toString(),
-                            spinnerRelation.getSelectedItem().toString(), 1);
-                    lcl.patient.get(CTp).care_team.add(newMember);
+                // invite new care team member
+                int admin;
+                if(editAdmin.getSelectedItem() == "Yes") {
+                    admin = 1;
                 }
-*/
-                healthCareAdapter.notifyDataSetChanged();
-                listAdapter.notifyDataSetChanged();
+                else {
+                    admin = 0;
+                }
+                Invite newInvite = new Invite(  0,
+                                                false,
+                                                connectHandler.person.first_name,
+                                                connectHandler.patient.patient_ID,
+                                                connectHandler.patient.patient_name,
+                                                editEmail.getText().toString(),
+                                                spinnerRelation.getSelectedItem().toString(),
+                                                admin);
+                connectHandler.inviteCareTeamMember(newInvite);
+
+//                healthCareAdapter.notifyDataSetChanged();
+//                listAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();
+
             }
         });
 

@@ -36,7 +36,7 @@ public class ConnectionHandler {
     public static final String CONTENT_PERSON = "person";
     public static final String CONTENT_PATIENT = "patient";
     public static final String CONTENT_INVITE = "invite";
-    public static final String CONTENT_CARE_TEAM = "care_team ";
+    public static final String CONTENT_CARE_TEAM = "careteam ";
     public static final String CONTENT_EVENT = "event";
     public static final String CONTENT_STATUS = "status";
 
@@ -55,7 +55,11 @@ public class ConnectionHandler {
         }
 
         int message_ID = 0;
-        String messageHeader = String.format("\"message_ID\": \"%d\", \"function\": \"%s\", \"content\": \"%s\", ",message_ID, function, content);
+        String messageHeader = "";
+        messageHeader += String.format("\"message_ID\": \"%d\", ", message_ID);
+        messageHeader += String.format("\"function\": \"%s\", ", function);
+        messageHeader += String.format("\"content\": \"%s\", ", content);
+
 // when I want to change the send message, right now I leave it this way
 //        MsgHeader msgHeader= new MsgHeader(0, function, content, "");
 //        Gson gson = new Gson();
@@ -81,7 +85,7 @@ public class ConnectionHandler {
                     String resultHeader = result.substring(0, index+1);
                     String resultData = result.substring(index+1);
                     MsgHeader header = gson.fromJson(resultHeader, MsgHeader.class);
-                    if (header.errorCode == ""){
+                    if ((header.errorCode == "") && (resultData != null)){
                         switch (header.function){
                             case MESSAGE_LOGIN:
                                 person = gson.fromJson(resultData, Person.class);
@@ -109,10 +113,24 @@ public class ConnectionHandler {
                                         person = gson.fromJson(resultData, Person.class);
                                         break;
                                     case CONTENT_PATIENT:
-                                        Patient patient = gson.fromJson(resultData, Patient.class);
+                                        patient = gson.fromJson(resultData, Patient.class);
                                         break;
                                     case CONTENT_INVITE:
                                         Invite invite = gson.fromJson(resultData, Invite.class);
+                                        break;
+                                }
+                                break;
+
+                            case MESSAGE_UPDATE:
+                                switch (header.content){
+                                    case CONTENT_PERSON:
+                                        person = gson.fromJson(resultData, Person.class);
+                                        break;
+                                    case CONTENT_PATIENT:
+                                        Patient patient = gson.fromJson(resultData, Patient.class);
+                                        break;
+                                    case CONTENT_CARE_TEAM:
+                                        CareTeamMember careTeam = gson.fromJson(resultData, CareTeamMember.class);
                                         break;
                                 }
                                 break;
@@ -191,14 +209,25 @@ public class ConnectionHandler {
         sendMessage(MESSAGE_CREATE, CONTENT_INVITE, msgData);
     }
 
-    public void findCareTeamInvite(String email) {
-        String msgData = String.format("{\"email\":\"%s\"}", email);
+    public void findCareTeamInvite(String invitedEmail) {
+        String msgData = String.format("{\"invited_email\":\"%s\"}", invitedEmail);
         sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
     }
 
-    public void acceptCareTeamInvite(Invite newInvite) {
+    public void acceptCareTeamInvite(Invite acceptInvite) {
         Gson gson = new Gson();
-        String msgData = gson.toJson(newInvite);
+        String msgData = gson.toJson(acceptInvite);
         sendMessage(MESSAGE_UPDATE, CONTENT_INVITE, msgData);
     }
+
+    public void getPatient(int patientID){
+        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+        sendMessage(MESSAGE_READ, CONTENT_PATIENT, msgData);
+    }
+/*
+    public void getCareTeamMember(int personID, int patientID){
+        String msgData = String.format("{\"person_ID\":\"%d\",\"patient_ID\":\"%d\"}",personID, patientID);
+        sendMessage(MESSAGE_READ, CONTENT_CARE_TEAM, msgData);
+    }
+*/
 }

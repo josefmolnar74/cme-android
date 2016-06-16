@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     RelativeLayout loginLayout;
     Button cancelButton;
     TextView registerButton;
+    TextView loginButton;
     Lcl_work_area lcl;
 
     private String patientName;
@@ -78,9 +79,13 @@ public class LoginActivity extends AppCompatActivity {
         invitedEmail = intent.getStringExtra(INVITED_EMAIL);
         emailLogin.setText(invitedEmail);
 
+        registerButton = (TextView) findViewById(R.id.btn_register_login);
+        loginButton = (TextView) findViewById(R.id.btn_login_login);
         if ((patientName == null) && (invitedEmail == null)){
-            registerButton = (TextView) findViewById(R.id.btn_register_login);
             registerButton.setVisibility(View.INVISIBLE);
+        }
+        else{
+            loginButton.setVisibility(View.INVISIBLE);
         }
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -143,11 +148,17 @@ public class LoginActivity extends AppCompatActivity {
                                                                         connectHandler.invite.invited_admin );
                 //Join invited careteam
                 connectHandler.createCareTeamMember(newCareTeamMember, connectHandler.invite.patient_ID);
-
+//                connectHandler.patient.care_team.add(newCareTeamMember);
             }
+
             while (connectHandler.socketBusy){}
 
-            Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+            //Ugly solution to solve that created careteammember is part of patient
+            connectHandler.getPatient(connectHandler.patient.patient_ID);
+
+            while (connectHandler.socketBusy){}
+
+            Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);
         }
     }

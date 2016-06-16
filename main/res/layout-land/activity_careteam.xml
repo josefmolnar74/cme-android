@@ -112,26 +112,30 @@
             android:background="#ffffff"
             android:layout_weight="50">
 
-            <ListView
+            <GridView
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="fill_parent"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:id="@+id/careTeamFamilyListView"
-                android:visibility="visible"
-                android:layout_alignParentBottom="true"
+                android:columnWidth="150dp"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="50dp"
+                android:horizontalSpacing="50dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center"
+                android:id="@+id/careTeamFamilyGridView"
+                android:layout_below="@+id/text_careTeamFamily"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="false"
-                android:layout_below="@+id/diary_header" />
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/txt_choose_CT"
-                android:id="@+id/diary_header"
+                android:text="Family/Friends"
+                android:id="@+id/text_careTeamFamily"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:textSize="@dimen/XLARGE" />
@@ -162,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/lbl_friends"
+                android:id="@+id/text_careTeamHealthCare"
                 android:textSize="@dimen/XLARGE"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
@@ -191,7 +195,7 @@
                 android:stretchMode="columnWidth"
                 android:gravity="center"
                 android:id="@+id/careTeamHealthCareGridView"
-                android:layout_below="@+id/lbl_friends"
+                android:layout_below="@+id/text_careTeamHealthCare"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
