@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         connectHandler.createUser(newUser);
         while (connectHandler.socketBusy){}
 
-        if (connectHandler.person == null){
+        if (connectHandler.person ==    null){
             //Create user failed, show dialog
         }
         else{
