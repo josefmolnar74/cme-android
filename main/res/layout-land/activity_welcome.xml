@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:columnCount="3"
+    tools:context="com.cancercarecompany.ccc.ccc.WelcomeActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_columnSpan="3"
+        android:id="@+id/editText"
+        android:text="@string/welcome"
+        android:textSize="60dp"
+        android:layout_rowWeight="1.1"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_rowWeight="1"
+        android:layout_row="1"
+        android:layout_column="1">
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/button_create_care_team"
+            android:id="@+id/create"
+            android:onClick="onClickCreateCareTeam" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/button_join_care_team"
+            android:id="@+id/join"
+            android:onClick="onClickJoinCareTeam"
+            android:layout_below="@+id/create" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/button_login"
+            android:id="@+id/login"
+            android:onClick="onClickLogin" />
+
+        <RelativeLayout
+            android:layout_rowWeight="1.5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView5"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/myjourney" />
+
+            <ImageView
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:id="@+id/imageView6"
+                android:layout_alignBottom="@+id/imageView5"
+                android:layout_toLeftOf="@+id/imageView5"
+                android:layout_toStartOf="@+id/imageView5"
+                android:layout_marginRight="100dp"
+                android:layout_marginEnd="100dp"
+                android:background="@drawable/careteam"
+                android:maxHeight="88dp"
+                android:maxWidth="88dp" />
+
+            <ImageView
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:id="@+id/imageView7"
+                android:layout_alignBottom="@+id/imageView5"
+                android:layout_toRightOf="@+id/imageView5"
+                android:layout_toEndOf="@+id/imageView5"
+                android:layout_marginLeft="100dp"
+                android:layout_marginStart="100dp"
+                android:background="@drawable/myjournal" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</GridLayout>

@@ -66,9 +66,6 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
-
-import pl.polidea.view.ZoomView;
-
 public class JourneyActivity extends AppCompatActivity {
 
     ArrayList<Events> eventList;
@@ -222,7 +219,7 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     private void careTeam(){
-        Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+        Intent myIntent = new Intent(this, CareTeamActivity.class);
         startActivity(myIntent);
     }
 
@@ -428,16 +425,16 @@ public class JourneyActivity extends AppCompatActivity {
 
         switch (v.getId()) {
 
-            case 2131558599:
+            case 2131558593:
                 vCategory = "Appointment";
                 break;
-            case 2131558600:
+            case 2131558594:
                 vCategory = "Treatment";
                 break;
-            case 2131558601:
+            case 2131558595:
                 vCategory = "Test";
                 break;
-            case 2131558602:
+            case 2131558596:
                 vCategory = "Other";
                 break;
 
@@ -1609,61 +1606,3 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

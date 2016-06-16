@@ -1,9 +1,11 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -30,18 +32,29 @@ public class LoginActivity extends AppCompatActivity {
     RelativeLayout registerLayout;
     RelativeLayout loginLayout;
     Button cancelButton;
+    TextView registerButton;
+    TextView loginButton;
     Lcl_work_area lcl;
 
+    private String patientName;
+    private String yearOfBirth;
+    private String diagnose;
+    private String relationship;
+    private String invitedEmail;
 
-    io.socket.client.Socket mSocket;
+    public static final String PATIENT_NAME = "patient name"; //From create care team
+    public static final String YEAR_OF_BIRTH = "year of birth"; //From create care team
+    public static final String DIAGNOSE = "diagnose"; //From create care team
+    public static final String RELATIONSHIP = "relationship"; //From create care team
+    public static final String INVITED_EMAIL   = "join email"; //From join care team
 
-
+    private ConnectionHandler connectHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        connectHandler = ConnectionHandler.getInstance();
 
         firstnameRegister = (EditText) findViewById(R.id.txt_firstname_register_login);
         lastnameRegister = (EditText) findViewById(R.id.txt_lastname_register_login);
@@ -56,6 +69,24 @@ public class LoginActivity extends AppCompatActivity {
         registerLayout = (RelativeLayout) findViewById(R.id.registerlayout);
         cancelButton = (Button) findViewById(R.id.btn_cancel_login);
         registerLayout.setVisibility(View.INVISIBLE);
+
+        // Get values sent from Create team and join activity
+        Intent intent = getIntent();
+        patientName = intent.getStringExtra(PATIENT_NAME);
+        yearOfBirth = intent.getStringExtra(YEAR_OF_BIRTH);
+        diagnose = intent.getStringExtra(DIAGNOSE);
+        relationship = intent.getStringExtra(RELATIONSHIP);
+        invitedEmail = intent.getStringExtra(INVITED_EMAIL);
+        emailLogin.setText(invitedEmail);
+
+        registerButton = (TextView) findViewById(R.id.btn_register_login);
+        loginButton = (TextView) findViewById(R.id.btn_login_login);
+        if ((patientName == null) && (invitedEmail == null)){
+            registerButton.setVisibility(View.INVISIBLE);
+        }
+        else{
+            loginButton.setVisibility(View.INVISIBLE);
+        }
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,29 +121,98 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void register(){
-        Socket socketClass = new Socket();
-        Person newUser = new Person(0 , firstnameRegister.getText().toString(), lastnameRegister.getText().toString(), emailRegister.getText().toString(), passwordRegister.getText().toString());
+        Person newUser = new Person(0 , firstnameRegister.getText().toString(), lastnameRegister.getText().toString(), emailRegister.getText().toString(), passwordRegister.getText().toString(), null);
+        connectHandler.createUser(newUser);
+        while (connectHandler.socketBusy){}
 
-        mSocket = socketClass.createUser(newUser);
+        if (connectHandler.person ==    null){
+            //Create user failed, show dialog
+        }
+        else{
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(getApplicationContext(), "User has been created!", duration);
+            toast.show();
 
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getApplicationContext(), "User has been created!", duration);
-        toast.show();
+            // During register user need to either create a new care team or join and existing
+            if (patientName != null){
+                // User tries to create new patient
+                Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
+                connectHandler.createPatient(newPatient, relationship);
+            }
+            else if (connectHandler.invite != null){//replace with invite object
+                CareTeamMember newCareTeamMember = new CareTeamMember(  connectHandler.person.person_ID,
+                                                                        connectHandler.person.first_name,
+                                                                        connectHandler.person.last_name,
+                                                                        connectHandler.person.email,
+                                                                        connectHandler.invite.invited_relationship,
+                                                                        connectHandler.invite.invited_admin );
+                //Join invited careteam
+                connectHandler.createCareTeamMember(newCareTeamMember, connectHandler.invite.patient_ID);
+//                connectHandler.patient.care_team.add(newCareTeamMember);
+            }
 
+            while (connectHandler.socketBusy){}
+
+            //Ugly solution to solve that created careteammember is part of patient
+            connectHandler.getPatient(connectHandler.patient.patient_ID);
+
+            while (connectHandler.socketBusy){}
+
+            Intent myIntent = new Intent(this, CareTeamActivity.class);
+            startActivity(myIntent);
+        }
     }
 
     private void login(){
-        Socket socketClass = new Socket();
-        Person newUser = new Person(0, null, null, emailLogin.getText().toString(), passwordLogin.getText().toString());
+        Person newUser = new Person(0, null, null, emailLogin.getText().toString(), passwordLogin.getText().toString(), null);
+        connectHandler.login(newUser);
 
-        mSocket = socketClass.login(newUser);
-        while (socketClass.lcl == null){
-                System.out.println("tom");
-        }
+        while (connectHandler.socketBusy){}
 
-            lcl = socketClass.lcl;
-            System.out.println(lcl);
+        if (connectHandler.person == null){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            String alertText = String.format("Login failed");
+            alertDialogBuilder.setMessage(alertText);
 
+            alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    emailLogin.setText("");
+                    passwordLogin.setText("");
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        } else if (connectHandler.person.patient == null){
+            // Login success but no care team connected
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            String alertText = String.format("Do you want to join %s care team?", patientName);
+            alertDialogBuilder.setMessage(alertText);
+
+            alertDialogBuilder.setPositiveButton("Join", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    createCareTeam();
+                }
+            });
+
+            alertDialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    emailLogin.setText("");
+                    passwordLogin.setText("");
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        } else {
+            //Login success
+
+            while (connectHandler.socketBusy){}
+
+            lcl = connectHandler.lcl;
             Gson gson = new Gson();
             String jsonPerson = gson.toJson(lcl);
 
@@ -121,15 +221,13 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("Person", jsonPerson);
             editor.apply();
 
-            Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+            Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);
-
-
+        }
     }
 
-
-
-
-
-
+    private void createCareTeam(){
+        Intent myIntent = new Intent(this, CreateCareTeamActivity.class);
+        startActivity(myIntent);
+    }
 }

@@ -35,36 +35,83 @@ import io.socket.emitter.Emitter;
  */
 public class Socket extends AppCompatActivity {
 
-    String server_url;
     public io.socket.client.Socket mSocket;
+
     String result;
     String function;
 
-   public Lcl_work_area lcl;
+    public Lcl_work_area lcl;
+    public Person person;
+    public Patient patient;
 
     JSONObject findUser;
 
-    {
+    public static final String MESSAGE_LOGIN = "login";
+    public static final String MESSAGE_CREATE = "create";
+    public static final String MESSAGE_GET = "get";
+    public static final String MESSAGE_UPDATE = "update";
+    public static final String MESSAGE_DELETE = "delete";
+    public static final String MESSAGE_FIND = "find";
+
+    public static final String CONTENT_PERSON = "person";
+    public static final String CONTENT_PATIENT = "patient";
+    public static final String CONTENT_EVENT = "event";
+    public static final String CONTENT_STATUS = "status";
+
+    private void sendMessage(String function, String content, String message){
+        if (mSocket == null){
+            initializeSocket();
+        }
+
+        int message_ID = 0;
+        String messageHeader = String.format("\"message_ID\": \"%d\", \"function\": \"%s\", \"content\": \"%s\", ",message_ID, function, content);
+        message = new StringBuilder(message).insert(1, messageHeader).toString();
+        mSocket.emit(function, message);
+    };
+
+    private void initializeSocket(){
         try {
-            server_url = "http://cancermeapp-cancerme.rhcloud.com";
+            String server_url = "http://cancermeapp-cancerme.rhcloud.com";
             mSocket = IO.socket(server_url);
             mSocket.connect();
             mSocket.open();
             mSocket.on("data", new Emitter.Listener() {
                 @Override
                 public void call(final Object... args) {
-                    if (function == "login") {
-                        result = args[0].toString();
-                        System.out.println(result);
-                        Gson gson = new Gson();
+                    Gson gson = new Gson();
+                    String result = args[0].toString();
+                    int index = result.indexOf("}");
+                    String resultHeader = result.substring(0, index+1);
+                    String resultData = result.substring(index+1);
+                    MsgHeader header = gson.fromJson(resultHeader, MsgHeader.class);
+                    switch (header.function){
+                        case MESSAGE_LOGIN:
+                            lcl = gson.fromJson(resultData, Lcl_work_area.class);
+                            break;
 
-                        result = result.substring(2);
-                        lcl = gson.fromJson(result, Lcl_work_area.class);
+                        case MESSAGE_CREATE:
+                            switch (header.content){
+                                case CONTENT_PERSON:
+                                    Person recievedPerson = gson.fromJson(resultData, Person.class);
+                                    person.person_ID = recievedPerson.person_ID;
+                                    break;
+                                case CONTENT_PATIENT:
+                                    break;
+                            }
+                            break;
+                        case MESSAGE_GET:
+                            switch (header.content){
+                                case CONTENT_PERSON:
+                                    person = gson.fromJson(resultData, Person.class);
+                                    break;
+                                case CONTENT_PATIENT:
+                                    Patient patient = gson.fromJson(resultData, Patient.class);
+                                    break;
+                            }
+                            break;
 
                     }
-
-                    }
-
+                }
             });
 
 
@@ -72,45 +119,38 @@ public class Socket extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-
     }
 
-    public io.socket.client.Socket createUser(Person newUser) {
-        function = "create";
-        Gson gson = new Gson();
-        String newUserString = gson.toJson(newUser);
-        mSocket.emit("create", newUserString);
-
-
-        return mSocket;
-    }
-
-    public io.socket.client.Socket login (Person newUser){
+    public void login (Person newUser){
         function = "login";
-        findUser = new JSONObject();
-        LoginActivity loginActivity = new LoginActivity();
-
-        final Gson gson = new Gson();
-        String newUserString = gson.toJson(newUser);
-        mSocket.emit("login", newUserString);
-
-        return mSocket;
-    }
-
-
-    public void goToManageCareTeam(){
-
-        Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
         Gson gson = new Gson();
-        String jsonPerson = gson.toJson(lcl);
-
-        myIntent.putExtra("Person", jsonPerson);
-        startActivity(myIntent);
-
+        String newUserString = gson.toJson(newUser);
+        sendMessage(MESSAGE_LOGIN, CONTENT_PERSON, newUserString);
     }
 
+    public void createUser(Person newUser) {
+        Gson gson = new Gson();
+        String newUserString = gson.toJson(newUser);
+        sendMessage(MESSAGE_CREATE, CONTENT_PERSON, newUserString);
+    }
 
+    public void editUser(Person newUser) {
+        Gson gson = new Gson();
+        String newUserString = gson.toJson(newUser);
+        sendMessage(MESSAGE_UPDATE, CONTENT_PERSON, newUserString);
+    }
 
+    public void deleteUser(Person newUser) {
+        Gson gson = new Gson();
+        String msgData = gson.toJson(newUser);
+        sendMessage(MESSAGE_DELETE, CONTENT_PERSON, msgData);
+    }
+
+    public void findUser(String email) {
+        Gson gson = new Gson();
+        String msgData = String.format("{\"email\":\"%s\"}", email);
+        sendMessage(MESSAGE_GET, CONTENT_PERSON, msgData);
+    }
 
 }
 
