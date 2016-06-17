@@ -98,8 +98,9 @@ public class ConnectionHandler {
                             case MESSAGE_CREATE:
                                 switch (header.content){
                                     case CONTENT_PERSON:
-                                        Person recievedPerson = gson.fromJson(resultData, Person.class);
-                                        person.person_ID = recievedPerson.person_ID;
+                                        person = gson.fromJson(resultData, Person.class);
+//                                        Person recievedPerson = gson.fromJson(resultData, Person.class);
+//                                        person.person_ID = recievedPerson.person_ID;
                                         break;
                                     case CONTENT_PATIENT:
                                         Patient recievedPatient = gson.fromJson(resultData, Patient.class);
@@ -116,7 +117,7 @@ public class ConnectionHandler {
                                         patient = gson.fromJson(resultData, Patient.class);
                                         break;
                                     case CONTENT_INVITE:
-                                        Invite invite = gson.fromJson(resultData, Invite.class);
+                                        invite = gson.fromJson(resultData, Invite.class);
                                         break;
                                 }
                                 break;
@@ -141,13 +142,13 @@ public class ConnectionHandler {
                     // error code handling
                     else {
                         switch (header.errorCode){
-                            case "user_not_found":
+                            case "not_found":
                                 person = null;
                                 patient = null;
                                 break;
                             case "login_failed":
                                 break;
-                            case "user_already_exists":
+                            case "already_exists":
                                 person = null;
                                 patient = null;
                                 break;
@@ -214,13 +215,17 @@ public class ConnectionHandler {
     }
 
     public void findCareTeamInvite(String invitedEmail) {
+        invite = null; // reset any previous invite querys
         String msgData = String.format("{\"invited_email\":\"%s\"}", invitedEmail);
         sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
     }
 
-    public void acceptCareTeamInvite(Invite acceptInvite) {
+    public void acceptCareTeamInvite() {
         Gson gson = new Gson();
-        String msgData = gson.toJson(acceptInvite);
+        invite.invite_accepted = 1;
+        String msgData = gson.toJson(invite);
+        String msgPersonIdData = String.format("\"person_ID\":\"%d\",", person.person_ID);
+        msgData = new StringBuilder(msgData).insert(1, msgPersonIdData).toString();
         sendMessage(MESSAGE_UPDATE, CONTENT_INVITE, msgData);
     }
 

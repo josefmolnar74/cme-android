@@ -1,21 +1,13 @@
 package com.cancercarecompany.ccc.ccc;
 
-import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.view.WindowInsetsCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class JoinCareTeamActivity extends AppCompatActivity {
@@ -74,7 +66,7 @@ public class JoinCareTeamActivity extends AppCompatActivity {
         alertDialogBuilder.setPositiveButton("Join", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                login();
+                register();
             }
         });
 
@@ -89,9 +81,9 @@ public class JoinCareTeamActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void login(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra(LoginActivity.INVITED_EMAIL, connectHandler.invite.invited_email);
+    public void register(){
+        Intent intent = new Intent(this, RegisterActivity.class);
+        intent.putExtra(RegisterActivity.INVITED_EMAIL, inputEmail.getText().toString());
         startActivity(intent);
     }
 }

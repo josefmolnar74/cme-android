@@ -1,7 +1,7 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="app_name">CCC</string>
     <string name="title_activity_journal">JournalActivity</string>
-    <string name="welcome">Welcome to C-me Kids</string>
+    <string name="welcome">Welcome to play, explore and document your cancer journey. It is free for patients and will always be.</string>
     <string name="button_create_care_team">Create care team</string>
     <string name="button_join_care_team">Join care team</string>
     <string name="button_login">Login</string>

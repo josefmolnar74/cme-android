@@ -205,13 +205,13 @@ public class CareTeamActivity extends AppCompatActivity {
                     admin = 0;
                 }
                 Invite newInvite = new Invite(  0,
-                                                false,
                                                 connectHandler.person.first_name,
                                                 connectHandler.patient.patient_ID,
                                                 connectHandler.patient.patient_name,
                                                 editEmail.getText().toString(),
                                                 spinnerRelation.getSelectedItem().toString(),
-                                                admin);
+                                                admin,
+                                                0 );
                 connectHandler.inviteCareTeamMember(newInvite);
 
 //                healthCareAdapter.notifyDataSetChanged();
