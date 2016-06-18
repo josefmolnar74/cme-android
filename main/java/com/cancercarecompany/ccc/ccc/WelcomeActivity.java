@@ -93,17 +93,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     editor.putBoolean(getString(R.string.login_auto_login), false);
                 }
                 editor.commit();
-
-
-            /*
-            Gson gson = new Gson();
-            String jsonPerson = gson.toJson(connecHandler);
-
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("Person", jsonPerson);
-            editor.apply();
-*/
+            
             Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);
         }
