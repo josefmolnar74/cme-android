@@ -1,5 +1,6 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
@@ -17,6 +19,8 @@ public class WelcomeActivity extends AppCompatActivity {
     ConnectionHandler connectHandler;
     EditText loginEmail;
     EditText loginPassword;
+    CheckBox loginSave;
+    boolean autoLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,17 @@ public class WelcomeActivity extends AppCompatActivity {
         connectHandler = ConnectionHandler.getInstance(); //initialize socket and server connection
         loginEmail = (EditText) findViewById(R.id.text_login_email);
         loginPassword = (EditText) findViewById(R.id.text_login_password);
+        loginSave = (CheckBox) findViewById(R.id.checkBox_save_login);
+
+
+        //Check if username and password has been saved in share preferences
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        autoLogin = sharedPref.getBoolean(getString(R.string.login_auto_login), false);
+        if (autoLogin){
+            loginEmail.setText(sharedPref.getString(getString(R.string.login_saved_email), ""));
+            loginPassword.setText(sharedPref.getString(getString(R.string.login_saved_password), ""));
+            loginSave.setChecked(true);
+        }
     }
 
     public void onClickCreateCareTeam(View view){
@@ -66,7 +81,21 @@ public class WelcomeActivity extends AppCompatActivity {
             //Login success
 
             while (connectHandler.socketBusy){}
-/*
+
+
+                SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.login_saved_email),loginEmail.getText().toString());
+                editor.putString(getString(R.string.login_saved_password),loginPassword.getText().toString());
+                if (loginSave.isChecked()) {
+                    editor.putBoolean(getString(R.string.login_auto_login), true);
+                } else{
+                    editor.putBoolean(getString(R.string.login_auto_login), false);
+                }
+                editor.commit();
+
+
+            /*
             Gson gson = new Gson();
             String jsonPerson = gson.toJson(connecHandler);
 

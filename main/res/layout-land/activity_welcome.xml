@@ -94,7 +94,7 @@
             android:layout_marginEnd="45dp">
 
             <EditText
-                android:layout_width="200dp"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/text_login_email"
                 android:inputType="textPersonName"
@@ -102,10 +102,10 @@
                 android:background="@android:drawable/edit_text" />
 
             <EditText
-                android:layout_width="200dp"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 android:id="@+id/text_login_password"
                 android:background="@android:drawable/edit_text"
                 android:layout_gravity="right" />
@@ -113,7 +113,7 @@
         </LinearLayout>
 
         <Button
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/button_login"
             android:id="@+id/login"
@@ -126,10 +126,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkBox_save_login"
-            android:layout_alignBottom="@+id/login"
-            android:layout_toLeftOf="@+id/login"
-            android:layout_toStartOf="@+id/login"
-            android:checked="false" />
+            android:hint="save login on this device"
+            android:checked="false"
+            android:layout_below="@+id/linearLayout3"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 

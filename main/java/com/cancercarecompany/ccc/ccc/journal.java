@@ -43,7 +43,7 @@ public class journal extends AppCompatActivity {
     ImageButton journeyButton;
     ImageButton careTeamButton;
 
-    Lcl_work_area lcl;
+//    Lcl_work_area lcl;
     String lclString;
     io.socket.client.Socket mSocket;
 
@@ -76,7 +76,7 @@ public class journal extends AppCompatActivity {
         final ImageButton careTeamButton = (ImageButton) findViewById(R.id.contactsButton);
 
 // Hämta data
-
+/*
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         lclString = (String) preferences.getString("Person", "");
 
@@ -88,7 +88,7 @@ public class journal extends AppCompatActivity {
         for (int i = 0; i < lcl.patient.size(); i++) {
             patientList.add(lcl.patient.get(i));
         }
-
+*/
 
 
 
