@@ -65,6 +65,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:id="@+id/txt_firstName_careteam"
+            android:hint="Please specify"
             android:inputType="textPersonName"
             android:textSize="20dp"
             android:layout_row="0"
@@ -90,6 +91,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:id="@+id/txt_lastName_careteam"
+            android:text=""
             android:inputType="textPersonName"
             android:textSize="20dp"
             android:layout_row="1"
@@ -115,6 +117,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:id="@+id/txt_email_careteam"
+            android:hint="Please specify"
             android:inputType="textEmailAddress"
             android:textSize="20dp"
             android:layout_row="2"
@@ -139,6 +142,7 @@
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text=""
             android:id="@+id/txt_phone_careteam"
             android:textSize="20dp"
             android:layout_row="3"
@@ -175,7 +179,7 @@
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Relation:"
+            android:text="Admin:"
             android:id="@+id/lbl_admin_careteam"
             android:textSize="20dp"
             android:layout_row="5"
@@ -192,6 +196,21 @@
             android:spinnerMode="dialog"
             android:layout_row="5"
             android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="First name and email must be specified"
+            android:id="@+id/text_careTeamInvite_alertText"
+            android:textSize="20dp"
+            android:layout_row="6"
+            android:layout_columnSpan="2"
+            android:layout_column="0"
+            android:textColor="#ff0000"
+            android:visibility="invisible"/>
 
     </GridLayout>
 

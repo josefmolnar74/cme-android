@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class JoinCareTeamActivity extends AppCompatActivity {
 
     ConnectionHandler connectHandler;
-
+    Invite invite; //support only 1 patient
     TextView textAddEmail;
     EditText inputEmail;
     Button buttonFind;
@@ -33,12 +33,14 @@ public class JoinCareTeamActivity extends AppCompatActivity {
    //     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         while (connectHandler.socketBusy){}
 
-        if (connectHandler.invite == null)
+        invite = connectHandler.invites.invite_data.get(0); //support only 1 patient
+
+        if (invite == null)
         {
             alertNoCareTeam();
         }else
         {
-            joinCareTeam(connectHandler.invite.patient_name);
+            joinCareTeam(invite.patient_name);
         }
     }
 

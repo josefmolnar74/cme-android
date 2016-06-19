@@ -38,12 +38,14 @@ public class RegisterActivity extends AppCompatActivity {
     public static final String INVITED_EMAIL   = "invited email"; //From join care team
 
     private ConnectionHandler connectHandler;
+    private Invite invite; //support only 1 patient
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         connectHandler = ConnectionHandler.getInstance();
+        invite = connectHandler.invites.invite_data.get(0); //support only 1 patient
 
         registerFirstName = (EditText) findViewById(R.id.text_register_firstname);
         registerLastName = (EditText) findViewById(R.id.text_register_lastname);
@@ -100,23 +102,16 @@ public class RegisterActivity extends AppCompatActivity {
                 Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
                 connectHandler.createPatient(newPatient, relationship);
             }
-            else if (connectHandler.invite != null){//replace with invite object
-/*                CareTeamMember newCareTeamMember = new CareTeamMember(  connectHandler.person.person_ID,
-                                                                        connectHandler.person.first_name,
-                                                                        connectHandler.person.last_name,
-                                                                        connectHandler.person.email,
-                                                                        connectHandler.invite.invited_relationship,
-                                                                        connectHandler.invite.invited_admin );
-                //Join invited careteam
-                connectHandler.createCareTeamMember(newCareTeamMember, connectHandler.invite.patient_ID);
-*/
-                connectHandler.acceptCareTeamInvite();
+            else if (invite != null){//replace with invite object
+                invite.invite_accepted = 1;
+                invite.person_ID = connectHandler.person.person_ID;
+                connectHandler.acceptCareTeamInvite(invite);
             }
 
             while (connectHandler.socketBusy){}
 
             //Ugly solution to solve that created careteammember is part of patient
-            connectHandler.getPatient(connectHandler.invite.patient_ID);
+            connectHandler.getPatient(invite.patient_ID);
 
             while (connectHandler.socketBusy){}
 
@@ -130,11 +125,5 @@ public class RegisterActivity extends AppCompatActivity {
         Intent myIntent = new Intent(this, WelcomeActivity.class);
         startActivity(myIntent);
     }
-
-    private void createCareTeam(){
-        Intent myIntent = new Intent(this, CreateCareTeamActivity.class);
-        startActivity(myIntent);
-    }
-
 
 }

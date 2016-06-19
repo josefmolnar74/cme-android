@@ -1,10 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,9 +13,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.GridView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -27,7 +22,6 @@ import java.util.ArrayList;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.gson.Gson;
 
 
 public class CareTeamActivity extends AppCompatActivity {
@@ -61,11 +55,6 @@ public class CareTeamActivity extends AppCompatActivity {
 
         TextView loggedIn = (TextView) findViewById(R.id.loggedIn);
         loggedIn.setText(connectHandler.person.first_name);
-        // lclString to be removed
-//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        lclString = (String) preferences.getString("Person", "");
-//        Gson gson = new Gson();
-//        lcl = gson.fromJson(lclString, Lcl_work_area.class);
 
         familyGridView = (GridView) findViewById(R.id.careTeamFamilyGridView);
         healthCareGridView = (GridView) findViewById(R.id.careTeamHealthCareGridView);
@@ -94,6 +83,15 @@ public class CareTeamActivity extends AppCompatActivity {
         for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
             familyList.add(connectHandler.patient.care_team.get(i));
         }
+
+        connectHandler.getInvitedCareTeamMembers(connectHandler.patient.patient_ID);
+
+        while (connectHandler.socketBusy){}
+
+        // Add invited friends that have yet not accepted invitation
+//        for (int i = connectHandler.patient.care_team.size(); i < ; i++){
+
+//        }
 
         familyAdapter = new CareTeamFamilyAdapter(this, familyList);
         familyGridView.setAdapter(familyAdapter);
@@ -126,7 +124,7 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonAddHealthCareMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createCareTeamMember();
+                inviteCareTeamMember();
             }
         });
 
@@ -143,10 +141,10 @@ public class CareTeamActivity extends AppCompatActivity {
     }
 
     public void createHealthCareMember(){
-        createCareTeamMember();
+        inviteCareTeamMember();
     }
 
-    public void createCareTeamMember() {
+    public void inviteCareTeamMember() {
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -159,7 +157,7 @@ public class CareTeamActivity extends AppCompatActivity {
         popupWindow.update();
 
         final EditText editFirstName        = (EditText) popupView.findViewById(R.id.txt_firstName_careteam);
-        final EditText editLastName         = (EditText) popupView.findViewById(R.id.txt_secondName_careteam);
+        final EditText editLastName         = (EditText) popupView.findViewById(R.id.txt_lastName_careteam);
         final EditText editPhoneNumber      = (EditText) popupView.findViewById(R.id.txt_phone_careteam);
         final EditText editEmail            = (EditText) popupView.findViewById(R.id.txt_email_careteam);
         final TextView relation             = (TextView) popupView.findViewById(R.id.lbl_relation_careteam);
@@ -170,6 +168,11 @@ public class CareTeamActivity extends AppCompatActivity {
         final Button   buttonSave           = (Button) popupView.findViewById(R.id.btn_save_careteam);
         final Button   buttonCancel         = (Button) popupView.findViewById(R.id.btn_cancel_careteam);
         final Button   buttonEdit           = (Button) popupView.findViewById(R.id.btn_edit_careteam);
+        final TextView alertText            = (TextView) popupView.findViewById(R.id.text_careTeamInvite_alertText);
+
+        // no need to save LastName and PhoneNumber
+//        editLastName.setFocusable(false);
+//        editPhoneNumber.setFocusable(false);
 
         buttonSave.setVisibility(View.VISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
@@ -188,6 +191,7 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                alertText.setVisibility(View.INVISIBLE);
                 popupWindow.dismiss();
             }
         });
@@ -196,28 +200,43 @@ public class CareTeamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // invite new care team member
-                int admin;
-                if(editAdmin.getSelectedItem() == "Yes") {
-                    admin = 1;
-                }
-                else {
-                    admin = 0;
-                }
-                Invite newInvite = new Invite(  0,
-                                                connectHandler.person.first_name,
-                                                connectHandler.patient.patient_ID,
-                                                connectHandler.patient.patient_name,
-                                                editEmail.getText().toString(),
-                                                spinnerRelation.getSelectedItem().toString(),
-                                                admin,
-                                                0 );
-                connectHandler.inviteCareTeamMember(newInvite);
+
+                String firstNameString = editFirstName.getText().toString();
+                String emailString = editEmail.getText().toString();
+
+                //FirstName and email must be specified, the others will get emptystring if not specified
+                if ((!firstNameString.isEmpty()) && (!emailString.isEmpty())){
+                    alertText.setVisibility(View.INVISIBLE);
+                    // invite new care team member
+                    int admin;
+                    if(editAdmin.getSelectedItem() == "Yes") {
+                        admin = 1;
+                    }
+                    else {
+                        admin = 0;
+                    }
+                    Invite newInvite = new Invite(  0,
+                                                    connectHandler.person.first_name,
+                                                    connectHandler.patient.patient_ID,
+                                                    connectHandler.patient.patient_name,
+                                                    firstNameString,
+                                                    editLastName.getText().toString(),
+                                                    emailString,
+                                                    (String) spinnerRelation.getSelectedItem(),
+                                                    admin,
+                                                    0,
+                                                    0);
+
+                    connectHandler.inviteCareTeamMember(newInvite);
 
 //                healthCareAdapter.notifyDataSetChanged();
 //                listAdapter.notifyDataSetChanged();
-                popupWindow.dismiss();
+                    popupWindow.dismiss();
 
+                }else{
+                    // notify user they need to add
+                    alertText.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -227,7 +246,6 @@ public class CareTeamActivity extends AppCompatActivity {
         popupWindow.isFocusable();
 
     }
-
 
     public void showCareTeamMember(final int listPosition) {
 
@@ -417,7 +435,7 @@ public class CareTeamActivity extends AppCompatActivity {
     }
 
     private void journalActivity(){
-        Intent myIntent = new Intent(this, journal.class);
+        Intent myIntent = new Intent(this, JournalActivity.class);
         startActivity(myIntent);
 
     }

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 //import android.widget.Spinner;
 
-public class journal extends AppCompatActivity {
+public class JournalActivity extends AppCompatActivity {
 
     ArrayList<Events> eventList;
     ArrayList<Patient> patientList = new ArrayList<>();

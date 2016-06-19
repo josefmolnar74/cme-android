@@ -2,8 +2,6 @@ package com.cancercarecompany.ccc.ccc;
 
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
 import java.net.URISyntaxException;
 
 import io.socket.client.IO;
@@ -25,7 +23,7 @@ public class ConnectionHandler {
     public Lcl_work_area lcl;
     public Person person;
     public Patient patient;
-    public Invite invite;
+    public InviteData invites;
 
     public static final String MESSAGE_LOGIN = "login";
     public static final String MESSAGE_CREATE = "create";
@@ -83,7 +81,7 @@ public class ConnectionHandler {
                     String result = args[0].toString();
                     int index = result.indexOf("}");
                     String resultHeader = result.substring(0, index+1);
-                    String resultData = result.substring(index+1);
+                    String resultData = result.substring(index+2);
                     MsgHeader header = gson.fromJson(resultHeader, MsgHeader.class);
                     if ((header.errorCode == "") && (resultData != null)){
                         switch (header.function){
@@ -117,7 +115,7 @@ public class ConnectionHandler {
                                         patient = gson.fromJson(resultData, Patient.class);
                                         break;
                                     case CONTENT_INVITE:
-                                        invite = gson.fromJson(resultData, Invite.class);
+                                        invites = gson.fromJson(resultData, InviteData.class);
                                         break;
                                 }
                                 break;
@@ -201,6 +199,11 @@ public class ConnectionHandler {
         sendMessage(MESSAGE_CREATE, CONTENT_PATIENT, msgData);
     }
 
+    public void getPatient(int patientID){
+        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+        sendMessage(MESSAGE_READ, CONTENT_PATIENT, msgData);
+    }
+
     public void createCareTeamMember(CareTeamMember newCareTeamMember, int patientID) {
         Gson gson = new Gson();
         String msgData = gson.toJson(newCareTeamMember);
@@ -215,28 +218,20 @@ public class ConnectionHandler {
     }
 
     public void findCareTeamInvite(String invitedEmail) {
-        invite = null; // reset any previous invite querys
+        invites = null; // reset any previous invite querys
         String msgData = String.format("{\"invited_email\":\"%s\"}", invitedEmail);
         sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
     }
 
-    public void acceptCareTeamInvite() {
+    public void getInvitedCareTeamMembers(int patientID){
+        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+        sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
+    }
+
+    public void acceptCareTeamInvite(Invite invite) {
         Gson gson = new Gson();
-        invite.invite_accepted = 1;
         String msgData = gson.toJson(invite);
-        String msgPersonIdData = String.format("\"person_ID\":\"%d\",", person.person_ID);
-        msgData = new StringBuilder(msgData).insert(1, msgPersonIdData).toString();
         sendMessage(MESSAGE_UPDATE, CONTENT_INVITE, msgData);
     }
 
-    public void getPatient(int patientID){
-        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
-        sendMessage(MESSAGE_READ, CONTENT_PATIENT, msgData);
-    }
-/*
-    public void getCareTeamMember(int personID, int patientID){
-        String msgData = String.format("{\"person_ID\":\"%d\",\"patient_ID\":\"%d\"}",personID, patientID);
-        sendMessage(MESSAGE_READ, CONTENT_CARE_TEAM, msgData);
-    }
-*/
 }

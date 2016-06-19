@@ -93,7 +93,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     editor.putBoolean(getString(R.string.login_auto_login), false);
                 }
                 editor.commit();
-            
+
             Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);
         }
