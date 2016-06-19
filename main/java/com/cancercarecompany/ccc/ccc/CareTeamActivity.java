@@ -160,9 +160,7 @@ public class CareTeamActivity extends AppCompatActivity {
         final EditText editLastName         = (EditText) popupView.findViewById(R.id.txt_lastName_careteam);
         final EditText editPhoneNumber      = (EditText) popupView.findViewById(R.id.txt_phone_careteam);
         final EditText editEmail            = (EditText) popupView.findViewById(R.id.txt_email_careteam);
-        final TextView relation             = (TextView) popupView.findViewById(R.id.lbl_relation_careteam);
-        final Spinner  spinnerRelation         = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
-        final String[] spinnerRelValues     = {"Father", "Mother", "Patient", "Doctor"};
+        final EditText editRelation         = (EditText) popupView.findViewById(R.id.txt_careteam_relation);
         final Spinner  editAdmin            = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
         final String[] spinnerAdminValues   = {"Yes", "No"};
         final Button   buttonSave           = (Button) popupView.findViewById(R.id.btn_save_careteam);
@@ -178,11 +176,6 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonCancel.setVisibility(View.VISIBLE);
         buttonEdit.setVisibility(View.INVISIBLE);
 
-        Spinner spinner_rel = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
-        ArrayAdapter<String> adapter_rel = new ArrayAdapter<String>(CareTeamActivity.this,
-                android.R.layout.simple_spinner_item, spinnerRelValues);
-        adapter_rel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_rel.setAdapter(adapter_rel);
         Spinner spinner_admin = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
         ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
         adapter_admin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -222,7 +215,7 @@ public class CareTeamActivity extends AppCompatActivity {
                                                     firstNameString,
                                                     editLastName.getText().toString(),
                                                     emailString,
-                                                    (String) spinnerRelation.getSelectedItem(),
+                                                    editRelation.getText().toString(),
                                                     admin,
                                                     0,
                                                     0);
@@ -269,8 +262,7 @@ public class CareTeamActivity extends AppCompatActivity {
         final TextView email                = (TextView) popupView.findViewById(R.id.lbl_email_careteam);
         final EditText editEmail            = (EditText) popupView.findViewById(R.id.txt_email_careteam);
         final TextView relation             = (TextView) popupView.findViewById(R.id.lbl_relation_careteam);
-        final Spinner spinnerRelation          = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
-        final String[] spinnerRelValues     = {"Pappa", "Mamma", "Patient", "Läkare"};
+        final EditText editRelation         = (EditText) popupView.findViewById(R.id.txt_careteam_relation);
         final TextView admin                = (TextView) popupView.findViewById(R.id.lbl_admin_careteam);
         final Spinner spinnerAdmin             = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
         final String[] spinnerAdminValues   = {"Ja", "Nej"};
@@ -287,18 +279,11 @@ public class CareTeamActivity extends AppCompatActivity {
         editLastName.setFocusable(false);
         editEmail.setFocusable(false);
         editPhoneNumber.setFocusable(false);
-        String[] spinnerRelUserValue = {connectHandler.patient.care_team.get(listPosition).relationship};
-
-        ArrayAdapter<String> adapterRelation = new ArrayAdapter<String>(CareTeamActivity.this,
-                android.R.layout.simple_spinner_item, spinnerRelUserValue);
-        adapterRelation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerRelation.setAdapter(adapterRelation);
 
         ArrayAdapter<String> adapterAdmin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
         adapterAdmin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAdmin.setAdapter(adapterAdmin);
 
-        spinnerRelation.setEnabled(false);
         spinnerAdmin.setEnabled(false);
 
         buttonEdit.setVisibility(View.VISIBLE);
@@ -323,7 +308,6 @@ public class CareTeamActivity extends AppCompatActivity {
                 firstName.setText(editFirstName.getText().toString());
                 lastName.setText(editLastName.getText().toString());
                 email.setText(editEmail.getText().toString());
-                relation.setText(spinnerRelation.getSelectedItem().toString());
                 admin.setText(spinnerAdmin.getSelectedItem().toString());
 /*
                 CareTeamMember newCareTeamMember = new CareTeamMember(  firstName.getText().toString(),
@@ -367,11 +351,6 @@ public class CareTeamActivity extends AppCompatActivity {
                 editPhoneNumber.setFocusableInTouchMode(true);
                 editPhoneNumber.setEnabled(true);
 
-                ArrayAdapter<String> adapterRelation = new ArrayAdapter<String>(CareTeamActivity.this,
-                        android.R.layout.simple_spinner_item, spinnerRelValues);
-                adapterRelation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerRelation.setAdapter(adapterRelation);
-
                 ArrayAdapter<String> adapterAdmin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
                 adapterAdmin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerAdmin.setAdapter(adapterAdmin);
@@ -396,13 +375,7 @@ public class CareTeamActivity extends AppCompatActivity {
             private void cancelEdit(int MLp) {
 
 
-/*                Spinner spinnerRelation = (Spinner) popupView.findViewById(R.id.spinner_relation_careteam);
-                ArrayAdapter<String> adapter_rel = new ArrayAdapter<String>(CareTeamActivity.this,
-                        android.R.layout.simple_spinner_item, spinnerRelValues);
-                adapter_rel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerRelation.setAdapter(adapter_rel);
-
-                Spinner spinner_admin = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
+/*              Spinner spinner_admin = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
                 ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
                 adapter_admin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner_admin.setAdapter(adapter_admin);
