@@ -88,6 +88,16 @@ public class CareTeamActivity extends AppCompatActivity {
 
         while (connectHandler.socketBusy){}
 
+        for (int i = 0; i < connectHandler.invites.invite_data.size();i++){
+            CareTeamMember invitedCareTeamMember = new CareTeamMember(
+                    connectHandler.invites.invite_data.get(i).person_ID,
+                    connectHandler.invites.invite_data.get(i).invited_first_name,
+                    connectHandler.invites.invite_data.get(i).invited_last_name,
+                    connectHandler.invites.invite_data.get(i).invited_email,
+                    connectHandler.invites.invite_data.get(i).invited_relationship,
+                    connectHandler.invites.invite_data.get(i).invited_admin);
+            familyList.add(invitedCareTeamMember);
+        }
         // Add invited friends that have yet not accepted invitation
 //        for (int i = connectHandler.patient.care_team.size(); i < ; i++){
 
@@ -222,7 +232,17 @@ public class CareTeamActivity extends AppCompatActivity {
 
                     connectHandler.inviteCareTeamMember(newInvite);
 
-//                healthCareAdapter.notifyDataSetChanged();
+                    CareTeamMember invitedCareTeamMember = new CareTeamMember(
+                            newInvite.person_ID,
+                            newInvite.invited_first_name,
+                            newInvite.invited_last_name,
+                            newInvite.invited_email,
+                            newInvite.invited_relationship,
+                            newInvite.invited_admin);
+
+                    familyList.add(invitedCareTeamMember);
+
+                    familyAdapter.notifyDataSetChanged();
 //                listAdapter.notifyDataSetChanged();
                     popupWindow.dismiss();
 
