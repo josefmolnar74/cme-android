@@ -17,7 +17,7 @@ public class CareTeamHealthCareAdapter extends ArrayAdapter<CareTeamMember> {
     private ArrayList<CareTeamMember> healthCareGrid;
 
     public CareTeamHealthCareAdapter(Context context, ArrayList<CareTeamMember> healthCareCareTeam){
-        super(context, R.layout.careteamgridview , healthCareCareTeam);
+        super(context, R.layout.careteamfamilygridview , healthCareCareTeam);
        this.healthCareGrid = healthCareCareTeam;
     }
 
@@ -25,7 +25,7 @@ public class CareTeamHealthCareAdapter extends ArrayAdapter<CareTeamMember> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View customGridView = inflater.inflate(R.layout.careteamgridview, parent, false);
+        View customGridView = inflater.inflate(R.layout.careteamfamilygridview, parent, false);
         TextView firstNameTextView = (TextView) customGridView.findViewById(R.id.careTeamGridFirstName);
         TextView emailTextView = (TextView) customGridView.findViewById(R.id.careTeamGridEmail);
         firstNameTextView.setText(healthCareGrid.get(position).first_name.toString());

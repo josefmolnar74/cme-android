@@ -98,10 +98,6 @@ public class CareTeamActivity extends AppCompatActivity {
                     connectHandler.invites.invite_data.get(i).invited_admin);
             familyList.add(invitedCareTeamMember);
         }
-        // Add invited friends that have yet not accepted invitation
-//        for (int i = connectHandler.patient.care_team.size(); i < ; i++){
-
-//        }
 
         familyAdapter = new CareTeamFamilyAdapter(this, familyList);
         familyGridView.setAdapter(familyAdapter);
@@ -158,7 +154,7 @@ public class CareTeamActivity extends AppCompatActivity {
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.care_team_member_popup, null);
+        final View popupView = layoutInflater.inflate(R.layout.careteam_member_popup, null);
 
         final PopupWindow popupWindow = new PopupWindow(
                 popupView, 1000, 1000);
@@ -265,7 +261,7 @@ public class CareTeamActivity extends AppCompatActivity {
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.care_team_member_popup, null);
+        final View popupView = layoutInflater.inflate(R.layout.careteam_member_popup, null);
 
         final PopupWindow popupWindow = new PopupWindow(
                 popupView, 1000, 1000);
@@ -292,13 +288,28 @@ public class CareTeamActivity extends AppCompatActivity {
         final Button buttonCancel    = (Button) popupView.findViewById(R.id.btn_cancel_careteam);
         final Button buttonDelete    = (Button) popupView.findViewById(R.id.btn_del_ct_memb);
 
-        editFirstName.setText(connectHandler.patient.care_team.get(listPosition).first_name);
-        editLastName.setText(connectHandler.patient.care_team.get(listPosition).last_name);
-        editEmail.setText(connectHandler.patient.care_team.get(listPosition).email);
-        editFirstName.setFocusable(false);
-        editLastName.setFocusable(false);
-        editEmail.setFocusable(false);
-        editPhoneNumber.setFocusable(false);
+        if (listPosition < connectHandler.patient.care_team.size()){
+            editFirstName.setText(connectHandler.patient.care_team.get(listPosition).first_name);
+            editLastName.setText(connectHandler.patient.care_team.get(listPosition).last_name);
+            editEmail.setText(connectHandler.patient.care_team.get(listPosition).email);
+            editFirstName.setFocusable(false);
+            editLastName.setFocusable(false);
+            editEmail.setFocusable(false);
+            editPhoneNumber.setFocusable(false);
+        }
+        else{
+            // Invited care team members that have not yet accepted invite
+            int position = listPosition - connectHandler.patient.care_team.size();
+            editFirstName.setText(connectHandler.invites.invite_data.get(position).invited_first_name);
+            editLastName.setText(connectHandler.invites.invite_data.get(position).invited_last_name);
+            editEmail.setText(connectHandler.invites.invite_data.get(position).invited_email);
+            editRelation.setText(connectHandler.invites.invite_data.get(position).invited_relationship);
+            editFirstName.setFocusable(false);
+            editLastName.setFocusable(false);
+            editEmail.setFocusable(false);
+            editPhoneNumber.setFocusable(false);
+            editRelation.setFocusable(false);
+        }
 
         ArrayAdapter<String> adapterAdmin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
         adapterAdmin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

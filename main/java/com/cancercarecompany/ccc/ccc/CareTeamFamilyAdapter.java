@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,7 +20,7 @@ public class CareTeamFamilyAdapter extends ArrayAdapter<CareTeamMember> {
     ArrayList<CareTeamMember> familyList;
 
     public CareTeamFamilyAdapter(Context context, ArrayList<CareTeamMember> familyList){
-        super(context, R.layout.careteamlistview, familyList);
+        super(context, R.layout.careteamfamilygridview, familyList);
         this.familyList = familyList;
     }
 
@@ -27,9 +28,14 @@ public class CareTeamFamilyAdapter extends ArrayAdapter<CareTeamMember> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View customlistview = inflater.inflate(R.layout.careteamlistview, parent, false);
-        TextView nameTextView = (TextView) customlistview.findViewById(R.id.careteamname);
+        View customlistview = inflater.inflate(R.layout.careteamfamilygridview, parent, false);
+        TextView nameTextView = (TextView) customlistview.findViewById(R.id.careTeamGridFirstName);
         nameTextView.setText(familyList.get(position).first_name);
+        ImageView familyMemberImage = (ImageView) customlistview.findViewById(R.id.careTeamFamilyImage);
+        // if invited whom has not accepted yet
+        if (familyList.get(position).person_ID == 0){
+            familyMemberImage.setImageResource(R.drawable.careteam_family_invited);
+        }
         return customlistview;
     }
 }
