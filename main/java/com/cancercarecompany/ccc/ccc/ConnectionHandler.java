@@ -32,7 +32,6 @@ public class ConnectionHandler {
     public static final String MESSAGE_GET = "get";
     public static final String MESSAGE_UPDATE = "update";
     public static final String MESSAGE_DELETE = "delete";
-    public static final String MESSAGE_FIND = "find";
 
     public static final String CONTENT_PERSON = "person";
     public static final String CONTENT_PATIENT = "patient";

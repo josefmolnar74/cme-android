@@ -25,6 +25,5 @@ public class Lcl_work_area implements Serializable {
         this.email = email;
         this.password = password;
         this.patient = new ArrayList<>(Arrays.asList(patient));
-
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 public class JoinCareTeamActivity extends AppCompatActivity {
 
@@ -38,7 +39,10 @@ public class JoinCareTeamActivity extends AppCompatActivity {
         final PopupWindow popupWindow = new PopupWindow(popupView, 600, 600);
         popupWindow.setFocusable(true);
         popupWindow.update();
-        popupWindow.showAsDropDown(relativeLayout, 560, -200);
+
+        RelativeLayout relativeLayout;
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+        popupWindow.showAsDropDown(relativeLayout, 450, 0);
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
