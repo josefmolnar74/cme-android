@@ -13,7 +13,7 @@ public class Create_care_team_member_popup extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_care_team_member_popup);
+        setContentView(R.layout.careteam_member_popup);
 
     }
 

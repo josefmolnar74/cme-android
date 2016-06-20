@@ -51,14 +51,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="160dp"
-            android:layout_height="180dp"
-            android:id="@+id/img_profilePic_careteam"
-            android:src="@drawable/profilepic"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="180dp"
+                android:id="@+id/img_profilePic_careteam"
+                android:src="@drawable/profilepic"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner" />
+
+        </LinearLayout>
 
         <GridLayout
             android:layout_width="wrap_content"

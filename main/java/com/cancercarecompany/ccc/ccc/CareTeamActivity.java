@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -36,7 +38,7 @@ public class CareTeamActivity extends AppCompatActivity {
     GridView healthCareGridView;
     CareTeamFamilyAdapter familyAdapter;
     CareTeamHealthCareAdapter healthCareAdapter;
-    LinearLayout linearLayout;
+    GridLayout gridLayout;
     ImageButton journeyButton;
     ImageButton journalButton;
     ConnectionHandler connectHandler;
@@ -221,9 +223,9 @@ public class CareTeamActivity extends AppCompatActivity {
             }
         });
 
-        linearLayout = (LinearLayout) popupView.findViewById(R.id.careteam_healthcare_popup);
+        gridLayout = (GridLayout) popupView.findViewById(R.id.careteam_healthcare_popup);
         //  LinearLayout layout = (LinearLayout) findViewById(R.id.careTeamScreen);
-        popupWindow.showAsDropDown(linearLayout, 500, 20);
+        popupWindow.showAsDropDown(gridLayout, 500, 20);
         popupWindow.isFocusable();
 
     }
@@ -235,7 +237,7 @@ public class CareTeamActivity extends AppCompatActivity {
         final View popupView = layoutInflater.inflate(R.layout.careteam_member_popup, null);
 
         final PopupWindow popupWindow = new PopupWindow(
-                popupView, 1000, 1000);
+                popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -247,9 +249,9 @@ public class CareTeamActivity extends AppCompatActivity {
         final EditText editRelation         = (EditText) popupView.findViewById(R.id.txt_careteam_relation);
         final Spinner  editAdmin            = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
         final String[] spinnerAdminValues   = {"Yes", "No"};
-        final Button   buttonSave           = (Button) popupView.findViewById(R.id.btn_save_careteam);
-        final Button   buttonCancel         = (Button) popupView.findViewById(R.id.btn_cancel_careteam);
-        final Button   buttonEdit           = (Button) popupView.findViewById(R.id.btn_edit_careteam);
+        final Button   buttonSave           = (Button) popupView.findViewById(R.id.btn_careteam_save);
+        final Button   buttonCancel         = (Button) popupView.findViewById(R.id.btn_careteam_cancel);
+        final Button   buttonEdit           = (Button) popupView.findViewById(R.id.btn_careteam_edit);
         final TextView alertText            = (TextView) popupView.findViewById(R.id.text_careTeamInvite_alertText);
 
         buttonSave.setVisibility(View.VISIBLE);
@@ -322,9 +324,9 @@ public class CareTeamActivity extends AppCompatActivity {
             }
         });
 
-        linearLayout = (LinearLayout) popupView.findViewById(R.id.care_team_member_popup);
+        gridLayout = (GridLayout) popupView.findViewById(R.id.careteam_member_popup);
         //  LinearLayout layout = (LinearLayout) findViewById(R.id.careTeamScreen);
-        popupWindow.showAsDropDown(linearLayout, 500, 20);
+        popupWindow.showAsDropDown(gridLayout, 500, 20);
         popupWindow.isFocusable();
 
     }
@@ -356,10 +358,10 @@ public class CareTeamActivity extends AppCompatActivity {
         final Spinner spinnerAdmin             = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
         final String[] spinnerAdminValues   = {"Ja", "Nej"};
 
-        final Button buttonEdit      = (Button) popupView.findViewById(R.id.btn_edit_careteam);
-        final Button buttonSave      = (Button) popupView.findViewById(R.id.btn_save_careteam);
-        final Button buttonCancel    = (Button) popupView.findViewById(R.id.btn_cancel_careteam);
-        final Button buttonDelete    = (Button) popupView.findViewById(R.id.btn_del_ct_memb);
+        final Button buttonEdit      = (Button) popupView.findViewById(R.id.btn_careteam_edit);
+        final Button buttonSave      = (Button) popupView.findViewById(R.id.btn_careteam_save);
+        final Button buttonCancel    = (Button) popupView.findViewById(R.id.btn_careteam_cancel);
+        final Button buttonDelete    = (Button) popupView.findViewById(R.id.btn_careteam_delete);
 
         if (listPosition < connectHandler.patient.care_team.size()){
             editFirstName.setText(connectHandler.patient.care_team.get(listPosition).first_name);
@@ -395,8 +397,8 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonDelete.setVisibility(View.INVISIBLE);
         buttonSave.setVisibility(View.INVISIBLE);
 
-        linearLayout = (LinearLayout) popupView.findViewById(R.id.careteam_member_popup);
-        popupWindow.showAsDropDown(linearLayout, 500, 20);
+        gridLayout = (GridLayout) popupView.findViewById(R.id.careteam_member_popup);
+        popupWindow.showAsDropDown(gridLayout, 500, 20);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
