@@ -45,7 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         connectHandler = ConnectionHandler.getInstance();
-        invite = connectHandler.invites.invite_data.get(0); //support only 1 patient
 
         registerFirstName = (EditText) findViewById(R.id.text_register_firstname);
         registerLastName = (EditText) findViewById(R.id.text_register_lastname);
@@ -102,18 +101,12 @@ public class RegisterActivity extends AppCompatActivity {
                 Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
                 connectHandler.createPatient(newPatient, relationship);
             }
-            else if (invite != null){//replace with invite object
-                invite.invite_accepted = 1;
-                invite.person_ID = connectHandler.person.person_ID;
-                connectHandler.acceptCareTeamInvite(invite);
+            else if (invitedEmail != null){//replace with invite object
+                connectHandler.acceptCareTeamInvite();
+                while (connectHandler.socketBusy){}
+                //Ugly solution to solve that created careteammember is part of patient
+                connectHandler.getPatient(invite.patient_ID);
             }
-
-            while (connectHandler.socketBusy){}
-
-            //Ugly solution to solve that created careteammember is part of patient
-            connectHandler.getPatient(invite.patient_ID);
-
-            while (connectHandler.socketBusy){}
 
             Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);

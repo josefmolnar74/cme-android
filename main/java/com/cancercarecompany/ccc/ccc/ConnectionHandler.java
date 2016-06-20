@@ -24,6 +24,7 @@ public class ConnectionHandler {
     public Person person;
     public Patient patient;
     public InviteData invites;
+    public HealthCareData healthcare;
 
     public static final String MESSAGE_LOGIN = "login";
     public static final String MESSAGE_CREATE = "create";
@@ -34,6 +35,7 @@ public class ConnectionHandler {
     public static final String CONTENT_PERSON = "person";
     public static final String CONTENT_PATIENT = "patient";
     public static final String CONTENT_INVITE = "invite";
+    public static final String CONTENT_HEALTHCARE = "healthcare";
     public static final String CONTENT_CARE_TEAM = "careteam ";
     public static final String CONTENT_EVENT = "event";
     public static final String CONTENT_STATUS = "status";
@@ -228,10 +230,40 @@ public class ConnectionHandler {
         sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
     }
 
-    public void acceptCareTeamInvite(Invite invite) {
+    public void acceptCareTeamInvite() {
+        Invite invite = invites.invite_data.get(0); // Always accept first found invite
+        invite.invite_accepted = 1;
+        invite.person_ID = person.person_ID;
         Gson gson = new Gson();
         String msgData = gson.toJson(invite);
         sendMessage(MESSAGE_UPDATE, CONTENT_INVITE, msgData);
+    }
+
+    public void createHealthcare(HealthCare healthcare){
+        Gson gson = new Gson();
+        String msgData = gson.toJson(healthcare);
+        sendMessage(MESSAGE_CREATE, CONTENT_HEALTHCARE, msgData);
+    }
+
+    public void getHealthcareForPatient(int patientID){
+        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+        sendMessage(MESSAGE_READ, CONTENT_HEALTHCARE, msgData);
+    }
+
+    public void getHealthcare(int healthcareID){
+        String msgData = String.format("{\"healthcare_ID\":\"%d\"}", healthcareID);
+        sendMessage(MESSAGE_READ, CONTENT_HEALTHCARE, msgData);
+    }
+
+    public void updateHealthcare(HealthCare healthcare){
+        Gson gson = new Gson();
+        String msgData = gson.toJson(healthcare);
+        sendMessage(MESSAGE_UPDATE, CONTENT_HEALTHCARE, msgData);
+    }
+
+    public void deleteHealthcare(int healthcareID){
+        String msgData = String.format("{\"healthcare_ID\":\"%d\"}", healthcareID);
+        sendMessage(MESSAGE_DELETE, CONTENT_HEALTHCARE, msgData);
     }
 
 }

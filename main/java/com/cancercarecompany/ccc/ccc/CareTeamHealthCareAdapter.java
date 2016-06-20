@@ -12,24 +12,24 @@ import java.util.ArrayList;
 /**
  * Created by robinlarsson on 27/04/16.
  */
-public class CareTeamHealthCareAdapter extends ArrayAdapter<CareTeamMember> {
+public class CareTeamHealthCareAdapter extends ArrayAdapter<HealthCare> {
 
-    private ArrayList<CareTeamMember> healthCareGrid;
+    private ArrayList<HealthCare> healthcareList;
 
-    public CareTeamHealthCareAdapter(Context context, ArrayList<CareTeamMember> healthCareCareTeam){
-        super(context, R.layout.careteamfamilygridview , healthCareCareTeam);
-       this.healthCareGrid = healthCareCareTeam;
+    public CareTeamHealthCareAdapter(Context context, ArrayList<HealthCare> healthcareList){
+        super(context, R.layout.careteam_healthcaregridview , healthcareList);
+       this.healthcareList = healthcareList;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View customGridView = inflater.inflate(R.layout.careteamfamilygridview, parent, false);
-        TextView firstNameTextView = (TextView) customGridView.findViewById(R.id.careTeamGridFirstName);
-        TextView emailTextView = (TextView) customGridView.findViewById(R.id.careTeamGridEmail);
-        firstNameTextView.setText(healthCareGrid.get(position).first_name.toString());
-        emailTextView.setText(healthCareGrid.get(position).email.toString());
+        View customGridView = inflater.inflate(R.layout.careteam_healthcaregridview, parent, false);
+        TextView title = (TextView) customGridView.findViewById(R.id.careTeam_gridview_title);
+        TextView phoneNumber = (TextView) customGridView.findViewById(R.id.careTeam_gridview_phonenumber);
+        title.setText(healthcareList.get(position).title.toString());
+        phoneNumber.setText(healthcareList.get(position).email.toString());
         return customGridView;
     }
 }

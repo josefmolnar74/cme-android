@@ -8,15 +8,15 @@
         android:layout_width="80dp"
         android:layout_height="90dp"
         android:id="@+id/imageView2"
-        android:src="@drawable/profilepic"/>
+        android:src="@drawable/careteam_healthcare_image"/>
 
 
     <TextView
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Name"
-        android:id="@+id/careTeamGridFirstName"
+        android:text="Title"
+        android:id="@+id/careTeam_gridview_title"
         android:textStyle="bold"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin" />
@@ -25,8 +25,8 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Name"
-        android:id="@+id/careTeamGridEmail"
+        android:text="Phone"
+        android:id="@+id/careTeam_gridview_phonenumber"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin" />
 

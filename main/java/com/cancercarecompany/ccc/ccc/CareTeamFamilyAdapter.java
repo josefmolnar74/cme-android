@@ -1,13 +1,11 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ public class CareTeamFamilyAdapter extends ArrayAdapter<CareTeamMember> {
     ArrayList<CareTeamMember> familyList;
 
     public CareTeamFamilyAdapter(Context context, ArrayList<CareTeamMember> familyList){
-        super(context, R.layout.careteamfamilygridview, familyList);
+        super(context, R.layout.careteam_familygridview, familyList);
         this.familyList = familyList;
     }
 
@@ -28,7 +26,7 @@ public class CareTeamFamilyAdapter extends ArrayAdapter<CareTeamMember> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View customlistview = inflater.inflate(R.layout.careteamfamilygridview, parent, false);
+        View customlistview = inflater.inflate(R.layout.careteam_familygridview, parent, false);
         TextView nameTextView = (TextView) customlistview.findViewById(R.id.careTeamGridFirstName);
         nameTextView.setText(familyList.get(position).first_name);
         ImageView familyMemberImage = (ImageView) customlistview.findViewById(R.id.careTeamFamilyImage);

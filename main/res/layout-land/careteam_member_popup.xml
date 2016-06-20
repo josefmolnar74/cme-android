@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="500dp"
+    android:orientation="horizontal" android:layout_width="500dp"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     android:layout_marginTop="@dimen/activity_vertical_margin"
     android:layout_marginLeft="@dimen/activity_horizontal_margin"
     android:layout_marginRight="@dimen/activity_horizontal_margin"
-    android:id="@+id/care_team_member_popup"
+    android:id="@+id/careteam_member_popup"
     android:weightSum="1"
     android:nestedScrollingEnabled="true"
     android:background="@color/Family">
 
-    <RelativeLayout
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="160dp"
@@ -24,6 +26,231 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text="Förnamn:"
+                android:id="@+id/lbl_firstName_careteam"
+                android:textSize="20dp"
+                android:layout_row="0"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:id="@+id/txt_firstName_careteam"
+                android:hint="Please specify"
+                android:inputType="textPersonName"
+                android:textSize="20dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:background="@android:drawable/edit_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text="Efternamn:"
+                android:id="@+id/lbl_lastName_careteam"
+                android:textSize="20dp"
+                android:layout_row="1"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:id="@+id/txt_lastName_careteam"
+                android:text=""
+                android:inputType="textPersonName"
+                android:textSize="20dp"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:background="@android:drawable/edit_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text="Epost:"
+                android:id="@+id/lbl_email_careteam"
+                android:textSize="20dp"
+                android:layout_row="2"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:id="@+id/txt_email_careteam"
+                android:hint="Please specify"
+                android:inputType="textEmailAddress"
+                android:textSize="20dp"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:background="@android:drawable/edit_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text="Telefon:"
+                android:id="@+id/lbl_phone_careteam"
+                android:textSize="20dp"
+                android:layout_row="3"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text=""
+                android:id="@+id/txt_phone_careteam"
+                android:textSize="20dp"
+                android:layout_row="3"
+                android:layout_column="1"
+                android:background="@android:drawable/edit_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text="Relation:"
+                android:id="@+id/lbl_relation_careteam"
+                android:textSize="20dp"
+                android:layout_row="4"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:id="@+id/txt_careteam_relation"
+                android:textSize="20dp"
+                android:layout_row="4"
+                android:layout_column="1"
+                android:background="@android:drawable/edit_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text="Admin:"
+                android:id="@+id/lbl_admin_careteam"
+                android:textSize="20dp"
+                android:layout_row="5"
+                android:layout_column="0" />
+
+            <Spinner
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:id="@+id/spinner_admin_careteam"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dialog"
+                android:layout_row="5"
+                android:layout_column="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text="First name and email must be specified"
+                android:id="@+id/text_careTeamInvite_alertText"
+                android:textSize="20dp"
+                android:layout_row="6"
+                android:layout_columnSpan="2"
+                android:layout_column="0"
+                android:textColor="#ff0000"
+                android:visibility="invisible"/>
+
+        </GridLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_gravity="center">
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/btn_del_ct_memb"
+                android:background="@drawable/garbage"
+                android:visibility="visible"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/btn_edit_careteam"
+                android:background="@drawable/edit"
+                android:visibility="visible"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/btn_save_careteam"
+                android:visibility="visible"
+                android:layout_alignParentEnd="false"
+                android:background="@drawable/mark"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <Button
             android:layout_width="40dp"
@@ -37,224 +264,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="2">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Förnamn:"
-            android:id="@+id/lbl_firstName_careteam"
-            android:textSize="20dp"
-            android:layout_row="0"
-            android:layout_column="0" />
-
-        <EditText
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:id="@+id/txt_firstName_careteam"
-            android:hint="Please specify"
-            android:inputType="textPersonName"
-            android:textSize="20dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:background="@android:drawable/edit_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Efternamn:"
-            android:id="@+id/lbl_lastName_careteam"
-            android:textSize="20dp"
-            android:layout_row="1"
-            android:layout_column="0" />
-
-        <EditText
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:id="@+id/txt_lastName_careteam"
-            android:text=""
-            android:inputType="textPersonName"
-            android:textSize="20dp"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:background="@android:drawable/edit_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Epost:"
-            android:id="@+id/lbl_email_careteam"
-            android:textSize="20dp"
-            android:layout_row="2"
-            android:layout_column="0" />
-
-        <EditText
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:id="@+id/txt_email_careteam"
-            android:hint="Please specify"
-            android:inputType="textEmailAddress"
-            android:textSize="20dp"
-            android:layout_row="2"
-            android:layout_column="1"
-            android:background="@android:drawable/edit_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Telefon:"
-            android:id="@+id/lbl_phone_careteam"
-            android:textSize="20dp"
-            android:layout_row="3"
-            android:layout_column="0" />
-
-        <EditText
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text=""
-            android:id="@+id/txt_phone_careteam"
-            android:textSize="20dp"
-            android:layout_row="3"
-            android:layout_column="1"
-            android:background="@android:drawable/edit_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Relation:"
-            android:id="@+id/lbl_relation_careteam"
-            android:textSize="20dp"
-            android:layout_row="4"
-            android:layout_column="0" />
-
-        <EditText
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:id="@+id/txt_careteam_relation"
-            android:textSize="20dp"
-            android:layout_row="4"
-            android:layout_column="1"
-            android:background="@android:drawable/edit_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Admin:"
-            android:id="@+id/lbl_admin_careteam"
-            android:textSize="20dp"
-            android:layout_row="5"
-            android:layout_column="0" />
-
-        <Spinner
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:id="@+id/spinner_admin_careteam"
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dialog"
-            android:layout_row="5"
-            android:layout_column="1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="First name and email must be specified"
-            android:id="@+id/text_careTeamInvite_alertText"
-            android:textSize="20dp"
-            android:layout_row="6"
-            android:layout_columnSpan="2"
-            android:layout_column="0"
-            android:textColor="#ff0000"
-            android:visibility="invisible"/>
-
-    </GridLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_gravity="center">
-
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/btn_del_ct_memb"
-            android:background="@drawable/garbage"
-            android:visibility="invisible"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin" />
-
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/btn_edit_careteam"
-            android:background="@drawable/edit"
-            android:visibility="visible"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin" />
-
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/btn_save_careteam"
-            android:visibility="invisible"
-            android:layout_alignParentEnd="false"
-            android:background="@drawable/mark"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

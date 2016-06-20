@@ -30,13 +30,12 @@ public class CareTeamActivity extends AppCompatActivity {
     ArrayList<Events> eventList;
     ArrayList<Patient> patientList = new ArrayList<>();
     ArrayList<CareTeamMember> familyList = new ArrayList<>();
-    ArrayList<CareTeamMember> healthCareList = new ArrayList<>();
+    ArrayList<HealthCare> healthcareList = new ArrayList<>();
 
     GridView familyGridView;
     GridView healthCareGridView;
     CareTeamFamilyAdapter familyAdapter;
     CareTeamHealthCareAdapter healthCareAdapter;
-    CareTeamHealthCareAdapter listAdapter = healthCareAdapter;
     LinearLayout linearLayout;
     ImageButton journeyButton;
     ImageButton journalButton;
@@ -104,11 +103,14 @@ public class CareTeamActivity extends AppCompatActivity {
 
         // Generate health care members
         // TBD solution to differentiate between family and health care
-        for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
-            healthCareList.add(connectHandler.patient.care_team.get(i));
+
+        if (connectHandler.healthcare != null){
+            for (int i = 0; i < connectHandler.healthcare.healthcare_data.size(); i++) {
+                healthcareList.add(connectHandler.healthcare.healthcare_data.get(i));
+            }
         }
 
-        healthCareAdapter = new CareTeamHealthCareAdapter(this, healthCareList);
+        healthCareAdapter = new CareTeamHealthCareAdapter(this, healthcareList);
         healthCareGridView.setAdapter(healthCareAdapter);
 
         //Open popup window to show user detail information and edit/delete
@@ -130,14 +132,14 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonAddHealthCareMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inviteCareTeamMember();
+                createHealthCareMember();
             }
         });
 
         buttonAddFamilyMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createHealthCareMember();
+                inviteCareTeamMember();
             }
         });
 
@@ -147,7 +149,83 @@ public class CareTeamActivity extends AppCompatActivity {
     }
 
     public void createHealthCareMember(){
-        inviteCareTeamMember();
+        LayoutInflater layoutInflater
+                = (LayoutInflater) getBaseContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.careteam_healthcare_popup, null);
+
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView, 1000, 1000);
+
+        popupWindow.setFocusable(true);
+        popupWindow.update();
+
+        final EditText editTitle        = (EditText) popupView.findViewById(R.id.edittext_healthcare_title);
+        final EditText editName         = (EditText) popupView.findViewById(R.id.edittext_healthcare_name);
+        final EditText editDepartment   = (EditText) popupView.findViewById(R.id.edittext_healthcare_department);
+        final EditText editPhoneNumber1 = (EditText) popupView.findViewById(R.id.edittext_healthcare_phonenumber1);
+        final EditText editPhoneNumber2 = (EditText) popupView.findViewById(R.id.edittext_healthcare_phonenumber2);
+        final EditText editPhoneNumber3 = (EditText) popupView.findViewById(R.id.edittext_healthcare_phonenumber3);
+        final EditText editEmail = (EditText) popupView.findViewById(R.id.edittext_healthcare_email);
+        final Button   buttonSave           = (Button) popupView.findViewById(R.id.button_healthcare_save);
+        final Button   buttonCancel         = (Button) popupView.findViewById(R.id.button_healthcare_cancel);
+        final Button   buttonEdit           = (Button) popupView.findViewById(R.id.button_healthcare_edit);
+        final Button   buttonDelete           = (Button) popupView.findViewById(R.id.button_healthcare_delete);
+        final TextView alertText            = (TextView) popupView.findViewById(R.id.text_careTeamInvite_alertText);
+
+        buttonSave.setVisibility(View.VISIBLE);
+        buttonCancel.setVisibility(View.VISIBLE);
+        buttonEdit.setVisibility(View.INVISIBLE);
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertText.setVisibility(View.INVISIBLE);
+                popupWindow.dismiss();
+            }
+        });
+
+        buttonSave.setOnClickListener(new  View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String titleString = editTitle.getText().toString();
+                String phoneNumber1String = editPhoneNumber1.getText().toString();
+
+                //FirstName and email must be specified, the others will get emptystring if not specified
+                if ((!titleString.isEmpty()) && (!phoneNumber1String.isEmpty())){
+                    alertText.setVisibility(View.INVISIBLE);
+                    HealthCare newHealthcare = new HealthCare(
+                            0,
+                            connectHandler.patient.patient_ID,
+                            titleString,
+                            editName.getText().toString(),
+                            editDepartment.getText().toString(),
+                            editPhoneNumber1.getText().toString(),
+                            editPhoneNumber2.getText().toString(),
+                            editPhoneNumber3.getText().toString(),
+                            editEmail.getText().toString());
+
+                    connectHandler.createHealthcare(newHealthcare);
+
+                    healthcareList.add(newHealthcare);
+
+                    familyAdapter.notifyDataSetChanged();
+                    popupWindow.dismiss();
+
+                }else{
+                    // notify user they need to add
+                    alertText.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        linearLayout = (LinearLayout) popupView.findViewById(R.id.careteam_healthcare_popup);
+        //  LinearLayout layout = (LinearLayout) findViewById(R.id.careTeamScreen);
+        popupWindow.showAsDropDown(linearLayout, 500, 20);
+        popupWindow.isFocusable();
+
     }
 
     public void inviteCareTeamMember() {
@@ -173,10 +251,6 @@ public class CareTeamActivity extends AppCompatActivity {
         final Button   buttonCancel         = (Button) popupView.findViewById(R.id.btn_cancel_careteam);
         final Button   buttonEdit           = (Button) popupView.findViewById(R.id.btn_edit_careteam);
         final TextView alertText            = (TextView) popupView.findViewById(R.id.text_careTeamInvite_alertText);
-
-        // no need to save LastName and PhoneNumber
-//        editLastName.setFocusable(false);
-//        editPhoneNumber.setFocusable(false);
 
         buttonSave.setVisibility(View.VISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
@@ -239,7 +313,6 @@ public class CareTeamActivity extends AppCompatActivity {
                     familyList.add(invitedCareTeamMember);
 
                     familyAdapter.notifyDataSetChanged();
-//                listAdapter.notifyDataSetChanged();
                     popupWindow.dismiss();
 
                 }else{
@@ -322,7 +395,7 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonDelete.setVisibility(View.INVISIBLE);
         buttonSave.setVisibility(View.INVISIBLE);
 
-        linearLayout = (LinearLayout) popupView.findViewById(R.id.care_team_member_popup);
+        linearLayout = (LinearLayout) popupView.findViewById(R.id.careteam_member_popup);
         popupWindow.showAsDropDown(linearLayout, 500, 20);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -352,7 +425,6 @@ public class CareTeamActivity extends AppCompatActivity {
 //                while (connectHandler.socketBusy){}
 */
                 healthCareAdapter.notifyDataSetChanged();
-                listAdapter.notifyDataSetChanged();
             }
 
         });
@@ -425,8 +497,7 @@ public class CareTeamActivity extends AppCompatActivity {
             }
             private void deleteCareTeamMembers(int index) {
 
-//                healthCareAdapter.notifyDataSetChanged();
-//                listAdapter.notifyDataSetChanged();
+                healthCareAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();
             }
         });
