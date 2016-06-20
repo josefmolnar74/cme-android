@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/customCell"
     android:weightSum="1">
 
     <ImageView
         android:layout_width="80dp"
         android:layout_height="90dp"
         android:id="@+id/imageView2"
-        android:src="@drawable/profilepic"/>
+        android:src="@drawable/careteam_healthcare_image"/>
 
 
     <TextView
-        android:layout_width="250dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Name"
-        android:id="@+id/nameTextView"
+        android:text="Title"
+        android:id="@+id/careTeam_gridview_title"
         android:textStyle="bold"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="10dp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Relation"
-        android:id="@+id/relationTextView"
-        android:textStyle="bold"
-        android:layout_marginTop="30dp" />
+        android:text="Phone"
+        android:id="@+id/careTeam_gridview_phonenumber"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

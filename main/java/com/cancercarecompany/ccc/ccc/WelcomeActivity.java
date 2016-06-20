@@ -1,17 +1,45 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+
+import com.google.gson.Gson;
 
 public class WelcomeActivity extends AppCompatActivity {
+
+    ConnectionHandler connectHandler;
+    EditText loginEmail;
+    EditText loginPassword;
+    CheckBox loginSave;
+    boolean autoLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        ConnectionHandler.getInstance(); //initialize socket and server connection
+        connectHandler = ConnectionHandler.getInstance(); //initialize socket and server connection
+        loginEmail = (EditText) findViewById(R.id.text_login_email);
+        loginPassword = (EditText) findViewById(R.id.text_login_password);
+        loginSave = (CheckBox) findViewById(R.id.checkBox_save_login);
+
+
+        //Check if username and password has been saved in share preferences
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        autoLogin = sharedPref.getBoolean(getString(R.string.login_auto_login), false);
+        if (autoLogin){
+            loginEmail.setText(sharedPref.getString(getString(R.string.login_saved_email), ""));
+            loginPassword.setText(sharedPref.getString(getString(R.string.login_saved_password), ""));
+            loginSave.setChecked(true);
+        }
     }
 
     public void onClickCreateCareTeam(View view){
@@ -25,8 +53,51 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void onClickLogin(View view){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        login();
     }
+
+    private void login(){
+        Person newUser = new Person(0, null, null, loginEmail.getText().toString(), loginPassword.getText().toString(), null);
+        connectHandler.login(newUser);
+
+        while (connectHandler.socketBusy){}
+
+        if (connectHandler.person == null){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            String alertText = String.format("Login failed");
+            alertDialogBuilder.setMessage(alertText);
+
+            alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    loginEmail.setText("");
+                    loginPassword.setText("");
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        } else {
+            //Login success
+
+            while (connectHandler.socketBusy){}
+
+
+                SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.login_saved_email),loginEmail.getText().toString());
+                editor.putString(getString(R.string.login_saved_password),loginPassword.getText().toString());
+                if (loginSave.isChecked()) {
+                    editor.putBoolean(getString(R.string.login_auto_login), true);
+                } else{
+                    editor.putBoolean(getString(R.string.login_auto_login), false);
+                }
+                editor.commit();
+
+            Intent myIntent = new Intent(this, CareTeamActivity.class);
+            startActivity(myIntent);
+        }
+    }
+
 
 }

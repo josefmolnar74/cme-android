@@ -543,7 +543,7 @@ android:weightSum="1">
         <Button
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:id="@+id/btn_add_CTmember"
+            android:id="@+id/btn_careteam_add_healthcare"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="5dp"

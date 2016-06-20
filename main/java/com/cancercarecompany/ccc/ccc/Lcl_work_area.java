@@ -27,3 +27,4 @@ public class Lcl_work_area implements Serializable {
         this.patient = new ArrayList<>(Arrays.asList(patient));
     }
 }
+

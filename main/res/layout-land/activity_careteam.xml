@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
     android:id="@+id/careTeamScreen"
     tools:context="com.cancercarecompany.ccc.ccc.MainActivity"
     android:orientation="vertical"
@@ -13,7 +17,7 @@
         android:layout_height="0dp"
         android:orientation="horizontal"
         android:layout_weight="0.08"
-        android:background="@drawable/border"
+        android:background="#ffffff"
         android:weightSum="100">
 
         <ImageButton
@@ -24,8 +28,9 @@
             android:src="@drawable/logo"
             android:background="@null"
             android:layout_weight="10"
-            android:layout_marginLeft="20dp" />
-
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -38,7 +43,8 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_toLeftOf="@+id/journalButton"
+            android:layout_toStartOf="@+id/journalButton" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -50,23 +56,11 @@
             android:scaleType="fitCenter"
             android:background="@null"
             android:cropToPadding="false"
-            android:layout_marginLeft="28dp"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/journalButton" />
-
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="90dp"
-            android:id="@+id/myWallButton"
-            android:layout_weight="16"
-            android:padding="4dp"
-            android:src="@drawable/cwall"
-            android:scaleType="fitCenter"
-            android:background="@null"
-            android:cropToPadding="false"
-            android:layout_marginLeft="28dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/journeyButton" />
+            android:layout_toLeftOf="@+id/loggedIn"
+            android:layout_toStartOf="@+id/loggedIn"
+            android:layout_marginRight="47dp"
+            android:layout_marginEnd="47dp" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -79,31 +73,20 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/contactsButton"
-            android:layout_marginLeft="28dp" />
-
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="90dp"
-            android:padding="5dp"
-            android:id="@+id/userSettingsButton"
-            android:layout_weight="10"
-            android:background="@null"
-            android:src="@drawable/settings"
-            android:scaleType="fitCenter"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/myWallButton"
-            android:layout_marginLeft="28dp" />
+            android:layout_toLeftOf="@+id/journeyButton"
+            android:layout_toStartOf="@+id/journeyButton" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/loggedIn"
+            android:text="name"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/logoButton"
-            android:layout_toEndOf="@+id/logoButton"
-            android:layout_marginLeft="100dp" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp" />
 
     </RelativeLayout>
 
@@ -111,6 +94,10 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:id="@+id/careTeamMain"
         android:weightSum="100"
         android:layout_weight="0.92"
@@ -122,25 +109,33 @@
             android:id="@+id/careTeamLeft"
             android:layout_height="match_parent"
             android:weightSum="100"
-            android:background="@drawable/border"
+            android:background="#ffffff"
             android:layout_weight="50">
 
-            <ListView
+            <GridView
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:id="@+id/careTeamListView"
-                android:visibility="visible"
-                android:layout_alignParentBottom="true"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:columnWidth="150dp"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="50dp"
+                android:horizontalSpacing="50dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center"
+                android:id="@+id/careteam_family_gridview"
+                android:layout_below="@+id/text_careTeamFamily"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="false"
-                android:layout_below="@+id/diary_header" />
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/txt_choose_CT"
-                android:id="@+id/diary_header"
+                android:text="Family/Friends"
+                android:id="@+id/text_careTeamFamily"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:textSize="@dimen/XLARGE" />
@@ -151,60 +146,56 @@
                 android:id="@+id/btn_careteam_invite_careteam"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_alignParentRight="true"
                 android:background="@drawable/addcontact" />
-
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/btn_del_CT"
-                android:layout_alignTop="@+id/btn_careteam_invite_careteam"
-                android:layout_marginEnd="192dp"
-                android:background="@drawable/garbage"
-                android:layout_marginLeft="5dp"
-                android:layout_alignParentStart="false" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:orientation="vertical"
             android:layout_width="0dp"
+            android:id="@+id/careTeamRight"
             android:layout_height="match_parent"
-            android:layout_weight="55"
-            android:background="@drawable/border"
-            android:id="@+id/contactInformation">
-
-
-            <ListView
-                android:layout_width="fill_parent"
-                android:layout_height="500dp"
-                android:id="@+id/careTeamMemberListView"
-                android:visibility="visible"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/lbl_friends" />
+            android:weightSum="100"
+            android:background="#ffffff"
+            android:layout_weight="50">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/lbl_friends"
+                android:id="@+id/text_careTeamHealthCare"
                 android:textSize="@dimen/XLARGE"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:text="Välj CareTeam" />
+                android:text="Health care" />
 
             <Button
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:id="@+id/btn_careteam_add_healthcare"
+                android:background="@drawable/addcontact"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/addcontact" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <GridView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:columnWidth="150dp"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="50dp"
+                android:horizontalSpacing="50dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center"
+                android:id="@+id/careteam_healthcare_gridview"
+                android:layout_below="@+id/text_careTeamHealthCare"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 

@@ -1,50 +1,96 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class JoinCareTeamActivity extends AppCompatActivity {
 
     ConnectionHandler connectHandler;
-    EditText emailJoin;
+    Invite invite; //support only 1 patient
+    TextView textAddEmail;
+    EditText inputEmail;
+    Button buttonFind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_care_team);
-        emailJoin = (EditText) findViewById(R.id.txt_email_join_careteam);
+        textAddEmail = (TextView) findViewById(R.id.text_add_email_join_careteam);
+        inputEmail = (EditText) findViewById(R.id.text_email_join_careteam);
+        buttonFind = (Button) findViewById(R.id.button_find_join_careteam);
         connectHandler = ConnectionHandler.getInstance();
     }
 
     public void onClickJoinCareTeamNext(View view){
-        connectHandler.findUser(emailJoin.getText().toString());
+        connectHandler.findCareTeamInvite(inputEmail.getText().toString());
+   //     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        while (connectHandler.socketBusy){}
 
-        while (connectHandler.person == null){}
+        if (connectHandler.invites.invite_data.size() != 0){
+            invite = connectHandler.invites.invite_data.get(0); //support only 1 patient
+        }
 
-        String patientName = connectHandler.person.patient.get(0).patient_name;
-        if (patientName != null){
-            joinCareTeam(patientName);
+        if (invite == null)
+        {
+            alertNoCareTeam();
+        }else
+        {
+            joinCareTeam(invite.patient_name);
         }
     }
 
+    public void alertNoCareTeam(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        String alertText = String.format("No care team found to join");
+        alertDialogBuilder.setMessage(alertText);
+
+        alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                inputEmail.setText("");
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
     public void joinCareTeam(String patientName){
-        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.join_care_team_popup, null);
-        final PopupWindow popupWindow = new PopupWindow(popupView, 600, 600);
-        popupWindow.setFocusable(true);
-        popupWindow.update();
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        String alertText = String.format("Do you want to join %s care team?", patientName);
+        alertDialogBuilder.setMessage(alertText);
 
-        RelativeLayout relativeLayout;
-        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
-        popupWindow.showAsDropDown(relativeLayout, 450, 0);
+        alertDialogBuilder.setPositiveButton("Join", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                register();
+            }
+        });
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        alertDialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                inputEmail.setText("");
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public void register(){
+        Intent intent = new Intent(this, RegisterActivity.class);
+        intent.putExtra(RegisterActivity.INVITED_EMAIL, inputEmail.getText().toString());
         startActivity(intent);
     }
 }

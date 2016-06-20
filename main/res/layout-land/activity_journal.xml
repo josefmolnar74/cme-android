@@ -123,7 +123,8 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="100">
+                android:layout_weight="100"
+                android:id="@+id/rel_lay_scr">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -137,60 +138,121 @@
 
                 <EditText
                     android:layout_width="fill_parent"
-                    android:layout_height="180dp"
+                    android:layout_height="100dp"
                     android:id="@+id/editText2"
-                    android:text="Notera hur du mår här."
+                    android:text="Anteckningar"
                     android:layout_below="@+id/diary_header"
                     android:layout_alignParentStart="true"
-                    android:textAlignment="viewStart" />
+                    android:textAlignment="viewStart"
+                    android:layout_weight="80" />
 
-                <Button
+                <RatingBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1:a"
-                    android:id="@+id/btn_1"
-                    android:layout_below="@+id/editText2"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp" />
+                    android:id="@+id/rat_status"
+                    android:numStars="5"
+                    android:stepSize="1"
+                    android:layout_alignTop="@+id/diary_header"
+                    android:layout_alignRight="@+id/editText2" />
 
-                <Button
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2:a"
-                    android:id="@+id/btn_2"
-                    android:layout_toRightOf="@+id/btn_1"
-                    android:layout_alignTop="@+id/btn_1" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/txt_rat_status"
+                    android:layout_below="@+id/rat_status"
+                    android:layout_alignLeft="@+id/rat_status"
+                    android:textSize="@dimen/MEDIUM" />
 
-                <Button
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3:e"
-                    android:id="@+id/btn_3"
-                    android:layout_toRightOf="@+id/btn_2"
-                    android:layout_alignTop="@+id/btn_2" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4:e"
-                    android:id="@+id/btn_4"
-                    android:layout_toRightOf="@+id/btn_3"
-                    android:layout_alignTop="@+id/btn_3" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5:e"
-                    android:id="@+id/btn_5"
-                    android:layout_toRightOf="@+id/btn_4"
-                    android:layout_alignTop="@+id/btn_4" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/txt_biverkningar"
+                    android:id="@+id/txt_biv_head"
+                    android:textSize="@dimen/XLARGE"
+                    android:layout_alignParentStart="false"
+                    android:layout_below="@+id/editText2" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_below="@+id/btn_1"
-                    android:background="@color/abc_input_method_navigation_guard"></FrameLayout>
+                    android:layout_below="@+id/txt_biv_head"
+                    android:background="@color/abc_input_method_navigation_guard"
+                    android:layout_marginTop="10dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_biv_fatigue"
+                    android:id="@+id/btn_fatigue"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/txt_biv_head" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_biv_smarta"
+                    android:id="@+id/btn_smarta"
+                    android:layout_toRightOf="@+id/btn_fatigue"
+                    android:layout_alignTop="@+id/btn_fatigue" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_biv_munfor"
+                    android:id="@+id/btn_munforandr"
+                    android:layout_toRightOf="@+id/btn_smarta"
+                    android:layout_alignTop="@+id/btn_smarta" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_biv_stick"
+                    android:id="@+id/btn_stickn"
+                    android:layout_toRightOf="@+id/btn_munforandr"
+                    android:layout_alignTop="@+id/btn_munforandr" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_biv_avfr"
+                    android:id="@+id/btn_forst_diar"
+                    android:layout_alignLeft="@+id/btn_fatigue"
+                    android:layout_below="@+id/btn_fatigue" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_biv_aptit"
+                    android:id="@+id/btn_aptit"
+                    android:layout_toRightOf="@+id/btn_forst_diar"
+                    android:layout_below="@+id/btn_fatigue" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_biv_yrs"
+                    android:id="@+id/btn_yrsel"
+                    android:layout_toRightOf="@+id/btn_aptit"
+                    android:layout_below="@+id/btn_fatigue" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_krak"
+                    android:id="@+id/btn_krakn"
+                    android:layout_toRightOf="@+id/btn_yrsel"
+                    android:layout_below="@+id/btn_fatigue" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/btn_forst_diar"
+                    android:background="@color/abc_input_method_navigation_guard"
+                    android:layout_marginTop="30dp"></FrameLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -201,312 +263,69 @@
                     android:layout_alignParentTop="false"
                     android:textSize="@dimen/XLARGE"
                     android:layout_alignParentStart="false"
-                    android:layout_below="@+id/btn_1"
-                    android:layout_marginBottom="20dp" />
+                    android:layout_below="@+id/btn_forst_diar"
+                    android:layout_marginTop="40dp" />
 
-                <SeekBar
-                    android:id="@+id/seek_med_fr"
-                    android:layout_width="match_parent"
+                <Button
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_med_head"
-                    android:max="10" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
                     android:text="@string/txt_frukost"
-                    android:id="@+id/txt_med_fr"
-                    android:layout_below="@+id/seek_med_fr"
-                    android:textAlignment="center" />
+                    android:layout_gravity="bottom"
+                    android:layout_below="@+id/frameLayout2"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/btn_frukost" />
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_med_ant_fr"
-                    android:textAlignment="center"
-                    android:layout_below="@+id/seek_med_fr" />
-
-                <SeekBar
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/seek_med_lu"
-                    android:layout_below="@+id/txt_med_fr"
-                    android:max="5" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
                     android:text="@string/txt_lunch"
-                    android:id="@+id/txt_med_lu"
-                    android:textAlignment="center"
-                    android:layout_below="@+id/seek_med_lu" />
+                    android:id="@+id/btn_lunch"
+                    android:layout_gravity="bottom"
+                    android:layout_below="@+id/frameLayout2"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/btn_frukost"
+                    android:layout_marginLeft="20dp" />
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_med_ant_lu"
-                    android:textAlignment="center"
-                    android:singleLine="true"
-                    android:layout_below="@+id/seek_med_lu"
-                    android:layout_alignParentStart="true" />
-
-                <SeekBar
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/seek_med_mi"
-                    android:layout_below="@+id/txt_med_lu"
-                    android:max="8" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
                     android:text="@string/txt_middag"
-                    android:id="@+id/textView10"
-                    android:textAlignment="center"
-                    android:layout_below="@+id/seek_med_mi" />
+                    android:id="@+id/btn_middag"
+                    android:layout_gravity="bottom"
+                    android:layout_below="@+id/frameLayout2"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/btn_lunch"
+                    android:layout_marginLeft="20dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_kvall"
+                    android:id="@+id/btn_kvall"
+                    android:layout_gravity="bottom"
+                    android:layout_below="@+id/frameLayout2"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/btn_middag"
+                    android:layout_marginLeft="20dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_med_ant_mi"
-                    android:textAlignment="center"
-                    android:layout_alignBottom="@+id/frameLayout2"
-                    android:layout_alignParentStart="true" />
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/txt_med_int"
+                    android:layout_below="@+id/btn_frukost"
+                    android:layout_alignLeft="@+id/btn_frukost"
+                    android:textSize="@dimen/LARGE"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/txt_med_info" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_below="@+id/textView10"
                     android:background="@color/abc_input_method_navigation_guard"
-                    android:id="@+id/frameLayout2" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/txt_biverkningar"
-                    android:id="@+id/txt_bi_head"
-                    android:textSize="@dimen/XLARGE"
-                    android:layout_alignParentStart="false"
-                    android:layout_below="@+id/frameLayout2"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:text="@string/txt_magstatus"
-                    android:id="@+id/txt_bi_mag_head"
-                    android:textAlignment="textStart"
-                    android:textSize="@dimen/LARGE"
-                    android:layout_below="@+id/txt_bi_head" />
-
-                <SeekBar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/seek_bi_mag"
-                    android:layout_below="@+id/txt_bi_mag_head"
-                    android:layout_marginTop="40dp"
-                    android:max="5" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_mag_dia"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/txt_mag_diarre"
-                    android:layout_below="@+id/seek_bi_mag"
-                    android:layout_alignParentLeft="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_mag_norm"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="false"
-                    android:text="@string/txt_mag_norm"
-                    android:layout_below="@+id/seek_bi_mag"
-                    android:layout_centerHorizontal="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_mag_forstp"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="false"
-                    android:text="@string/txt_mag_forst"
-                    android:layout_below="@+id/seek_bi_mag"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:text="@string/txt_fat_head"
-                    android:id="@+id/txt_bi_fat_head"
-                    android:textAlignment="textStart"
-                    android:layout_below="@+id/txt_mag_dia"
-                    android:textSize="@dimen/LARGE" />
-
-                <SeekBar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/seek_bi_fat"
-                    android:layout_marginTop="40dp"
-                    android:max="5"
-                    android:layout_below="@+id/txt_bi_fat_head" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_fat_1"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/txt_fat_1"
-                    android:layout_below="@+id/seek_bi_fat"
-                    android:layout_alignParentLeft="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_fat_2"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="false"
-                    android:text="@string/txt_fat_2"
-                    android:layout_below="@+id/seek_bi_fat"
-                    android:layout_centerHorizontal="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_fat_3"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="false"
-                    android:text="@string/txt_fat_3"
-                    android:layout_below="@+id/seek_bi_fat"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:text="@string/txt_yrs_head"
-                    android:id="@+id/txt_bi_yrs_head"
-                    android:textAlignment="textStart"
-                    android:layout_below="@+id/txt_fat_1"
-                    android:textSize="@dimen/LARGE" />
-
-                <SeekBar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/seek_bi_yrs"
-                    android:layout_marginTop="40dp"
-                    android:max="5"
-                    android:layout_below="@+id/txt_bi_yrs_head" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_yrs_1"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/txt_fat_1"
-                    android:layout_below="@+id/seek_bi_yrs"
-                    android:layout_alignParentLeft="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_yrs_2"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="false"
-                    android:text="@string/txt_yrs_ngn"
-                    android:layout_below="@+id/seek_bi_yrs"
-                    android:layout_centerHorizontal="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_yrs_3"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="false"
-                    android:text="@string/txt_fat_3"
-                    android:layout_below="@+id/seek_bi_yrs"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:text="@string/txt_bi_krk_head"
-                    android:id="@+id/txt_bi_krk_head"
-                    android:textAlignment="textStart"
-                    android:layout_below="@+id/txt_yrs_1"
-                    android:textSize="@dimen/LARGE" />
-
-                <SeekBar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/seek_bi_krk"
-                    android:layout_marginTop="40dp"
-                    android:max="5"
-                    android:layout_below="@+id/txt_bi_krk_head" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_krk_1"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/txt_fat_1"
-                    android:layout_below="@+id/seek_bi_krk"
-                    android:layout_alignParentLeft="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_krk_2"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="false"
-                    android:text="@string/txt_krk_ngn"
-                    android:layout_below="@+id/seek_bi_krk"
-                    android:layout_centerHorizontal="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
-                    android:id="@+id/txt_krk_3"
-                    android:textAlignment="textStart"
-                    android:layout_alignParentStart="false"
-                    android:text="@string/txt_fat_3"
-                    android:layout_below="@+id/seek_bi_krk"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:id="@+id/frameLayout2"
+                    android:layout_below="@+id/txt_med_head"
+                    android:layout_marginTop="10dp" />
 
             </RelativeLayout>
         </ScrollView>
@@ -520,6 +339,22 @@
             android:id="@+id/contactInformation">
 
 
+            <CalendarView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/evt_cal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/lbl_friends"
+                android:textSize="@dimen/XLARGE"
+                android:layout_alignParentTop="false"
+                android:layout_centerHorizontal="true"
+                android:text="@string/txt_curr_events"
+                android:layout_below="@+id/evt_cal" />
+
             <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="500dp"
@@ -530,20 +365,10 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/lbl_friends" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/lbl_friends"
-                android:textSize="@dimen/XLARGE"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:text="Välj CareTeam" />
-
             <Button
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:id="@+id/btn_add_CTmember"
+                android:id="@+id/btn_careteam_add_healthcare"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="5dp"
