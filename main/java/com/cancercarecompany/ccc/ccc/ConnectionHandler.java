@@ -25,6 +25,7 @@ public class ConnectionHandler {
     public Patient patient;
     public InviteData invites;
     public HealthCareData healthcare;
+    public EventData events;
 
     public static final String MESSAGE_LOGIN = "login";
     public static final String MESSAGE_CREATE = "create";
@@ -98,14 +99,20 @@ public class ConnectionHandler {
                             case MESSAGE_CREATE:
                                 switch (header.content){
                                     case CONTENT_PERSON:
-                                        person = gson.fromJson(resultData, Person.class);
+                                        Person createdPerson =  gson.fromJson(resultData, Person.class);
+                                        person.person_ID = createdPerson.person_ID; // update ID
                                         break;
                                     case CONTENT_PATIENT:
                                         Patient recievedPatient = gson.fromJson(resultData, Patient.class);
                                         patient.patient_ID = recievedPatient.patient_ID;
                                         break;
                                     case CONTENT_HEALTHCARE:
-                                        healthcare = gson.fromJson(resultData, HealthCareData.class);
+                                        // Must find a solution how to handle reponse message when creating and updating
+//                                        HealthCareData createdHealthcare =  gson.fromJson(resultData, HealthCareData.class);
+//                                        person.person_ID = createdPerson.person_ID; // update ID
+                                        break;
+                                    case CONTENT_EVENT:
+//                                        event = gson.fromJson(resultData, EventData.class);
                                         break;
                                 }
                                 break;
@@ -123,6 +130,9 @@ public class ConnectionHandler {
                                     case CONTENT_HEALTHCARE:
                                         healthcare = gson.fromJson(resultData, HealthCareData.class);
                                         break;
+                                    case CONTENT_EVENT:
+                                        events = gson.fromJson(resultData, EventData.class);
+                                        break;
                                 }
                                 break;
 
@@ -135,10 +145,10 @@ public class ConnectionHandler {
                                         Patient patient = gson.fromJson(resultData, Patient.class);
                                         break;
                                     case CONTENT_CARE_TEAM:
-                                        CareTeamMember careTeam = gson.fromJson(resultData, CareTeamMember.class);
+//                                        CareTeamMember careTeam = gson.fromJson(resultData, CareTeamMember.class);
                                         break;
                                     case CONTENT_HEALTHCARE:
-                                        healthcare = gson.fromJson(resultData, HealthCareData.class);
+//                                        healthcare = gson.fromJson(resultData, HealthCareData.class);
                                         break;
                                 }
                                 break;
@@ -271,6 +281,33 @@ public class ConnectionHandler {
     public void deleteHealthcare(int healthcareID){
         String msgData = String.format("{\"healthcare_ID\":\"%d\"}", healthcareID);
         sendMessage(MESSAGE_DELETE, CONTENT_HEALTHCARE, msgData);
+    }
+
+    public void createEvent(Event event){
+        Gson gson = new Gson();
+        String msgData = gson.toJson(event);
+        sendMessage(MESSAGE_CREATE, CONTENT_EVENT, msgData);
+    }
+
+    public void getEventsForPatient(int patientID){
+        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+        sendMessage(MESSAGE_READ, CONTENT_EVENT, msgData);
+    }
+
+    public void getEvent(int healthcareID){
+        String msgData = String.format("{\"event_ID\":\"%d\"}", healthcareID);
+        sendMessage(MESSAGE_READ, CONTENT_EVENT, msgData);
+    }
+
+    public void updateEvent(Event event){
+        Gson gson = new Gson();
+        String msgData = gson.toJson(event);
+        sendMessage(MESSAGE_UPDATE, CONTENT_EVENT, msgData);
+    }
+
+    public void deleteEvent(int eventID){
+        String msgData = String.format("{\"event_ID\":\"%d\"}", eventID);
+        sendMessage(MESSAGE_DELETE, CONTENT_EVENT, msgData);
     }
 
 }
