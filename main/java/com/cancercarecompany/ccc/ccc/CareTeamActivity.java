@@ -221,7 +221,7 @@ public class CareTeamActivity extends AppCompatActivity {
 
                     healthcareList.add(newHealthcare);
 
-                    familyAdapter.notifyDataSetChanged();
+                    healthCareAdapter.notifyDataSetChanged();
                     popupWindow.dismiss();
 
                 }else{
