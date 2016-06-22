@@ -20,7 +20,7 @@
     <string name="lastname">Efternamn</string>
     <string name="phone">Telefon</string>
     <string name="delete_name">Ta bort CT <xliff:g name="patient_name">%s</xliff:g>?</string>
-    <string name="txt_journal_headline">Datum:</string>
+    <string name="txt_journal_headline">Journal Date:</string>
     <string name="txt_frukost">Frukost </string>
     <string name="txt_lunch">Lunch</string>
     <string name="txt_middag">Middag</string>

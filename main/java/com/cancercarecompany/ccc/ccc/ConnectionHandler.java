@@ -26,6 +26,7 @@ public class ConnectionHandler {
     public InviteData invites;
     public HealthCareData healthcare;
     public EventData events;
+    public StatusData status;
 
     public static final String MESSAGE_LOGIN = "login";
     public static final String MESSAGE_CREATE = "create";
@@ -132,6 +133,9 @@ public class ConnectionHandler {
                                         break;
                                     case CONTENT_EVENT:
                                         events = gson.fromJson(resultData, EventData.class);
+                                        break;
+                                    case CONTENT_STATUS:
+                                        status = gson.fromJson(resultData, StatusData.class);
                                         break;
                                 }
                                 break;
@@ -294,11 +298,6 @@ public class ConnectionHandler {
         sendMessage(MESSAGE_READ, CONTENT_EVENT, msgData);
     }
 
-    public void getEvent(int healthcareID){
-        String msgData = String.format("{\"event_ID\":\"%d\"}", healthcareID);
-        sendMessage(MESSAGE_READ, CONTENT_EVENT, msgData);
-    }
-
     public void updateEvent(Event event){
         Gson gson = new Gson();
         String msgData = gson.toJson(event);
@@ -308,6 +307,28 @@ public class ConnectionHandler {
     public void deleteEvent(int eventID){
         String msgData = String.format("{\"event_ID\":\"%d\"}", eventID);
         sendMessage(MESSAGE_DELETE, CONTENT_EVENT, msgData);
+    }
+
+    public void createStatus(Status status){
+        Gson gson = new Gson();
+        String msgData = gson.toJson(status);
+        sendMessage(MESSAGE_CREATE, CONTENT_STATUS, msgData);
+    }
+
+    public void getStatusForPatient(int patientID){
+        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+        sendMessage(MESSAGE_READ, CONTENT_STATUS, msgData);
+    }
+
+    public void updateStatus(Status status){
+        Gson gson = new Gson();
+        String msgData = gson.toJson(status);
+        sendMessage(MESSAGE_UPDATE, CONTENT_STATUS, msgData);
+    }
+
+    public void deleteStatus(int statusID){
+        String msgData = String.format("{\"status_ID\":\"%d\"}", statusID);
+        sendMessage(MESSAGE_DELETE, CONTENT_STATUS, msgData);
     }
 
 }
