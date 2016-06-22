@@ -18,7 +18,7 @@ public class CareTeamFamilyAdapter extends ArrayAdapter<CareTeamMember> {
     ArrayList<CareTeamMember> familyList;
 
     public CareTeamFamilyAdapter(Context context, ArrayList<CareTeamMember> familyList){
-        super(context, R.layout.careteam_familygridview, familyList);
+        super(context, R.layout.careteam_family_gridview, familyList);
         this.familyList = familyList;
     }
 
@@ -26,7 +26,7 @@ public class CareTeamFamilyAdapter extends ArrayAdapter<CareTeamMember> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View customlistview = inflater.inflate(R.layout.careteam_familygridview, parent, false);
+        View customlistview = inflater.inflate(R.layout.careteam_family_gridview, parent, false);
         TextView nameTextView = (TextView) customlistview.findViewById(R.id.txt_careteam_grid_firstname);
         nameTextView.setText(familyList.get(position).first_name);
         TextView relationshipTextView = (TextView) customlistview.findViewById(R.id.txt_careteam_grid_relation);

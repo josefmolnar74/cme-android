@@ -9,11 +9,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:layout_weight="0.12"
-        android:background="@drawable/border"
-        android:weightSum="100">
+        android:background="#ffffff"
+        android:id="@+id/journal_topbar">
 
         <ImageButton
             android:layout_width="80dp"
@@ -23,13 +22,14 @@
             android:src="@drawable/logo"
             android:background="@null"
             android:layout_weight="10"
-            android:layout_marginLeft="20dp" />
-
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <ImageButton
             android:layout_width="80dp"
             android:layout_height="90dp"
-            android:id="@+id/contactsButton"
+            android:id="@+id/btn_journal_careteam_button"
             android:layout_weight="16"
             android:padding="8dp"
             android:src="@drawable/careteam"
@@ -37,40 +37,29 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_toLeftOf="@+id/btn_journal_journal_button"
+            android:layout_toStartOf="@+id/btn_journal_journal_button" />
 
         <ImageButton
             android:layout_width="80dp"
             android:layout_height="90dp"
-            android:id="@+id/journeyButton"
+            android:id="@+id/btn_journal_journey_button"
             android:layout_weight="16"
             android:padding="4dp"
             android:src="@drawable/myjourney"
             android:scaleType="fitCenter"
             android:background="@null"
             android:cropToPadding="false"
-            android:layout_marginLeft="28dp"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/journalButton" />
+            android:layout_toLeftOf="@+id/loggedIn"
+            android:layout_toStartOf="@+id/loggedIn"
+            android:layout_marginRight="47dp"
+            android:layout_marginEnd="47dp" />
 
         <ImageButton
             android:layout_width="80dp"
             android:layout_height="90dp"
-            android:id="@+id/myWallButton"
-            android:layout_weight="16"
-            android:padding="4dp"
-            android:src="@drawable/cwall"
-            android:scaleType="fitCenter"
-            android:background="@null"
-            android:cropToPadding="false"
-            android:layout_marginLeft="28dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/journeyButton" />
-
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="90dp"
-            android:id="@+id/journalButton"
+            android:id="@+id/btn_journal_journal_button"
             android:layout_weight="16"
             android:padding="8dp"
             android:src="@drawable/myjournal"
@@ -78,304 +67,369 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/contactsButton"
-            android:layout_marginLeft="28dp" />
-
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="90dp"
-            android:padding="5dp"
-            android:id="@+id/userSettingsButton"
-            android:layout_weight="10"
-            android:background="@null"
-            android:src="@drawable/settings"
-            android:scaleType="fitCenter"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/myWallButton"
-            android:layout_marginLeft="28dp" />
+            android:layout_toLeftOf="@+id/btn_journal_journey_button"
+            android:layout_toStartOf="@+id/btn_journal_journey_button" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/loggedIn"
+            android:text="name"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/logoButton"
-            android:layout_toEndOf="@+id/logoButton"
-            android:layout_marginLeft="100dp" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp" />
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/txt_journal_headline"
+        android:id="@+id/txt_journal_header"
+        android:textSize="@dimen/XLARGE" />
+
     <LinearLayout
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:weightSum="100"
-        android:layout_weight="0.88"
-        android:baselineAligned="false">
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:baselineAligned="false"
+        android:id="@+id/journal_main">
 
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:id="@+id/scrollView2"
-            android:layout_weight="70">
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="100"
-                android:id="@+id/rel_lay_scr">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/txt_journal_headline"
-                    android:id="@+id/diary_header"
-                    android:layout_alignParentTop="true"
-                    android:textSize="@dimen/XLARGE"
-                    android:layout_alignParentStart="true" />
-
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="100dp"
-                    android:id="@+id/editText2"
-                    android:text="Anteckningar"
-                    android:layout_below="@+id/diary_header"
-                    android:layout_alignParentStart="true"
-                    android:textAlignment="viewStart"
-                    android:layout_weight="80" />
-
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rat_status"
-                    android:numStars="5"
-                    android:stepSize="1"
-                    android:layout_alignTop="@+id/diary_header"
-                    android:layout_alignRight="@+id/editText2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/txt_rat_status"
-                    android:layout_below="@+id/rat_status"
-                    android:layout_alignLeft="@+id/rat_status"
-                    android:textSize="@dimen/MEDIUM" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/txt_biverkningar"
-                    android:id="@+id/txt_biv_head"
-                    android:textSize="@dimen/XLARGE"
-                    android:layout_alignParentStart="false"
-                    android:layout_below="@+id/editText2" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/txt_biv_head"
-                    android:background="@color/abc_input_method_navigation_guard"
-                    android:layout_marginTop="10dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_biv_fatigue"
-                    android:id="@+id/btn_fatigue"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_below="@+id/txt_biv_head" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_biv_smarta"
-                    android:id="@+id/btn_smarta"
-                    android:layout_toRightOf="@+id/btn_fatigue"
-                    android:layout_alignTop="@+id/btn_fatigue" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_biv_munfor"
-                    android:id="@+id/btn_munforandr"
-                    android:layout_toRightOf="@+id/btn_smarta"
-                    android:layout_alignTop="@+id/btn_smarta" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_biv_stick"
-                    android:id="@+id/btn_stickn"
-                    android:layout_toRightOf="@+id/btn_munforandr"
-                    android:layout_alignTop="@+id/btn_munforandr" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_biv_avfr"
-                    android:id="@+id/btn_forst_diar"
-                    android:layout_alignLeft="@+id/btn_fatigue"
-                    android:layout_below="@+id/btn_fatigue" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_biv_aptit"
-                    android:id="@+id/btn_aptit"
-                    android:layout_toRightOf="@+id/btn_forst_diar"
-                    android:layout_below="@+id/btn_fatigue" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_biv_yrs"
-                    android:id="@+id/btn_yrsel"
-                    android:layout_toRightOf="@+id/btn_aptit"
-                    android:layout_below="@+id/btn_fatigue" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_krak"
-                    android:id="@+id/btn_krakn"
-                    android:layout_toRightOf="@+id/btn_yrsel"
-                    android:layout_below="@+id/btn_fatigue" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/btn_forst_diar"
-                    android:background="@color/abc_input_method_navigation_guard"
-                    android:layout_marginTop="30dp"></FrameLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/txt_medicinering"
-                    android:id="@+id/txt_med_head"
-                    android:layout_alignParentTop="false"
-                    android:textSize="@dimen/XLARGE"
-                    android:layout_alignParentStart="false"
-                    android:layout_below="@+id/btn_forst_diar"
-                    android:layout_marginTop="40dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_frukost"
-                    android:layout_gravity="bottom"
-                    android:layout_below="@+id/frameLayout2"
-                    android:layout_marginTop="20dp"
-                    android:id="@+id/btn_frukost" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_lunch"
-                    android:id="@+id/btn_lunch"
-                    android:layout_gravity="bottom"
-                    android:layout_below="@+id/frameLayout2"
-                    android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@+id/btn_frukost"
-                    android:layout_marginLeft="20dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_middag"
-                    android:id="@+id/btn_middag"
-                    android:layout_gravity="bottom"
-                    android:layout_below="@+id/frameLayout2"
-                    android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@+id/btn_lunch"
-                    android:layout_marginLeft="20dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_kvall"
-                    android:id="@+id/btn_kvall"
-                    android:layout_gravity="bottom"
-                    android:layout_below="@+id/frameLayout2"
-                    android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@+id/btn_middag"
-                    android:layout_marginLeft="20dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/txt_med_int"
-                    android:layout_below="@+id/btn_frukost"
-                    android:layout_alignLeft="@+id/btn_frukost"
-                    android:textSize="@dimen/LARGE"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/txt_med_info" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/abc_input_method_navigation_guard"
-                    android:id="@+id/frameLayout2"
-                    android:layout_below="@+id/txt_med_head"
-                    android:layout_marginTop="10dp" />
-
-            </RelativeLayout>
-        </ScrollView>
-
-        <RelativeLayout
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:background="@drawable/border"
-            android:id="@+id/contactInformation">
+            android:layout_weight="0.7"
+            android:id="@+id/journal_left_side">
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/journal_scrollview" >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <RelativeLayout
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/journal_status">
+
+                        <TextView
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="@string/journal_status_header"
+                            android:id="@+id/txt_journal_status_header"
+                            android:textSize="@dimen/LARGE"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <EditText
+                            android:layout_width="500dp"
+                            android:layout_height="80dp"
+                            android:id="@+id/edtxt_journal_status"
+                            android:hint="Hur mår du ?"
+                            android:layout_below="@+id/txt_journal_status_header"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:gravity="top"
+                            android:
+                            android:background="@android:drawable/edit_text" />
+
+                        <Button
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:text="Save"
+                            android:id="@+id/btn_journal_status_save"
+                            android:layout_alignTop="@+id/gridView2"
+                            android:layout_alignRight="@+id/imageButton"
+                            android:layout_alignEnd="@+id/imageButton" />
+
+                        <GridView
+                            android:layout_width="500dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/gridView2"
+                            android:layout_below="@+id/edtxt_journal_status"
+                            android:layout_toLeftOf="@+id/imageButton"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <ImageButton
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:id="@+id/imageButton"
+                            android:layout_below="@+id/txt_journal_status_header"
+                            android:layout_toRightOf="@+id/edtxt_journal_status"
+                            android:layout_toEndOf="@+id/edtxt_journal_status" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/journal_sideeffects">
+
+                        <TextView
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="@string/txt_journal_sideeffects_header"
+                            android:id="@+id/journal_sideeffects_header"
+                            android:textSize="@dimen/LARGE"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <Button
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_sideeffect_fatigue"
+                            android:id="@+id/btn_journal_sideeffect_fatigue"
+                            android:layout_below="@+id/journal_sideeffects_header"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <Button
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_biv_smarta"
+                            android:id="@+id/btn_journal_sideeffect_pain"
+                            android:layout_toRightOf="@+id/btn_journal_sideeffect_fatigue"
+                            android:layout_alignTop="@+id/btn_journal_sideeffect_fatigue" />
+
+                        <Button
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_biv_munfor"
+                            android:id="@+id/btn_journal_sideeffect_mouth"
+                            android:layout_toRightOf="@+id/btn_journal_sideeffect_pain"
+                            android:layout_alignTop="@+id/btn_journal_sideeffect_pain" />
+
+                        <Button
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_biv_stick"
+                            android:id="@+id/btn_stickn"
+                            android:layout_toRightOf="@+id/btn_journal_sideeffect_mouth"
+                            android:layout_alignTop="@+id/btn_journal_sideeffect_mouth" />
+
+                        <Button
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_biv_avfr"
+                            android:id="@+id/btn_journal_sideeffect_diarrhea"
+                            android:layout_alignLeft="@+id/btn_journal_sideeffect_fatigue"
+                            android:layout_below="@+id/btn_journal_sideeffect_fatigue" />
+
+                        <Button
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_biv_aptit"
+                            android:id="@+id/btn_journal_sideeffect_appetite"
+                            android:layout_toRightOf="@+id/btn_journal_sideeffect_diarrhea"
+                            android:layout_below="@+id/btn_journal_sideeffect_fatigue" />
+
+                        <Button
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_biv_yrs"
+                            android:id="@+id/btn_journal_sideeffect_dizziness"
+                            android:layout_toRightOf="@+id/btn_journal_sideeffect_appetite"
+                            android:layout_below="@+id/btn_journal_sideeffect_fatigue" />
+
+                        <Button
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_krak"
+                            android:id="@+id/btn_journal_sideeffect_vomit"
+                            android:layout_toRightOf="@+id/btn_journal_sideeffect_dizziness"
+                            android:layout_below="@+id/btn_journal_sideeffect_fatigue" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1"
+                        android:baselineAligned="false">
+
+                            <RelativeLayout
+                                android:id="@+id/journal_medication"
+                                android:layout_width="0dp"
+                                android:layout_weight="0.5"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:text="@string/txt_medicinering"
+                                    android:id="@+id/txt_journal_medication_header"
+                                    android:textSize="@dimen/LARGE"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true" />
+
+                                <ImageView
+                                    android:layout_width="200dp"
+                                    android:layout_height="200dp"
+                                    android:id="@+id/imageView8"
+                                    android:background="@drawable/journal_drugs"
+                                    android:scaleType="center"
+                                    android:layout_below="@+id/txt_journal_medication_header"
+                                    android:layout_centerHorizontal="true" />
+
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true"
+                                    android:gravity="center_horizontal">
+
+                                    <Button
+                                        style="?android:attr/buttonStyleSmall"
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/journal_medication_dinner"
+                                        android:id="@+id/btn_journal_medication_dinner" />
+
+                                    <Button
+                                        style="?android:attr/buttonStyleSmall"
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/journal_medication_lunch"
+                                        android:id="@+id/btn_journal_medication_lunch" />
+
+                                    <Button
+                                        style="?android:attr/buttonStyleSmall"
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/journal_medication_breakfast"
+                                        android:id="@+id/btn_journal_medication_breakfast" />
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/journal_beverage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:text="@string/journal_beverage_header"
+                                    android:id="@+id/txt_journal_beverage_header"
+                                    android:textSize="@dimen/LARGE"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true" />
+
+                                <GridView
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/gridView"
+                                    android:layout_below="@+id/txt_journal_beverage_header"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true" />
+
+                            </RelativeLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:id="@+id/journal_right_side">
 
             <CalendarView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/evt_cal" />
+                android:id="@+id/cal_journal_calendar" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/lbl_friends"
-                android:textSize="@dimen/XLARGE"
-                android:layout_alignParentTop="false"
-                android:layout_centerHorizontal="true"
-                android:text="@string/txt_curr_events"
-                android:layout_below="@+id/evt_cal" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:id="@+id/txt_journal_events"
+                    android:text="@string/txt_curr_events"
+                    android:textSize="@dimen/LARGE"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <Button
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/btn_journal_careteam_add_event"
+                    android:background="@android:drawable/ic_input_add"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
 
             <ListView
                 android:layout_width="fill_parent"
-                android:layout_height="500dp"
-                android:id="@+id/careTeamMemberListView"
-                android:visibility="visible"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/lbl_friends" />
+                android:layout_height="wrap_content"
+                android:id="@+id/listview_journal_events"
+                android:visibility="visible" />
 
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/btn_careteam_add_healthcare"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/addcontact" />
+        </LinearLayout>
 
-        </RelativeLayout>
 
     </LinearLayout>
 

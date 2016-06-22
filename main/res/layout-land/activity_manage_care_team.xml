@@ -30,7 +30,7 @@
         <ImageButton
             android:layout_width="80dp"
             android:layout_height="90dp"
-            android:id="@+id/contactsButton"
+            android:id="@+id/btn_journal_careteam_button"
             android:layout_weight="16"
             android:padding="8dp"
             android:src="@drawable/careteam"
@@ -43,7 +43,7 @@
         <ImageButton
             android:layout_width="80dp"
             android:layout_height="90dp"
-            android:id="@+id/journeyButton"
+            android:id="@+id/btn_journal_journey_button"
             android:layout_weight="16"
             android:padding="4dp"
             android:src="@drawable/myjourney"
@@ -52,7 +52,7 @@
             android:cropToPadding="false"
             android:layout_marginLeft="28dp"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/journalButton" />
+            android:layout_toRightOf="@+id/btn_journal_journal_button" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -66,12 +66,12 @@
             android:cropToPadding="false"
             android:layout_marginLeft="28dp"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/journeyButton" />
+            android:layout_toRightOf="@+id/btn_journal_journey_button" />
 
         <ImageButton
             android:layout_width="80dp"
             android:layout_height="90dp"
-            android:id="@+id/journalButton"
+            android:id="@+id/btn_journal_journal_button"
             android:layout_weight="16"
             android:padding="8dp"
             android:src="@drawable/myjournal"
@@ -79,7 +79,7 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/contactsButton"
+            android:layout_toRightOf="@+id/btn_journal_careteam_button"
             android:layout_marginLeft="28dp" />
 
         <ImageButton
@@ -133,14 +133,14 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="false"
-                android:layout_below="@+id/diary_header" />
+                android:layout_below="@+id/txt_journal_header" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/txt_choose_CT"
-                android:id="@+id/diary_header"
+                android:id="@+id/txt_journal_header"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:textSize="@dimen/XLARGE" />
@@ -179,18 +179,18 @@
             <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="500dp"
-                android:id="@+id/careTeamMemberListView"
+                android:id="@+id/listview_journal_events"
                 android:visibility="visible"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/lbl_friends" />
+                android:layout_below="@+id/txt_journal_events" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/lbl_friends"
+                android:id="@+id/txt_journal_events"
                 android:textSize="@dimen/XLARGE"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"

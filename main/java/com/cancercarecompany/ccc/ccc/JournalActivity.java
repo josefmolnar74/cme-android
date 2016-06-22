@@ -1,9 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +15,16 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 
 //import android.widget.Spinner;
 
 public class JournalActivity extends AppCompatActivity {
 
+    ConnectionHandler connectHandler;
     ArrayList<Events> eventList;
     ArrayList<Patient> patientList = new ArrayList<>();
+
     String lbl_datum;
     TextView header;
     TextView fr_medicin;
@@ -51,78 +49,67 @@ public class JournalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
-        eventList = new ArrayList<Events>();
 
-        //loadEventList
-
-        final Button btn_fatigue      = (Button)    findViewById(R.id.btn_fatigue);
-        final Button btn_smarta       = (Button)    findViewById(R.id.btn_smarta);
-        final Button btn_munforandr   = (Button)    findViewById(R.id.btn_munforandr);
-        final Button btn_stickn       = (Button)    findViewById(R.id.btn_stickn);
-        final Button btn_forstdiar    = (Button)    findViewById(R.id.btn_forst_diar);
-        final Button btn_aptit        = (Button)    findViewById(R.id.btn_aptit);
-        final Button btn_yrsel        = (Button)    findViewById(R.id.btn_yrsel);
-        final Button btn_krakn        = (Button)    findViewById(R.id.btn_krakn);
-        final Button btn_frukost      = (Button)    findViewById(R.id.btn_frukost);
-        final Button btn_lunch        = (Button)    findViewById(R.id.btn_lunch);
-        final Button btn_middag       = (Button)    findViewById(R.id.btn_middag);
-        final Button btn_kvall        = (Button)    findViewById(R.id.btn_kvall);
-        final RatingBar rat_status    = (RatingBar) findViewById(R.id.rat_status);
-        final TextView txt_rat_status = (TextView)  findViewById(R.id.txt_rat_status);
+        final Button fatigueButton = (Button)    findViewById(R.id.btn_journal_sideeffect_fatigue);
+        final Button painButton = (Button)    findViewById(R.id.btn_journal_sideeffect_pain);
+        final Button mouthButton = (Button)    findViewById(R.id.btn_journal_sideeffect_mouth);
+        final Button numbnessButton = (Button)    findViewById(R.id.btn_stickn);
+        final Button diarrheaButton = (Button)    findViewById(R.id.btn_journal_sideeffect_diarrhea);
+        final Button appetitButton = (Button)    findViewById(R.id.btn_journal_sideeffect_appetite);
+        final Button dizzinessButton = (Button)    findViewById(R.id.btn_journal_sideeffect_dizziness);
+        final Button vomitButton = (Button)    findViewById(R.id.btn_journal_sideeffect_vomit);
+        final Button medBreakfastButton = (Button)    findViewById(R.id.btn_journal_medication_breakfast);
+        final Button medLunchButton = (Button)    findViewById(R.id.btn_journal_medication_lunch);
+        final Button medDinnerButton = (Button)    findViewById(R.id.btn_journal_medication_dinner);
         final TextView txt_med_txt    = (TextView)  findViewById(R.id.txt_med_int);
-        final TextView txt_diary_head = (TextView)  findViewById(R.id.diary_header);
-        final CalendarView view_calendar = (CalendarView)  findViewById(R.id.evt_cal);
-        final ImageButton btn_journey    = (ImageButton) findViewById(R.id.journeyButton);
-        final ImageButton careTeamButton = (ImageButton) findViewById(R.id.contactsButton);
+        final TextView txt_diary_head = (TextView)  findViewById(R.id.txt_journal_header);
+        final CalendarView calendar = (CalendarView)  findViewById(R.id.cal_journal_calendar);
+        final ImageButton journeyButton    = (ImageButton) findViewById(R.id.btn_journal_journey_button);
+        final ImageButton careTeamButton = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
 
-// Hämta data
-/*
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        lclString = (String) preferences.getString("Person", "");
+        //Get journal data
+        ConnectionHandler connectHandler = ConnectionHandler.getInstance();
+        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy){}
+        connectHandler.getStatusForPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy){}
 
-        System.out.println(lclString);
-        Gson gson = new Gson();
-
-        lcl = gson.fromJson(lclString, Lcl_work_area.class);
-
-        for (int i = 0; i < lcl.patient.size(); i++) {
-            patientList.add(lcl.patient.get(i));
-        }
-*/
-
-
-
-
-//        txt_diary_head.setText(R.string.txt_journal_headline);
-//                txt_diary_head.setText((txt_diary_head.getText()) + " " + year + "-" + month + "-" + date);
-
-
-        //txt_rat_status.setText(patientList.get(0).patient_ID);
-
-        txt_rat_status.setText(R.string.txt_stat_start);
-
-        btn_journey.setOnClickListener(new View.OnClickListener() {
+        journeyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 journeyActivity();
             }
         });
 
-        btn_fatigue.setOnClickListener(new View.OnClickListener() {
+        careTeamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                journeyActivity();
+            }
+        });
+
+        fatigueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 add_fatigue("Fat");
             }
         });
 
-        btn_smarta.setOnClickListener(new View.OnClickListener() {
+        painButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 add_fatigue("Pain");
             }
         });
 
-        btn_aptit.setOnClickListener(new View.OnClickListener() {
+        numbnessButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                get_Events();
+            }
+        });
+
+        appetitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 choice = "Apetite";
@@ -130,43 +117,36 @@ public class JournalActivity extends AppCompatActivity {
             }
         });
 
-        btn_yrsel.setOnClickListener(new View.OnClickListener() {
+        dizzinessButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 add_fatigue("Yrsel");
             }
         });
 
-        btn_forstdiar.setOnClickListener(new View.OnClickListener() {
+        diarrheaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 add_fatigue("Forstopp");
             }
         });
 
-        btn_krakn.setOnClickListener(new View.OnClickListener() {
+        vomitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 add_fatigue("Krakn");
             }
         });
 
-        rat_status.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                txt_rat_status.setText("Idag är det " + String.valueOf(rating) + ", bra");
-            }
-        });
-
-        btn_frukost.setOnClickListener(new View.OnClickListener() {
+        medBreakfastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (fr_mark.equals(Boolean.FALSE)) {
                     fr_mark = Boolean.TRUE;
-                    btn_frukost.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medBreakfastButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     fr_mark = Boolean.FALSE;
-                    btn_frukost.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medBreakfastButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
@@ -179,15 +159,15 @@ public class JournalActivity extends AppCompatActivity {
         });
 
 
-        btn_lunch.setOnClickListener(new View.OnClickListener() {
+        medLunchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ( lu_mark.equals(Boolean.FALSE)) {
                     lu_mark = Boolean.TRUE;
-                    btn_lunch.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medLunchButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     lu_mark = Boolean.FALSE;
-                    btn_lunch.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medLunchButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
@@ -198,41 +178,15 @@ public class JournalActivity extends AppCompatActivity {
             }
         });
 
-        btn_middag.setOnClickListener(new View.OnClickListener() {
+        medDinnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ( mi_mark.equals(Boolean.FALSE)) {
                     mi_mark = Boolean.TRUE;
-                    btn_middag.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medDinnerButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     mi_mark = Boolean.FALSE;
-                    btn_middag.setBackgroundColor(getResources().getColor(R.color.addcontact));
-                }
-                if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
-                        mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
-                    txt_med_txt.setText(R.string.txt_med_done);
-                } else {
-                    txt_med_txt.setText(R.string.txt_med_info);
-                }
-            }
-        });
-///* TEST
-        btn_stickn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                get_Events();
-            }
-        });
-//TEST*/
-        btn_kvall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( kv_mark.equals(Boolean.FALSE)) {
-                    kv_mark = Boolean.TRUE;
-                    btn_kvall.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                } else {
-                    kv_mark = Boolean.FALSE;
-                    btn_kvall.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medDinnerButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
@@ -250,7 +204,7 @@ public class JournalActivity extends AppCompatActivity {
             }
         });
 
-        view_calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int date) {
                 Toast.makeText(getApplicationContext(),date+ "/"+month+"/"+year,4000).show();
@@ -352,9 +306,9 @@ public class JournalActivity extends AppCompatActivity {
             text_max3.setVisibility(View.VISIBLE);
             text_res3.setVisibility(View.VISIBLE);
             text_min3.setVisibility(View.VISIBLE);
-            text_res.setText(R.string.txt_frukost);
-            text_res2.setText(R.string.txt_lunch);
-            text_res3.setText(R.string.txt_middag);
+            text_res.setText(R.string.journal_medication_breakfast);
+            text_res2.setText(R.string.journal_medication_lunch);
+            text_res3.setText(R.string.journal_medication_dinner);
         } else if ( choice == "Yrsel") {
             txt_header.setText(R.string.txt_biv_yrsel_head);
             txt_subheader.setText(R.string.txt_biv_yrsel_desc);

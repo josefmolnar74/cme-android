@@ -13,9 +13,9 @@ public class journal2 extends AppCompatActivity {
     TextView fr_medicin;
     TextView lu_medicin;
     TextView mi_medicin;
-    private SeekBar seekFr;
-    private SeekBar seekLu;
-    private SeekBar seekMi;
+//    private SeekBar seekFr;
+//    private SeekBar seekLu;
+//    private SeekBar seekMi;
 
 
 
@@ -24,17 +24,17 @@ public class journal2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
-        seekFr = (SeekBar) findViewById(R.id.seek_med_fr);
-        seekLu = (SeekBar) findViewById(R.id.seek_med_lu);
-        seekMi = (SeekBar) findViewById(R.id.seek_med_mi);
-        fr_medicin = (TextView) findViewById(R.id.txt_med_ant_fr);
-        lu_medicin = (TextView) findViewById(R.id.txt_med_ant_lu);
-        mi_medicin = (TextView) findViewById(R.id.txt_med_ant_mi);
+//        seekFr = (SeekBar) findViewById(R.id.seek_med_fr);
+//        seekLu = (SeekBar) findViewById(R.id.seek_med_lu);
+//        seekMi = (SeekBar) findViewById(R.id.seek_med_mi);
+//        fr_medicin = (TextView) findViewById(R.id.txt_med_ant_fr);
+//        lu_medicin = (TextView) findViewById(R.id.txt_med_ant_lu);
+//        mi_medicin = (TextView) findViewById(R.id.txt_med_ant_mi);
 
-        fr_medicin.setText("Ordination: " + seekFr.getMax() + " st tabletter");
-        lu_medicin.setText("Ordination: " + seekLu.getMax() + " st tabletter");
-        mi_medicin.setText("Ordination: " + seekMi.getMax() + " st tabletter");
-
+//        fr_medicin.setText("Ordination: " + seekFr.getMax() + " st tabletter");
+//        lu_medicin.setText("Ordination: " + seekLu.getMax() + " st tabletter");
+//        mi_medicin.setText("Ordination: " + seekMi.getMax() + " st tabletter");
+/*
         seekFr.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
 
@@ -102,6 +102,7 @@ public class journal2 extends AppCompatActivity {
 
             }
         });
+        */
 /*
   // Initialize the textview with '0'.
       textView.setText("Covered: " + seekBar.getProgress() + "/" + seekBar.getMax());

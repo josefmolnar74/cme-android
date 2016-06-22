@@ -98,8 +98,8 @@ public class JourneyActivity extends AppCompatActivity {
         layoutButtons = (RelativeLayout) findViewById(R.id.relativeLayout3);
         eventLayout = (RelativeLayout) findViewById(R.id.eventLayoutJourney);
         bottomLayout = (RelativeLayout) findViewById(R.id.bottom_layout);
-        careTeamButton = (ImageButton) findViewById(R.id.contactsButton);
-        journalButton = (ImageButton) findViewById(R.id.journalButton);
+        careTeamButton = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
+        journalButton = (ImageButton) findViewById(R.id.btn_journal_journal_button);
         logoButton = (ImageButton) findViewById(R.id.logoButton);
         wholeScreen = (RelativeLayout) findViewById(R.id.journeyscreen);
         sun = (ImageButton) findViewById(R.id.btn_sun_journey);

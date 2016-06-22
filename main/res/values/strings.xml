@@ -11,6 +11,7 @@
     <string name="button_login">Login</string>
     <string name="robin">Robin</string>
 
+    <string name="journal_status_header">Status</string>
     <string name="chb_title">CHB</string>
     <string name="lbl_contactinfo_caretem">Contact Informationn</string>
     <string name="txt_choose_CT">Family/Friends</string>
@@ -20,12 +21,13 @@
     <string name="lastname">Efternamn</string>
     <string name="phone">Telefon</string>
     <string name="delete_name">Ta bort CT <xliff:g name="patient_name">%s</xliff:g>?</string>
-    <string name="txt_journal_headline">Journal Date:</string>
-    <string name="txt_frukost">Frukost </string>
-    <string name="txt_lunch">Lunch</string>
-    <string name="txt_middag">Middag</string>
+    <string name="txt_journal_headline">Journal Datum:</string>
+    <string name="journal_medication_breakfast">Frukost </string>
+    <string name="journal_medication_lunch">Lunch</string>
+    <string name="journal_medication_dinner">Middag</string>
     <string name="txt_medicinering">Medicinering</string>
-    <string name="txt_biverkningar">Biverkningar</string>
+    <string name="journal_beverage_header">Dryck</string>
+    <string name="txt_journal_sideeffects_header">Biverkningar</string>
     <string name="txt_tagit_med">Antal tagna</string>
     <string name="txt_magstatus">Magstatus</string>
     <string name="txt_mag_diarre">Diarré</string>
@@ -39,14 +41,14 @@
     <string name="txt_yrs_head">Yrsel</string>
     <string name="txt_bi_krk_head">Kräkningar</string>
     <string name="txt_krk_ngn">1-2 ggr</string>
-    <string name="txt_biv_fatigue">Fatigue/Trötthet</string>
+    <string name="txt_sideeffect_fatigue">Trötthet</string>
     <string name="txt_biv_smarta">Smärta</string>
-    <string name="txt_biv_munfor">Munförändringar</string>
-    <string name="txt_biv_stick">Stickningar/Domningar</string>
+    <string name="txt_biv_munfor">Munförändring</string>
+    <string name="txt_biv_stick">Stickning/Domning</string>
     <string name="txt_biv_avfr">Diarré</string>
     <string name="txt_biv_aptit">Aptit</string>
     <string name="txt_biv_yrs">Yrsel</string>
-    <string name="txt_krak">Kräkningar</string>
+    <string name="txt_krak">Kräkning</string>
     <string name="txt_biv_fat_head">Lider Barnet av Fatigue idag?</string>
     <string name="txt_biv_pain_head">Lider Barnet av Smärta idag?</string>
     <string name="txt_biv_apetite_head">Har Barnet haft bra aptit idag?</string>

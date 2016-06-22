@@ -54,14 +54,14 @@ public class CareTeamActivity extends AppCompatActivity {
         TextView loggedIn = (TextView) findViewById(R.id.loggedIn);
         loggedIn.setText(connectHandler.person.first_name);
 
-        familyGridView = (GridView) findViewById(R.id.careteam_family_gridview);
-        healthCareGridView = (GridView) findViewById(R.id.careteam_healthcare_gridview);
+        familyGridView = (GridView) findViewById(R.id.gridview_careteam_family);
+        healthCareGridView = (GridView) findViewById(R.id.gridview_careteam_healthcare);
 
         final Button buttonAddHealthCareMember = (Button) findViewById(R.id.btn_careteam_add_healthcare);
         final Button buttonAddFamilyMember   = (Button) findViewById(R.id.btn_careteam_invite_careteam);
 
-        journeyButton = (ImageButton) findViewById(R.id.journeyButton);
-        journalButton = (ImageButton) findViewById(R.id.journalButton);
+        journeyButton = (ImageButton) findViewById(R.id.btn_journal_journey_button);
+        journalButton = (ImageButton) findViewById(R.id.btn_journal_journal_button);
 
         journeyButton.setOnClickListener(new View.OnClickListener() {
             @Override

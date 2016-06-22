@@ -25,6 +25,9 @@
         <activity
             android:name=".RegisterActivity"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".JournalActivity"
+            android:windowSoftInputMode="stateHidden" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://gS.co/AppIndexing/AndroidStudio for more information.
@@ -38,8 +41,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".JournalActivity" />
-        <activity android:name=".journal2" />
         <activity
             android:name=".CreateCareTeamActivity"
             android:windowSoftInputMode="stateHidden" />
