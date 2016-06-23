@@ -7,9 +7,12 @@
     android:weightSum="1">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="40dp"
         android:text="hh:mm"
-        android:id="@+id/btn_journal_status_gridview" />
+        android:id="@+id/txt_journal_status_gridview"
+        android:background="@drawable/abc_list_selector_background_transition_holo_light"
+        android:gravity="center" />
+
 </LinearLayout>

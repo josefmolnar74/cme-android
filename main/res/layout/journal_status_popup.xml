@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/Friend"
+    android:id="@+id/layout_journal_status_popup"
+    android:weightSum="1"
+    android:layout_gravity="center"
+    android:columnCount="3"
+    android:rowCount="3">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status: "
+        android:id="@+id/txt_journal_status_popup_status_headline"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/LARGE"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_gravity="center"
+        android:textAlignment="gravity" />
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:id="@+id/btn_journal_status_cancel"
+        android:visibility="visible"
+        android:layout_row="0"
+        android:layout_column="2"
+        android:background="@drawable/delete"></Button>
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:id="@+id/btn_journal_status_edit"
+        android:visibility="visible"
+        android:layout_row="2"
+        android:layout_column="2"
+        android:background="@drawable/edit"></Button>
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:id="@+id/btn_journal_status_save"
+        android:visibility="visible"
+        android:layout_row="2"
+        android:layout_column="2"
+        android:background="@drawable/mark"></Button>
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:id="@+id/btn_journal_status_delete"
+        android:visibility="visible"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:background="@drawable/garbage"></Button>
+
+    <RelativeLayout
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="500dp"
+            android:layout_height="150dp"
+            android:text="Status"
+            android:id="@+id/txt_journal_status_popup_status_text"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:drawable/edit_text"
+            android:gravity="top|left" />
+
+        <ImageView
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/img_journal_status_popup_emotion"
+            android:layout_below="@+id/txt_journal_status_popup_status_text"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/cheeky" />
+
+
+    </RelativeLayout>
+
+</GridLayout>

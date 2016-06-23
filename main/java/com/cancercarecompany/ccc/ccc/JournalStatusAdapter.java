@@ -27,7 +27,7 @@ public class JournalStatusAdapter extends ArrayAdapter<Status> {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View customGridview = inflater.inflate(R.layout.journal_status_gridview, parent, false);
-        TextView nameTextView = (TextView) customGridview.findViewById(R.id.btn_journal_status_gridview);
+        TextView nameTextView = (TextView) customGridview.findViewById(R.id.txt_journal_status_gridview);
         nameTextView.setText(statusList.get(position).time);
         return customGridview;
     }

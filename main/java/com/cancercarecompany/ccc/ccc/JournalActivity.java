@@ -3,12 +3,16 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -16,6 +20,7 @@ import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,7 +83,6 @@ public class JournalActivity extends AppCompatActivity {
         final CalendarView calendar = (CalendarView)  findViewById(R.id.cal_journal_calendar);
         final ImageButton journeyButton    = (ImageButton) findViewById(R.id.btn_journal_journey_button);
         final ImageButton careTeamButton = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
-
         //Get journal data
         connectHandler = ConnectionHandler.getInstance();
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
@@ -86,23 +90,21 @@ public class JournalActivity extends AppCompatActivity {
         connectHandler.getStatusForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
 
-        statusGridView = (GridView) findViewById(R.id.gridview_journal_status);
-        statusAdapter = new JournalStatusAdapter(this, statusList);
-        statusGridView.setAdapter(statusAdapter);
-
         if (connectHandler.status != null){
             for (int i = 0; i < connectHandler.status.status_data.size(); i++) {
                 statusList.add(connectHandler.status.status_data.get(i));
             }
         }
 
+        statusGridView = (GridView) findViewById(R.id.gridview_journal_status);
+        statusAdapter = new JournalStatusAdapter(this, statusList);
+        statusGridView.setAdapter(statusAdapter);
+
+        //Open popup window to show user detail information and edit/delete
         statusGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int statusGridPosition, long id) {
-                if (!statusTextEditText.getText().toString().isEmpty()){
-                    statusTextEditText.setText(statusList.get(statusGridPosition).status);
-                    
-                }
+            public void onItemClick(AdapterView<?> parent, View view, int statusListPosition, long id) {
+
             }
         });
 
@@ -142,6 +144,14 @@ public class JournalActivity extends AppCompatActivity {
                     statusAdapter.notifyDataSetChanged();
                     statusTextEditText.setText("");
                 }
+            }
+        });
+
+        //Open popup window to show user detail information and edit/delete
+        statusGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showStatus(position);
             }
         });
 
@@ -270,13 +280,6 @@ public class JournalActivity extends AppCompatActivity {
                 txt_diary_head.setText((txt_diary_head.getText()) + " " + year + "-" + month + "-" + date);
             }
         });
-        /*
-        v.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
-    public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-       this.calendar = new GregorianCalendar( year, month, dayOfMonth );
-    }//met
-
-         */
     }
 
     private void careTeam(){
@@ -284,8 +287,110 @@ public class JournalActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-    private void showStatus(int statusGridPosition){
+    public void showStatus(final int position) {
 
+        LayoutInflater layoutInflater
+                = (LayoutInflater) getBaseContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.journal_status_popup, null);
+
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        popupWindow.setFocusable(true);
+        popupWindow.update();
+
+        final EditText statusEditText        = (EditText) popupView.findViewById(R.id.txt_journal_status_popup_status_text);
+        final Button   buttonSave           = (Button) popupView.findViewById(R.id.btn_journal_status_save);
+        final Button   buttonCancel         = (Button) popupView.findViewById(R.id.btn_journal_status_cancel);
+        final Button   buttonEdit           = (Button) popupView.findViewById(R.id.btn_journal_status_edit);
+        final Button   buttonDelete         = (Button) popupView.findViewById(R.id.btn_journal_status_delete);
+
+        statusEditText.setFocusable(false);
+        statusEditText.setText(statusList.get(position).status);
+        buttonEdit.setVisibility(View.VISIBLE);
+        buttonCancel.setVisibility(View.VISIBLE);
+        buttonDelete.setVisibility(View.INVISIBLE);
+        buttonSave.setVisibility(View.INVISIBLE);
+
+        GridLayout gridLayout = (GridLayout) popupView.findViewById(R.id.layout_journal_status_popup);
+        popupWindow.showAtLocation(gridLayout, Gravity.CENTER, 0, 0);
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonEdit.setVisibility(View.INVISIBLE);
+                buttonCancel.setVisibility(View.VISIBLE);
+                buttonDelete.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.VISIBLE);
+                saveStatus(position);
+                popupWindow.dismiss();
+            }
+
+            private void saveStatus(int position) {
+                //update in gridPosition
+                statusList.get(position).status = statusEditText.getText().toString();
+//                statusList.get(listPosition).emotion = emotionEditText.getText().toString();
+                Status updateStatus = new Status(
+                        statusList.get(position).status_ID,
+                        statusList.get(position).patient_ID,
+                        statusList.get(position).person_ID,
+                        statusList.get(position).date,
+                        statusList.get(position).time,
+                        statusEditText.getText().toString(),
+                        "",
+                        0); // must implement share
+
+                connectHandler.updateStatus(updateStatus);
+
+                while (connectHandler.socketBusy){}
+            }
+
+        });
+
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonEdit.setVisibility(View.INVISIBLE);
+                buttonDelete.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.VISIBLE);
+                buttonCancel.setVisibility(View.VISIBLE);
+                statusEditText.setEnabled(true);
+                statusEditText.setFocusable(true);
+                statusEditText.setFocusableInTouchMode(true);
+            }
+        });
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (buttonEdit.getVisibility() == View.VISIBLE) {
+                    popupWindow.dismiss();
+                }
+                buttonEdit.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.INVISIBLE);
+                buttonCancel.setVisibility(View.VISIBLE);
+                buttonDelete.setVisibility(View.INVISIBLE);
+                popupWindow.dismiss();
+            }
+        });
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonEdit.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.INVISIBLE);
+                buttonCancel.setVisibility(View.INVISIBLE);
+                buttonDelete.setVisibility(View.INVISIBLE);
+                deleteCareTeamMembers(position);
+            }
+            private void deleteCareTeamMembers(int index) {
+                statusList.remove(position);
+                statusAdapter.notifyDataSetChanged();
+                connectHandler.deleteStatus(statusList.get(position).status_ID);
+                popupWindow.dismiss();
+            }
+        });
     }
 
     public void add_fatigue(String choice) {

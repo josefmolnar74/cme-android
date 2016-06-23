@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:background="@color/Family"
     android:layout_gravity="center"
-
     android:id="@+id/careteam_member_popup"
     android:weightSum="1"
     android:columnCount="3"
