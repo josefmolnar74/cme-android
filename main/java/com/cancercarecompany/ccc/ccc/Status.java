@@ -10,14 +10,14 @@ public class Status {
     int status_ID;
     int patient_ID;
     int person_ID;
-    Date date;
-    Date time;
+    String date;
+    String time;
     String status;
     String emotion;
     int share;
 
 
-    public Status(int status_ID, int patient_ID, int person_ID, Date date, Date time, String status, String emotion, int share){
+    public Status(int status_ID, int patient_ID, int person_ID, String date, String time, String status, String emotion, int share){
 
         this.status_ID  = status_ID;
         this.patient_ID = patient_ID;

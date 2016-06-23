@@ -153,7 +153,6 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:gravity="top"
-                            android:
                             android:background="@android:drawable/edit_text" />
 
                         <Button
@@ -162,14 +161,14 @@
                             android:layout_height="wrap_content"
                             android:text="Save"
                             android:id="@+id/btn_journal_status_save"
-                            android:layout_alignTop="@+id/gridView2"
+                            android:layout_alignTop="@+id/gridview_journal_status"
                             android:layout_alignRight="@+id/imageButton"
                             android:layout_alignEnd="@+id/imageButton" />
 
                         <GridView
                             android:layout_width="500dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/gridView2"
+                            android:id="@+id/gridview_journal_status"
                             android:layout_below="@+id/edtxt_journal_status"
                             android:layout_toLeftOf="@+id/imageButton"
                             android:layout_alignParentLeft="true"
@@ -208,7 +207,7 @@
 
                         <Button
                             android:layout_width="160dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60dp"
                             android:text="@string/txt_sideeffect_fatigue"
                             android:id="@+id/btn_journal_sideeffect_fatigue"
                             android:layout_below="@+id/journal_sideeffects_header"
@@ -217,7 +216,7 @@
 
                         <Button
                             android:layout_width="160dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60dp"
                             android:text="@string/txt_biv_smarta"
                             android:id="@+id/btn_journal_sideeffect_pain"
                             android:layout_toRightOf="@+id/btn_journal_sideeffect_fatigue"
@@ -225,7 +224,7 @@
 
                         <Button
                             android:layout_width="160dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60dp"
                             android:text="@string/txt_biv_munfor"
                             android:id="@+id/btn_journal_sideeffect_mouth"
                             android:layout_toRightOf="@+id/btn_journal_sideeffect_pain"
@@ -233,7 +232,7 @@
 
                         <Button
                             android:layout_width="160dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60dp"
                             android:text="@string/txt_biv_stick"
                             android:id="@+id/btn_stickn"
                             android:layout_toRightOf="@+id/btn_journal_sideeffect_mouth"
@@ -241,7 +240,7 @@
 
                         <Button
                             android:layout_width="160dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60dp"
                             android:text="@string/txt_biv_avfr"
                             android:id="@+id/btn_journal_sideeffect_diarrhea"
                             android:layout_alignLeft="@+id/btn_journal_sideeffect_fatigue"
@@ -249,7 +248,7 @@
 
                         <Button
                             android:layout_width="160dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60dp"
                             android:text="@string/txt_biv_aptit"
                             android:id="@+id/btn_journal_sideeffect_appetite"
                             android:layout_toRightOf="@+id/btn_journal_sideeffect_diarrhea"
@@ -257,7 +256,7 @@
 
                         <Button
                             android:layout_width="160dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60dp"
                             android:text="@string/txt_biv_yrs"
                             android:id="@+id/btn_journal_sideeffect_dizziness"
                             android:layout_toRightOf="@+id/btn_journal_sideeffect_appetite"
@@ -265,7 +264,7 @@
 
                         <Button
                             android:layout_width="160dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60dp"
                             android:text="@string/txt_krak"
                             android:id="@+id/btn_journal_sideeffect_vomit"
                             android:layout_toRightOf="@+id/btn_journal_sideeffect_dizziness"

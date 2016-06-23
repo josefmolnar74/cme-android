@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -15,7 +19,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 //import android.widget.Spinner;
 
@@ -24,6 +30,10 @@ public class JournalActivity extends AppCompatActivity {
     ConnectionHandler connectHandler;
     ArrayList<Events> eventList;
     ArrayList<Patient> patientList = new ArrayList<>();
+
+    ArrayList<Status> statusList = new ArrayList<>();
+    GridView statusGridView;
+    JournalStatusAdapter statusAdapter;
 
     String lbl_datum;
     TextView header;
@@ -50,6 +60,8 @@ public class JournalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
 
+        final EditText statusTextEditText = (EditText) findViewById(R.id.edtxt_journal_status);
+        final Button saveStatusButton = (Button)    findViewById(R.id.btn_journal_status_save);
         final Button fatigueButton = (Button)    findViewById(R.id.btn_journal_sideeffect_fatigue);
         final Button painButton = (Button)    findViewById(R.id.btn_journal_sideeffect_pain);
         final Button mouthButton = (Button)    findViewById(R.id.btn_journal_sideeffect_mouth);
@@ -68,11 +80,31 @@ public class JournalActivity extends AppCompatActivity {
         final ImageButton careTeamButton = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
 
         //Get journal data
-        ConnectionHandler connectHandler = ConnectionHandler.getInstance();
+        connectHandler = ConnectionHandler.getInstance();
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
         connectHandler.getStatusForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
+
+        statusGridView = (GridView) findViewById(R.id.gridview_journal_status);
+        statusAdapter = new JournalStatusAdapter(this, statusList);
+        statusGridView.setAdapter(statusAdapter);
+
+        if (connectHandler.status != null){
+            for (int i = 0; i < connectHandler.status.status_data.size(); i++) {
+                statusList.add(connectHandler.status.status_data.get(i));
+            }
+        }
+
+        statusGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int statusGridPosition, long id) {
+                if (!statusTextEditText.getText().toString().isEmpty()){
+                    statusTextEditText.setText(statusList.get(statusGridPosition).status);
+                    
+                }
+            }
+        });
 
         journeyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +117,31 @@ public class JournalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 journeyActivity();
+            }
+        });
+
+        saveStatusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                if (!statusTextEditText.getText().toString().isEmpty()){
+                    String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                    String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
+                    // Create new status
+                    Status newStatus = new Status(
+                            0,
+                            connectHandler.patient.patient_ID,
+                            connectHandler.person.person_ID,
+                            date,
+                            time,
+                            statusTextEditText.getText().toString(),
+                            "happy",
+                            1);
+                    connectHandler.createStatus(newStatus);
+
+                    statusList.add(newStatus);
+                    statusAdapter.notifyDataSetChanged();
+                    statusTextEditText.setText("");
+                }
             }
         });
 
@@ -227,6 +284,9 @@ public class JournalActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    private void showStatus(int statusGridPosition){
+
+    }
 
     public void add_fatigue(String choice) {
         popup_add_fatigue(choice);
