@@ -40,6 +40,10 @@ public class JournalActivity extends AppCompatActivity {
     GridView statusGridView;
     JournalStatusAdapter statusAdapter;
 
+    ArrayList<String> beverageList = new ArrayList<>();
+    GridView beverageGridView;
+    JournalBeverageAdapter beverageAdapter;
+
     String lbl_datum;
     TextView header;
     TextView fr_medicin;
@@ -100,11 +104,24 @@ public class JournalActivity extends AppCompatActivity {
         statusAdapter = new JournalStatusAdapter(this, statusList);
         statusGridView.setAdapter(statusAdapter);
 
-        //Open popup window to show user detail information and edit/delete
-        statusGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int statusListPosition, long id) {
+        for (int i = 0; i < 8 ; i++) {
+            beverageList.add("empty");
+        }
 
+        beverageGridView = (GridView) findViewById(R.id.gridview_journal_beverage);
+        beverageAdapter = new JournalBeverageAdapter(this, beverageList);
+        beverageGridView.setAdapter(beverageAdapter);
+
+        //Open popup window to show user detail information and edit/delete
+        beverageGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (beverageList.get(position) == "empty"){
+                    beverageList.set(position, "full");
+                }else{
+                    beverageList.set(position, "empty");
+                }
+                beverageAdapter.notifyDataSetChanged();
             }
         });
 
