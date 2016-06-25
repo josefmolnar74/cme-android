@@ -16,6 +16,7 @@ import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,7 +36,7 @@ public class CareTeamActivity extends AppCompatActivity {
     GridView healthCareGridView;
     CareTeamFamilyAdapter familyAdapter;
     CareTeamHealthCareAdapter healthCareAdapter;
-    GridLayout gridLayout;
+    RelativeLayout relativeLayout;
     ImageButton journeyButton;
     ImageButton journalButton;
     ConnectionHandler connectHandler;
@@ -161,8 +162,7 @@ public class CareTeamActivity extends AppCompatActivity {
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.careteam_healthcare_popup, null);
 
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -185,8 +185,8 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonEdit.setVisibility(View.INVISIBLE);
         buttonDelete.setVisibility(View.INVISIBLE);
 
-        gridLayout = (GridLayout) popupView.findViewById(R.id.careteam_healthcare_popup);
-        popupWindow.showAtLocation(gridLayout, Gravity.CENTER, 0, 0);
+        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_healthcare_popup);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         popupWindow.isFocusable();
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -240,8 +240,7 @@ public class CareTeamActivity extends AppCompatActivity {
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.careteam_member_popup, null);
 
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -328,10 +327,10 @@ public class CareTeamActivity extends AppCompatActivity {
             }
         });
 
-        gridLayout = (GridLayout) popupView.findViewById(R.id.careteam_member_popup);
+        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_member_popup);
         //  LinearLayout layout = (LinearLayout) findViewById(R.id.careTeamScreen);
 //        popupWindow.showAsDropDown(gridLayout, 500, 20);
-        popupWindow.showAtLocation(gridLayout, Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         popupWindow.isFocusable();
 
     }
@@ -343,8 +342,7 @@ public class CareTeamActivity extends AppCompatActivity {
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.careteam_member_popup, null);
 
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -384,8 +382,8 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonDelete.setVisibility(View.INVISIBLE);
         buttonSave.setVisibility(View.VISIBLE);
 
-        gridLayout = (GridLayout) popupView.findViewById(R.id.careteam_member_popup);
-        popupWindow.showAtLocation(gridLayout, Gravity.CENTER, 0, 0);
+        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_member_popup);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -486,8 +484,7 @@ public class CareTeamActivity extends AppCompatActivity {
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.careteam_healthcare_popup, null);
 
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -531,8 +528,8 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonDelete.setVisibility(View.INVISIBLE);
         buttonSave.setVisibility(View.VISIBLE);
 
-        gridLayout = (GridLayout) popupView.findViewById(R.id.careteam_healthcare_popup);
-        popupWindow.showAtLocation(gridLayout, Gravity.CENTER, 0, 0);
+        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_healthcare_popup);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override

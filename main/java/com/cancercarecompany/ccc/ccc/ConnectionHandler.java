@@ -27,6 +27,7 @@ public class ConnectionHandler {
     public HealthCareData healthcare;
     public EventData events;
     public StatusData status;
+    public SideeffectData sideeffects;
 
     public static final String MESSAGE_LOGIN = "login";
     public static final String MESSAGE_CREATE = "create";
@@ -137,6 +138,9 @@ public class ConnectionHandler {
                                         break;
                                     case CONTENT_STATUS:
                                         status = gson.fromJson(resultData, StatusData.class);
+                                        break;
+                                    case CONTENT_SIDEEFFECT:
+                                        sideeffects = gson.fromJson(resultData, SideeffectData.class);
                                         break;
                                 }
                                 break;
