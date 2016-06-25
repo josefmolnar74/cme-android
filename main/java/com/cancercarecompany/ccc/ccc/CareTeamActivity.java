@@ -52,7 +52,9 @@ public class CareTeamActivity extends AppCompatActivity {
         connectHandler = ConnectionHandler.getInstance();
 
         TextView loggedIn = (TextView) findViewById(R.id.loggedIn);
-        loggedIn.setText(connectHandler.person.first_name);
+        if (connectHandler.person != null){
+            loggedIn.setText(connectHandler.person.first_name);
+        }
 
         familyGridView = (GridView) findViewById(R.id.gridview_careteam_family);
         healthCareGridView = (GridView) findViewById(R.id.gridview_careteam_healthcare);

@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.GridLayout;
+import android.widget.RelativeLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
@@ -306,9 +306,7 @@ public class JournalActivity extends AppCompatActivity {
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.journal_status_popup, null);
-
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -326,8 +324,8 @@ public class JournalActivity extends AppCompatActivity {
         buttonDelete.setVisibility(View.INVISIBLE);
         buttonSave.setVisibility(View.INVISIBLE);
 
-        GridLayout gridLayout = (GridLayout) popupView.findViewById(R.id.layout_journal_status_popup);
-        popupWindow.showAtLocation(gridLayout, Gravity.CENTER, 0, 0);
+        RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_journal_status_popup);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -21,7 +21,7 @@
     <string name="lastname">Efternamn</string>
     <string name="phone">Telefon</string>
     <string name="delete_name">Ta bort CT <xliff:g name="patient_name">%s</xliff:g>?</string>
-    <string name="txt_journal_headline">Journal Datum:</string>
+    <string name="txt_journal_headline">Dagbok Datum:</string>
     <string name="journal_medication_breakfast">Frukost </string>
     <string name="journal_medication_lunch">Lunch</string>
     <string name="journal_medication_dinner">Middag</string>
@@ -49,6 +49,7 @@
     <string name="txt_biv_aptit">Aptit</string>
     <string name="txt_biv_yrs">Yrsel</string>
     <string name="txt_krak">Kräkning</string>
+    <string name="txt_journal_sideeffect_other">Annan biverkn</string>
     <string name="txt_biv_fat_head">Lider Barnet av Fatigue idag?</string>
     <string name="txt_biv_pain_head">Lider Barnet av Smärta idag?</string>
     <string name="txt_biv_apetite_head">Har Barnet haft bra aptit idag?</string>

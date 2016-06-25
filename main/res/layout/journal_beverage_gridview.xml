@@ -8,8 +8,8 @@
 
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/img_journal_gridview_beverage"
         android:src="@drawable/journal_glass_empty" />
 </LinearLayout>
