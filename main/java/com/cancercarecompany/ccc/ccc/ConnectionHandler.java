@@ -41,6 +41,7 @@ public class ConnectionHandler {
     public static final String CONTENT_CARE_TEAM = "careteam ";
     public static final String CONTENT_EVENT = "event";
     public static final String CONTENT_STATUS = "status";
+    public static final String CONTENT_SIDEEFFECT = "sideeffect";
 
     public static ConnectionHandler getInstance() {
         return ourInstance;
@@ -329,6 +330,28 @@ public class ConnectionHandler {
     public void deleteStatus(int statusID){
         String msgData = String.format("{\"status_ID\":\"%d\"}", statusID);
         sendMessage(MESSAGE_DELETE, CONTENT_STATUS, msgData);
+    }
+
+    public void createSideeffect(Sideeffect sideeffect){
+        Gson gson = new Gson();
+        String msgData = gson.toJson(status);
+        sendMessage(MESSAGE_CREATE, CONTENT_SIDEEFFECT, msgData);
+    }
+
+    public void getSideeffectForPatient(int patientID){
+        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+        sendMessage(MESSAGE_READ, CONTENT_SIDEEFFECT, msgData);
+    }
+
+    public void updateSideeffect(Sideeffect sideeffect){
+        Gson gson = new Gson();
+        String msgData = gson.toJson(status);
+        sendMessage(MESSAGE_UPDATE, CONTENT_SIDEEFFECT, msgData);
+    }
+
+    public void deleteSideeffect(int sideeffectID){
+        String msgData = String.format("{\"sideeffect_ID\":\"%d\"}", sideeffectID);
+        sendMessage(MESSAGE_DELETE, CONTENT_SIDEEFFECT, msgData);
     }
 
 }
