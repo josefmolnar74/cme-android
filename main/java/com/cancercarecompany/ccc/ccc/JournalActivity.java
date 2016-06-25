@@ -3,6 +3,7 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,9 +58,9 @@ public class JournalActivity extends AppCompatActivity {
     ImageButton journeyButton;
     ImageButton careTeamButton;
 
-//    Lcl_work_area lcl;
-    String lclString;
-    io.socket.client.Socket mSocket;
+
+    public static final String TIME_SIMPLE_FORMAT = "yyyy-MM-dd";
+    public static final String DATE_SIMPLE_FORMAT = "kk:mm:ss";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +94,14 @@ public class JournalActivity extends AppCompatActivity {
 
         if (connectHandler.status != null){
             for (int i = 0; i < connectHandler.status.status_data.size(); i++) {
-                statusList.add(connectHandler.status.status_data.get(i));
+                //TODO Check if there is status for today
+                boolean dateIsToday = false;
+                try {
+                    dateIsToday = checkIfDateIsToday(connectHandler.status.status_data.get(i).date);
+                } catch (ParseException e){}
+                if (dateIsToday){
+                    statusList.add(connectHandler.status.status_data.get(i));
+                }
             }
         }
 
@@ -112,9 +121,9 @@ public class JournalActivity extends AppCompatActivity {
         beverageGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (beverageList.get(position) == "empty"){
+                if ((beverageList.get(position) == "empty") && ((position == 0) || ((position > 0) && (beverageList.get(position-1) == "full")))){
                     beverageList.set(position, "full");
-                }else{
+                } else if ((beverageList.get(position) == "full") && ((position == 7) || ((position < 7) && (beverageList.get(position+1) == "empty")))){
                     beverageList.set(position, "empty");
                 }
                 beverageAdapter.notifyDataSetChanged();
@@ -655,6 +664,21 @@ public class JournalActivity extends AppCompatActivity {
     private void journeyActivity(){
         Intent myIntent = new Intent(this, JourneyActivity.class);
         startActivity(myIntent);
+    }
+
+    private boolean checkIfDateIsToday(String dateString) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss.SSS'Z'");
+        Date date = null;
+        long milliseconds = 0;
+        try {
+            date  = format.parse(dateString);
+        } catch (ParseException e){
+            System.out.println("Failure when parsing the dateString");
+        }
+        if (date != null){
+            milliseconds = date.getTime();
+        }
+        return DateUtils.isToday(milliseconds);
     }
 
     private void get_Events(){
