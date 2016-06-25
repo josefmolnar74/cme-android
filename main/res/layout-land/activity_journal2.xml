@@ -211,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_biv_stick"
-                    android:id="@+id/btn_stickn"
+                    android:id="@+id/btn_tingling"
                     android:layout_toRightOf="@+id/btn_journal_sideeffect_mouth"
                     android:layout_alignTop="@+id/btn_journal_sideeffect_mouth" />
 

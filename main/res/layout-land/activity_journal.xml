@@ -228,70 +228,88 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true" />
 
-                        <Button
-                            android:layout_width="160dp"
-                            android:layout_height="60dp"
-                            android:text="@string/txt_sideeffect_fatigue"
-                            android:id="@+id/btn_journal_sideeffect_fatigue"
+                        <GridLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:columnCount="3"
+                            android:gravity="center"
                             android:layout_below="@+id/journal_sideeffects_header"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true" />
+                            android:layout_alignParentLeft="true" >
 
-                        <Button
-                            android:layout_width="160dp"
-                            android:layout_height="60dp"
-                            android:text="@string/txt_biv_smarta"
-                            android:id="@+id/btn_journal_sideeffect_pain"
-                            android:layout_toRightOf="@+id/btn_journal_sideeffect_fatigue"
-                            android:layout_alignTop="@+id/btn_journal_sideeffect_fatigue" />
+                            <Button
+                                android:layout_width="200dp"
+                                android:layout_height="70dp"
+                                android:padding="16dp"
+                                android:text="@string/txt_sideeffect_fatigue"
+                                android:id="@+id/btn_journal_sideeffect_fatigue"
+                                android:drawableLeft="@drawable/journal_sideeffects_tiredness"
+                                android:layout_row="0"
+                                android:layout_column="0"/>
 
-                        <Button
-                            android:layout_width="160dp"
-                            android:layout_height="60dp"
-                            android:text="@string/txt_biv_munfor"
-                            android:id="@+id/btn_journal_sideeffect_mouth"
-                            android:layout_toRightOf="@+id/btn_journal_sideeffect_pain"
-                            android:layout_alignTop="@+id/btn_journal_sideeffect_pain" />
+                            <Button
+                                android:layout_width="200dp"
+                                android:layout_height="70dp"
+                                android:text="@string/txt_biv_smarta"
+                                android:id="@+id/btn_journal_sideeffect_pain"
+                                android:drawableLeft="@drawable/journal_sideeffects_pain"
+                                android:layout_row="0"
+                                android:layout_column="1"/>
 
-                        <Button
-                            android:layout_width="160dp"
-                            android:layout_height="60dp"
-                            android:text="@string/txt_biv_stick"
-                            android:id="@+id/btn_stickn"
-                            android:layout_toRightOf="@+id/btn_journal_sideeffect_mouth"
-                            android:layout_alignTop="@+id/btn_journal_sideeffect_mouth" />
+                            <Button
+                                android:layout_width="200dp"
+                                android:layout_height="70dp"
+                                android:text="@string/txt_biv_munfor"
+                                android:drawableLeft="@drawable/journal_sideeffects_mouth"
+                                android:id="@+id/btn_journal_sideeffect_mouth"
+                                android:layout_row="0"
+                                android:layout_column="2"/>
 
-                        <Button
-                            android:layout_width="160dp"
-                            android:layout_height="60dp"
-                            android:text="@string/txt_biv_avfr"
-                            android:id="@+id/btn_journal_sideeffect_diarrhea"
-                            android:layout_alignLeft="@+id/btn_journal_sideeffect_fatigue"
-                            android:layout_below="@+id/btn_journal_sideeffect_fatigue" />
+                            <Button
+                                android:layout_width="200dp"
+                                android:layout_height="70dp"
+                                android:text="@string/txt_biv_stick"
+                                android:id="@+id/btn_tingling"
+                                android:drawableLeft="@drawable/journal_sideeffects_tingling"
+                                android:layout_row="1"
+                                android:layout_column="0"/>
 
-                        <Button
-                            android:layout_width="160dp"
-                            android:layout_height="60dp"
-                            android:text="@string/txt_biv_aptit"
-                            android:id="@+id/btn_journal_sideeffect_appetite"
-                            android:layout_toRightOf="@+id/btn_journal_sideeffect_diarrhea"
-                            android:layout_below="@+id/btn_journal_sideeffect_fatigue" />
+                            <Button
+                                android:layout_width="200dp"
+                                android:layout_height="70dp"
+                                android:text="@string/txt_biv_avfr"
+                                android:id="@+id/btn_journal_sideeffect_diarrhea"
+                                android:drawableLeft="@drawable/journal_sideeffects_diarrhea"
+                                android:layout_row="1"
+                                android:layout_column="1"/>
 
-                        <Button
-                            android:layout_width="160dp"
-                            android:layout_height="60dp"
-                            android:text="@string/txt_biv_yrs"
-                            android:id="@+id/btn_journal_sideeffect_dizziness"
-                            android:layout_toRightOf="@+id/btn_journal_sideeffect_appetite"
-                            android:layout_below="@+id/btn_journal_sideeffect_fatigue" />
+                            <Button
+                                android:layout_width="200dp"
+                                android:layout_height="70dp"
+                                android:text="@string/txt_biv_aptit"
+                                android:id="@+id/btn_journal_sideeffect_appetite"
+                                android:drawableLeft="@drawable/journal_sideeffects_appetite"
+                                android:layout_row="1"
+                                android:layout_column="2"/>
 
-                        <Button
-                            android:layout_width="160dp"
-                            android:layout_height="60dp"
-                            android:text="@string/txt_krak"
-                            android:id="@+id/btn_journal_sideeffect_vomit"
-                            android:layout_toRightOf="@+id/btn_journal_sideeffect_dizziness"
-                            android:layout_below="@+id/btn_journal_sideeffect_fatigue" />
+                            <Button
+                                android:layout_width="200dp"
+                                android:layout_height="70dp"
+                                android:text="@string/txt_biv_yrs"
+                                android:id="@+id/btn_journal_sideeffect_dizziness"
+                                android:drawableLeft="@drawable/journal_sideeffects_pain"
+                                android:layout_row="2"
+                                android:layout_column="0"/>
+
+                            <Button
+                                android:layout_width="200dp"
+                                android:layout_height="70dp"
+                                android:text="@string/txt_krak"
+                                android:id="@+id/btn_journal_sideeffect_vomit"
+                                android:drawableLeft="@drawable/journal_sideeffects_vomit"
+                                android:layout_row="2"
+                                android:layout_column="1"/>
+
+                        </GridLayout>
 
                     </RelativeLayout>
 
@@ -324,45 +342,58 @@
                                     android:layout_alignParentLeft="true"
                                     android:layout_alignParentStart="true" />
 
-                                <ImageView
-                                    android:layout_width="200dp"
-                                    android:layout_height="200dp"
-                                    android:id="@+id/imageView8"
-                                    android:background="@drawable/journal_drugs"
-                                    android:scaleType="center"
-                                    android:layout_below="@+id/txt_journal_medication_header"
-                                    android:layout_centerHorizontal="true" />
+                                <RelativeLayout
+                                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/txt_journal_medication_header">
 
-                                <LinearLayout
-                                    android:orientation="vertical"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_alignParentStart="true"
-                                    android:gravity="center_horizontal">
+                                    <ImageView
+                                        android:layout_width="200dp"
+                                        android:layout_height="200dp"
+                                        android:id="@+id/imageView8"
+                                        android:background="@drawable/journal_drugs"
+                                        android:scaleType="center"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_centerHorizontal="true" />
 
-                                    <Button
-                                        style="?android:attr/buttonStyleSmall"
-                                        android:layout_width="100dp"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/journal_medication_dinner"
-                                        android:id="@+id/btn_journal_medication_dinner" />
+                                    <LinearLayout
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_alignParentStart="true"
+                                        android:gravity="center_horizontal">
 
-                                    <Button
-                                        style="?android:attr/buttonStyleSmall"
-                                        android:layout_width="100dp"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/journal_medication_lunch"
-                                        android:id="@+id/btn_journal_medication_lunch" />
+                                        <Button
+                                            style="?android:attr/buttonStyleSmall"
+                                            android:layout_width="100dp"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/journal_medication_dinner"
+                                            android:id="@+id/btn_journal_medication_dinner" />
 
-                                    <Button
-                                        style="?android:attr/buttonStyleSmall"
-                                        android:layout_width="100dp"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/journal_medication_breakfast"
-                                        android:id="@+id/btn_journal_medication_breakfast" />
-                                </LinearLayout>
+                                        <Button
+                                            style="?android:attr/buttonStyleSmall"
+                                            android:layout_width="100dp"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/journal_medication_lunch"
+                                            android:id="@+id/btn_journal_medication_lunch" />
+
+                                        <Button
+                                            style="?android:attr/buttonStyleSmall"
+                                            android:layout_width="100dp"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/journal_medication_breakfast"
+                                            android:id="@+id/btn_journal_medication_breakfast" />
+                                    </LinearLayout>
+
+                                </RelativeLayout>
+
+
 
                             </RelativeLayout>
 
@@ -385,7 +416,10 @@
                                     android:layout_alignParentStart="true" />
 
                                 <GridView
+                                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                                    android:layout_marginTop="@dimen/activity_vertical_margin"
                                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                                     android:layout_width="250dp"
                                     android:layout_height="200dp"
                                     android:numColumns="4"

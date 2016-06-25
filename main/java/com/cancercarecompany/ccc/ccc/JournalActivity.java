@@ -8,19 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,7 +70,7 @@ public class JournalActivity extends AppCompatActivity {
         final Button fatigueButton = (Button)    findViewById(R.id.btn_journal_sideeffect_fatigue);
         final Button painButton = (Button)    findViewById(R.id.btn_journal_sideeffect_pain);
         final Button mouthButton = (Button)    findViewById(R.id.btn_journal_sideeffect_mouth);
-        final Button numbnessButton = (Button)    findViewById(R.id.btn_stickn);
+        final Button numbnessButton = (Button)    findViewById(R.id.btn_tingling);
         final Button diarrheaButton = (Button)    findViewById(R.id.btn_journal_sideeffect_diarrhea);
         final Button appetitButton = (Button)    findViewById(R.id.btn_journal_sideeffect_appetite);
         final Button dizzinessButton = (Button)    findViewById(R.id.btn_journal_sideeffect_dizziness);
