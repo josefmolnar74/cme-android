@@ -1,8 +1,6 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
@@ -479,7 +477,7 @@ public class JournalActivity extends AppCompatActivity {
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.journal_sideeffect_popup, null);
+        final View popupView = layoutInflater.inflate(R.layout.journal_sideeffect_pain_popup, null);
         final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         popupWindow.setFocusable(true);
