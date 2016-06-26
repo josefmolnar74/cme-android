@@ -338,7 +338,7 @@ public class ConnectionHandler {
 
     public void createSideeffect(Sideeffect sideeffect){
         Gson gson = new Gson();
-        String msgData = gson.toJson(status);
+        String msgData = gson.toJson(sideeffect);
         sendMessage(MESSAGE_CREATE, CONTENT_SIDEEFFECT, msgData);
     }
 

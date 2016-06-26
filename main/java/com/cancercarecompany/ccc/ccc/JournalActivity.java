@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.GridView;
@@ -58,9 +59,35 @@ public class JournalActivity extends AppCompatActivity {
     ImageButton journeyButton;
     ImageButton careTeamButton;
 
-
     public static final String TIME_SIMPLE_FORMAT = "yyyy-MM-dd";
     public static final String DATE_SIMPLE_FORMAT = "kk:mm:ss";
+
+    public static final String SIDEEFFECT_PAIN_RIGHT_HAND_VALUE = "RHA";
+    public static final String SIDEEFFECT_PAIN_RIGHT_SHOULDER_VALUE = "RSH";
+    public static final String SIDEEFFECT_PAIN_RIGHT_CHEST_VALUE = "RCH";
+    public static final String SIDEEFFECT_PAIN_RIGHT_ARM_VALUE = "RAR";
+    public static final String SIDEEFFECT_PAIN_RIGHT_HIP_VALUE = "RHI";
+    public static final String SIDEEFFECT_PAIN_RIGHT_UPPER_LEG_VALUE = "RUL";
+    public static final String SIDEEFFECT_PAIN_RIGHT_KNEE_VALUE = "RKN";
+    public static final String SIDEEFFECT_PAIN_RIGHT_LOWER_LEG_VALUE = "RLL";
+    public static final String SIDEEFFECT_PAIN_RIGHT_FOOT_VALUE = "RFO";
+    public static final String SIDEEFFECT_PAIN_LEFT_HAND_VALUE = "LHA";
+    public static final String SIDEEFFECT_PAIN_LEFT_SHOULDER_VALUE = "LSH";
+    public static final String SIDEEFFECT_PAIN_LEFT_CHEST_VALUE = "LCH";
+    public static final String SIDEEFFECT_PAIN_LEFT_ARM_VALUE = "LAR";
+    public static final String SIDEEFFECT_PAIN_LEFT_HIP_VALUE = "LHI";
+    public static final String SIDEEFFECT_PAIN_LEFT_UPPER_LEG_VALUE = "LUL";
+    public static final String SIDEEFFECT_PAIN_LEFT_KNEE_VALUE = "LKN";
+    public static final String SIDEEFFECT_PAIN_LEFT_LOWER_LEG_VALUE = "LLL";
+    public static final String SIDEEFFECT_PAIN_LEFT_FOOT_VALUE = "LFO";
+    public static final String SIDEEFFECT_PAIN_HEAD_VALUE = "HEA";
+    public static final String SIDEEFFECT_PAIN_NECK_VALUE = "NEC";
+    public static final String SIDEEFFECT_PAIN_UPPER_BACK_VALUE = "UBA";
+    public static final String SIDEEFFECT_PAIN_MID_BACK_VALUE = "MBA";
+    public static final String SIDEEFFECT_PAIN_LOWER_BACK_VALUE = "LBA";
+    public static final String SIDEEFFECT_PAIN_RIGHT_ABDOMEN_VALUE = "RAB";
+    public static final String SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE = "LAB";
+    public static final String SIDEEFFECT_PAIN_TAILBONE_VALUE = "TAI";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,7 +214,7 @@ public class JournalActivity extends AppCompatActivity {
         painButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add_fatigue("Pain");
+                createSideeffectPain();
             }
         });
 
@@ -411,6 +438,201 @@ public class JournalActivity extends AppCompatActivity {
                 popupWindow.dismiss();
             }
         });
+    }
+
+    public void createSideeffectPain() {
+
+        LayoutInflater layoutInflater
+                = (LayoutInflater) getBaseContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.journal_sideeffect_popup, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
+        popupWindow.setFocusable(true);
+        popupWindow.update();
+
+        final CheckBox rightHandCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_hand);
+        final CheckBox rightShoulderCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_shoulder);
+        final CheckBox rightChestCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_chest);
+        final CheckBox rightArmCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_arm);
+        final CheckBox rightHipCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_hip);
+        final CheckBox rightUpperLegCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_upper_leg);
+        final CheckBox rightKneeCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_knee);
+        final CheckBox rightLowerLegCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_lower_leg);
+        final CheckBox rightFootCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_foot);
+        final CheckBox leftHandCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_hand);
+        final CheckBox leftShoulderCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_shoulder);
+        final CheckBox leftChestCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_chest);
+        final CheckBox leftArmCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_arm);
+        final CheckBox leftHipCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_hip);
+        final CheckBox leftUpperLegCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_upper_leg);
+        final CheckBox leftKneeCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_knee);
+        final CheckBox leftLowerLegCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_lower_leg);
+        final CheckBox leftFootCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_foot);
+        final CheckBox headCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_head);
+        final CheckBox neckCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_neck);
+        final CheckBox uppderBackCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_upper_back);
+        final CheckBox midBackCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_mid_back);
+        final CheckBox lowerBackCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_lower_back);
+        final CheckBox rightAbdomenCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_abdomen);
+        final CheckBox leftAbdomenCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_abdomen);
+        final CheckBox tailboneCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_tailbone);
+
+        final Button    buttonSave           = (Button) popupView.findViewById(R.id.btn_journal_status_save);
+        final Button    buttonCancel         = (Button) popupView.findViewById(R.id.btn_journal_status_cancel);
+
+        buttonCancel.setVisibility(View.VISIBLE);
+        buttonSave.setVisibility(View.VISIBLE);
+
+        RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_journal_sideeffects_popup);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonCancel.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.VISIBLE);
+                saveSideeffectPain();
+                popupWindow.dismiss();
+            }
+
+            private void saveSideeffectPain() {
+
+                String sideeffectValue = "";
+
+                if (rightHandCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_RIGHT_HAND_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (rightShoulderCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_RIGHT_SHOULDER_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (rightChestCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_RIGHT_CHEST_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (rightArmCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_RIGHT_ARM_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (rightHipCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_RIGHT_HIP_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (rightUpperLegCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_RIGHT_UPPER_LEG_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (rightKneeCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_RIGHT_KNEE_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (rightLowerLegCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_RIGHT_LOWER_LEG_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (rightFootCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_RIGHT_FOOT_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (leftHandCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_LEFT_HAND_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (leftShoulderCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_LEFT_SHOULDER_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (leftChestCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_LEFT_CHEST_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (leftArmCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_LEFT_ARM_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (leftHipCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_LEFT_HIP_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (leftUpperLegCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_LEFT_UPPER_LEG_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (leftKneeCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_LEFT_KNEE_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (leftLowerLegCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_LEFT_LOWER_LEG_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (leftFootCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_LEFT_FOOT_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (headCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_HEAD_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (neckCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_NECK_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (uppderBackCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_UPPER_BACK_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (midBackCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_MID_BACK_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (lowerBackCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_LOWER_BACK_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (rightAbdomenCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_RIGHT_ABDOMEN_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (leftAbdomenCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE;
+                    sideeffectValue += ",";
+                }
+                if (tailboneCheckbox.isChecked()){
+                    sideeffectValue += SIDEEFFECT_PAIN_TAILBONE_VALUE;
+                    sideeffectValue += ",";
+                }
+
+                String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
+
+                Sideeffect newSideeffect = new Sideeffect(
+                        0,
+                        connectHandler.patient.patient_ID,
+                        connectHandler.person.person_ID,
+                        date,
+                        time,
+                        "pain",
+                        sideeffectValue);
+
+                connectHandler.createSideeffect(newSideeffect);
+
+                while (connectHandler.socketBusy){}
+            }
+
+        });
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonSave.setVisibility(View.INVISIBLE);
+                buttonCancel.setVisibility(View.VISIBLE);
+                popupWindow.dismiss();
+            }
+        });
+
     }
 
     public void add_fatigue(String choice) {
