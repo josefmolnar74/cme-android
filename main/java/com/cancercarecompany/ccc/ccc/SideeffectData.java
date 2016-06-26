@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class SideeffectData implements Serializable {
 
-    public ArrayList<Status> sideeffect_data;
+    public ArrayList<Sideeffect> sideeffect_data;
 
     public SideeffectData(ArrayList<Sideeffect> status_data) {
         this.sideeffect_data = sideeffect_data; //default value, does not matter because updated during read from database

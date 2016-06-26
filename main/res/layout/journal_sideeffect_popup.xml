@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SIDE EFFECT: PAIN"
+            android:text="SIDE EFFECT:"
             android:id="@+id/txt_journal_sideeffect_popup_pain_headline"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"

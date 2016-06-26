@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,59 +58,82 @@ public class JournalActivity extends AppCompatActivity {
     ImageButton journeyButton;
     ImageButton careTeamButton;
 
+    private final Button fatigueButton          = (Button) findViewById(R.id.btn_journal_sideeffect_fatigue);
+    private final Button painButton             = (Button) findViewById(R.id.btn_journal_sideeffect_pain);
+    private final Button mouthButton            = (Button) findViewById(R.id.btn_journal_sideeffect_mouth);
+    private final Button tinglingButton         = (Button) findViewById(R.id.btn_journal_sideeffect_tingling);
+    private final Button diarrheaButton         = (Button) findViewById(R.id.btn_journal_sideeffect_diarrhea);
+    private final Button appetitButton          = (Button) findViewById(R.id.btn_journal_sideeffect_appetite);
+    private final Button dizzinessButton        = (Button) findViewById(R.id.btn_journal_sideeffect_dizziness);
+    private final Button vomitButton            = (Button) findViewById(R.id.btn_journal_sideeffect_vomit);
+    private final Button otherButton            = (Button) findViewById(R.id.btn_journal_sideeffect_other);
+
+    int fatigueIdForToday;
+    int painIdForToday;
+    int mouthIdForToday;
+    int tinglingIdForToday;
+    int diarrheaIdForToday;
+    int appetiteIdForToday;
+    int dizzinessIdForToday;
+    int vomitIdForToday;
+    int otherIdForToday;
+
     public static final String TIME_SIMPLE_FORMAT = "yyyy-MM-dd";
     public static final String DATE_SIMPLE_FORMAT = "kk:mm:ss";
 
-    public static final String SIDEEFFECT_PAIN_RIGHT_HAND_VALUE = "RHA";
-    public static final String SIDEEFFECT_PAIN_RIGHT_SHOULDER_VALUE = "RSH";
-    public static final String SIDEEFFECT_PAIN_RIGHT_CHEST_VALUE = "RCH";
-    public static final String SIDEEFFECT_PAIN_RIGHT_ARM_VALUE = "RAR";
-    public static final String SIDEEFFECT_PAIN_RIGHT_HIP_VALUE = "RHI";
-    public static final String SIDEEFFECT_PAIN_RIGHT_UPPER_LEG_VALUE = "RUL";
-    public static final String SIDEEFFECT_PAIN_RIGHT_KNEE_VALUE = "RKN";
-    public static final String SIDEEFFECT_PAIN_RIGHT_LOWER_LEG_VALUE = "RLL";
-    public static final String SIDEEFFECT_PAIN_RIGHT_FOOT_VALUE = "RFO";
-    public static final String SIDEEFFECT_PAIN_LEFT_HAND_VALUE = "LHA";
-    public static final String SIDEEFFECT_PAIN_LEFT_SHOULDER_VALUE = "LSH";
-    public static final String SIDEEFFECT_PAIN_LEFT_CHEST_VALUE = "LCH";
-    public static final String SIDEEFFECT_PAIN_LEFT_ARM_VALUE = "LAR";
-    public static final String SIDEEFFECT_PAIN_LEFT_HIP_VALUE = "LHI";
-    public static final String SIDEEFFECT_PAIN_LEFT_UPPER_LEG_VALUE = "LUL";
-    public static final String SIDEEFFECT_PAIN_LEFT_KNEE_VALUE = "LKN";
-    public static final String SIDEEFFECT_PAIN_LEFT_LOWER_LEG_VALUE = "LLL";
-    public static final String SIDEEFFECT_PAIN_LEFT_FOOT_VALUE = "LFO";
-    public static final String SIDEEFFECT_PAIN_HEAD_VALUE = "HEA";
-    public static final String SIDEEFFECT_PAIN_NECK_VALUE = "NEC";
-    public static final String SIDEEFFECT_PAIN_UPPER_BACK_VALUE = "UBA";
-    public static final String SIDEEFFECT_PAIN_MID_BACK_VALUE = "MBA";
-    public static final String SIDEEFFECT_PAIN_LOWER_BACK_VALUE = "LBA";
-    public static final String SIDEEFFECT_PAIN_RIGHT_ABDOMEN_VALUE = "RAB";
-    public static final String SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE = "LAB";
-    public static final String SIDEEFFECT_PAIN_TAILBONE_VALUE = "TAI";
+    public static final String SIDEEFFECT_TYPE_FATIGUE      = "fatigue";
+    public static final String SIDEEFFECT_TYPE_PAIN         = "pain";
+    public static final String SIDEEFFECT_TYPE_MOUTH        = "mouth change";
+    public static final String SIDEEFFECT_TYPE_TINGLING     = "tingling/numbness";
+    public static final String SIDEEFFECT_TYPE_DIARRHEA     = "diarrhea";
+    public static final String SIDEEFFECT_TYPE_APPETITE     = "appetite";
+    public static final String SIDEEFFECT_TYPE_DIZINESS     = "dizziness";
+    public static final String SIDEEFFECT_TYPE_VOMIT        = "vomit";
+    public static final String SIDEEFFECT_TYPE_OTHER        = "other";
+
+
+    public static final String SIDEEFFECT_PAIN_RIGHT_HAND_VALUE         = "RHA";
+    public static final String SIDEEFFECT_PAIN_RIGHT_SHOULDER_VALUE     = "RSH";
+    public static final String SIDEEFFECT_PAIN_RIGHT_CHEST_VALUE        = "RCH";
+    public static final String SIDEEFFECT_PAIN_RIGHT_ARM_VALUE          = "RAR";
+    public static final String SIDEEFFECT_PAIN_RIGHT_HIP_VALUE          = "RHI";
+    public static final String SIDEEFFECT_PAIN_RIGHT_UPPER_LEG_VALUE    = "RUL";
+    public static final String SIDEEFFECT_PAIN_RIGHT_KNEE_VALUE         = "RKN";
+    public static final String SIDEEFFECT_PAIN_RIGHT_LOWER_LEG_VALUE    = "RLL";
+    public static final String SIDEEFFECT_PAIN_RIGHT_FOOT_VALUE         = "RFO";
+    public static final String SIDEEFFECT_PAIN_LEFT_HAND_VALUE          = "LHA";
+    public static final String SIDEEFFECT_PAIN_LEFT_SHOULDER_VALUE      = "LSH";
+    public static final String SIDEEFFECT_PAIN_LEFT_CHEST_VALUE         = "LCH";
+    public static final String SIDEEFFECT_PAIN_LEFT_ARM_VALUE           = "LAR";
+    public static final String SIDEEFFECT_PAIN_LEFT_HIP_VALUE           = "LHI";
+    public static final String SIDEEFFECT_PAIN_LEFT_UPPER_LEG_VALUE     = "LUL";
+    public static final String SIDEEFFECT_PAIN_LEFT_KNEE_VALUE          = "LKN";
+    public static final String SIDEEFFECT_PAIN_LEFT_LOWER_LEG_VALUE     = "LLL";
+    public static final String SIDEEFFECT_PAIN_LEFT_FOOT_VALUE          = "LFO";
+    public static final String SIDEEFFECT_PAIN_HEAD_VALUE               = "HEA";
+    public static final String SIDEEFFECT_PAIN_NECK_VALUE               = "NEC";
+    public static final String SIDEEFFECT_PAIN_UPPER_BACK_VALUE         = "UBA";
+    public static final String SIDEEFFECT_PAIN_MID_BACK_VALUE           = "MBA";
+    public static final String SIDEEFFECT_PAIN_LOWER_BACK_VALUE         = "LBA";
+    public static final String SIDEEFFECT_PAIN_RIGHT_ABDOMEN_VALUE      = "RAB";
+    public static final String SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE       = "LAB";
+    public static final String SIDEEFFECT_PAIN_TAILBONE_VALUE           = "TAI";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
 
-        final EditText statusTextEditText = (EditText) findViewById(R.id.edtxt_journal_status);
-        final Button saveStatusButton = (Button)    findViewById(R.id.btn_journal_status_save);
-        final Button fatigueButton = (Button)    findViewById(R.id.btn_journal_sideeffect_fatigue);
-        final Button painButton = (Button)    findViewById(R.id.btn_journal_sideeffect_pain);
-        final Button mouthButton = (Button)    findViewById(R.id.btn_journal_sideeffect_mouth);
-        final Button numbnessButton = (Button)    findViewById(R.id.btn_tingling);
-        final Button diarrheaButton = (Button)    findViewById(R.id.btn_journal_sideeffect_diarrhea);
-        final Button appetitButton = (Button)    findViewById(R.id.btn_journal_sideeffect_appetite);
-        final Button dizzinessButton = (Button)    findViewById(R.id.btn_journal_sideeffect_dizziness);
-        final Button vomitButton = (Button)    findViewById(R.id.btn_journal_sideeffect_vomit);
-        final Button medBreakfastButton = (Button)    findViewById(R.id.btn_journal_medication_breakfast);
-        final Button medLunchButton = (Button)    findViewById(R.id.btn_journal_medication_lunch);
-        final Button medDinnerButton = (Button)    findViewById(R.id.btn_journal_medication_dinner);
-        final TextView txt_med_txt    = (TextView)  findViewById(R.id.txt_med_int);
-        final TextView txt_diary_head = (TextView)  findViewById(R.id.txt_journal_header);
-        final CalendarView calendar = (CalendarView)  findViewById(R.id.cal_journal_calendar);
-        final ImageButton journeyButton    = (ImageButton) findViewById(R.id.btn_journal_journey_button);
-        final ImageButton careTeamButton = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
+        final EditText statusTextEditText   = (EditText) findViewById(R.id.edtxt_journal_status);
+        final TextView txt_med_txt          = (TextView) findViewById(R.id.txt_med_int);
+        final TextView txt_diary_head       = (TextView) findViewById(R.id.txt_journal_header);
+        final Button saveStatusButton       = (Button) findViewById(R.id.btn_journal_status_save);
+        final Button medBreakfastButton     = (Button) findViewById(R.id.btn_journal_medication_breakfast);
+        final Button medLunchButton         = (Button) findViewById(R.id.btn_journal_medication_lunch);
+        final Button medDinnerButton        = (Button) findViewById(R.id.btn_journal_medication_dinner);
+        final ImageButton journeyButton     = (ImageButton) findViewById(R.id.btn_journal_journey_button);
+        final ImageButton careTeamButton    = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
+        final CalendarView calendar         = (CalendarView) findViewById(R.id.cal_journal_calendar);
         //Get journal data
         connectHandler = ConnectionHandler.getInstance();
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
@@ -131,6 +153,9 @@ public class JournalActivity extends AppCompatActivity {
                 }
             }
         }
+
+        // Find if there are any sideeffects for today
+        findSideeffectsForToday();
 
         statusGridView = (GridView) findViewById(R.id.gridview_journal_status);
         statusAdapter = new JournalStatusAdapter(this, statusList);
@@ -214,14 +239,14 @@ public class JournalActivity extends AppCompatActivity {
         painButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createSideeffectPain();
+                createSideeffectPain(SIDEEFFECT_TYPE_PAIN);
             }
         });
 
-        numbnessButton.setOnClickListener(new View.OnClickListener() {
+        tinglingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                get_Events();
+                createSideeffectPain(SIDEEFFECT_TYPE_TINGLING);
             }
         });
 
@@ -331,11 +356,6 @@ public class JournalActivity extends AppCompatActivity {
         });
     }
 
-    private void careTeam(){
-        Intent myIntent = new Intent(this, CareTeamActivity.class);
-        startActivity(myIntent);
-    }
-
     public void showStatus(final int position) {
 
         LayoutInflater layoutInflater
@@ -440,7 +460,7 @@ public class JournalActivity extends AppCompatActivity {
         });
     }
 
-    public void createSideeffectPain() {
+    public void createSideeffectPain(final String sideeffectType) {
 
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
@@ -451,36 +471,38 @@ public class JournalActivity extends AppCompatActivity {
         popupWindow.setFocusable(true);
         popupWindow.update();
 
-        final CheckBox rightHandCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_hand);
-        final CheckBox rightShoulderCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_shoulder);
-        final CheckBox rightChestCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_chest);
-        final CheckBox rightArmCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_arm);
-        final CheckBox rightHipCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_hip);
-        final CheckBox rightUpperLegCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_upper_leg);
-        final CheckBox rightKneeCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_knee);
-        final CheckBox rightLowerLegCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_lower_leg);
-        final CheckBox rightFootCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_foot);
-        final CheckBox leftHandCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_hand);
-        final CheckBox leftShoulderCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_shoulder);
-        final CheckBox leftChestCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_chest);
-        final CheckBox leftArmCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_arm);
-        final CheckBox leftHipCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_hip);
-        final CheckBox leftUpperLegCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_upper_leg);
-        final CheckBox leftKneeCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_knee);
-        final CheckBox leftLowerLegCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_lower_leg);
-        final CheckBox leftFootCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_foot);
-        final CheckBox headCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_head);
-        final CheckBox neckCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_neck);
-        final CheckBox uppderBackCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_upper_back);
-        final CheckBox midBackCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_mid_back);
-        final CheckBox lowerBackCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_lower_back);
-        final CheckBox rightAbdomenCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_abdomen);
-        final CheckBox leftAbdomenCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_abdomen);
-        final CheckBox tailboneCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_tailbone);
+        final CheckBox rightHandCheckbox            = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_hand);
+        final CheckBox rightShoulderCheckbox        = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_shoulder);
+        final CheckBox rightChestCheckbox           = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_chest);
+        final CheckBox rightArmCheckbox             = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_arm);
+        final CheckBox rightHipCheckbox             = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_hip);
+        final CheckBox rightUpperLegCheckbox        = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_upper_leg);
+        final CheckBox rightKneeCheckbox            = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_knee);
+        final CheckBox rightLowerLegCheckbox        = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_lower_leg);
+        final CheckBox rightFootCheckbox            = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_foot);
+        final CheckBox leftHandCheckbox             = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_hand);
+        final CheckBox leftShoulderCheckbox         = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_shoulder);
+        final CheckBox leftChestCheckbox            = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_chest);
+        final CheckBox leftArmCheckbox              = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_arm);
+        final CheckBox leftHipCheckbox              = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_hip);
+        final CheckBox leftUpperLegCheckbox         = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_upper_leg);
+        final CheckBox leftKneeCheckbox             = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_knee);
+        final CheckBox leftLowerLegCheckbox         = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_lower_leg);
+        final CheckBox leftFootCheckbox             = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_foot);
+        final CheckBox headCheckbox                 = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_head);
+        final CheckBox neckCheckbox                 = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_neck);
+        final CheckBox uppderBackCheckbox           = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_upper_back);
+        final CheckBox midBackCheckbox              = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_mid_back);
+        final CheckBox lowerBackCheckbox            = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_lower_back);
+        final CheckBox rightAbdomenCheckbox         = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_abdomen);
+        final CheckBox leftAbdomenCheckbox          = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_abdomen);
+        final CheckBox tailboneCheckbox             = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_tailbone);
 
-        final Button    buttonSave           = (Button) popupView.findViewById(R.id.btn_journal_status_save);
-        final Button    buttonCancel         = (Button) popupView.findViewById(R.id.btn_journal_status_cancel);
+        final TextView sideeffectsHeaderTextView    = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_popup_pain_headline);
+        final Button    buttonSave                  = (Button) popupView.findViewById(R.id.btn_journal_status_save);
+        final Button    buttonCancel                = (Button) popupView.findViewById(R.id.btn_journal_status_cancel);
 
+        sideeffectsHeaderTextView.setText(sideeffectsHeaderTextView.getText().toString() + sideeffectType);
         buttonCancel.setVisibility(View.VISIBLE);
         buttonSave.setVisibility(View.VISIBLE);
 
@@ -492,11 +514,11 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 buttonCancel.setVisibility(View.VISIBLE);
                 buttonSave.setVisibility(View.VISIBLE);
-                saveSideeffectPain();
+                saveSideeffectPain(sideeffectType);
                 popupWindow.dismiss();
             }
 
-            private void saveSideeffectPain() {
+            private void saveSideeffectPain(String sideeffectType) {
 
                 String sideeffectValue = "";
 
@@ -614,7 +636,7 @@ public class JournalActivity extends AppCompatActivity {
                         connectHandler.person.person_ID,
                         date,
                         time,
-                        "pain",
+                        sideeffectType,
                         sideeffectValue);
 
                 connectHandler.createSideeffect(newSideeffect);
@@ -883,11 +905,6 @@ public class JournalActivity extends AppCompatActivity {
         popupWindow.showAsDropDown(relativeLayout, 500, -1100);
     }
 
-    private void journeyActivity(){
-        Intent myIntent = new Intent(this, JourneyActivity.class);
-        startActivity(myIntent);
-    }
-
     private boolean checkIfDateIsToday(String dateString) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss.SSS'Z'");
         Date date = null;
@@ -903,31 +920,48 @@ public class JournalActivity extends AppCompatActivity {
         return DateUtils.isToday(milliseconds);
     }
 
-    private void get_Events(){
-/*
-        Socket socketClass = new Socket();
-       // Person newUser = new Person(0, null, null, emailLogin.getText().toString(), passwordLogin.getText().toString());
-        Event events = new Event(0, lcl.patients.get(0).patient_ID, null, null, null, null, null, null, null);
-//        Event events = new Event(0, 2, null, null, null, null, null, null, null, null);
-
-        mSocket = socketClass.events(events);
-        while (socketClass.lcl == null){
-            System.out.println("tom");
+    private void findSideeffectsForToday(){
+        for (int i=0; i < connectHandler.sideeffects.sideeffect_data.size(); i++){
+            switch (connectHandler.sideeffects.sideeffect_data.get(i).type){
+                case SIDEEFFECT_TYPE_FATIGUE:
+                    fatigueIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                    break;
+                case SIDEEFFECT_TYPE_PAIN:
+                    painIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                    break;
+                case SIDEEFFECT_TYPE_MOUTH:
+                    mouthIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                    break;
+                case SIDEEFFECT_TYPE_TINGLING:
+                    tinglingIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                    break;
+                case SIDEEFFECT_TYPE_DIARRHEA:
+                    diarrheaIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                    break;
+                case SIDEEFFECT_TYPE_APPETITE:
+                    appetiteIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                    break;
+                case SIDEEFFECT_TYPE_DIZINESS:
+                    dizzinessIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                    break;
+                case SIDEEFFECT_TYPE_VOMIT:
+                    vomitIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                    break;
+                case SIDEEFFECT_TYPE_OTHER:
+                    otherIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                    break;
+            }
         }
-        lcl = socketClass.lcl;
-        System.out.println(lcl);
+    }
 
-        Gson gson = new Gson();
-        String jsonPerson = gson.toJson(lcl);
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("event",jsonPerson);
-        editor.apply();
-
-        Intent myIntent = new Intent(this, ManageCareTeamActivity.class);
+    private void careTeam(){
+        Intent myIntent = new Intent(this, CareTeamActivity.class);
         startActivity(myIntent);
-*/
+    }
+
+    private void journeyActivity(){
+        Intent myIntent = new Intent(this, JourneyActivity.class);
+        startActivity(myIntent);
     }
 
 }
