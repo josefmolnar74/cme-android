@@ -1,6 +1,8 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
@@ -58,15 +60,15 @@ public class JournalActivity extends AppCompatActivity {
     ImageButton journeyButton;
     ImageButton careTeamButton;
 
-    private final Button fatigueButton          = (Button) findViewById(R.id.btn_journal_sideeffect_fatigue);
-    private final Button painButton             = (Button) findViewById(R.id.btn_journal_sideeffect_pain);
-    private final Button mouthButton            = (Button) findViewById(R.id.btn_journal_sideeffect_mouth);
-    private final Button tinglingButton         = (Button) findViewById(R.id.btn_journal_sideeffect_tingling);
-    private final Button diarrheaButton         = (Button) findViewById(R.id.btn_journal_sideeffect_diarrhea);
-    private final Button appetitButton          = (Button) findViewById(R.id.btn_journal_sideeffect_appetite);
-    private final Button dizzinessButton        = (Button) findViewById(R.id.btn_journal_sideeffect_dizziness);
-    private final Button vomitButton            = (Button) findViewById(R.id.btn_journal_sideeffect_vomit);
-    private final Button otherButton            = (Button) findViewById(R.id.btn_journal_sideeffect_other);
+    Button fatigueButton;
+    Button painButton;
+    Button mouthButton;
+    Button tinglingButton;
+    Button diarrheaButton;
+    Button appetiteButton;
+    Button dizzinessButton;
+    Button vomitButton;
+    Button otherButton;
 
     int fatigueIdForToday;
     int painIdForToday;
@@ -84,7 +86,7 @@ public class JournalActivity extends AppCompatActivity {
     public static final String SIDEEFFECT_TYPE_FATIGUE      = "fatigue";
     public static final String SIDEEFFECT_TYPE_PAIN         = "pain";
     public static final String SIDEEFFECT_TYPE_MOUTH        = "mouth change";
-    public static final String SIDEEFFECT_TYPE_TINGLING     = "tingling/numbness";
+    public static final String SIDEEFFECT_TYPE_TINGLING     = "ting/numb";
     public static final String SIDEEFFECT_TYPE_DIARRHEA     = "diarrhea";
     public static final String SIDEEFFECT_TYPE_APPETITE     = "appetite";
     public static final String SIDEEFFECT_TYPE_DIZINESS     = "dizziness";
@@ -124,6 +126,16 @@ public class JournalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
 
+        fatigueButton = (Button) findViewById(R.id.btn_journal_sideeffect_fatigue);
+        painButton = (Button) findViewById(R.id.btn_journal_sideeffect_pain);
+        mouthButton = (Button) findViewById(R.id.btn_journal_sideeffect_mouth);
+        tinglingButton = (Button) findViewById(R.id.btn_journal_sideeffect_tingling);
+        diarrheaButton = (Button) findViewById(R.id.btn_journal_sideeffect_diarrhea);
+        appetiteButton = (Button) findViewById(R.id.btn_journal_sideeffect_appetite);
+        dizzinessButton = (Button) findViewById(R.id.btn_journal_sideeffect_dizziness);
+        vomitButton = (Button) findViewById(R.id.btn_journal_sideeffect_vomit);
+        otherButton = (Button) findViewById(R.id.btn_journal_sideeffect_other);
+
         final EditText statusTextEditText   = (EditText) findViewById(R.id.edtxt_journal_status);
         final TextView txt_med_txt          = (TextView) findViewById(R.id.txt_med_int);
         final TextView txt_diary_head       = (TextView) findViewById(R.id.txt_journal_header);
@@ -139,6 +151,8 @@ public class JournalActivity extends AppCompatActivity {
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
         connectHandler.getStatusForPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy){}
+        connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
 
         if (connectHandler.status != null){
@@ -250,7 +264,7 @@ public class JournalActivity extends AppCompatActivity {
             }
         });
 
-        appetitButton.setOnClickListener(new View.OnClickListener() {
+        appetiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 choice = "Apetite";
@@ -491,7 +505,7 @@ public class JournalActivity extends AppCompatActivity {
         final CheckBox leftFootCheckbox             = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_foot);
         final CheckBox headCheckbox                 = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_head);
         final CheckBox neckCheckbox                 = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_neck);
-        final CheckBox uppderBackCheckbox           = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_upper_back);
+        final CheckBox upperBackCheckbox           = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_upper_back);
         final CheckBox midBackCheckbox              = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_mid_back);
         final CheckBox lowerBackCheckbox            = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_lower_back);
         final CheckBox rightAbdomenCheckbox         = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_right_abdomen);
@@ -503,6 +517,102 @@ public class JournalActivity extends AppCompatActivity {
         final Button    buttonCancel                = (Button) popupView.findViewById(R.id.btn_journal_status_cancel);
 
         sideeffectsHeaderTextView.setText(sideeffectsHeaderTextView.getText().toString() + sideeffectType);
+
+        // if sideeffect exist, initalise the saved checkbox values
+        String sideeffectValueString = null;
+        if ((painIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_PAIN)){
+            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(painIdForToday).value;
+        } else if ((tinglingIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_TINGLING)){
+            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(tinglingIdForToday).value;
+        }
+
+        if (sideeffectValueString != null){
+            // Sideeffect on this day exist, populate the checkboxes
+            String[] bodyAreasArray = sideeffectValueString.split(",");
+            for (String s : bodyAreasArray){
+                switch(s){
+                    case SIDEEFFECT_PAIN_RIGHT_HAND_VALUE:
+                        rightHandCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_RIGHT_SHOULDER_VALUE:
+                        rightShoulderCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_RIGHT_CHEST_VALUE:
+                        rightChestCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_RIGHT_ARM_VALUE:
+                        rightArmCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_RIGHT_HIP_VALUE:
+                        rightHipCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_RIGHT_UPPER_LEG_VALUE:
+                        rightUpperLegCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_RIGHT_KNEE_VALUE:
+                        rightKneeCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_RIGHT_LOWER_LEG_VALUE:
+                        rightLowerLegCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_RIGHT_FOOT_VALUE:
+                        rightFootCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_LEFT_HAND_VALUE:
+                        leftHandCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_LEFT_SHOULDER_VALUE:
+                        leftShoulderCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_LEFT_CHEST_VALUE:
+                        leftChestCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_LEFT_ARM_VALUE:
+                        leftArmCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_LEFT_HIP_VALUE:
+                        leftHipCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_LEFT_UPPER_LEG_VALUE:
+                        leftUpperLegCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_LEFT_KNEE_VALUE:
+                        leftKneeCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_LEFT_LOWER_LEG_VALUE:
+                        leftLowerLegCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_LEFT_FOOT_VALUE:
+                        leftFootCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_HEAD_VALUE:
+                        headCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_NECK_VALUE:
+                        neckCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_UPPER_BACK_VALUE:
+                        upperBackCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_MID_BACK_VALUE:
+                        midBackCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_LOWER_BACK_VALUE:
+                        lowerBackCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_RIGHT_ABDOMEN_VALUE:
+                        rightAbdomenCheckbox.setChecked(true);
+                        break;
+                    case SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE:
+                        leftAbdomenCheckbox.setChecked(true);break;
+                    case SIDEEFFECT_PAIN_TAILBONE_VALUE:
+                        tailboneCheckbox.setChecked(true);
+                        break;
+
+                }
+            }
+        }
+
         buttonCancel.setVisibility(View.VISIBLE);
         buttonSave.setVisibility(View.VISIBLE);
 
@@ -602,7 +712,7 @@ public class JournalActivity extends AppCompatActivity {
                     sideeffectValue += SIDEEFFECT_PAIN_NECK_VALUE;
                     sideeffectValue += ",";
                 }
-                if (uppderBackCheckbox.isChecked()){
+                if (upperBackCheckbox.isChecked()){
                     sideeffectValue += SIDEEFFECT_PAIN_UPPER_BACK_VALUE;
                     sideeffectValue += ",";
                 }
@@ -921,35 +1031,75 @@ public class JournalActivity extends AppCompatActivity {
     }
 
     private void findSideeffectsForToday(){
-        for (int i=0; i < connectHandler.sideeffects.sideeffect_data.size(); i++){
-            switch (connectHandler.sideeffects.sideeffect_data.get(i).type){
-                case SIDEEFFECT_TYPE_FATIGUE:
-                    fatigueIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                    break;
-                case SIDEEFFECT_TYPE_PAIN:
-                    painIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                    break;
-                case SIDEEFFECT_TYPE_MOUTH:
-                    mouthIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                    break;
-                case SIDEEFFECT_TYPE_TINGLING:
-                    tinglingIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                    break;
-                case SIDEEFFECT_TYPE_DIARRHEA:
-                    diarrheaIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                    break;
-                case SIDEEFFECT_TYPE_APPETITE:
-                    appetiteIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                    break;
-                case SIDEEFFECT_TYPE_DIZINESS:
-                    dizzinessIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                    break;
-                case SIDEEFFECT_TYPE_VOMIT:
-                    vomitIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                    break;
-                case SIDEEFFECT_TYPE_OTHER:
-                    otherIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                    break;
+
+        // Initalise values if changes has happened to the list
+        fatigueIdForToday = -1;
+        painIdForToday = -1;
+        mouthIdForToday = -1;
+        tinglingIdForToday = -1;
+        diarrheaIdForToday = -1;
+        appetiteIdForToday = -1;
+        dizzinessIdForToday = -1;
+        vomitIdForToday = -1;
+        otherIdForToday = -1;
+        fatigueButton.getBackground().setTint(getColor(R.color.button_material_light));
+        painButton.getBackground().setTint(getColor(R.color.button_material_light));
+        mouthButton.getBackground().setTint(getColor(R.color.button_material_light));
+        tinglingButton.getBackground().setTint(getColor(R.color.button_material_light));
+        diarrheaButton.getBackground().setTint(getColor(R.color.button_material_light));
+        appetiteButton.getBackground().setTint(getColor(R.color.button_material_light));
+        vomitButton.getBackground().setTint(getColor(R.color.button_material_light));
+        otherButton.getBackground().setTint(getColor(R.color.button_material_light));
+
+        if (connectHandler.sideeffects.sideeffect_data != null){
+            for (int position=0; position < connectHandler.sideeffects.sideeffect_data.size(); position++){
+                switch (connectHandler.sideeffects.sideeffect_data.get(position).type){
+                    case SIDEEFFECT_TYPE_FATIGUE:
+//                        fatigueIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                        fatigueIdForToday = position;
+                        fatigueButton.getBackground().setTint(getColor(R.color.cme_light));
+                        break;
+                    case SIDEEFFECT_TYPE_PAIN:
+//                        painIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                        painIdForToday = position;
+                        painButton.getBackground().setTint(getColor(R.color.cme_light));
+                        break;
+                    case SIDEEFFECT_TYPE_MOUTH:
+//                        mouthIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                        mouthIdForToday = position;
+                        mouthButton.getBackground().setTint(getColor(R.color.cme_light));
+                        break;
+                    case SIDEEFFECT_TYPE_TINGLING:
+//                        tinglingIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                        tinglingIdForToday = position;
+                        tinglingButton.getBackground().setTint(getColor(R.color.cme_light));
+                        break;
+                    case SIDEEFFECT_TYPE_DIARRHEA:
+//                        diarrheaIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                        diarrheaIdForToday = position;
+                        diarrheaButton.getBackground().setTint(getColor(R.color.cme_light));
+                        break;
+                    case SIDEEFFECT_TYPE_APPETITE:
+//                        appetiteIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                        appetiteIdForToday = position;
+                        appetiteButton.getBackground().setTint(getColor(R.color.cme_light));
+                        break;
+                    case SIDEEFFECT_TYPE_DIZINESS:
+//                        dizzinessIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                        dizzinessIdForToday = position;
+                        dizzinessButton.getBackground().setTint(getColor(R.color.cme_light));
+                        break;
+                    case SIDEEFFECT_TYPE_VOMIT:
+//                        vomitIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                        vomitIdForToday = position;
+                        vomitButton.getBackground().setTint(getColor(R.color.cme_light));
+                        break;
+                    case SIDEEFFECT_TYPE_OTHER:
+//                        otherIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+                        otherIdForToday = position;
+                        otherButton.getBackground().setTint(getColor(R.color.cme_light));
+                        break;
+                }
             }
         }
     }

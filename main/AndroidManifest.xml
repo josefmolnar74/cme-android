@@ -11,6 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
         <activity
             android:name=".WelcomeActivity">
             android:windowSoftInputMode="stateHidden"
@@ -27,7 +28,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".JournalActivity"
-            android:windowSoftInputMode="stateHidden" />
+        android:windowSoftInputMode="stateHidden" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://gS.co/AppIndexing/AndroidStudio for more information.

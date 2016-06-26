@@ -9,7 +9,7 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/Friend"
+        android:background="@color/cme_light"
         android:weightSum="1"
         android:columnCount="3"
         android:rowCount="3"
@@ -89,6 +89,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_row="1"
             android:layout_column="1"
+            android:background="@color/cme_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 

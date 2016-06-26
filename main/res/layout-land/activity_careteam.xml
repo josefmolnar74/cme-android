@@ -3,21 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/activity_vertical_margin"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
     android:id="@+id/careTeamScreen"
     tools:context="com.cancercarecompany.ccc.ccc.MainActivity"
     android:orientation="vertical"
+    android:background="@color/white"
     android:weightSum="1">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="0.08"
-        android:background="#ffffff"
+        android:layout_weight="0.06"
+        android:background="@color/cme_dark"
         android:weightSum="100">
 
         <ImageButton
@@ -86,7 +83,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="20dp"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 
@@ -100,7 +98,7 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:id="@+id/careTeamMain"
         android:weightSum="100"
-        android:layout_weight="0.92"
+        android:layout_weight="0.94"
         android:baselineAligned="false">
 
         <RelativeLayout
