@@ -516,66 +516,6 @@ public class JourneyActivity extends AppCompatActivity {
         swipeLayout = (RelativeLayout) popupView.findViewById(R.id.swipeEventLayout);
 
 
-        swipeLayout.setOnTouchListener(new OnSwipeTouchListener(JourneyActivity.this) {
-
-            public void onSwipeRight() {
-                if(currentPage > 1) {
-                    currentPage--;
-                }
-                System.out.println(currentPage);
-
-                eventInfoText.setText(getResources().getString(getResources().getIdentifier("Event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
-                switch (currentPage) {
-
-                    case 1:
-                        page1.setBackgroundResource(R.drawable.bluecircle);
-                        page2.setBackgroundResource(R.drawable.blackcircle);
-                        page3.setBackgroundResource(R.drawable.blackcircle);
-                        break;
-                    case 2:
-                        page1.setBackgroundResource(R.drawable.blackcircle);
-                        page2.setBackgroundResource(R.drawable.bluecircle);
-                        page3.setBackgroundResource(R.drawable.blackcircle);
-                        break;
-                    case 3:
-                        page1.setBackgroundResource(R.drawable.blackcircle);
-                        page2.setBackgroundResource(R.drawable.blackcircle);
-                        page3.setBackgroundResource(R.drawable.bluecircle);
-                        break;
-
-                }
-
-            }
-            public void onSwipeLeft() {
-                if(currentPage < pages) {
-                    currentPage++;
-                }
-                System.out.println(currentPage);
-                eventInfoText.setText(getResources().getString(getResources().getIdentifier("Event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
-
-
-                switch (currentPage) {
-
-                    case 1:
-                        page1.setBackgroundResource(R.drawable.bluecircle);
-                        page2.setBackgroundResource(R.drawable.blackcircle);
-                        page3.setBackgroundResource(R.drawable.blackcircle);
-                        break;
-                    case 2:
-                        page1.setBackgroundResource(R.drawable.blackcircle);
-                        page2.setBackgroundResource(R.drawable.bluecircle);
-                        page3.setBackgroundResource(R.drawable.blackcircle);
-                        break;
-                    case 3:
-                        page1.setBackgroundResource(R.drawable.blackcircle);
-                        page2.setBackgroundResource(R.drawable.blackcircle);
-                        page3.setBackgroundResource(R.drawable.bluecircle);
-                        break;
-
-                }
-            }
-
-        });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1295,67 +1235,6 @@ public class JourneyActivity extends AppCompatActivity {
         final ImageButton cancelEditMode = (ImageButton)popupView.findViewById(R.id.btn_cancelEditModer_journey);
         editTime.setIs24HourView(true);
         swipeLayout = (RelativeLayout) popupView.findViewById(R.id.swipeEventLayout);
-
-        swipeLayout.setOnTouchListener(new OnSwipeTouchListener(JourneyActivity.this) {
-
-                                                public void onSwipeRight() {
-                                                    if (currentPage > 1) {
-                                                        currentPage--;
-                                                    }
-                                                    System.out.println(currentPage);
-
-                                                    eventInfoText.setText(getResources().getString(getResources().getIdentifier("Event_" + subCategoryClicked + "_txt" + currentPage, "string", getPackageName())));
-                                                    switch (currentPage) {
-
-                                                        case 1:
-                                                            page1.setBackgroundResource(R.drawable.bluecircle);
-                                                            page2.setBackgroundResource(R.drawable.blackcircle);
-                                                            page3.setBackgroundResource(R.drawable.blackcircle);
-                                                            break;
-                                                        case 2:
-                                                            page1.setBackgroundResource(R.drawable.blackcircle);
-                                                            page2.setBackgroundResource(R.drawable.bluecircle);
-                                                            page3.setBackgroundResource(R.drawable.blackcircle);
-                                                            break;
-                                                        case 3:
-                                                            page1.setBackgroundResource(R.drawable.blackcircle);
-                                                            page2.setBackgroundResource(R.drawable.blackcircle);
-                                                            page3.setBackgroundResource(R.drawable.bluecircle);
-                                                            break;
-
-                                                    }
-
-                                                }
-
-                                                public void onSwipeLeft() {
-                                                    if (currentPage < pages) {
-                                                        currentPage++;
-                                                    }
-                                                    System.out.println(currentPage);
-                                                    eventInfoText.setText(getResources().getString(getResources().getIdentifier("Event_" + subCategoryClicked + "_txt" + currentPage, "string", getPackageName())));
-
-
-                                                    switch (currentPage) {
-
-                                                        case 1:
-                                                            page1.setBackgroundResource(R.drawable.bluecircle);
-                                                            page2.setBackgroundResource(R.drawable.blackcircle);
-                                                            page3.setBackgroundResource(R.drawable.blackcircle);
-                                                            break;
-                                                        case 2:
-                                                            page1.setBackgroundResource(R.drawable.blackcircle);
-                                                            page2.setBackgroundResource(R.drawable.bluecircle);
-                                                            page3.setBackgroundResource(R.drawable.blackcircle);
-                                                            break;
-                                                        case 3:
-                                                            page1.setBackgroundResource(R.drawable.blackcircle);
-                                                            page2.setBackgroundResource(R.drawable.blackcircle);
-                                                            page3.setBackgroundResource(R.drawable.bluecircle);
-                                                            break;
-
-                                                    }
-                                                }
-                                            });
 
         subCategoryClicked = eventList.get(id_).subCategory.toString();
         eventHeadline.setText(eventList.get(id_).subCategory.toString());

@@ -81,9 +81,11 @@ public class CareTeamActivity extends AppCompatActivity {
         });
 
         // Generate family and friends care team members
-        if (connectHandler.patient.care_team != null){
-            for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
-                familyList.add(connectHandler.patient.care_team.get(i));
+        if (connectHandler.patient != null){
+            if (connectHandler.patient.care_team != null){
+                for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
+                    familyList.add(connectHandler.patient.care_team.get(i));
+                }
             }
         }
 
