@@ -147,6 +147,68 @@
     <string name="txt_kvall">Kväll</string>
     <string name="txt_curr_events">Händelser</string>
 
+    ////////Events////////////
+
+    <string name="Event_Appointments">Möten</string>
+    <string name="Event_Tests">Undersökningar</string>
+    <string name="Event_Treatments">Behandlingar</string>
+    <string name="Event_Stay_at_the_hospital">Vistelse på sjukhuset</string>
+    <string name="Event_Picture_Memory">Fotominne</string>
+    <string name="Event_Medical_Oncologist">Onkolog Läkare</string>
+    <string name="Event_Medical_Oncologist_txt1">Jag är läkaren som kan allt om mediciner som tar bort cancer!</string>
+    <string name="Event_Hematologist_Doctor">Hematolog läkare</string>
+    <string name="Event_Hematologist_Doctor_txt1">Jag är läkaren som kan allt om sjukdommar i blodet, som t.ex leukemi.</string>
+    <string name="Event_Nurse">Sjuksköterska</string>
+    <string name="Event_Nurse_txt1">Jag tar hand om dig när du är på sjukhuset så att du har det bra och berättar om allt som kommer att hända.</string>
+    <string name="Event_Dentist">Tandläkare</string>
+    <string name="Event_Dentist_txt1">Jag är läkaren somo kan allt om tänder. Jag hjälper dig se till så att inte dina tänder tar skada när du tar din medicin.</string>
+    <string name="Event_Surgeon">Kirurgen</string>
+    <string name="Event_Surgeon_txt1">Jag är läkaren som opererar när det finns något i kroppen som behöver tas bort som en tumör. Det kallas för operation.</string>
+    <string name="Event_Anestetisten">Anestetisten</string>
+    <string name="Event_Anestetisten_txt1">Jag är en Nakosläkare och jag kan allt om mediciner som hjälper dig koppla av och sova gott under en operation eller en undersökning. Jag ser till så att du inte kommer att se, höra eller känna något under tiden du sover hos mig. Efteråt tar jag bort medicinen så att du vaknar och blir pigg igen. </string>
+    <string name="Event_Therapist">Terapeut</string>
+    <string name="Event_Therapist_txt1">Jag kan massor om känslor och kan hjälpa dig om du vill prata. Vi kan prata när det är något jobbigt som händer och jag är jättebra på att lyssna!!</string>
+    <string name="Event_Physiotherapist">Sjukgymnast</string>
+    <string name="Event_Physiotherapist_txt1">Jag är jätteduktig på bra övningar och gymnastik som du kan göra för att du ska må bättre!</string>
+    <string name="Event_Dietician">Dietist</string>
+    <string name="Event_Dietician_txt1">Jag är expert på bra mat som du kan äta när du mår dåligt för att hjälpa dig må bättre!</string>
+    <string name="Event_MR">MR</string>
+    <string name="Event_MR_txt1">Ett MR är ett stor cirkel camera med en tunnel som går genom mitten som tar bilder på insidan av din kropp. Hur coolt är det?!</string>
+    <string name="Event_MR_txt2">Det kommer att hjälpa dina läkare att se vad det är som har gjort att du har mått dålig eller haft ont på sistone.</string>
+    <string name="Event_MR_txt3">Ditt jobb under en MR är att ligga riktigt riktigt stila så att bilderna blir bra! När vi är små har vi väldigt svårt att ligga stil så länge. då brukar man istället sövas så att du istället sover gott under hela undersökningen. Perfekt!</string>
+    <string name="Event_DT">DT</string>
+    <string name="Event_DT_txt1">Detta är en mycket speciell maskin som tar bilder på insidan av din kropp. Helt otroligt!</string>
+    <string name="Event_DT_txt2">Det hjälper din läkare att hitta var cancercellerna eller tumören sitter inne i din kropp eller om den har förändrats sedan senaste Datortomografi.</string>
+    <string name="Event_DT_txt3">Ditt jobb är att ligga riktigt riktigt stila så att bilderna inte blir suddiga. När vi är små har vi väldigt svårt att ligga stil så länge. Då brukar man istället sövas så att du istället sover gott under hela undersökningen. Perfekt!</string>
+    <string name="Event_Hearing_Tests">Hörseltest</string>
+    <string name="Event_Hearing_Tests_txt1">Medicinen du får kan påverka din hörsel. Därför testar vi regelbundet i din hörselskärpa.</string>
+    <string name="Event_Bone_Marrow_Samples">Benmärgsprov</string>
+    <string name="Event_EEG">EEG</string>
+    <string name="Event_EEG_txt1">Med hjälp av små censorer som man fäster på din hud kan vi registrera aktivitet i din hjärna. Häftigt!</string>
+    <string name="Event_EKG">EKG</string>
+    <string name="Event_Kidney_Investigation">Njurundersökning</string>
+    <string name="Event_Ultrasound">Ultraljud</string>
+    <string name="Event_Cytistatika">Cytistatika</string>
+    <string name="Event_Cytistatika_txt1">Cytostatika, eller cellgifter som det ibland kallas, är den vanligaste typen av medicin som man får när man får cancer. Det är en grupp av mycket starka mediciner som saktar ner eller dödar elaka cancer celler. </string>
+    <string name="Event_Cytistatika_txt2">Det finns flera biverkningar man kan få när man tar cellgifter. Man kan till exempel tappa håret eller så kan mat börja smaka konstigt. Men alla dessa biverkningar slutar när du slutar med cellgifterna.</string>
+    <string name="Event_Cytistatika_txt3">I början får du oftast cellgifter i flyttande form. Längre fram i behandlingen kanske du får det i tablet form istället. Fråga din Läkare vad du kommer att få!  Dotorn bestämmer också hur ofta och hur många gånger du behöver ha cellgifter.  Alla cancer är ju olika!</string>
+    <string name="Event_Surgery">Operation</string>
+    <string name="Event_Surgery_txt1">Kirurgi är samma sak som att ha en operation. En operation gör man för att kunna ta bort en tumör till exempel. Det är Kirurgen som gör detta jobbet tillsammans med ett helt team av människor som hjälper till. </string>
+    <string name="Event_Surgery_txt2">Under operationen kommer kirurgen att ta bort tumören och kanske lite till runt om tumören för att vara säker på att man fick med allt det dåliga.</string>
+    <string name="Event_Surgery_txt3">Innan operationen kommer du att sövas. Det betyder att du får en medicin som gör att inte känner ont. Du kommer inte att kunna se eller höra något under operationen. Det är precis som att sova. Det är anestetisten som hjälper dig sövas och tar hand om dig medan du sover.</string>
+    <string name="Event_Stem_Cell_Transplantation">Stamcellstransplantation</string>
+    <string name="Event_Radiation">Strålning</string>
+    <string name="Event_Dialysis">Dialys</string>
+    <string name="Event_Biological_Therapy">Biologisk terapi</string>
+    <string name="Event_Targeted_Therapy">Riktad terapi</string>
+    <string name="Event_Portacat">Portakat</string>
+    <string name="Event_Portacat_txt1">En Portacat är en liten slang man sätter in ovanför bröstet.  Den gör det lättare att ge dig cellgifter när du kommer till sjukhuset. </string>
+    <string name="Event_Bloodtest">Blodprov</string>
+    <string name="Event_Hospital">Möten på sjukhuset</string>
+    <string name="Event_Hospital_txt1">För det mesta måste du åka in till sjukhuset när det är dags för cellgifter. Det kan vara för några dagar eller lite längre. </string>
+    <string name="Event_Hospital_txt2">Efter cellgifterna kan du ibland må jättedåligt och därför måste du in till sjukhuset igen, men det är bara för att få dig att må bättre och för att läkarna och sjuksköterskor ska bättre kunna ta hand om dig.</string>
+    <string name="Event_Hospital_txt3">Mamma och pappa kommer att vara där för det mesta och du kommer att träffa andra barn som också är på sjukhuset. Om ni vill och orka så finns det många leksaker där man kan leka med! </string>
+
 
 </resources>
 
