@@ -478,7 +478,8 @@ public class JourneyActivity extends AppCompatActivity {
                 popupView, (int) (width * 0.90), (int) (height * 0.85));
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
 
-        popupWindow.showAsDropDown(eventLayout, 0, 0);
+
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         popupView.bringToFront();
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -1262,7 +1263,7 @@ public class JourneyActivity extends AppCompatActivity {
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
 
 
-        popupWindow.showAsDropDown(eventLayout, 0, 0);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         popupView.bringToFront();
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -1576,7 +1577,8 @@ public class JourneyActivity extends AppCompatActivity {
 
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
 
-        popupWindow.showAsDropDown(eventLayout, width / 5, 0);
+
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         popupView.bringToFront();
 
     }
