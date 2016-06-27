@@ -79,6 +79,7 @@ public class JournalActivity extends AppCompatActivity {
     int dizzinessIdForToday;
     int vomitIdForToday;
     int otherIdForToday;
+    int beverageIdForToday;
 
     public static final String TIME_SIMPLE_FORMAT = "yyyy-MM-dd";
     public static final String DATE_SIMPLE_FORMAT = "kk:mm:ss";
@@ -164,6 +165,8 @@ public class JournalActivity extends AppCompatActivity {
         while (connectHandler.socketBusy){}
         connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
+        connectHandler.getBeveragesForPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy){}
 
         if (connectHandler.status != null){
             for (int i = 0; i < connectHandler.status.status_data.size(); i++) {
@@ -185,8 +188,30 @@ public class JournalActivity extends AppCompatActivity {
         statusAdapter = new JournalStatusAdapter(this, statusList);
         statusGridView.setAdapter(statusAdapter);
 
+        int savedBeverageAmount = 0;
+        beverageIdForToday = -1; //init
+        if (connectHandler.beverages.beverage_data.size() > 0){
+            // Check if beverage has already been saved today
+            // Get last saved beverage and check for date
+            int lastIndex = connectHandler.beverages.beverage_data.size()-1;
+            boolean dateIsToday = false;
+            try {
+                dateIsToday = checkIfDateIsToday(connectHandler.beverages.beverage_data.get(lastIndex).date);
+            } catch (ParseException e){}
+
+            if (dateIsToday){
+                // yep, beverage has been saved today
+                beverageIdForToday = lastIndex;
+                savedBeverageAmount = connectHandler.beverages.beverage_data.get(beverageIdForToday).amount;
+            }
+        }
+
         for (int i = 0; i < 8 ; i++) {
-            beverageList.add("empty");
+            if (i < savedBeverageAmount){
+                beverageList.add("full");
+            } else{
+                beverageList.add("empty");
+            }
         }
 
         beverageGridView = (GridView) findViewById(R.id.gridview_journal_beverage);
@@ -383,6 +408,34 @@ public class JournalActivity extends AppCompatActivity {
                 txt_diary_head.setText((txt_diary_head.getText()) + " " + year + "-" + month + "-" + date);
             }
         });
+    }
+    @Override
+    protected void onPause() {
+
+        // Save beverage amount
+        int amount = 0;
+        for (int i = 0; i < beverageList.size();i++){
+            if (beverageList.get(i) == "full"){
+                amount += 1;
+            }
+        }
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
+        Beverage beverage = new Beverage(   0,
+                                            connectHandler.patient.patient_ID,
+                                            connectHandler.person.person_ID,
+                                            date,
+                                            time,
+                                            amount);
+        if (beverageIdForToday >= 0){
+            // update already existing beverage for today
+            beverage.beverage_ID = connectHandler.beverages.beverage_data.get(beverageIdForToday).beverage_ID;
+            connectHandler.updateBeverage(beverage);
+        } else{
+            // Beverage exist for today, create a new one
+            connectHandler.createBeverage(beverage);
+        }
+        super.onPause();
     }
 
     public void showStatus(final int position) {
