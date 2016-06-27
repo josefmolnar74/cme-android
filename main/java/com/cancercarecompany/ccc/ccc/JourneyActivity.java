@@ -57,6 +57,7 @@ public class JourneyActivity extends AppCompatActivity {
     ImageButton addTest;
     ImageButton addFoto;
     ImageButton addHospital;
+    int lastButtonX;
 
     ImageView page1;
     ImageView page2;
@@ -91,11 +92,12 @@ public class JourneyActivity extends AppCompatActivity {
     HorizontalScrollView bottomScroll;
     HorizontalScrollView Scroll_background2;
     HorizontalScrollView Scroll_background;
-    HorizontalScrollView swipe_Scroll;
+    HorizontalScrollView Scroll_bushes;
     RelativeLayout journeyScreen;
     RelativeLayout layoutButtons;
     RelativeLayout eventLayout;
     RelativeLayout bottomLayout;
+    RelativeLayout bushesLayer;
     RelativeLayout relativeLayout3;
     int eventsSameDate = 0;
     String subCategoryClicked = "";
@@ -134,9 +136,11 @@ public class JourneyActivity extends AppCompatActivity {
         addHospital = (ImageButton) findViewById(R.id.btn_hospital_journey);
         eventScroll = (HorizontalScrollView) findViewById(R.id.Scroll_eventlayer);
         bottomScroll = (HorizontalScrollView) findViewById(R.id.Scroll_roadlayer);
+        Scroll_bushes = (HorizontalScrollView) findViewById(R.id.Scroll_Bushes);
         layoutButtons = (RelativeLayout) findViewById(R.id.relativeLayout3);
         eventLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
         bottomLayout = (RelativeLayout) findViewById(R.id.relativeLayout_roadlayout);
+        bushesLayer = (RelativeLayout) findViewById(R.id.bushesLayer);
         journeyScreen = (RelativeLayout) findViewById(R.id.journeyscreen);
         careTeamButton = (ImageButton) findViewById(R.id.contactsButton);
         journalButton = (ImageButton) findViewById(R.id.journalButton);
@@ -157,8 +161,7 @@ public class JourneyActivity extends AppCompatActivity {
         display.getSize(size);
         width = size.x;
         height = size.y;
-        System.out.println(width);
-        System.out.println(height);
+
 
 
 
@@ -182,7 +185,7 @@ public class JourneyActivity extends AppCompatActivity {
         ExampleJourney();
         refreshEvents();
        // generateClouds();
-       // generateBushes();
+        generateBushes();
 
 
         eventScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
@@ -193,7 +196,8 @@ public class JourneyActivity extends AppCompatActivity {
 
                 Scroll_background.setScrollX(scrollX / 3);
                 Scroll_background2.setScrollX(scrollX / 2);
-                bottomScroll.setScrollX(scrollX * 3);
+                bottomScroll.setScrollX(scrollX * 2);
+                Scroll_bushes.setScrollX(scrollX * 3);
 
             }
         });
@@ -262,9 +266,11 @@ public class JourneyActivity extends AppCompatActivity {
         long carPosition = currentDate.getTime() - startDate;
         carPosition = carPosition / 1000000;
         int carIntPosition = (int) carPosition;
+        carIntPosition = (carIntPosition * 2) +300;
+        System.out.println("adasdsadas" +carIntPosition);
 
 
-        paramsCar.setMargins(0, height - 450, 0, 0);
+        paramsCar.setMargins(0, height - 500, 0, 0);
 
         paramsCar.width = 400;
         paramsCar.height = 400;
@@ -273,7 +279,7 @@ public class JourneyActivity extends AppCompatActivity {
         car.setLayoutParams(paramsCar);
         bottomLayout.addView(car, paramsCar);
         animateCar(carIntPosition);
-        System.out.println(carIntPosition);
+
 
 
         for (int i = 0; i < eventList.size(); i++) {
@@ -430,9 +436,12 @@ public class JourneyActivity extends AppCompatActivity {
                 params.height = (height / 7) * 2;
             }
             indexButton.setLayoutParams(params);
+            lastButtonX = (currentEventInt * 2) + 300;
+
 
 
         }
+
 
 
     }
@@ -1646,25 +1655,12 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void generateBushes() {
 
-        Collections.sort(eventList, new Comparator<Events>() {
-            @Override
-            public int compare(Events lhs, Events rhs) {
+        int bushesCount = lastButtonX / 600;
+        bushesCount = bushesCount * 3;
+        for (int i = 0; i <= bushesCount; i++) {
 
-                return lhs.startDate.compareTo(rhs.startDate);
-
-            }
-        });
-        int lastEvent = eventList.size() - 1;
-        long lastEventLong = eventList.get(lastEvent).startDate.getTime();
-        long screenSize = lastEventLong - startDate;
-        long signCount = screenSize / 1000000;
-        signCount = signCount / 200;
-
-
-        for (int i = 0; i <= signCount; i++) {
-
-            ImageButton btn = new ImageButton(this);
-            btn.setId(i + 2000);
+            ImageView img = new ImageView(this);
+            img.setId(i + 2000);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -1675,29 +1671,27 @@ public class JourneyActivity extends AppCompatActivity {
 
             switch (bushesRandom) {
                 case 0:
-                    btn.setBackgroundResource(R.drawable.bushes1);
-                    params.setMargins(i * 1000, 60, 0, 0);
-                    params.width = 150;
+                    img.setBackgroundResource(R.drawable.bushes1);
+                    params.setMargins(i * 600, height - 200 , 0, 0);
+                    params.width = 700;
                     params.height = 100;
                     break;
                 case 1:
-                    btn.setBackgroundResource(R.drawable.bushes2);
-                    params.setMargins(i * 1000, 60, 0, 0);
-                    params.width = 300;
+                    img.setBackgroundResource(R.drawable.bushes2);
+                    params.setMargins(i * 600, height - 200, 0, 0);
+                    params.width = 700;
                     params.height = 100;
                     break;
                 case 2:
-                    btn.setBackgroundResource(R.drawable.bushes3);
-                    params.setMargins(i * 1000, 60, 0, 0);
-                    params.width = 150;
-                    params.height = 100;
+                    img.setBackgroundResource(R.drawable.bushes3);
+                    params.setMargins(i * 600, height - 250, 0, 0);
+                    params.width = 700;
+                    params.height = 200;
                     break;
 
 
             }
-            bottomLayout.addView(btn, params);
-            System.out.println(btn.getId());
-
+            bushesLayer.addView(img, params);
         }
     }
 
@@ -1708,8 +1702,8 @@ public class JourneyActivity extends AppCompatActivity {
         final RelativeLayout.LayoutParams paramsCar2 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsCar2.setMargins(((carIntPosition * 2)/100) + 100, height - 450, 0, 0);
-        System.out.println("carposition"+((carIntPosition * 2)/100) + 100);
+        paramsCar2.setMargins((carIntPosition * 2)-1000, height -450, 0, 0);
+        System.out.println("CARPOSITION"+carIntPosition * 2);
         paramsCar2.width = 400;
         paramsCar2.height = 400;
 
@@ -1734,7 +1728,7 @@ public class JourneyActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         eventScroll.isSmoothScrollingEnabled();
-                        eventScroll.smoothScrollTo(carIntPosition * 2, 0);
+                        eventScroll.smoothScrollTo((carIntPosition)-500, 0);
                         car.setLayoutParams(paramsCar2);
                     }
                 });
