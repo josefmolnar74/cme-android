@@ -1325,7 +1325,7 @@ public class JourneyActivity extends AppCompatActivity {
                 if (eventsSameDate < 3) {
                     if (date.getTime() > startDate) {
 
-                        Events event = new Events(detailCategory, eventHeadline.getText().toString(), editNotes.getText().toString(), date, null, null, null);
+                        Events event = new Events(detailCategory, subCategoryClicked, editNotes.getText().toString(), date, null, null, null);
                         eventList.add(event);
                         createEventButton();
                         popupWindow.dismiss();
