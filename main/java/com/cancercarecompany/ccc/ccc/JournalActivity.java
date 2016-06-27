@@ -836,7 +836,7 @@ public class JournalActivity extends AppCompatActivity {
                     break;
 
                 case SIDEEFFECT_TYPE_FATIGUE:
-                    seekBar1.setProgress(Integer.parseInt(sideeffectValueString));
+                    seekBar1.setProgress(Integer.parseInt(sideeffectValueString ));
                     textSeekBarResult1.setText(sideeffectValueString);
                     break;
             }
