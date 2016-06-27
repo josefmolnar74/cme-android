@@ -83,5 +83,21 @@
     <string name="txt_kvall">Kväll</string>
     <string name="txt_curr_events">Händelser</string>
 
+    <string name="txt_journal_sideeffects_appetite_header"></string>
+    <string name="txt_journal_sideeffects_appetite_question">Hur mycket åt * vid </string>
+    <string name="txt_journal_sideeffects_appetite_seekbar_headline1">Frukost</string>
+    <string name="txt_journal_sideeffects_appetite_seekbar_headline2">Lunch</string>
+    <string name="txt_journal_sideeffects_appetite_seekbar_headline3">Middag</string>
+    <string name="txt_journal_sideeffects_appetite_seekbar_min1">Inget alls</string>
+    <string name="txt_journal_sideeffects_appetite_seekbar_min2">Inget alls</string>
+    <string name="txt_journal_sideeffects_appetite_seekbar_min3">Inget alls</string>
+    <string name="txt_journal_sideeffects_appetite_seekbar_max1">Åt upp allt</string>
+    <string name="txt_journal_sideeffects_appetite_seekbar_max2">Åt upp allt</string>
+    <string name="txt_journal_sideeffects_appetite_seekbar_max3">Åt upp allt</string>
+    <string name="txt_journal_sideeffects_fatigue_question">Hur känner sig * just nu </string>
+    <string name="txt_journal_sideeffects_fatigue_seekbar_headline1"></string>
+    <string name="txt_journal_sideeffects_fatigue_seekbar_min1">Lite trött</string>
+    <string name="txt_journal_sideeffects_fatigue_seekbar_max1">Jättetrött</string>
+
 </resources>
 

@@ -83,10 +83,6 @@
             android:background="@drawable/garbage"></Button>
 
         <RelativeLayout
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_row="1"
             android:layout_column="1"
             android:background="@color/cme_light"
@@ -97,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Markera de ställen där * har ont"
-                android:id="@+id/txt_journal_sideeffects_popup_instruction"
+                android:id="@+id/txt_journal_sideeffects_popup_pain_question"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
                 android:textSize="@dimen/LARGE">
@@ -111,7 +107,7 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_journal_sideeffects_popup_instruction"
+                android:layout_below="@+id/txt_journal_sideeffects_popup_pain_question"
                 android:gravity="center"
                 android:columnCount="3"
                 android:layout_centerHorizontal="true">

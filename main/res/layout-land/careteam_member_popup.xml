@@ -81,6 +81,7 @@
             android:background="@drawable/garbage"></Button>
 
         <LinearLayout
+            android:background="@color/cme_light"
             android:orientation="horizontal"
             android:layout_row="1"
             android:layout_column="1"

@@ -3,6 +3,7 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -81,15 +82,15 @@ public class JournalActivity extends AppCompatActivity {
     public static final String TIME_SIMPLE_FORMAT = "yyyy-MM-dd";
     public static final String DATE_SIMPLE_FORMAT = "kk:mm:ss";
 
-    public static final String SIDEEFFECT_TYPE_FATIGUE      = "fatigue";
-    public static final String SIDEEFFECT_TYPE_PAIN         = "pain";
-    public static final String SIDEEFFECT_TYPE_MOUTH        = "mouth change";
-    public static final String SIDEEFFECT_TYPE_TINGLING     = "ting/numb";
-    public static final String SIDEEFFECT_TYPE_DIARRHEA     = "diarrhea";
-    public static final String SIDEEFFECT_TYPE_APPETITE     = "appetite";
-    public static final String SIDEEFFECT_TYPE_DIZINESS     = "dizziness";
-    public static final String SIDEEFFECT_TYPE_VOMIT        = "vomit";
-    public static final String SIDEEFFECT_TYPE_OTHER        = "other";
+    public static final String SIDEEFFECT_TYPE_FATIGUE      = "Fatigue";
+    public static final String SIDEEFFECT_TYPE_PAIN         = "Pain";
+    public static final String SIDEEFFECT_TYPE_MOUTH        = "Mouth change";
+    public static final String SIDEEFFECT_TYPE_TINGLING     = "Tingling/numbness";
+    public static final String SIDEEFFECT_TYPE_DIARRHEA     = "Diarrhea";
+    public static final String SIDEEFFECT_TYPE_APPETITE     = "Appetite";
+    public static final String SIDEEFFECT_TYPE_DIZINESS     = "Dizziness";
+    public static final String SIDEEFFECT_TYPE_VOMIT        = "Vomit";
+    public static final String SIDEEFFECT_TYPE_OTHER        = "Other";
 
 
     public static final String SIDEEFFECT_PAIN_RIGHT_HAND_VALUE         = "RHA";
@@ -244,7 +245,8 @@ public class JournalActivity extends AppCompatActivity {
         fatigueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add_fatigue("Fat");
+                // use same popup as for appetite
+                createSideeffectAppetite(SIDEEFFECT_TYPE_FATIGUE);
             }
         });
 
@@ -265,29 +267,24 @@ public class JournalActivity extends AppCompatActivity {
         appetiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                choice = "Apetite";
-                add_fatigue(choice);
-            }
+                createSideeffectAppetite(SIDEEFFECT_TYPE_APPETITE);            }
         });
 
         dizzinessButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add_fatigue("Yrsel");
             }
         });
 
         diarrheaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add_fatigue("Forstopp");
             }
         });
 
         vomitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add_fatigue("Krakn");
             }
         });
 
@@ -511,10 +508,13 @@ public class JournalActivity extends AppCompatActivity {
         final CheckBox tailboneCheckbox             = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_tailbone);
 
         final TextView sideeffectsHeaderTextView    = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_popup_pain_headline);
+        final TextView textSideeffectQuestion       = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_popup_pain_question);
         final Button    buttonSave                  = (Button) popupView.findViewById(R.id.btn_journal_status_save);
         final Button    buttonCancel                = (Button) popupView.findViewById(R.id.btn_journal_status_cancel);
 
-        sideeffectsHeaderTextView.setText(sideeffectsHeaderTextView.getText().toString() + sideeffectType);
+        sideeffectsHeaderTextView.setText(sideeffectType);
+        // Replace X with patient name
+        textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
 
         // if sideeffect exist, initalise the saved checkbox values
         String sideeffectValueString = null;
@@ -734,22 +734,7 @@ public class JournalActivity extends AppCompatActivity {
                     sideeffectValue += SIDEEFFECT_PAIN_TAILBONE_VALUE;
                     sideeffectValue += ",";
                 }
-
-                String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
-
-                Sideeffect newSideeffect = new Sideeffect(
-                        0,
-                        connectHandler.patient.patient_ID,
-                        connectHandler.person.person_ID,
-                        date,
-                        time,
-                        sideeffectType,
-                        sideeffectValue);
-
-                connectHandler.createSideeffect(newSideeffect);
-
-                while (connectHandler.socketBusy){}
+                saveSideeffect(sideeffectType, sideeffectValue);
             }
 
         });
@@ -765,231 +750,184 @@ public class JournalActivity extends AppCompatActivity {
 
     }
 
-    public void add_fatigue(String choice) {
-        popup_add_fatigue(choice);
-    }
-
-    public void popup_add_fatigue(final String choice) {
-
-        LayoutInflater layoutInflater
-                = (LayoutInflater) getBaseContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.biv_slider_0_10_popup, null);
-
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, 1000, 2000);
+    public void createSideeffectAppetite(final String sideeffectType) {
 
 
-        final Button   btn_cancel    = (Button) popupView.findViewById(R.id.btn_cancel_popup);
-        final TextView txt_header    = (TextView) popupView.findViewById(R.id.txt_biv_slider_head);
-        final TextView txt_subheader = (TextView) popupView.findViewById(R.id.txt_biv_slider_subhead);
+        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.journal_sideeffect_appetite_popup, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
-        final SeekBar  seek_fat   = (SeekBar)  popupView.findViewById(R.id.seek_fat);
-        final SeekBar  seek_fat2  = (SeekBar)  popupView.findViewById(R.id.seek_fat2);
-        final SeekBar  seek_fat3  = (SeekBar)  popupView.findViewById(R.id.seek_fat3);
-        final TextView text_min   = (TextView) popupView.findViewById(R.id.txt_seek_min);
-        final TextView text_min2  = (TextView) popupView.findViewById(R.id.txt_seek_min2);
-        final TextView text_min3  = (TextView) popupView.findViewById(R.id.txt_seek_min3);
-        final TextView text_res   = (TextView) popupView.findViewById(R.id.txt_seek_res);
-        final TextView text_res2  = (TextView) popupView.findViewById(R.id.txt_seek_res2);
-        final TextView text_res3  = (TextView) popupView.findViewById(R.id.txt_seek_res3);
-        final TextView text_max   = (TextView) popupView.findViewById(R.id.txt_seek_max);
-        final TextView text_max2  = (TextView) popupView.findViewById(R.id.txt_seek_max2);
-        final TextView text_max3  = (TextView) popupView.findViewById(R.id.txt_seek_max3);
+        final Button    buttonSave              = (Button) popupView.findViewById(R.id.btn_journal_sideeffect_appetite_save);
+        final Button    buttonCancel            = (Button) popupView.findViewById(R.id.btn_journal_sideeffect_appetite_cancel);
+        final TextView  textSideeffectsHeader   = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_popup_appetite_headline);
+        final TextView  textSideeffectQuestion  = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_popup_appetite_question);
 
+        final SeekBar  seekBar1                 = (SeekBar)  popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar1);
+        final SeekBar  seekBar2                 = (SeekBar)  popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar2);
+        final SeekBar  seekBar3                 = (SeekBar)  popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar3);
+        final TextView textSideeffectsHeader1   = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_headline1);
+        final TextView textSideeffectsHeader2   = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_headline2);
+        final TextView textSideeffectsHeader3   = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_headline3);
+        final TextView textSeekBarMin1          = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_min1);
+        final TextView textSeekBarMin2          = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_min2);
+        final TextView textSeekBarMin3          = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_min3);
+        final TextView textSeekBarMax1          = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_max1);
+        final TextView textSeekBarMax2          = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_max2);
+        final TextView textSeekBarMax3          = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_max3);
+        final TextView textSeekBarResult1       = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_result1);
+        final TextView textSeekBarResult2       = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_result2);
+        final TextView textSeekBarResult3       = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_appetite_seekbar_result3);
 
-        if (choice == "Fat") {
-            txt_header.setText(R.string.txt_biv_fat_head);
-            txt_subheader.setText(R.string.txt_biv_fat_desc);
-            text_min.setText(R.string.txt_biv_seek_min);
-            text_max.setText(R.string.txt_biv_seek_max);
-            seek_fat2.setVisibility(View.INVISIBLE);
-            text_max2.setVisibility(View.INVISIBLE);
-            text_res2.setVisibility(View.INVISIBLE);
-            text_min2.setVisibility(View.INVISIBLE);
-            seek_fat3.setVisibility(View.INVISIBLE);
-            text_max3.setVisibility(View.INVISIBLE);
-            text_max3.setVisibility(View.INVISIBLE);
-            text_min3.setVisibility(View.INVISIBLE);
+        final RelativeLayout seekbarLayout2     = (RelativeLayout) popupView.findViewById(R.id.lay_journal_sideeffect_seekbar2);
+        final RelativeLayout seekbarLayout3     = (RelativeLayout) popupView.findViewById(R.id.lay_journal_sideeffect_seekbar3);
 
-        } else if (choice == "Pain") {
-            txt_header.setText(R.string.txt_biv_pain_head);
-            txt_subheader.setText(R.string.txt_biv_pain_desc);
-            seek_fat2.setVisibility(View.INVISIBLE);
-            text_max2.setVisibility(View.INVISIBLE);
-            text_res2.setVisibility(View.INVISIBLE);
-            text_min2.setVisibility(View.INVISIBLE);
-            seek_fat3.setVisibility(View.INVISIBLE);
-            text_max3.setVisibility(View.INVISIBLE);
-            text_res3.setVisibility(View.INVISIBLE);
-            text_min3.setVisibility(View.INVISIBLE);
+        // Initialize seekbar popup
+        switch(sideeffectType){
+            case SIDEEFFECT_TYPE_APPETITE:
+                textSideeffectsHeader.setText(SIDEEFFECT_TYPE_APPETITE);
+                textSideeffectQuestion.setText(R.string.txt_journal_sideeffects_appetite_question);
+                textSideeffectsHeader1.setText(R.string.txt_journal_sideeffects_appetite_seekbar_headline1);
+                textSeekBarMin1.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min1);
+                textSeekBarMax1.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min1);
+                textSideeffectsHeader2.setText(R.string.txt_journal_sideeffects_appetite_seekbar_headline2);
+                textSeekBarMin2.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min2);
+                textSeekBarMax2.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min2);
+                textSideeffectsHeader3.setText(R.string.txt_journal_sideeffects_appetite_seekbar_headline3);
+                textSeekBarMin3.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min3);
+                textSeekBarMax3.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min3);
+                break;
+            case SIDEEFFECT_TYPE_FATIGUE:
+                textSideeffectsHeader.setText(SIDEEFFECT_TYPE_FATIGUE);
+                seekbarLayout2.removeAllViews();
+                seekbarLayout3.removeAllViews();
+                textSideeffectQuestion.setText(R.string.txt_journal_sideeffects_fatigue_question);
+                textSideeffectsHeader1.setVisibility(View.INVISIBLE);
+                textSeekBarMin1.setText(R.string.txt_journal_sideeffects_fatigue_seekbar_min1);
+                textSeekBarMax1.setText(R.string.txt_journal_sideeffects_fatigue_seekbar_max1);
+                break;
+        }
 
-        } else if (choice == "Apetite") {
-            txt_header.setText(R.string.txt_biv_apetite_head);
-            txt_subheader.setText(R.string.txt_biv_apetite_desc);
+        // Replace X with patient name
+        textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
 
-            text_max.setText(R.string.txt_biv_seek_apetite_max);
-            text_min.setText(R.string.txt_biv_seek_apetite_min);
-            text_max2.setText(R.string.txt_biv_seek_apetite_max);
-            text_min2.setText(R.string.txt_biv_seek_apetite_min);
-            text_max3.setText(R.string.txt_biv_seek_apetite_max);
-            text_min3.setText(R.string.txt_biv_seek_apetite_min);
+        // if sideeffect exist, initalise the saved checkbox values
+        String sideeffectValueString = null;
+        if ((appetiteIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_APPETITE)){
+            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(appetiteIdForToday).value;
+        } else if ((fatigueIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_FATIGUE)) {
+            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(fatigueIdForToday).value;
+        }
 
-            seek_fat2.setVisibility(View.VISIBLE);
-            text_max2.setVisibility(View.VISIBLE);
-            text_res2.setVisibility(View.VISIBLE);
-            text_min2.setVisibility(View.VISIBLE);
-            seek_fat3.setVisibility(View.VISIBLE);
-            text_max3.setVisibility(View.VISIBLE);
-            text_res3.setVisibility(View.VISIBLE);
-            text_min3.setVisibility(View.VISIBLE);
-            text_res.setText(R.string.journal_medication_breakfast);
-            text_res2.setText(R.string.journal_medication_lunch);
-            text_res3.setText(R.string.journal_medication_dinner);
-        } else if ( choice == "Yrsel") {
-            txt_header.setText(R.string.txt_biv_yrsel_head);
-            txt_subheader.setText(R.string.txt_biv_yrsel_desc);
-            text_min.setText(R.string.txt_biv_seek_y_min);
-            text_max.setText(R.string.txt_biv_seek_y_max);
-            text_res.setText(R.string.txt_biv_seek_y_res);
-            seek_fat.setMax(2);
-            seek_fat2.setVisibility(View.INVISIBLE);
-            text_max2.setVisibility(View.INVISIBLE);
-            text_res2.setVisibility(View.INVISIBLE);
-            text_min2.setVisibility(View.INVISIBLE);
-            seek_fat3.setVisibility(View.INVISIBLE);
-            text_max3.setVisibility(View.INVISIBLE);
-            text_res3.setVisibility(View.INVISIBLE);
-            text_min3.setVisibility(View.INVISIBLE);
-        } else if ( choice == "Forstopp") {
-            txt_header.setText(R.string.txt_biv_forstopp_head);
-            txt_subheader.setText(R.string.txt_biv_forstopp_desc);
-            text_min.setText(R.string.txt_biv_seek_fst_min);
-            text_res.setText(R.string.txt_biv_seek_fst_res);
-            text_max.setText(R.string.txt_biv_seek_fst_max);
-            seek_fat.setMax(2);
-            seek_fat2.setVisibility(View.INVISIBLE);
-            text_max2.setVisibility(View.INVISIBLE);
-            text_res2.setVisibility(View.INVISIBLE);
-            text_min2.setVisibility(View.INVISIBLE);
-            seek_fat3.setVisibility(View.INVISIBLE);
-            text_max3.setVisibility(View.INVISIBLE);
-            text_res3.setVisibility(View.INVISIBLE);
-            text_min3.setVisibility(View.INVISIBLE);
-        } else if ( choice == "Krakn") {
-            txt_header.setText(R.string.txt_biv_krakn_head);
-            txt_subheader.setText(R.string.txt_biv_krakn_desc);
-            text_min.setText(R.string.txt_biv_seek_krk_min);
-            text_max.setText(R.string.txt_biv_seek_krk_max);
-            text_res.setText(R.string.txt_biv_seek_krk_med);
+        if (sideeffectValueString != null){
+            switch(sideeffectType){
+                case SIDEEFFECT_TYPE_APPETITE:
+                    // Populate the seekbar values for the existing side effect
+                    //Separate Breakfast, lunch, dinner and convert string values to integer and set progress default
+                    String[] parts = sideeffectValueString.split(",");
+                    Integer value1 = Integer.parseInt(parts[0].substring(parts[0].indexOf(":") + 1));
+                    seekBar1.setProgress(value1);
+                    textSeekBarResult1.setText(value1.toString());
+                    Integer value2 = Integer.parseInt(parts[1].substring(parts[1].indexOf(":") + 1));
+                    seekBar2.setProgress(value2);
+                    textSeekBarResult2.setText(value2.toString());
+                    Integer value3 = Integer.parseInt(parts[2].substring(parts[2].indexOf(":") + 1));
+                    seekBar3.setProgress(value3);
+                    textSeekBarResult3.setText(value3.toString());
+                    break;
 
-            seek_fat.setMax(2);
-            seek_fat2.setVisibility(View.INVISIBLE);
-            text_max2.setVisibility(View.INVISIBLE);
-            text_res2.setVisibility(View.INVISIBLE);
-            text_min2.setVisibility(View.INVISIBLE);
-            seek_fat3.setVisibility(View.INVISIBLE);
-            text_max3.setVisibility(View.INVISIBLE);
-            text_res3.setVisibility(View.INVISIBLE);
-            text_min3.setVisibility(View.INVISIBLE);
+                case SIDEEFFECT_TYPE_FATIGUE:
+                    seekBar1.setProgress(Integer.parseInt(sideeffectValueString));
+                    textSeekBarResult1.setText(sideeffectValueString);
+                    break;
+            }
         }
 
         popupWindow.setFocusable(true);
         popupWindow.update();
+        RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_journal_sideeffect_appetite_popup);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
 
-        seek_fat.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progress = 0;
+        seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
-                progress = progresValue;
-                Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
+                Integer progress = progresValue;
+                textSeekBarResult1.setText(progress.toString());
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(), "Started tracking seekbar", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if ( choice == "Apetite") {
-                    text_res.setText(progress + "0 %");
-                    Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
-                } else if ( choice == "Yrsel") {
-                    Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
-                } else if ( choice == "Krakn") {
-                    Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
-                } else if ( choice == "Forstopp") {
-                    Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
-                } else {
-                    text_res.setText(progress + "0 %");
-                    Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
-        seek_fat2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progress = 0;
+        seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
-                progress = progresValue;
-                Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
+                Integer progress = progresValue;
+                textSeekBarResult2.setText(progress.toString());
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(), "Started tracking seekbar", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if (choice == "Apetite") {
-                    text_res2.setText(progress + "0 %");
-                    Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
-                } else {
-                    text_res2.setText(progress + "0 %");
-                    Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
-        seek_fat3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progress = 0;
+        seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
-                progress = progresValue;
-                Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
+                Integer progress = progresValue;
+                textSeekBarResult3.setText(progress.toString());
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(), "Started tracking seekbar", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if (choice == "Apetite") {
-                    text_res3.setText(progress + "0 %");
-                    Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
-                } else {
-                    text_res3.setText(progress + "0 %");
-                    Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
             }
         });
 
-        relativeLayout = (RelativeLayout) findViewById(R.id.rel_lay_scr);
-        popupWindow.showAsDropDown(relativeLayout, 500, -1100);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonCancel.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.VISIBLE);
+                saveSideeffectAppetite(sideeffectType);
+                popupWindow.dismiss();
+            }
+
+            private void saveSideeffectAppetite(String sideeffectType) {
+                String sideeffectValue = "";
+                switch(sideeffectType){
+                    case SIDEEFFECT_TYPE_APPETITE:
+                        sideeffectValue = "Breakfast:"+seekBar1.getProgress()+",Lunch:"+seekBar2.getProgress()+",Dinner:"+seekBar3.getProgress();
+                        break;
+                    case SIDEEFFECT_TYPE_FATIGUE:
+                        sideeffectValue += seekBar1.getProgress();
+                        break;
+                }
+                saveSideeffect(sideeffectType, sideeffectValue);
+            }
+        });
+
     }
 
     /*   public void add_yrsel(String choice) {
@@ -1102,6 +1040,29 @@ public class JournalActivity extends AppCompatActivity {
         }
     }
 
+    private void saveSideeffect(String sideeffectType, String sideeffectValue){
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
+
+        Sideeffect newSideeffect = new Sideeffect(
+                0,
+                connectHandler.patient.patient_ID,
+                connectHandler.person.person_ID,
+                date,
+                time,
+                sideeffectType,
+                sideeffectValue);
+
+        connectHandler.createSideeffect(newSideeffect);
+        while (connectHandler.socketBusy){}
+
+        // update existing sideeffects, better solution, where only todays sideeffects are read TBD
+        connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy){}
+        findSideeffectsForToday();
+        // and voila :)
+
+    }
     private void careTeam(){
         Intent myIntent = new Intent(this, CareTeamActivity.class);
         startActivity(myIntent);
