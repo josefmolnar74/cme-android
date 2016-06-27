@@ -819,17 +819,12 @@ public class JournalActivity extends AppCompatActivity {
         // Replace X with patient name
         textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
 
-        // if sideeffect exist, initalise the saved checkbox values
+        // Get position for todays sideeffect
         String sideeffectValueString = null;
-        if ((appetiteIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_APPETITE)){
-            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(appetiteIdForToday).value;
-        } else if ((fatigueIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_FATIGUE)) {
-            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(fatigueIdForToday).value;
-        }
-
-        if (sideeffectValueString != null){
-            switch(sideeffectType){
-                case SIDEEFFECT_TYPE_APPETITE:
+        switch(sideeffectType){
+            case SIDEEFFECT_TYPE_APPETITE:
+                if (appetiteIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(appetiteIdForToday).value;
                     // Populate the seekbar values for the existing side effect
                     //Separate Breakfast, lunch, dinner and convert string values to integer and set progress default
                     String[] parts = sideeffectValueString.split(",");
@@ -842,13 +837,15 @@ public class JournalActivity extends AppCompatActivity {
                     Integer value3 = Integer.parseInt(parts[2].substring(parts[2].indexOf(":") + 1));
                     seekBar3.setProgress(value3);
                     textSeekBarResult3.setText(value3.toString());
-                    break;
-
-                case SIDEEFFECT_TYPE_FATIGUE:
+                }
+                break;
+            case SIDEEFFECT_TYPE_FATIGUE:
+                if (fatigueIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(fatigueIdForToday).value;
                     seekBar1.setProgress(Integer.parseInt(sideeffectValueString));
                     textSeekBarResult1.setText(sideeffectValueString);
-                    break;
-            }
+                }
+                break;
         }
 
         popupWindow.setFocusable(true);
@@ -988,17 +985,34 @@ public class JournalActivity extends AppCompatActivity {
 
         // if sideeffect exist, initalise the saved checkbox values
         String sideeffectValueString = null;
-        if ((appetiteIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_APPETITE)){
-            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(appetiteIdForToday).value;
-        } else if ((fatigueIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_FATIGUE)) {
-            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(fatigueIdForToday).value;
+
+        // Get position for todays sideeffect
+        switch(sideeffectType){
+            case SIDEEFFECT_TYPE_DIARRHEA:
+                if (diarrheaIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(diarrheaIdForToday).value;
+                }
+                break;
+            case SIDEEFFECT_TYPE_MOUTH:
+                if (mouthIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(mouthIdForToday).value;
+                }
+                break;
+            case SIDEEFFECT_TYPE_VOMIT:
+                if (vomitIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(vomitIdForToday).value;
+                }
+                break;
+            case SIDEEFFECT_TYPE_DIZZINESS:
+                if (dizzinessIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(dizzinessIdForToday).value;
+                }
+                break;
         }
 
         if (sideeffectValueString != null){
             switch(sideeffectType){
                 case SIDEEFFECT_TYPE_DIARRHEA:
-                    // Populate the seekbar values for the existing side effect
-                    //Separate Breakfast, lunch, dinner and convert string values to integer and set progress default
                     break;
 
                 case SIDEEFFECT_TYPE_MOUTH:
@@ -1027,6 +1041,7 @@ public class JournalActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 buttonCancel.setVisibility(View.VISIBLE);
                 buttonSave.setVisibility(View.VISIBLE);
                 saveSideeffectAppetite(sideeffectType);
