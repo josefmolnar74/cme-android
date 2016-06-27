@@ -146,6 +146,10 @@
                     android:id="@+id/relativeLayout_background"
                     android:layout_height="fill_parent">
 
+                    <RelativeLayout
+                        android:layout_width="7000dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/cloudjourneyxml"></RelativeLayout>
                 </RelativeLayout>
             </HorizontalScrollView>
 
