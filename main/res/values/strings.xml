@@ -11,21 +11,6 @@
     <string name="journal_sideeffects_dizziness">Yrsel</string>
     <string name="journal_sideeffects_vomit">Kräkning</string>
     <string name="journal_sideeffects_other">Annan biverkning</string>
-    <string name="journal_sideeffects_appetite_header"></string>
-    <string name="journal_sideeffects_appetite_question">Hur mycket åt * vid </string>
-    <string name="journal_sideeffects_appetite_seekbar_headline1">Frukost</string>
-    <string name="journal_sideeffects_appetite_seekbar_headline2">Lunch</string>
-    <string name="journal_sideeffects_appetite_seekbar_headline3">Middag</string>
-    <string name="journal_sideeffects_appetite_seekbar_min1">Inget alls</string>
-    <string name="journal_sideeffects_appetite_seekbar_min2">Inget alls</string>
-    <string name="journal_sideeffects_appetite_seekbar_min3">Inget alls</string>
-    <string name="journal_sideeffects_appetite_seekbar_max1">Åt upp allt</string>
-    <string name="journal_sideeffects_appetite_seekbar_max2">Åt upp allt</string>
-    <string name="journal_sideeffects_appetite_seekbar_max3">Åt upp allt</string>
-    <string name="journal_sideeffects_fatigue_question">Hur känner sig * just nu </string>
-    <string name="journal_sideeffects_fatigue_seekbar_headline1"></string>
-    <string name="journal_sideeffects_fatigue_seekbar_min1">Lite trött</string>
-    <string name="journal_sideeffects_fatigue_seekbar_max1">Jättetrött</string>
     <string name="journal_sideeffects_pain_right_hand">Höger hand</string>
     <string name="journal_sideeffects_pain_right_shoulder">Höger axel</string>
     <string name="journal_sideeffects_pain_right_chest">Höger bröst</string>
@@ -52,6 +37,29 @@
     <string name="journal_sideeffects_pain_right_abdomen">Mage, höger sida</string>
     <string name="journal_sideeffects_pain_left_abdomen">Mage, vänster sida</string>
     <string name="journal_sideeffects_pain_tailbone">Svanskotan</string>
+    <string name="journal_sideeffects_appetite_header">Appetite</string>
+    <string name="journal_sideeffects_appetite_question">Hur mycket åt * vid </string>
+    <string name="journal_sideeffects_appetite_seekbar_headline1">Frukost</string>
+    <string name="journal_sideeffects_appetite_seekbar_headline2">Lunch</string>
+    <string name="journal_sideeffects_appetite_seekbar_headline3">Middag</string>
+    <string name="journal_sideeffects_appetite_seekbar_min1">Inget alls</string>
+    <string name="journal_sideeffects_appetite_seekbar_min2">Inget alls</string>
+    <string name="journal_sideeffects_appetite_seekbar_min3">Inget alls</string>
+    <string name="journal_sideeffects_appetite_seekbar_max1">Åt upp allt</string>
+    <string name="journal_sideeffects_appetite_seekbar_max2">Åt upp allt</string>
+    <string name="journal_sideeffects_appetite_seekbar_max3">Åt upp allt</string>
+    <string name="journal_sideeffects_fatigue_header">Fatigue</string>
+    <string name="journal_sideeffects_fatigue_question">Hur känner sig * just nu </string>
+    <string name="journal_sideeffects_fatigue_seekbar_headline1"></string>
+    <string name="journal_sideeffects_fatigue_seekbar_min1">Lite trött</string>
+    <string name="journal_sideeffects_fatigue_seekbar_max1">Jättetrött</string>
+    <string name="journal_sideeffects_diarrhea_header">Diarrhea</string>
+    <string name="journal_sideeffects_diarrhea_question">Hur ofta har * haft diarré under det senaste dygnet </string>
+    <string name="journal_sideeffects_diarrhea_radioButton1">1</string>
+    <string name="journal_sideeffects_diarrhea_radioButton2">2</string>
+    <string name="journal_sideeffects_diarrhea_radioButton3">3</string>
+    <string name="journal_sideeffects_diarrhea_radioButton4">4</string>
+    <string name="journal_sideeffects_diarrhea_radioButton5">Mer än 4</string>
 
 
 

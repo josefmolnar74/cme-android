@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -87,7 +89,7 @@ public class JournalActivity extends AppCompatActivity {
     public static final String SIDEEFFECT_TYPE_TINGLING     = "Tingling/numbness";
     public static final String SIDEEFFECT_TYPE_DIARRHEA     = "Diarrhea";
     public static final String SIDEEFFECT_TYPE_APPETITE     = "Appetite";
-    public static final String SIDEEFFECT_TYPE_DIZINESS     = "Dizziness";
+    public static final String SIDEEFFECT_TYPE_DIZZINESS     = "Dizziness";
     public static final String SIDEEFFECT_TYPE_VOMIT        = "Vomit";
     public static final String SIDEEFFECT_TYPE_OTHER        = "Other";
 
@@ -135,7 +137,7 @@ public class JournalActivity extends AppCompatActivity {
         otherButton = (Button) findViewById(R.id.btn_journal_sideeffect_other);
 
         final EditText statusTextEditText   = (EditText) findViewById(R.id.edtxt_journal_status);
-        final TextView txt_med_txt          = (TextView) findViewById(R.id.txt_med_int);
+//        final TextView txt_med_txt          = (TextView) findViewById(R.id.txt_med_int);
         final TextView txt_diary_head       = (TextView) findViewById(R.id.txt_journal_header);
         final Button saveStatusButton       = (Button) findViewById(R.id.btn_journal_status_save);
         final Button medBreakfastButton     = (Button) findViewById(R.id.btn_journal_medication_breakfast);
@@ -278,6 +280,7 @@ public class JournalActivity extends AppCompatActivity {
         diarrheaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createSideeffectDiarrhea(SIDEEFFECT_TYPE_DIARRHEA);
             }
         });
 
@@ -299,9 +302,9 @@ public class JournalActivity extends AppCompatActivity {
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
-                    txt_med_txt.setText(R.string.txt_med_done);
+//                    txt_med_txt.setText(R.string.txt_med_done);
                 } else {
-                    txt_med_txt.setText(R.string.txt_med_info);
+//                    txt_med_txt.setText(R.string.txt_med_info);
                 }
             }
 
@@ -320,9 +323,9 @@ public class JournalActivity extends AppCompatActivity {
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
-                    txt_med_txt.setText(R.string.txt_med_done);
+//                    txt_med_txt.setText(R.string.txt_med_done);
                 } else {
-                    txt_med_txt.setText(R.string.txt_med_info);
+//                    txt_med_txt.setText(R.string.txt_med_info);
                 }
             }
         });
@@ -339,9 +342,9 @@ public class JournalActivity extends AppCompatActivity {
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
-                    txt_med_txt.setText(R.string.txt_med_done);
+//                    txt_med_txt.setText(R.string.txt_med_done);
                 } else {
-                    txt_med_txt.setText(R.string.txt_med_info);
+//                    txt_med_txt.setText(R.string.txt_med_info);
                 }
             }
         });
@@ -936,6 +939,118 @@ public class JournalActivity extends AppCompatActivity {
 
     }
 
+    public void createSideeffectDiarrhea(final String sideeffectType) {
+
+
+        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.journal_sideeffect_diarrhea_popup, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
+        final Button        buttonSave              = (Button) popupView.findViewById(R.id.btn_journal_sideeffects_diarrhea_save);
+        final Button        buttonCancel            = (Button) popupView.findViewById(R.id.btn_journal_sideeffects_diarrhea_cancel);
+        final TextView      textSideeffectsHeader   = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_diarrhea_popup_headline);
+        final TextView      textSideeffectQuestion  = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_diarrhea_popup_question);
+        final RadioGroup    radioGroup              = (RadioGroup) popupView.findViewById(R.id.rg_journal_sideeffects_dirrhea_popup);
+        final RadioButton   radioButton1            = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection1);
+        final RadioButton   radioButton2            = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection2);
+        final RadioButton   radioButton3            = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection3);
+        final RadioButton   radioButton4            = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection4);
+        final RadioButton   radioButton5            = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection5);
+
+        // Initialize seekbar popup
+        switch(sideeffectType){
+            case SIDEEFFECT_TYPE_DIARRHEA:
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_diarrhea);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
+                radioButton1.setText(R.string.journal_sideeffects_diarrhea_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffects_diarrhea_radioButton2);
+                radioButton3.setText(R.string.journal_sideeffects_diarrhea_radioButton3);
+                radioButton4.setText(R.string.journal_sideeffects_diarrhea_radioButton4);
+                radioButton5.setText(R.string.journal_sideeffects_diarrhea_radioButton5);
+                break;
+            case SIDEEFFECT_TYPE_MOUTH:
+//                textSideeffectsHeader.setText(R.string.journal_sideeffects_appetite);
+//                textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
+                break;
+            case SIDEEFFECT_TYPE_VOMIT:
+//                textSideeffectsHeader.setText(R.string.journal_sideeffects_appetite);
+//                textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
+                break;
+            case SIDEEFFECT_TYPE_DIZZINESS:
+//                textSideeffectsHeader.setText(R.string.journal_sideeffects_appetite);
+//                textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
+                break;
+
+        }
+
+        // Replace X with patient name
+        textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
+
+        // if sideeffect exist, initalise the saved checkbox values
+        String sideeffectValueString = null;
+        if ((appetiteIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_APPETITE)){
+            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(appetiteIdForToday).value;
+        } else if ((fatigueIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_FATIGUE)) {
+            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(fatigueIdForToday).value;
+        }
+
+        if (sideeffectValueString != null){
+            switch(sideeffectType){
+                case SIDEEFFECT_TYPE_DIARRHEA:
+                    // Populate the seekbar values for the existing side effect
+                    //Separate Breakfast, lunch, dinner and convert string values to integer and set progress default
+                    break;
+
+                case SIDEEFFECT_TYPE_MOUTH:
+                    break;
+
+                case SIDEEFFECT_TYPE_VOMIT:
+                    break;
+
+                case SIDEEFFECT_TYPE_DIZZINESS:
+                    break;
+            }
+        }
+
+        popupWindow.setFocusable(true);
+        popupWindow.update();
+        RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_journal_sideeffect_diarrhea_popup);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonCancel.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.VISIBLE);
+                saveSideeffectAppetite(sideeffectType);
+                popupWindow.dismiss();
+            }
+
+            private void saveSideeffectAppetite(String sideeffectType) {
+                String sideeffectValue = "";
+                switch(sideeffectType){
+                    case SIDEEFFECT_TYPE_DIARRHEA:
+                        break;
+                    case SIDEEFFECT_TYPE_MOUTH:
+                        break;
+                    case SIDEEFFECT_TYPE_VOMIT:
+                        break;
+                    case SIDEEFFECT_TYPE_DIZZINESS:
+                        break;
+                }
+                saveSideeffect(sideeffectType, sideeffectValue);
+            }
+        });
+
+    }
+
     private boolean checkIfDateIsToday(String dateString) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss.SSS'Z'");
         Date date = null;
@@ -1010,7 +1125,7 @@ public class JournalActivity extends AppCompatActivity {
                             appetiteIdForToday = position;
                             appetiteButton.getBackground().setTint(getColor(R.color.cme_light));
                             break;
-                        case SIDEEFFECT_TYPE_DIZINESS:
+                        case SIDEEFFECT_TYPE_DIZZINESS:
 //                        dizzinessIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
                             dizzinessIdForToday = position;
                             dizzinessButton.getBackground().setTint(getColor(R.color.cme_light));
