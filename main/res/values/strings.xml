@@ -2,6 +2,7 @@
     <string name="app_name">C-me Kids</string>
     <string name="preference_file_key">com.cancercarecompany.cme.PREFERENCE_FILE_KEY</string>
 
+    <string name="journal_status_header">Status</string>
     <string name="journal_sideeffects_fatigue">Trötthet</string>
     <string name="journal_sideeffects_pain">Smärta</string>
     <string name="journal_sideeffects_mouth_change">Munförändring</string>
@@ -53,34 +54,39 @@
     <string name="journal_sideeffects_fatigue_seekbar_headline1"></string>
     <string name="journal_sideeffects_fatigue_seekbar_min1">Lite trött</string>
     <string name="journal_sideeffects_fatigue_seekbar_max1">Jättetrött</string>
-    <string name="journal_sideeffects_diarrhea_header">Diarrhea</string>
+    <string name="journal_sideeffects_diarrhea_header">Diarré</string>
     <string name="journal_sideeffects_diarrhea_question">Hur ofta har * haft diarré under det senaste dygnet </string>
     <string name="journal_sideeffects_diarrhea_radioButton1">1</string>
     <string name="journal_sideeffects_diarrhea_radioButton2">2</string>
     <string name="journal_sideeffects_diarrhea_radioButton3">3</string>
     <string name="journal_sideeffects_diarrhea_radioButton4">4</string>
     <string name="journal_sideeffects_diarrhea_radioButton5">Mer än 4</string>
+    <string name="journal_sideeffects_mouth_change_header">Munförändringar</string>
+    <string name="journal_sideeffects_mouth_change_question">Har * några munförändringar </string>
+    <string name="journal_sideeffects_mouth_change_radioButton1">Sår i munnen</string>
+    <string name="journal_sideeffects_mouth_change_radioButton2">Torr i munnen</string>
+    <string name="journal_sideeffects_mouth_change_radioButton3">Smakförändringar</string>
+    <string name="journal_sideeffects_mouth_change_radioButton4">Ont i munnen</string>
+    <string name="journal_sideeffects_dizziness_header">Yrsel</string>
+    <string name="journal_sideeffects_dizziness_question">Hur ofta har * upplevt yrsel idag </string>
+    <string name="journal_sideeffects_dizziness_radioButton1">1-2 gånger</string>
+    <string name="journal_sideeffects_dizziness_radioButton2">Fler än 2 gånger</string>
+    <string name="journal_sideeffects_vomit_header">Kräkningar</string>
+    <string name="journal_sideeffects_vomit_question">Beskriv *s kräk </string>
+    <string name="journal_sideeffects_vomit_radioButton1">Blood/röd</string>
+    <string name="journal_sideeffects_vomit_radioButton2">Klar/grönaktig</string>
+    <string name="journal_sideeffects_vomit_radioButton3">Onedbruten mat</string>
 
-
-
-
-
+    <string name="welcome">Welcome to play, explore and document your cancer journey. It is free for patients and will always be.</string>
+    <string name="button_create_care_team">Create care team</string>
+    <string name="button_join_care_team">Join care team</string>
     <string name="login_saved_password">saved password</string>
     <string name="login_saved_email">saved email</string>
     <string name="login_auto_login"></string>
     <string name="title_activity_journal">JournalActivity</string>
-    <string name="welcome">Welcome to play, explore and document your cancer journey. It is free for patients and will always be.</string>
-    <string name="button_create_care_team">Create care team</string>
-    <string name="button_join_care_team">Join care team</string>
     <string name="button_login">Login</string>
     <string name="robin">Robin</string>
 
-    <string name="journal_status_header">Status</string>
-    <string name="chb_title">CHB</string>
-    <string name="lbl_contactinfo_caretem">Contact Informationn</string>
-    <string name="txt_choose_CT">Family/Friends</string>
-    <string name="txt_friends">Vänner till <xliff:g name="patient_name">%s</xliff:g></string>
-    <string name="txt_info">Information</string>
     <string name="firstname">Förnamn</string>
     <string name="lastname">Efternamn</string>
     <string name="phone">Telefon</string>

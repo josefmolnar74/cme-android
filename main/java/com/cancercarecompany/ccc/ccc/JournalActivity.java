@@ -121,11 +121,15 @@ public class JournalActivity extends AppCompatActivity {
     public static final String SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE       = "LAB";
     public static final String SIDEEFFECT_PAIN_TAILBONE_VALUE           = "TAI";
 
-    public static final String SIDEEFFECT_DIARRHEA_FIRST_VALUE          = "1";
-    public static final String SIDEEFFECT_DIARRHEA_SECOND_VALUE         = "2";
-    public static final String SIDEEFFECT_DIARRHEA_THIRD_VALUE          = "3";
-    public static final String SIDEEFFECT_DIARRHEA_FORTH_VALUE          = "4";
-    public static final String SIDEEFFECT_DIARRHEA_FIFTH_VALUE          = "MORE THAN 4";
+    public static final String SIDEEFFECT_DIARRHEA_VALUE_1 = "1";
+    public static final String SIDEEFFECT_DIARRHEA_VALUE_2 = "2";
+    public static final String SIDEEFFECT_DIARRHEA_VALUE_3 = "3";
+    public static final String SIDEEFFECT_DIARRHEA_VALUE_4 = "4";
+    public static final String SIDEEFFECT_DIARRHEA_VALUE_5 = "MORE THAN 4";
+
+    private String[] sideeffectDiarrheaValues = {SIDEEFFECT_DIARRHEA_VALUE_1,
+                        SIDEEFFECT_DIARRHEA_VALUE_2,SIDEEFFECT_DIARRHEA_VALUE_3,
+                        SIDEEFFECT_DIARRHEA_VALUE_4,SIDEEFFECT_DIARRHEA_VALUE_5};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -277,9 +281,16 @@ public class JournalActivity extends AppCompatActivity {
                 createSideeffectAppetite(SIDEEFFECT_TYPE_APPETITE);            }
         });
 
+        mouthButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createSideeffectDiarrhea(SIDEEFFECT_TYPE_MOUTH);            }
+        });
+
         dizzinessButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createSideeffectDiarrhea(SIDEEFFECT_TYPE_DIZZINESS);
             }
         });
 
@@ -293,6 +304,7 @@ public class JournalActivity extends AppCompatActivity {
         vomitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createSideeffectDiarrhea(SIDEEFFECT_TYPE_VOMIT);
             }
         });
 
@@ -964,7 +976,7 @@ public class JournalActivity extends AppCompatActivity {
         switch(sideeffectType){
             case SIDEEFFECT_TYPE_DIARRHEA:
                 textSideeffectsHeader.setText(R.string.journal_sideeffects_diarrhea);
-                textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_diarrhea_question);
                 radioButton1.setText(R.string.journal_sideeffects_diarrhea_radioButton1);
                 radioButton2.setText(R.string.journal_sideeffects_diarrhea_radioButton2);
                 radioButton3.setText(R.string.journal_sideeffects_diarrhea_radioButton3);
@@ -972,18 +984,32 @@ public class JournalActivity extends AppCompatActivity {
                 radioButton5.setText(R.string.journal_sideeffects_diarrhea_radioButton5);
                 break;
             case SIDEEFFECT_TYPE_MOUTH:
-//                textSideeffectsHeader.setText(R.string.journal_sideeffects_appetite);
-//                textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_mouth_change_header);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_mouth_change_question);
+                radioButton1.setText(R.string.journal_sideeffects_mouth_change_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffects_mouth_change_radioButton2);
+                radioButton3.setText(R.string.journal_sideeffects_mouth_change_radioButton3);
+                radioButton4.setText(R.string.journal_sideeffects_mouth_change_radioButton4);
+                radioButton5.setVisibility(View.INVISIBLE);
                 break;
             case SIDEEFFECT_TYPE_VOMIT:
-//                textSideeffectsHeader.setText(R.string.journal_sideeffects_appetite);
-//                textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_vomit_header);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_vomit_question);
+                radioButton1.setText(R.string.journal_sideeffects_vomit_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffects_vomit_radioButton2);
+                radioButton3.setText(R.string.journal_sideeffects_vomit_radioButton3);
+                radioButton4.setVisibility(View.INVISIBLE);
+                radioButton5.setVisibility(View.INVISIBLE);
                 break;
             case SIDEEFFECT_TYPE_DIZZINESS:
-//                textSideeffectsHeader.setText(R.string.journal_sideeffects_appetite);
-//                textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_dizziness_header);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_dizziness_question);
+                radioButton1.setText(R.string.journal_sideeffects_dizziness_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffects_dizziness_radioButton2);
+                radioButton3.setVisibility(View.INVISIBLE);
+                radioButton4.setVisibility(View.INVISIBLE);
+                radioButton5.setVisibility(View.INVISIBLE);
                 break;
-
         }
 
         // Replace X with patient name
@@ -1017,21 +1043,24 @@ public class JournalActivity extends AppCompatActivity {
         }
 
         if (sideeffectValueString != null){
-            switch(sideeffectType){
-                case SIDEEFFECT_TYPE_DIARRHEA:
+            switch(Integer.parseInt(sideeffectValueString)){
+                case 1:
+                    radioButton1.setChecked(true);
                     break;
-
-                case SIDEEFFECT_TYPE_MOUTH:
+                case 2:
+                    radioButton2.setChecked(true);
                     break;
-
-                case SIDEEFFECT_TYPE_VOMIT:
+                case 3:
+                    radioButton3.setChecked(true);
                     break;
-
-                case SIDEEFFECT_TYPE_DIZZINESS:
+                case 4:
+                    radioButton4.setChecked(true);
+                    break;
+                case 5:
+                    radioButton5.setChecked(true);
                     break;
             }
         }
-
         popupWindow.setFocusable(true);
         popupWindow.update();
         RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_journal_sideeffect_diarrhea_popup);
@@ -1047,41 +1076,29 @@ public class JournalActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selectedId=radioGroup.getCheckedRadioButtonId();
                 String sideeffectValue = "";
+                Integer radioButtonPosition = 0;
+                int selectedId=radioGroup.getCheckedRadioButtonId();
+                //Get which option was selected
                 if (selectedId == radioButton1.getId()){
-                    sideeffectValue += "1:1";
+//                    radioButtonPosition = 1;
+                    sideeffectValue += "1";
                 } else if (selectedId == radioButton2.getId()){
-                    sideeffectValue += "1:2";
+                    sideeffectValue += "2";
                 } else if (selectedId == radioButton3.getId()){
-                    sideeffectValue += "1:3";
+                    sideeffectValue += "3";
                 } else if (selectedId == radioButton4.getId()){
-                    sideeffectValue += "1:4";
+                    sideeffectValue += "4";
                 } else if (selectedId == radioButton5.getId()){
-                    sideeffectValue += "1:More than 4";
+                    sideeffectValue += "5";
                 }
 
                 buttonCancel.setVisibility(View.VISIBLE);
                 buttonSave.setVisibility(View.VISIBLE);
-                saveSideeffectAppetite(sideeffectType);
+                saveSideeffect(sideeffectType, sideeffectValue);
                 popupWindow.dismiss();
             }
 
-            private void saveSideeffectAppetite(String sideeffectType) {
-                String sideeffectValue = "";
-                switch(sideeffectType){
-                    case SIDEEFFECT_TYPE_DIARRHEA:
-
-                        break;
-                    case SIDEEFFECT_TYPE_MOUTH:
-                        break;
-                    case SIDEEFFECT_TYPE_VOMIT:
-                        break;
-                    case SIDEEFFECT_TYPE_DIZZINESS:
-                        break;
-                }
-                saveSideeffect(sideeffectType, sideeffectValue);
-            }
         });
 
     }
@@ -1126,7 +1143,7 @@ public class JournalActivity extends AppCompatActivity {
             for (int position=0; position < connectHandler.sideeffects.sideeffect_data.size(); position++){
                 boolean dateIsToday = false;
                 try {
-                    dateIsToday = checkIfDateIsToday(connectHandler.status.status_data.get(position).date);
+                    dateIsToday = checkIfDateIsToday(connectHandler.sideeffects.sideeffect_data.get(position).date);
                 } catch (ParseException e){}
                 if (dateIsToday){
                     switch (connectHandler.sideeffects.sideeffect_data.get(position).type){
