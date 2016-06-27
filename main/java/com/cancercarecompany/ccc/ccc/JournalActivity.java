@@ -147,16 +147,16 @@ public class JournalActivity extends AppCompatActivity {
         vomitButton = (Button) findViewById(R.id.btn_journal_sideeffect_vomit);
         otherButton = (Button) findViewById(R.id.btn_journal_sideeffect_other);
 
-        final EditText statusTextEditText   = (EditText) findViewById(R.id.edtxt_journal_status);
-//        final TextView txt_med_txt          = (TextView) findViewById(R.id.txt_med_int);
-        final TextView txt_diary_head       = (TextView) findViewById(R.id.txt_journal_header);
-        final Button saveStatusButton       = (Button) findViewById(R.id.btn_journal_status_save);
-        final Button medBreakfastButton     = (Button) findViewById(R.id.btn_journal_medication_breakfast);
-        final Button medLunchButton         = (Button) findViewById(R.id.btn_journal_medication_lunch);
-        final Button medDinnerButton        = (Button) findViewById(R.id.btn_journal_medication_dinner);
-        final ImageButton journeyButton     = (ImageButton) findViewById(R.id.btn_journal_journey_button);
-        final ImageButton careTeamButton    = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
-        final CalendarView calendar         = (CalendarView) findViewById(R.id.cal_journal_calendar);
+        final EditText statusTextEditText       = (EditText) findViewById(R.id.edtxt_journal_status);
+//        final TextView txt_med_txt            = (TextView) findViewById(R.id.txt_med_int);
+        final TextView txt_diary_head           = (TextView) findViewById(R.id.txt_journal_header);
+        final Button saveStatusButton           = (Button) findViewById(R.id.btn_journal_status_save);
+        final Button medicationBreakfastButton  = (Button) findViewById(R.id.btn_journal_medication_breakfast);
+        final Button medicationLunchButton      = (Button) findViewById(R.id.btn_journal_medication_lunch);
+        final Button medicationDinnerButton     = (Button) findViewById(R.id.btn_journal_medication_dinner);
+        final ImageButton journeyButton         = (ImageButton) findViewById(R.id.btn_journal_journey_button);
+        final ImageButton careTeamButton        = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
+        final CalendarView calendar             = (CalendarView) findViewById(R.id.cal_journal_calendar);
         //Get journal data
         connectHandler = ConnectionHandler.getInstance();
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
@@ -333,15 +333,15 @@ public class JournalActivity extends AppCompatActivity {
             }
         });
 
-        medBreakfastButton.setOnClickListener(new View.OnClickListener() {
+        medicationBreakfastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (fr_mark.equals(Boolean.FALSE)) {
                     fr_mark = Boolean.TRUE;
-                    medBreakfastButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medicationBreakfastButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     fr_mark = Boolean.FALSE;
-                    medBreakfastButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medicationBreakfastButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
@@ -354,15 +354,15 @@ public class JournalActivity extends AppCompatActivity {
         });
 
 
-        medLunchButton.setOnClickListener(new View.OnClickListener() {
+        medicationLunchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ( lu_mark.equals(Boolean.FALSE)) {
                     lu_mark = Boolean.TRUE;
-                    medLunchButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medicationLunchButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     lu_mark = Boolean.FALSE;
-                    medLunchButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medicationLunchButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
@@ -373,15 +373,15 @@ public class JournalActivity extends AppCompatActivity {
             }
         });
 
-        medDinnerButton.setOnClickListener(new View.OnClickListener() {
+        medicationDinnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ( mi_mark.equals(Boolean.FALSE)) {
                     mi_mark = Boolean.TRUE;
-                    medDinnerButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medicationDinnerButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     mi_mark = Boolean.FALSE;
-                    medDinnerButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medicationDinnerButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
