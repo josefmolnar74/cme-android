@@ -138,7 +138,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:id="@+id/Scroll_background"
-                android:scrollIndicators="none">
+                android:scrollbars="none">
 
                 <RelativeLayout
                     android:layout_width="40000dp"
@@ -157,7 +157,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:id="@+id/Scroll_background2"
-                android:scrollIndicators="none">
+                android:scrollbars="none">
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
@@ -180,7 +180,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:id="@+id/Scroll_roadlayer"
-                android:scrollIndicators="none">
+                android:scrollbars="none">
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
@@ -208,14 +208,27 @@
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentLeft="true"
                         android:layout_marginBottom="20dp" />
+
                 </RelativeLayout>
             </HorizontalScrollView>
 
             <HorizontalScrollView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:scrollbars="none"
+                android:id="@+id/Scroll_Bushes" >
+
+                <RelativeLayout
+                    android:id="@+id/bushesLayer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"></RelativeLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:id="@+id/Scroll_eventlayer"
-                android:scrollIndicators="none">
+                android:scrollbars="none">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
