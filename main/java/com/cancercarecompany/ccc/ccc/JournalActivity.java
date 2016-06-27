@@ -1041,6 +1041,7 @@ public class JournalActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int selectedId=radioGroup.getCheckedRadioButtonId();
 
                 buttonCancel.setVisibility(View.VISIBLE);
                 buttonSave.setVisibility(View.VISIBLE);
@@ -1052,6 +1053,7 @@ public class JournalActivity extends AppCompatActivity {
                 String sideeffectValue = "";
                 switch(sideeffectType){
                     case SIDEEFFECT_TYPE_DIARRHEA:
+
                         break;
                     case SIDEEFFECT_TYPE_MOUTH:
                         break;
