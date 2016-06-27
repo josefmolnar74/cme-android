@@ -3,7 +3,6 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -512,7 +511,14 @@ public class JournalActivity extends AppCompatActivity {
         final Button    buttonSave                  = (Button) popupView.findViewById(R.id.btn_journal_status_save);
         final Button    buttonCancel                = (Button) popupView.findViewById(R.id.btn_journal_status_cancel);
 
-        sideeffectsHeaderTextView.setText(sideeffectType);
+        switch(sideeffectType){
+            case SIDEEFFECT_TYPE_PAIN:
+                sideeffectsHeaderTextView.setText(R.string.journal_sideeffects_pain);
+                break;
+            case SIDEEFFECT_TYPE_TINGLING:
+                sideeffectsHeaderTextView.setText(R.string.journal_sideeffects_tingling);
+                break;
+        }
         // Replace X with patient name
         textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
 
@@ -784,26 +790,26 @@ public class JournalActivity extends AppCompatActivity {
         // Initialize seekbar popup
         switch(sideeffectType){
             case SIDEEFFECT_TYPE_APPETITE:
-                textSideeffectsHeader.setText(SIDEEFFECT_TYPE_APPETITE);
-                textSideeffectQuestion.setText(R.string.txt_journal_sideeffects_appetite_question);
-                textSideeffectsHeader1.setText(R.string.txt_journal_sideeffects_appetite_seekbar_headline1);
-                textSeekBarMin1.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min1);
-                textSeekBarMax1.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min1);
-                textSideeffectsHeader2.setText(R.string.txt_journal_sideeffects_appetite_seekbar_headline2);
-                textSeekBarMin2.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min2);
-                textSeekBarMax2.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min2);
-                textSideeffectsHeader3.setText(R.string.txt_journal_sideeffects_appetite_seekbar_headline3);
-                textSeekBarMin3.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min3);
-                textSeekBarMax3.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min3);
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_appetite);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
+                textSideeffectsHeader1.setText(R.string.journal_sideeffects_appetite_seekbar_headline1);
+                textSeekBarMin1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
+                textSeekBarMax1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
+                textSideeffectsHeader2.setText(R.string.journal_sideeffects_appetite_seekbar_headline2);
+                textSeekBarMin2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
+                textSeekBarMax2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
+                textSideeffectsHeader3.setText(R.string.journal_sideeffects_appetite_seekbar_headline3);
+                textSeekBarMin3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
+                textSeekBarMax3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
                 break;
             case SIDEEFFECT_TYPE_FATIGUE:
-                textSideeffectsHeader.setText(SIDEEFFECT_TYPE_FATIGUE);
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_fatigue);
                 seekbarLayout2.removeAllViews();
                 seekbarLayout3.removeAllViews();
-                textSideeffectQuestion.setText(R.string.txt_journal_sideeffects_fatigue_question);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_fatigue_question);
                 textSideeffectsHeader1.setVisibility(View.INVISIBLE);
-                textSeekBarMin1.setText(R.string.txt_journal_sideeffects_fatigue_seekbar_min1);
-                textSeekBarMax1.setText(R.string.txt_journal_sideeffects_fatigue_seekbar_max1);
+                textSeekBarMin1.setText(R.string.journal_sideeffects_fatigue_seekbar_min1);
+                textSeekBarMax1.setText(R.string.journal_sideeffects_fatigue_seekbar_max1);
                 break;
         }
 
@@ -930,27 +936,6 @@ public class JournalActivity extends AppCompatActivity {
 
     }
 
-    /*   public void add_yrsel(String choice) {
-            popup_add_yrsel(choice);
-            //popup_add_fatigue("Pain");
-        }
-    */
-    public void popup_add_yrsel(String choice) {
-        LayoutInflater layoutInflater
-                = (LayoutInflater) getBaseContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.biv_slider_0_10_popup, null);
-
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, 1000, 2000);
-
-        popupWindow.setFocusable(true);
-        popupWindow.update();
-
-        relativeLayout = (RelativeLayout) findViewById(R.id.rel_lay_scr);
-        popupWindow.showAsDropDown(relativeLayout, 500, -1100);
-    }
-
     private boolean checkIfDateIsToday(String dateString) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss.SSS'Z'");
         Date date = null;
@@ -989,52 +974,59 @@ public class JournalActivity extends AppCompatActivity {
 
         if (connectHandler.sideeffects.sideeffect_data != null){
             for (int position=0; position < connectHandler.sideeffects.sideeffect_data.size(); position++){
-                switch (connectHandler.sideeffects.sideeffect_data.get(position).type){
-                    case SIDEEFFECT_TYPE_FATIGUE:
+                boolean dateIsToday = false;
+                try {
+                    dateIsToday = checkIfDateIsToday(connectHandler.status.status_data.get(position).date);
+                } catch (ParseException e){}
+                if (dateIsToday){
+                    switch (connectHandler.sideeffects.sideeffect_data.get(position).type){
+                        case SIDEEFFECT_TYPE_FATIGUE:
 //                        fatigueIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        fatigueIdForToday = position;
-                        fatigueButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_PAIN:
+                            fatigueIdForToday = position;
+                            fatigueButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_PAIN:
 //                        painIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        painIdForToday = position;
-                        painButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_MOUTH:
+                            painIdForToday = position;
+                            painButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_MOUTH:
 //                        mouthIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        mouthIdForToday = position;
-                        mouthButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_TINGLING:
+                            mouthIdForToday = position;
+                            mouthButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_TINGLING:
 //                        tinglingIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        tinglingIdForToday = position;
-                        tinglingButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_DIARRHEA:
+                            tinglingIdForToday = position;
+                            tinglingButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_DIARRHEA:
 //                        diarrheaIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        diarrheaIdForToday = position;
-                        diarrheaButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_APPETITE:
+                            diarrheaIdForToday = position;
+                            diarrheaButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_APPETITE:
 //                        appetiteIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        appetiteIdForToday = position;
-                        appetiteButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_DIZINESS:
+                            appetiteIdForToday = position;
+                            appetiteButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_DIZINESS:
 //                        dizzinessIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        dizzinessIdForToday = position;
-                        dizzinessButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_VOMIT:
+                            dizzinessIdForToday = position;
+                            dizzinessButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_VOMIT:
 //                        vomitIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        vomitIdForToday = position;
-                        vomitButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_OTHER:
+                            vomitIdForToday = position;
+                            vomitButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_OTHER:
 //                        otherIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        otherIdForToday = position;
-                        otherButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
+                            otherIdForToday = position;
+                            otherButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                    }
+
                 }
             }
         }
