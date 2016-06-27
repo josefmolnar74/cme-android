@@ -121,6 +121,12 @@ public class JournalActivity extends AppCompatActivity {
     public static final String SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE       = "LAB";
     public static final String SIDEEFFECT_PAIN_TAILBONE_VALUE           = "TAI";
 
+    public static final String SIDEEFFECT_DIARRHEA_FIRST_VALUE          = "1";
+    public static final String SIDEEFFECT_DIARRHEA_SECOND_VALUE         = "2";
+    public static final String SIDEEFFECT_DIARRHEA_THIRD_VALUE          = "3";
+    public static final String SIDEEFFECT_DIARRHEA_FORTH_VALUE          = "4";
+    public static final String SIDEEFFECT_DIARRHEA_FIFTH_VALUE          = "MORE THAN 4";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1042,6 +1048,18 @@ public class JournalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int selectedId=radioGroup.getCheckedRadioButtonId();
+                String sideeffectValue = "";
+                if (selectedId == radioButton1.getId()){
+                    sideeffectValue += "1:1";
+                } else if (selectedId == radioButton2.getId()){
+                    sideeffectValue += "1:2";
+                } else if (selectedId == radioButton3.getId()){
+                    sideeffectValue += "1:3";
+                } else if (selectedId == radioButton4.getId()){
+                    sideeffectValue += "1:4";
+                } else if (selectedId == radioButton5.getId()){
+                    sideeffectValue += "1:More than 4";
+                }
 
                 buttonCancel.setVisibility(View.VISIBLE);
                 buttonSave.setVisibility(View.VISIBLE);
