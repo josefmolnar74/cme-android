@@ -7,6 +7,7 @@ import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -158,6 +159,14 @@ public class JournalActivity extends AppCompatActivity {
         final ImageButton journeyButton         = (ImageButton) findViewById(R.id.btn_journal_journey_button);
         final ImageButton careTeamButton        = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
         final CalendarView calendar             = (CalendarView) findViewById(R.id.cal_journal_calendar);
+
+        // Statusbar color
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(this.getResources().getColor(R.color.cme_light));
+
+
         //Get journal data
         connectHandler = ConnectionHandler.getInstance();
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);

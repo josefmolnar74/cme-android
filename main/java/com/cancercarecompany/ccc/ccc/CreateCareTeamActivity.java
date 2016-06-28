@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 public class CreateCareTeamActivity extends AppCompatActivity {
@@ -21,7 +23,12 @@ public class CreateCareTeamActivity extends AppCompatActivity {
         yearOfBirth = (EditText) findViewById(R.id.text_create_careteam_year_of_birth);
         diagnose = (EditText) findViewById(R.id.text_create_careteam_diagnose);
         relationship = (EditText) findViewById(R.id.text_create_careteam_relationship);
-//        patientName.setInputType((InputType.TYPE_NULL);
+
+        // Statusbar color
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(this.getResources().getColor(R.color.cme_dark));
     }
 
     public void onClickCreateCareTeamNext(View view){

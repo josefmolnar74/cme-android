@@ -9,6 +9,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -30,6 +32,12 @@ public class WelcomeActivity extends AppCompatActivity {
         loginEmail = (EditText) findViewById(R.id.text_login_email);
         loginPassword = (EditText) findViewById(R.id.text_login_password);
         loginSave = (CheckBox) findViewById(R.id.checkBox_save_login);
+
+        // Statusbar color
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(this.getResources().getColor(R.color.cme_dark));
 
 
         //Check if username and password has been saved in share preferences
