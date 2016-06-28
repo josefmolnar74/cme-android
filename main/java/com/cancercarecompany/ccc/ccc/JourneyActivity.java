@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.EventLog;
 import android.view.Display;
 import android.view.DragEvent;
 import android.view.Gravity;
@@ -109,6 +110,7 @@ public class JourneyActivity extends AppCompatActivity {
     RelativeLayout bushesLayer;
     RelativeLayout relativeLayout3;
     RelativeLayout mountains_layer;
+    RelativeLayout tree_layer;
     int eventsSameDate = 0;
     String subCategoryClicked = "";
     Date date;
@@ -120,6 +122,8 @@ public class JourneyActivity extends AppCompatActivity {
     TextView eventInfoText;
     TextView eventHeadline;
 
+    ConnectionHandler connectHandler;
+
 
     View vID;
     private GoogleApiClient client;
@@ -130,12 +134,23 @@ public class JourneyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey);
         eventList = new ArrayList<Events>();
+/*
+        connectHandler = ConnectionHandler.getInstance();
+
+        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy){}
+
+        for (int i=0; i < connectHandler.events.event_data.size();i++){
+            eventList.add(connectHandler.events.event_data.get(i));
+        }
+        */
 
         Scroll_background = (HorizontalScrollView)findViewById(R.id.Scroll_background);
         Scroll_background2 = (HorizontalScrollView)findViewById(R.id.Scroll_background2);
         Scroll_background3 = (HorizontalScrollView) findViewById(R.id.Scroll_background3);
 
-        mountains_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background3);
+        tree_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background3);
+        mountains_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background2);
         car = (ImageView) findViewById(R.id.img_car_journey);
         addAppointment = (ImageButton) findViewById(R.id.btn_appointment_journey);
         addTreatment = (ImageButton) findViewById(R.id.btn_treatment_journey);
@@ -465,6 +480,7 @@ public class JourneyActivity extends AppCompatActivity {
                 params.width = (height / 7) * 2;
                 params.height = (height / 7) * 2;
             }
+
             indexButton.setLayoutParams(params);
             lastButtonX = (currentEventInt * 2) + 300;
 
@@ -1996,33 +2012,33 @@ public class JourneyActivity extends AppCompatActivity {
                     DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
                     int bushesY1 = Math.round(containerHeight - containerHeight/4 / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.mid1);
-                    params.setMargins(i * 500, height/ 2+ 30, 0, 0);
+                    params.setMargins(i * 500, 300, 0, 0);
                       params.width = containerWidth / 2 ;
-                      params.height = containerHeight / 3 ;
+                      params.height = containerHeight / 2 ;
                     break;
                 case 1:
                     DisplayMetrics displayMetrics2 = getApplicationContext().getResources().getDisplayMetrics();
                     int bushesY2 = Math.round(containerHeight - containerHeight/4 / (displayMetrics2.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.mid2);
-                    params.setMargins(i * 500, height/ 2+ 30, 0, 0);
+                    params.setMargins(i * 500, 300, 0, 0);
                     params.width = containerWidth / 2 ;
-                    params.height = containerHeight / 3 ;
+                    params.height = containerHeight / 2 ;
                     break;
                 case 2:
                     DisplayMetrics displayMetrics3 = getApplicationContext().getResources().getDisplayMetrics();
                     int bushesY3 = Math.round(containerHeight - containerHeight/4/ (displayMetrics3.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.mid3);
-                    params.setMargins(i * 500, height/ 2+ 60, 0, 0);
+                    params.setMargins(i * 500, 300, 0, 0);
                     params.width = containerWidth / 2 ;
-                    params.height = containerHeight / 3 ;
+                    params.height = containerHeight / 2 ;
                     break;
                 case 3:
                     DisplayMetrics displayMetrics4 = getApplicationContext().getResources().getDisplayMetrics();
                     int bushesY4 = Math.round(containerHeight - containerHeight/4/ (displayMetrics4.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.mid4);
-                    params.setMargins(i * 500, height/ 2 + 60, 0, 0);
+                    params.setMargins(i * 500, 300 + 60, 0, 0);
                     params.width = containerWidth / 2 ;
-                    params.height = containerHeight / 3 ;
+                    params.height = containerHeight / 2 ;
                     break;
 
 
@@ -2146,7 +2162,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event5);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 8);
-        Events event6 = new Events("Appointment", "Dentist", "xray at dentist", c.getTime(), null, null, null);
+        Events event6 = new Events("Hospital", "Hospital", "xray at dentist", c.getTime(), null, null, null);
         eventList.add(event6);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 9);
@@ -2246,7 +2262,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event30);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 48);
-        Events event31 = new Events("Appointments", "Therapist", "at hospital", c.getTime(), null, null, null);
+        Events event31 = new Events("Hospital", "Hospital", "at hospital", c.getTime(), null, null, null);
         eventList.add(event31);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 52);
@@ -2298,7 +2314,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event43);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 80);
-        Events event44 = new Events("Tests", "DT", "wooow", c.getTime(), null, null, null);
+        Events event44 = new Events("Hospital", "Hospital", "wooow", c.getTime(), null, null, null);
         eventList.add(event44);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 82);
