@@ -1283,14 +1283,17 @@ public class JourneyActivity extends AppCompatActivity {
             case "Dialysis":
                 btn.setBackgroundResource(R.drawable.dialysisbubble);
                 break;
-            case "Biological_therapy":
-                btn.setBackgroundResource(R.drawable.biologicaltherapybubble);
+            case "Biological_Therapy":
+                btn.setBackgroundResource(R.drawable.treatmentbiologic);
                 break;
-            case "Targeted_therapy":
+            case "Targeted_Therapy":
                 btn.setBackgroundResource(R.drawable.targetedtherapybubble);
                 break;
             case "Portacat":
                 btn.setBackgroundResource(R.drawable.pinkbubble);
+                break;
+            case "Picture_Memory":
+                btn.setBackgroundResource(R.drawable.photominne);
                 break;
             case "Hospital":
                 btn.setBackgroundResource(R.drawable.hospital);
@@ -1333,16 +1336,11 @@ public class JourneyActivity extends AppCompatActivity {
                 if (thisEvent.equals(indexEvent)) {
                     eventsSameDate = eventsSameDate + 1;
                     ImageButton collidateButton = ((ImageButton) findViewById(i));
-
                     topMargin = (int) collidateButton.getY() + (height / 7);
-                    if (topMargin > 100 + (height / 7) * 2) {
-                        topMargin = 100;
-                    }
-
-
-                }else{
-                    topMargin = 100;
+                    System.out.println("collidatebutton" + collidateButton.getY());
+                    System.out.println("esstimatedtopmargoin" + topMargin);
                 }
+
             }
 
         }
@@ -1355,10 +1353,9 @@ public class JourneyActivity extends AppCompatActivity {
             params.width = (height / 7) * 2;
             params.height = (height / 7) * 2;
         }
-
+        System.out.println("topmargin" + topMargin);
         indexButton.setLayoutParams(params);
-
-        topMargin = 0;
+        topMargin = 100;
     }
 
 
