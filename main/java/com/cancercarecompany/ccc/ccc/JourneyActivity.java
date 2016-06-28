@@ -2,6 +2,7 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.DragEvent;
 import android.view.Gravity;
@@ -26,6 +28,7 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -33,6 +36,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -96,26 +101,23 @@ public class JourneyActivity extends AppCompatActivity {
     RelativeLayout journeyScreen;
     RelativeLayout layoutButtons;
     RelativeLayout eventLayout;
+    RelativeLayout containerLayout;
     RelativeLayout bottomLayout;
     RelativeLayout bushesLayer;
     RelativeLayout relativeLayout3;
     int eventsSameDate = 0;
     String subCategoryClicked = "";
     Date date;
-    RelativeLayout wholeScreen;
+    LinearLayout wholeScreen;
     int width;
     int height;
+    int containerHeight;
+    int containerWidth;
     TextView eventInfoText;
     TextView eventHeadline;
 
 
     View vID;
-
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
 
 
@@ -138,10 +140,12 @@ public class JourneyActivity extends AppCompatActivity {
         bottomScroll = (HorizontalScrollView) findViewById(R.id.Scroll_roadlayer);
         Scroll_bushes = (HorizontalScrollView) findViewById(R.id.Scroll_Bushes);
         layoutButtons = (RelativeLayout) findViewById(R.id.relativeLayout3);
+        containerLayout = (RelativeLayout) findViewById(R.id.layerCoantainerJourney);
         eventLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
         bottomLayout = (RelativeLayout) findViewById(R.id.relativeLayout_roadlayout);
         bushesLayer = (RelativeLayout) findViewById(R.id.bushesLayer);
         journeyScreen = (RelativeLayout) findViewById(R.id.journeyscreen);
+        wholeScreen = (LinearLayout) findViewById(R.id.journeyLayout);
         careTeamButton = (ImageButton) findViewById(R.id.contactsButton);
         journalButton = (ImageButton) findViewById(R.id.journalButton);
         logoButton = (ImageButton) findViewById(R.id.logoButton);
@@ -162,12 +166,9 @@ public class JourneyActivity extends AppCompatActivity {
         width = size.x;
         height = size.y;
 
-
-
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            date = sdf.parse("10/04/2016");
+            date = sdf.parse("01/06/2016");
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -185,7 +186,18 @@ public class JourneyActivity extends AppCompatActivity {
         ExampleJourney();
         refreshEvents();
        // generateClouds();
-        generateBushes();
+
+        final ViewTreeObserver observer = containerLayout.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                containerHeight = containerLayout.getHeight();
+
+                System.out.println("container Height" + containerHeight);
+                generateBushes();
+                containerLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
 
 
         eventScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
@@ -269,14 +281,12 @@ public class JourneyActivity extends AppCompatActivity {
         carPosition = carPosition / 1000000;
         int carIntPosition = (int) carPosition;
         carIntPosition = (carIntPosition * 2) +300;
-        System.out.println("adasdsadas" +carIntPosition);
 
 
         paramsCar.setMargins(0, height - 500, 0, 0);
 
         paramsCar.width = 400;
         paramsCar.height = 400;
-
 
         car.setLayoutParams(paramsCar);
         bottomLayout.addView(car, paramsCar);
@@ -315,89 +325,94 @@ public class JourneyActivity extends AppCompatActivity {
 
             switch (subCategoryClicked) {
                 case "Medical_Oncologist":
-                    btn.setBackgroundResource(R.drawable.doctor);
+                    btn.setBackgroundResource(R.drawable.doctormanbubble);
                     break;
                 case "Hematologist_Doctor":
-                    btn.setBackgroundResource(R.drawable.nurse);
+                    btn.setBackgroundResource(R.drawable.doctor);
                     break;
                 case "Nurse":
-                    btn.setBackgroundResource(R.drawable.bluebubble);
-
+                    btn.setBackgroundResource(R.drawable.nursebubble);
+                    break;
+                case "Bloodtest":
+                    btn.setBackgroundResource(R.drawable.bloodtestbubble);
                     break;
                 case "Dentist":
-                    btn.setBackgroundResource(R.drawable.pinkbubble);
-                    break;
-                case "Surgeon":
-                    btn.setBackgroundResource(R.drawable.orangebubble);
-                    break;
-                case "Anestetisten":
-                    btn.setBackgroundResource(R.drawable.pinkbubble);
-                    break;
-                case "Therapist":
-                    btn.setBackgroundResource(R.drawable.pinkbubble);
-                    break;
-                case "Physiotherapist":
                     btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
+                case "Surgeon":
+                    btn.setBackgroundResource(R.drawable.surgeonbubble);
+                    break;
+                case "Anestetisten":
+                    btn.setBackgroundResource(R.drawable.anestetistbubble);
+                    break;
+                case "Therapist":
+                    btn.setBackgroundResource(R.drawable.therapybubble);
+                    break;
+                case "Physiotherapist":
+                    btn.setBackgroundResource(R.drawable.sjukgymnast);
+                    break;
                 case "Dietician":
-                    btn.setBackgroundResource(R.drawable.treatmentradiobubble);
+                    btn.setBackgroundResource(R.drawable.pinkbubble);
                     break;
                 case "MR":
-                    btn.setBackgroundResource(R.drawable.therapy);
+                    btn.setBackgroundResource(R.drawable.mrbubble);
                     break;
                 case "DT":
-                    btn.setBackgroundResource(R.drawable.treatmentdialysbubble);
+                    btn.setBackgroundResource(R.drawable.bluebubble);
                     break;
                 case "Hearing_Tests":
-                    btn.setBackgroundResource(R.drawable.treatmentbiologicbubble);
+                    btn.setBackgroundResource(R.drawable.hearingtestbubble);
                     break;
                 case "Bone_Marrow_Samples":
-                    btn.setBackgroundResource(R.drawable.bluebubble);
+                    btn.setBackgroundResource(R.drawable.bonemarrowbubble);
                     break;
                 case "EEG":
-                    btn.setBackgroundResource(R.drawable.testbloodbubble);
+                    btn.setBackgroundResource(R.drawable.eegbubble);
                     break;
                 case "EKG":
-                    btn.setBackgroundResource(R.drawable.testheartbubble);
+                    btn.setBackgroundResource(R.drawable.ekgbubble);
                     break;
                 case "Kidney_Investigation":
-                    btn.setBackgroundResource(R.drawable.bluebubble);
+                    btn.setBackgroundResource(R.drawable.kidneyinvestigationbubble);
                     break;
                 case "Ultrasound":
-                    btn.setBackgroundResource(R.drawable.pinkbubble);
+                    btn.setBackgroundResource(R.drawable.ultrasoundbubble);
                     break;
                 case "Alternating Current":
                     btn.setBackgroundResource(R.drawable.pinkbubble);
                     break;
                 case "Transplantation":
-                    btn.setBackgroundResource(R.drawable.orangebubblee);
+                    btn.setBackgroundResource(R.drawable.pinkbubble);
                     break;
                 case "Cytistatika":
-                    btn.setBackgroundResource(R.drawable.bluebubble);
+                    btn.setBackgroundResource(R.drawable.cytistatikabubble);
                     break;
                 case "Surgery":
                     btn.setBackgroundResource(R.drawable.pinkbubble);
                     break;
                 case "Stem_Cell_Transplantation":
-                    btn.setBackgroundResource(R.drawable.pinkbubble);
+                    btn.setBackgroundResource(R.drawable.stemcelltransplantationbubble);
                     break;
                 case "Radiation":
-                    btn.setBackgroundResource(R.drawable.treatmentradiobubble);
+                    btn.setBackgroundResource(R.drawable.radiationbubble);
                     break;
                 case "Dialysis":
-                    btn.setBackgroundResource(R.drawable.treatmentdialysbubble);
+                    btn.setBackgroundResource(R.drawable.dialysisbubble);
                     break;
                 case "Biological_Therapy":
-                    btn.setBackgroundResource(R.drawable.treatmentbiologicbubble);
+                    btn.setBackgroundResource(R.drawable.biologicaltherapybubble);
                     break;
                 case "Targeted_Therapy":
-                    btn.setBackgroundResource(R.drawable.treatmenttargetbubble);
+                    btn.setBackgroundResource(R.drawable.targetedtherapybubble);
                     break;
                 case "Portacat":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.pinkbubble);
                     break;
                 case "Hospital":
                     btn.setBackgroundResource(R.drawable.hospital);
+                    break;
+                case "Picture_Memory":
+                    btn.setBackgroundResource(R.drawable.photominne);
                     break;
                 case "Start":
                     btn.setBackgroundResource(R.drawable.journeystart);
@@ -570,14 +585,14 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory8.setVisibility(View.VISIBLE);
                 subCategory9.setVisibility(View.VISIBLE);
 
-                subCategory1.setBackgroundResource(R.drawable.doctor);
-                subCategory2.setBackgroundResource(R.drawable.nurse);
-                subCategory3.setBackgroundResource(R.drawable.pinkbubble);
-                subCategory4.setBackgroundResource(R.drawable.orangebubble);
-                subCategory5.setBackgroundResource(R.drawable.orangebubblee);
+                subCategory1.setBackgroundResource(R.drawable.doctormanbubble);
+                subCategory2.setBackgroundResource(R.drawable.pinkbubble);
+                subCategory3.setBackgroundResource(R.drawable.nursebubble);
+                subCategory4.setBackgroundResource(R.drawable.pinkbubble);
+                subCategory5.setBackgroundResource(R.drawable.surgeonbubble);
                 subCategory6.setBackgroundResource(R.drawable.pinkbubble);
                 subCategory7.setBackgroundResource(R.drawable.bluebubble);
-                subCategory8.setBackgroundResource(R.drawable.greenbubble);
+                subCategory8.setBackgroundResource(R.drawable.sjukgymnast);
                 subCategory9.setBackgroundResource(R.drawable.pinkbubble);
 
                 subCategoryClicked = "Medical_Oncologist";
@@ -866,7 +881,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                 subCategory1.setVisibility(View.VISIBLE);
 
-                subCategory1.setBackgroundResource(R.drawable.photo);
+                subCategory1.setBackgroundResource(R.drawable.photominne);
 
                 subCategoryClicked = "Picture_Memory";
                 eventInfoText(subCategoryClicked);
@@ -1139,7 +1154,6 @@ public class JourneyActivity extends AppCompatActivity {
                 break;
         }
 
-
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
 
         relativeLayout.addView(btn, params);
@@ -1397,7 +1411,7 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.bluebubble);
                 break;
             case "Bone_Marrow_Samples":
-                categoryImage.setBackgroundResource(R.drawable.bonemarrow);
+                categoryImage.setBackgroundResource(R.drawable.bonemarrowbubble);
                 break;
             case "EEG":
                 categoryImage.setBackgroundResource(R.drawable.pinkbubble);
@@ -1440,6 +1454,9 @@ public class JourneyActivity extends AppCompatActivity {
                 break;
             case "Hospital":
                 categoryImage.setBackgroundResource(R.drawable.hospital);
+                break;
+            case "Picture_memory":
+                categoryImage.setBackgroundResource(R.drawable.photominne);
                 break;
             case "Start":
                 categoryImage.setBackgroundResource(R.drawable.journeystart);
@@ -1512,6 +1529,8 @@ public class JourneyActivity extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
+
+
 
     private final class MyTouchListener implements View.OnTouchListener {
         public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -1657,7 +1676,8 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void generateBushes() {
 
-        int bushesCount = lastButtonX / 600;
+
+        int bushesCount = lastButtonX / 400;
         bushesCount = bushesCount * 3;
         for (int i = 0; i <= bushesCount; i++) {
 
@@ -1673,27 +1693,33 @@ public class JourneyActivity extends AppCompatActivity {
 
             switch (bushesRandom) {
                 case 0:
+                    DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
+                    int bushesY1 = Math.round(containerHeight - 51 / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.bushes1);
-                    params.setMargins(i * 600, height - 200 , 0, 0);
-                    params.width = 700;
-                    params.height = 100;
+                    params.setMargins(i * 400, bushesY1, 0, 0);
+                  //  params.width = cont;
+                  //  params.height = bushesHeight;
                     break;
                 case 1:
+                    DisplayMetrics displayMetrics2 = getApplicationContext().getResources().getDisplayMetrics();
+                    int bushesY2 = Math.round(containerHeight - 51 / (displayMetrics2.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.bushes2);
-                    params.setMargins(i * 600, height - 200, 0, 0);
-                    params.width = 700;
-                    params.height = 100;
+                    params.setMargins(i * 400, bushesY2, 0, 0);
+                  //  params.width = bushesWidth;
+                  //  params.height = bushesHeight;
                     break;
                 case 2:
+                    DisplayMetrics displayMetrics3 = getApplicationContext().getResources().getDisplayMetrics();
+                    int bushesY3 = Math.round(containerHeight - 91/ (displayMetrics3.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.bushes3);
-                    params.setMargins(i * 600, height - 250, 0, 0);
-                    params.width = 700;
-                    params.height = 200;
+                    params.setMargins(i * 400, bushesY3, 0, 0);
+                   // params.width = bushesWidth;/   params.height = bushesHeight*2;
                     break;
 
 
             }
             bushesLayer.addView(img, params);
+
         }
     }
 
@@ -1807,7 +1833,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event4);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 7);
-        Events event5 = new Events("Image_Memory", "ImageMemory", "photo of me", c.getTime(), null, null, null);
+        Events event5 = new Events("Image_Memory", "Picture_Memory", "photo of me", c.getTime(), null, null, null);
         eventList.add(event5);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 8);
@@ -1899,7 +1925,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event27);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 41);
-        Events event28 = new Events("Appointments", "Event_Nurse", "zzzzz", c.getTime(), null, null, null);
+        Events event28 = new Events("Appointments", "Nurse", "zzzzz", c.getTime(), null, null, null);
         eventList.add(event28);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 45);
@@ -1915,7 +1941,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event31);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 52);
-        Events event32 = new Events("Image_Memory", "Memory", "photo of me", c.getTime(), null, null, null);
+        Events event32 = new Events("Image_Memory", "Picture_Memory", "photo of me", c.getTime(), null, null, null);
         eventList.add(event32);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 55);
