@@ -165,14 +165,28 @@
                     android:layout_height="fill_parent" >
 
                     <RelativeLayout
-                        android:id="@+id/treelayer"
+                        android:id="@+id/big_mountain_layer"
                         android:layout_width="10000dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="false"
+                        android:background="@drawable/backhillxml"
+                        android:layout_marginBottom="100dp"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="136dp"
-                        android:background="@drawable/mountainsjourneyxml" />
+                        android:layout_alignParentBottom="true">
+                    </RelativeLayout>
+                </RelativeLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/Scroll_background3" >
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout_background3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    >
+
                 </RelativeLayout>
             </HorizontalScrollView>
 
@@ -228,7 +242,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:id="@+id/Scroll_eventlayer"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:fillViewport="false">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
