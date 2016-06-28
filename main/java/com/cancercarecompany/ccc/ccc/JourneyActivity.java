@@ -356,7 +356,7 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.doctormanbubble);
                     break;
                 case "Hematologist_Doctor":
-                    btn.setBackgroundResource(R.drawable.doctor);
+                    btn.setBackgroundResource(R.drawable.anestetistbubble);
                     break;
                 case "Nurse":
                     btn.setBackgroundResource(R.drawable.nursebubble);
@@ -365,7 +365,7 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.bloodtestbubble);
                     break;
                 case "Dentist":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.dentistbubble);
                     break;
                 case "Surgeon":
                     btn.setBackgroundResource(R.drawable.surgeonbubble);
@@ -377,10 +377,10 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.therapybubble);
                     break;
                 case "Physiotherapist":
-                    btn.setBackgroundResource(R.drawable.sjukgymnast);
+                    btn.setBackgroundResource(R.drawable.therapybubble);
                     break;
                 case "Dietician":
-                    btn.setBackgroundResource(R.drawable.pinkbubble);
+                    btn.setBackgroundResource(R.drawable.nursebubble);
                     break;
                 case "MR":
                     btn.setBackgroundResource(R.drawable.mrbubble);
@@ -731,15 +731,15 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory8.setVisibility(View.VISIBLE);
                 subCategory9.setVisibility(View.VISIBLE);
 
-                subCategory1.setBackgroundResource(R.drawable.doctormanbubble);
-                subCategory2.setBackgroundResource(R.drawable.pinkbubble);
-                subCategory3.setBackgroundResource(R.drawable.nursebubble);
-                subCategory4.setBackgroundResource(R.drawable.pinkbubble);
-                subCategory5.setBackgroundResource(R.drawable.surgeonbubble);
-                subCategory6.setBackgroundResource(R.drawable.pinkbubble);
-                subCategory7.setBackgroundResource(R.drawable.bluebubble);
-                subCategory8.setBackgroundResource(R.drawable.pinkbubble);
-                subCategory9.setBackgroundResource(R.drawable.pinkbubble);
+                subCategory1.setBackgroundResource(R.drawable.doctorman);
+                subCategory2.setBackgroundResource(R.drawable.anestetien);
+                subCategory3.setBackgroundResource(R.drawable.nurse);
+                subCategory4.setBackgroundResource(R.drawable.dentist);
+                subCategory5.setBackgroundResource(R.drawable.surgeon);
+                subCategory6.setBackgroundResource(R.drawable.anestetien);
+                subCategory7.setBackgroundResource(R.drawable.therapy);
+                subCategory8.setBackgroundResource(R.drawable.doctorman);
+                subCategory9.setBackgroundResource(R.drawable.anestetien);
 
                 subCategoryClicked = "Medical_Oncologist";
                 eventInfoText(subCategoryClicked);
@@ -833,14 +833,14 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory7.setVisibility(View.VISIBLE);
                 subCategory8.setVisibility(View.VISIBLE);
 
-                subCategory1.setBackgroundResource(R.drawable.cytistatikabubble);
-                subCategory2.setBackgroundResource(R.drawable.bluebubble);
-                subCategory3.setBackgroundResource(R.drawable.stemcelltransplantationbubble);
-                subCategory4.setBackgroundResource(R.drawable.radiationbubble);
-                subCategory5.setBackgroundResource(R.drawable.dialysisbubble);
-                subCategory6.setBackgroundResource(R.drawable.biologicaltherapybubble);
-                subCategory7.setBackgroundResource(R.drawable.targetedtherapybubble);
-                subCategory8.setBackgroundResource(R.drawable.greenbubble);
+                subCategory1.setBackgroundResource(R.drawable.cytatiska);
+                subCategory2.setBackgroundResource(R.drawable.ekg);
+                subCategory3.setBackgroundResource(R.drawable.targettherapy);
+                subCategory4.setBackgroundResource(R.drawable.treatmentradio);
+                subCategory5.setBackgroundResource(R.drawable.treatmentdialys);
+                subCategory6.setBackgroundResource(R.drawable.treatmentbiologic);
+                subCategory7.setBackgroundResource(R.drawable.treatmenttarget);
+                subCategory8.setBackgroundResource(R.drawable.portakat);
 
                 subCategoryClicked = "Cytistatika";
                 eventInfoText(subCategoryClicked);
@@ -930,15 +930,15 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory8.setVisibility(View.VISIBLE);
                 subCategory9.setVisibility(View.VISIBLE);
 
-                subCategory1.setBackgroundResource(R.drawable.bloodtestbubble);
-                subCategory2.setBackgroundResource(R.drawable.mrbubble);
-                subCategory3.setBackgroundResource(R.drawable.pinkbubble);
-                subCategory4.setBackgroundResource(R.drawable.hearingtestbubble);
-                subCategory5.setBackgroundResource(R.drawable.bonemarrowbubble);
-                subCategory6.setBackgroundResource(R.drawable.eegbubble);
-                subCategory7.setBackgroundResource(R.drawable.ekgbubble);
-                subCategory8.setBackgroundResource(R.drawable.kidneyinvestigationbubble);
-                subCategory9.setBackgroundResource(R.drawable.ultrasoundbubble);
+                subCategory1.setBackgroundResource(R.drawable.blooddrop);
+                subCategory2.setBackgroundResource(R.drawable.mr);
+                subCategory3.setBackgroundResource(R.drawable.dt);
+                subCategory4.setBackgroundResource(R.drawable.hearingtest);
+                subCategory5.setBackgroundResource(R.drawable.bonemarrow);
+                subCategory6.setBackgroundResource(R.drawable.eegtest);
+                subCategory7.setBackgroundResource(R.drawable.ekg);
+                subCategory8.setBackgroundResource(R.drawable.kidney);
+                subCategory9.setBackgroundResource(R.drawable.ultrajudback);
 
                 subCategoryClicked = "Bloodtest";
 
@@ -1215,13 +1215,13 @@ public class JourneyActivity extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.doctormanbubble);
                 break;
             case "Hematologist_Doctor":
-                btn.setBackgroundResource(R.drawable.pinkbubble);
+                btn.setBackgroundResource(R.drawable.doctormanbubble);
                 break;
             case "Nurse":
                 btn.setBackgroundResource(R.drawable.nursebubble);
                 break;
             case "Dentist":
-                btn.setBackgroundResource(R.drawable.bluebubble);
+                btn.setBackgroundResource(R.drawable.dentistbubble);
                 break;
             case "Surgeon":
                 btn.setBackgroundResource(R.drawable.surgeonbubble);
@@ -1236,13 +1236,13 @@ public class JourneyActivity extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.orangebubble);
                 break;
             case "Dietician":
-                btn.setBackgroundResource(R.drawable.pinkbubble);
+                btn.setBackgroundResource(R.drawable.anestetistbubble);
                 break;
             case "MR":
                 btn.setBackgroundResource(R.drawable.mrbubble);
                 break;
             case "DT":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.kidneyinvestigationbubble);
                 break;
             case "Hearing_Tests":
                 btn.setBackgroundResource(R.drawable.hearingtestbubble);
@@ -1641,82 +1641,82 @@ public class JourneyActivity extends AppCompatActivity {
         switch (eventList.get(id_).subCategory) {
 
             case "Medical_Oncologist":
-                categoryImage.setBackgroundResource(R.drawable.doctormanbubble);
+                categoryImage.setBackgroundResource(R.drawable.doctorman);
                 break;
             case "Hematologist_Doctor":
-                categoryImage.setBackgroundResource(R.drawable.doctor);
+                categoryImage.setBackgroundResource(R.drawable.doctorman);
                 break;
             case "Nurse":
-                categoryImage.setBackgroundResource(R.drawable.nursebubble);
+                categoryImage.setBackgroundResource(R.drawable.nurse);
                 break;
             case "Dentist":
-                categoryImage.setBackgroundResource(R.drawable.bluebubble);
+                categoryImage.setBackgroundResource(R.drawable.dentist);
                 break;
             case "Surgeon":
-                categoryImage.setBackgroundResource(R.drawable.surgeonbubble);
+                categoryImage.setBackgroundResource(R.drawable.surgeon);
                 break;
             case "Anestetisten":
-                categoryImage.setBackgroundResource(R.drawable.anestetistbubble);
+                categoryImage.setBackgroundResource(R.drawable.anestetien);
                 break;
             case "Therapist":
-                categoryImage.setBackgroundResource(R.drawable.therapybubble);
+                categoryImage.setBackgroundResource(R.drawable.therapy);
                 break;
             case "Physiotherapist":
-                categoryImage.setBackgroundResource(R.drawable.bluebubble);
+                categoryImage.setBackgroundResource(R.drawable.therapy);
                 break;
             case "Dietician":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.nurse);
                 break;
             case "MR":
-                categoryImage.setBackgroundResource(R.drawable.mrbubble);
+                categoryImage.setBackgroundResource(R.drawable.mr);
                 break;
             case "DT":
-                categoryImage.setBackgroundResource(R.drawable.pinkbubble);
+                categoryImage.setBackgroundResource(R.drawable.dt);
                 break;
             case "Hearing_Tests":
-                categoryImage.setBackgroundResource(R.drawable.hearingtestbubble);
+                categoryImage.setBackgroundResource(R.drawable.hearingtest);
                 break;
             case "Bone_Marrow_Samples":
-                categoryImage.setBackgroundResource(R.drawable.bonemarrowbubble);
+                categoryImage.setBackgroundResource(R.drawable.bonemarrow);
                 break;
             case "EEG":
-                categoryImage.setBackgroundResource(R.drawable.eegbubble);
+                categoryImage.setBackgroundResource(R.drawable.eegtest);
                 break;
             case "EKG":
-                categoryImage.setBackgroundResource(R.drawable.ekgbubble);
+                categoryImage.setBackgroundResource(R.drawable.ekg);
                 break;
             case "Kidney_Investigation":
-                categoryImage.setBackgroundResource(R.drawable.kidneyinvestigationbubble);
+                categoryImage.setBackgroundResource(R.drawable.kidney);
                 break;
             case "Ultrasound":
-                categoryImage.setBackgroundResource(R.drawable.ultrasoundbubble);
+                categoryImage.setBackgroundResource(R.drawable.ultrajudback);
                 break;
             case "Cytistatika":
-                categoryImage.setBackgroundResource(R.drawable.cytistatikabubble);
+                categoryImage.setBackgroundResource(R.drawable.cytistatika);
                 break;
             case "Surgery":
-                categoryImage.setBackgroundResource(R.drawable.pinkbubble);
+                categoryImage.setBackgroundResource(R.drawable.surgery);
                 break;
             case "Stem_Cell_Transplantation":
-                categoryImage.setBackgroundResource(R.drawable.stemcelltransplantationbubble);
+                categoryImage.setBackgroundResource(R.drawable.stemcelltransplantation);
                 break;
             case "Radiation":
-                categoryImage.setBackgroundResource(R.drawable.radiationbubble);
+                categoryImage.setBackgroundResource(R.drawable.radiation);
                 break;
             case "Dialysis":
-                categoryImage.setBackgroundResource(R.drawable.dialysisbubble);
+                categoryImage.setBackgroundResource(R.drawable.dialysis);
                 break;
             case "Biological_Therapy":
-                categoryImage.setBackgroundResource(R.drawable.biologicaltherapybubble);
+                categoryImage.setBackgroundResource(R.drawable.biologicaltherapy);
                 break;
             case "Targeted_Therapy":
-                categoryImage.setBackgroundResource(R.drawable.targetedtherapybubble);
+                categoryImage.setBackgroundResource(R.drawable.targetedtherapy);
                 break;
             case "Portacat":
-                categoryImage.setBackgroundResource(R.drawable.pinkbubble);
+                categoryImage.setBackgroundResource(R.drawable.portakat);
                 break;
             case "Bloodtest":
-                categoryImage.setBackgroundResource(R.drawable.bloodtestbubble);
+                categoryImage.setBackgroundResource(R.drawable.bloodtest);
                 break;
             case "Hospital":
                 categoryImage.setBackgroundResource(R.drawable.hospital);
