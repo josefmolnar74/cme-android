@@ -628,13 +628,14 @@ public class CareTeamActivity extends AppCompatActivity {
     private void journeyActivity(){
         Intent myIntent = new Intent(this, JourneyActivity.class);
         startActivity(myIntent);
+        finish();
 
     }
 
     private void journalActivity(){
         Intent myIntent = new Intent(this, JournalActivity.class);
         startActivity(myIntent);
-
+        finish();
     }
 
 

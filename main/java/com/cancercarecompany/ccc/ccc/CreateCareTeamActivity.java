@@ -38,6 +38,7 @@ public class CreateCareTeamActivity extends AppCompatActivity {
             intent.putExtra(RegisterActivity.DIAGNOSE, diagnoseString);
             intent.putExtra(RegisterActivity.RELATIONSHIP, relationshipString);
             startActivity(intent);
+            finish();
         }
         // Add message to explain that all strings needs to be provided
     }

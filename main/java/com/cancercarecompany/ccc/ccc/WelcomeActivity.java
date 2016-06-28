@@ -45,11 +45,13 @@ public class WelcomeActivity extends AppCompatActivity {
     public void onClickCreateCareTeam(View view){
         Intent intent = new Intent(this, CreateCareTeamActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void onClickJoinCareTeam(View view){
         Intent intent = new Intent(this, JoinCareTeamActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void onClickLogin(View view){
@@ -96,6 +98,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
             Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);
+            finish();
         }
     }
 

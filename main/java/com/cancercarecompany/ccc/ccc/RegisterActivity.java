@@ -111,6 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);
+            finish();
         }
     }
 
@@ -118,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
         //User email already exist please use another email
         Intent myIntent = new Intent(this, WelcomeActivity.class);
         startActivity(myIntent);
+        finish();
     }
 
 }
