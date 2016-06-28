@@ -97,6 +97,7 @@ public class JourneyActivity extends AppCompatActivity {
     Date journeyStart;
     HorizontalScrollView eventScroll;
     HorizontalScrollView bottomScroll;
+    HorizontalScrollView Scroll_background3;
     HorizontalScrollView Scroll_background2;
     HorizontalScrollView Scroll_background;
     HorizontalScrollView Scroll_bushes;
@@ -107,6 +108,7 @@ public class JourneyActivity extends AppCompatActivity {
     RelativeLayout bottomLayout;
     RelativeLayout bushesLayer;
     RelativeLayout relativeLayout3;
+    RelativeLayout mountains_layer;
     int eventsSameDate = 0;
     String subCategoryClicked = "";
     Date date;
@@ -131,7 +133,9 @@ public class JourneyActivity extends AppCompatActivity {
 
         Scroll_background = (HorizontalScrollView)findViewById(R.id.Scroll_background);
         Scroll_background2 = (HorizontalScrollView)findViewById(R.id.Scroll_background2);
+        Scroll_background3 = (HorizontalScrollView) findViewById(R.id.Scroll_background3);
 
+        mountains_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background3);
         car = (ImageView) findViewById(R.id.img_car_journey);
         addAppointment = (ImageButton) findViewById(R.id.btn_appointment_journey);
         addTreatment = (ImageButton) findViewById(R.id.btn_treatment_journey);
@@ -199,9 +203,10 @@ public class JourneyActivity extends AppCompatActivity {
             @Override
             public void onGlobalLayout() {
                 containerHeight = containerLayout.getHeight();
-
+                containerWidth = containerLayout.getWidth();
                 System.out.println("container Height" + containerHeight);
                 generateBushes();
+                generateMountains();
                 containerLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -213,8 +218,9 @@ public class JourneyActivity extends AppCompatActivity {
             public void onScrollChanged() {
                 int scrollX = eventScroll.getScrollX();
 
-                Scroll_background.setScrollX(scrollX / 3);
-                Scroll_background2.setScrollX(scrollX / 2);
+                Scroll_background.setScrollX(scrollX / 4);
+                Scroll_background2.setScrollX(scrollX / 3);
+                Scroll_background3.setScrollX(scrollX / 2);
                 bottomScroll.setScrollX(scrollX * 2);
                 Scroll_bushes.setScrollX(scrollX * 3);
 
@@ -290,10 +296,10 @@ public class JourneyActivity extends AppCompatActivity {
         carIntPosition = (carIntPosition * 2) +300;
 
 
-        paramsCar.setMargins(0, height - 500, 0, 0);
+        paramsCar.setMargins(0, height - 600, 0, 0);
 
-        paramsCar.width = 400;
-        paramsCar.height = 400;
+        paramsCar.width = 600;
+        paramsCar.height = 500;
 
         car.setLayoutParams(paramsCar);
         bottomLayout.addView(car, paramsCar);
@@ -599,7 +605,7 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory5.setBackgroundResource(R.drawable.surgeonbubble);
                 subCategory6.setBackgroundResource(R.drawable.pinkbubble);
                 subCategory7.setBackgroundResource(R.drawable.bluebubble);
-                subCategory8.setBackgroundResource(R.drawable.sjukgymnast);
+                subCategory8.setBackgroundResource(R.drawable.pinkbubble);
                 subCategory9.setBackgroundResource(R.drawable.pinkbubble);
 
                 subCategoryClicked = "Medical_Oncologist";
@@ -694,14 +700,14 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory7.setVisibility(View.VISIBLE);
                 subCategory8.setVisibility(View.VISIBLE);
 
-                subCategory1.setBackgroundResource(R.drawable.testbloodbubble);
-                subCategory2.setBackgroundResource(R.drawable.treatmentradio);
-                subCategory3.setBackgroundResource(R.drawable.treatmenttarget);
-                subCategory4.setBackgroundResource(R.drawable.treatmentdialys);
-                subCategory5.setBackgroundResource(R.drawable.treatmentbiologic);
-                subCategory6.setBackgroundResource(R.drawable.pinkbubble);
-                subCategory7.setBackgroundResource(R.drawable.pinkbubble);
-                subCategory8.setBackgroundResource(R.drawable.pinkbubble);
+                subCategory1.setBackgroundResource(R.drawable.cytistatikabubble);
+                subCategory2.setBackgroundResource(R.drawable.bluebubble);
+                subCategory3.setBackgroundResource(R.drawable.stemcelltransplantationbubble);
+                subCategory4.setBackgroundResource(R.drawable.radiationbubble);
+                subCategory5.setBackgroundResource(R.drawable.dialysisbubble);
+                subCategory6.setBackgroundResource(R.drawable.biologicaltherapybubble);
+                subCategory7.setBackgroundResource(R.drawable.targetedtherapybubble);
+                subCategory8.setBackgroundResource(R.drawable.greenbubble);
 
                 subCategoryClicked = "Cytistatika";
                 eventInfoText(subCategoryClicked);
@@ -791,15 +797,15 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory8.setVisibility(View.VISIBLE);
                 subCategory9.setVisibility(View.VISIBLE);
 
-                subCategory1.setBackgroundResource(R.drawable.testblood);
-                subCategory2.setBackgroundResource(R.drawable.testheart);
-                subCategory3.setBackgroundResource(R.drawable.bluebubble);
-                subCategory4.setBackgroundResource(R.drawable.orangebubble);
-                subCategory5.setBackgroundResource(R.drawable.orangebubble);
-                subCategory6.setBackgroundResource(R.drawable.orangebubble);
-                subCategory7.setBackgroundResource(R.drawable.orangebubble);
-                subCategory8.setBackgroundResource(R.drawable.orangebubble);
-                subCategory9.setBackgroundResource(R.drawable.orangebubble);
+                subCategory1.setBackgroundResource(R.drawable.bloodtestbubble);
+                subCategory2.setBackgroundResource(R.drawable.mrbubble);
+                subCategory3.setBackgroundResource(R.drawable.pinkbubble);
+                subCategory4.setBackgroundResource(R.drawable.hearingtestbubble);
+                subCategory5.setBackgroundResource(R.drawable.bonemarrowbubble);
+                subCategory6.setBackgroundResource(R.drawable.eegbubble);
+                subCategory7.setBackgroundResource(R.drawable.ekgbubble);
+                subCategory8.setBackgroundResource(R.drawable.kidneyinvestigationbubble);
+                subCategory9.setBackgroundResource(R.drawable.ultrasoundbubble);
 
                 subCategoryClicked = "Bloodtest";
 
@@ -1073,82 +1079,82 @@ public class JourneyActivity extends AppCompatActivity {
 
         switch (subCategory) {
             case "Medical_Oncologist":
-                btn.setBackgroundResource(R.drawable.doctor);
+                btn.setBackgroundResource(R.drawable.doctormanbubble);
                 break;
             case "Hematologist_Doctor":
-                btn.setBackgroundResource(R.drawable.nurse);
+                btn.setBackgroundResource(R.drawable.pinkbubble);
                 break;
             case "Nurse":
-                btn.setBackgroundResource(R.drawable.bluebubble);
+                btn.setBackgroundResource(R.drawable.nursebubble);
                 break;
             case "Dentist":
-                btn.setBackgroundResource(R.drawable.pinkbubble);
+                btn.setBackgroundResource(R.drawable.bluebubble);
                 break;
             case "Surgeon":
-                btn.setBackgroundResource(R.drawable.orangebubble);
+                btn.setBackgroundResource(R.drawable.surgeonbubble);
                 break;
             case "Anestetisten":
-                btn.setBackgroundResource(R.drawable.pinkbubble);
+                btn.setBackgroundResource(R.drawable.anestetistbubble);
                 break;
             case "Therapist":
-                btn.setBackgroundResource(R.drawable.pinkbubble);
+                btn.setBackgroundResource(R.drawable.therapybubble);
                 break;
             case "Physiotherapist":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.orangebubble);
                 break;
             case "Dietician":
-                btn.setBackgroundResource(R.drawable.treatmentradiobubble);
+                btn.setBackgroundResource(R.drawable.pinkbubble);
                 break;
             case "MR":
-                btn.setBackgroundResource(R.drawable.therapy);
+                btn.setBackgroundResource(R.drawable.mrbubble);
                 break;
             case "DT":
-                btn.setBackgroundResource(R.drawable.treatmentdialysbubble);
+                btn.setBackgroundResource(R.drawable.greenbubble);
                 break;
             case "Hearing_Tests":
-                btn.setBackgroundResource(R.drawable.treatmentbiologicbubble);
+                btn.setBackgroundResource(R.drawable.hearingtestbubble);
                 break;
             case "Bone_Marrow_Samples":
-                btn.setBackgroundResource(R.drawable.bluebubble);
+                btn.setBackgroundResource(R.drawable.bonemarrowbubble);
                 break;
             case "EEG":
-                btn.setBackgroundResource(R.drawable.testbloodbubble);
+                btn.setBackgroundResource(R.drawable.eegbubble);
                 break;
             case "EKG":
-                btn.setBackgroundResource(R.drawable.testheartbubble);
+                btn.setBackgroundResource(R.drawable.ekgbubble);
                 break;
             case "Kidney_Investigation":
-                btn.setBackgroundResource(R.drawable.bluebubble);
+                btn.setBackgroundResource(R.drawable.kidneyinvestigationbubble);
                 break;
             case "Ultrasound":
-                btn.setBackgroundResource(R.drawable.pinkbubble);
+                btn.setBackgroundResource(R.drawable.ultrasoundbubble);
                 break;
             case "Alternating_Current":
                 btn.setBackgroundResource(R.drawable.otherdropbubble);
                 break;
             case "Transplantation":
-                btn.setBackgroundResource(R.drawable.orangebubblee);
+                btn.setBackgroundResource(R.drawable.pinkbubble);
                 break;
             case "Cytistatika":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.cytistatikabubble);
                 break;
             case "Surgery":
                 btn.setBackgroundResource(R.drawable.pinkbubble);
                 break;
             case "Stem_Cell_Transplantation":
-                btn.setBackgroundResource(R.drawable.bluebubble);
+                btn.setBackgroundResource(R.drawable.stemcelltransplantationbubble);
                 break;
             case "Radiation":
-                btn.setBackgroundResource(R.drawable.treatmentradiobubble);
+                btn.setBackgroundResource(R.drawable.radiationbubble);
                 break;
             case "Dialysis":
-                btn.setBackgroundResource(R.drawable.treatmentdialys);
+                btn.setBackgroundResource(R.drawable.dialysisbubble);
                 break;
             case "Biological_therapy":
-                btn.setBackgroundResource(R.drawable.treatmentbiologicbubble);
+                btn.setBackgroundResource(R.drawable.biologicaltherapybubble);
                 break;
             case "Targeted_therapy":
-                btn.setBackgroundResource(R.drawable.treatmenttargetbubble);
+                btn.setBackgroundResource(R.drawable.targetedtherapybubble);
                 break;
             case "Portacat":
                 btn.setBackgroundResource(R.drawable.pinkbubble);
@@ -1382,25 +1388,25 @@ public class JourneyActivity extends AppCompatActivity {
         switch (eventList.get(id_).subCategory) {
 
             case "Medical_Oncologist":
-                categoryImage.setBackgroundResource(R.drawable.doctor);
+                categoryImage.setBackgroundResource(R.drawable.doctormanbubble);
                 break;
             case "Hematologist_Doctor":
                 categoryImage.setBackgroundResource(R.drawable.doctor);
                 break;
             case "Nurse":
-                categoryImage.setBackgroundResource(R.drawable.nurse);
+                categoryImage.setBackgroundResource(R.drawable.nursebubble);
                 break;
             case "Dentist":
                 categoryImage.setBackgroundResource(R.drawable.bluebubble);
                 break;
             case "Surgeon":
-                categoryImage.setBackgroundResource(R.drawable.orangebubble);
+                categoryImage.setBackgroundResource(R.drawable.surgeonbubble);
                 break;
             case "Anestetisten":
-                categoryImage.setBackgroundResource(R.drawable.pinkbubble);
+                categoryImage.setBackgroundResource(R.drawable.anestetistbubble);
                 break;
             case "Therapist":
-                categoryImage.setBackgroundResource(R.drawable.pinkbubble);
+                categoryImage.setBackgroundResource(R.drawable.therapybubble);
                 break;
             case "Physiotherapist":
                 categoryImage.setBackgroundResource(R.drawable.bluebubble);
@@ -1409,55 +1415,55 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.greenbubble);
                 break;
             case "MR":
-                categoryImage.setBackgroundResource(R.drawable.pinkbubble);
+                categoryImage.setBackgroundResource(R.drawable.mrbubble);
                 break;
             case "DT":
-                categoryImage.setBackgroundResource(R.drawable.orangebubblee);
+                categoryImage.setBackgroundResource(R.drawable.pinkbubble);
                 break;
             case "Hearing_Tests":
-                categoryImage.setBackgroundResource(R.drawable.bluebubble);
+                categoryImage.setBackgroundResource(R.drawable.hearingtestbubble);
                 break;
             case "Bone_Marrow_Samples":
                 categoryImage.setBackgroundResource(R.drawable.bonemarrowbubble);
                 break;
             case "EEG":
-                categoryImage.setBackgroundResource(R.drawable.pinkbubble);
+                categoryImage.setBackgroundResource(R.drawable.eegbubble);
                 break;
             case "EKG":
-                categoryImage.setBackgroundResource(R.drawable.testheartbubble);
+                categoryImage.setBackgroundResource(R.drawable.ekgbubble);
                 break;
             case "Kidney_Investigation":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.kidneyinvestigationbubble);
                 break;
             case "Ultrasound":
-                categoryImage.setBackgroundResource(R.drawable.bluebubble);
+                categoryImage.setBackgroundResource(R.drawable.ultrasoundbubble);
                 break;
             case "Cytistatika":
-                categoryImage.setBackgroundResource(R.drawable.pinkbubble);
+                categoryImage.setBackgroundResource(R.drawable.cytistatikabubble);
                 break;
             case "Surgery":
                 categoryImage.setBackgroundResource(R.drawable.pinkbubble);
                 break;
             case "Stem_Cell_Transplantation":
-                categoryImage.setBackgroundResource(R.drawable.orangebubblee);
+                categoryImage.setBackgroundResource(R.drawable.stemcelltransplantationbubble);
                 break;
             case "Radiation":
-                categoryImage.setBackgroundResource(R.drawable.treatmentradiobubble);
+                categoryImage.setBackgroundResource(R.drawable.radiationbubble);
                 break;
             case "Dialysis":
-                categoryImage.setBackgroundResource(R.drawable.treatmentdialysbubble);
+                categoryImage.setBackgroundResource(R.drawable.dialysisbubble);
                 break;
             case "Biological_Therapy":
-                categoryImage.setBackgroundResource(R.drawable.treatmentbiologicbubble);
+                categoryImage.setBackgroundResource(R.drawable.biologicaltherapybubble);
                 break;
             case "Targeted_Therapy":
-                categoryImage.setBackgroundResource(R.drawable.treatmenttargetbubble);
+                categoryImage.setBackgroundResource(R.drawable.targetedtherapybubble);
                 break;
             case "Portacat":
                 categoryImage.setBackgroundResource(R.drawable.pinkbubble);
                 break;
             case "Bloodtest":
-                categoryImage.setBackgroundResource(R.drawable.testbloodbubble);
+                categoryImage.setBackgroundResource(R.drawable.bloodtestbubble);
                 break;
             case "Hospital":
                 categoryImage.setBackgroundResource(R.drawable.hospital);
@@ -1701,7 +1707,7 @@ public class JourneyActivity extends AppCompatActivity {
             switch (bushesRandom) {
                 case 0:
                     DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-                    int bushesY1 = Math.round(containerHeight - 51 / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+                    int bushesY1 = Math.round(containerHeight - 81 / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.bushes1);
                     params.setMargins(i * 400, bushesY1, 0, 0);
                   //  params.width = cont;
@@ -1709,7 +1715,7 @@ public class JourneyActivity extends AppCompatActivity {
                     break;
                 case 1:
                     DisplayMetrics displayMetrics2 = getApplicationContext().getResources().getDisplayMetrics();
-                    int bushesY2 = Math.round(containerHeight - 51 / (displayMetrics2.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+                    int bushesY2 = Math.round(containerHeight - 71 / (displayMetrics2.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.bushes2);
                     params.setMargins(i * 400, bushesY2, 0, 0);
                   //  params.width = bushesWidth;
@@ -1717,7 +1723,7 @@ public class JourneyActivity extends AppCompatActivity {
                     break;
                 case 2:
                     DisplayMetrics displayMetrics3 = getApplicationContext().getResources().getDisplayMetrics();
-                    int bushesY3 = Math.round(containerHeight - 91/ (displayMetrics3.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+                    int bushesY3 = Math.round(containerHeight - 140/ (displayMetrics3.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.bushes3);
                     params.setMargins(i * 400, bushesY3, 0, 0);
                    // params.width = bushesWidth;/   params.height = bushesHeight*2;
@@ -1731,16 +1737,75 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
 
+    private void generateMountains() {
+
+
+        int mountainsCount = lastButtonX / 300;
+        mountainsCount = mountainsCount * 3;
+        for (int i = 0; i <= mountainsCount; i++) {
+
+            ImageView img = new ImageView(this);
+            img.setId(i + 3000);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+
+            Random r = new Random();
+            int bushesRandom = r.nextInt(4);
+
+            switch (bushesRandom) {
+                case 0:
+                    DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
+                    int bushesY1 = Math.round(containerHeight - containerHeight/4 / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+                    img.setBackgroundResource(R.drawable.mid1);
+                    params.setMargins(i * 500, height/ 2+ 30, 0, 0);
+                      params.width = containerWidth / 2 ;
+                      params.height = containerHeight / 3 ;
+                    break;
+                case 1:
+                    DisplayMetrics displayMetrics2 = getApplicationContext().getResources().getDisplayMetrics();
+                    int bushesY2 = Math.round(containerHeight - containerHeight/4 / (displayMetrics2.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+                    img.setBackgroundResource(R.drawable.mid2);
+                    params.setMargins(i * 500, height/ 2+ 30, 0, 0);
+                    params.width = containerWidth / 2 ;
+                    params.height = containerHeight / 3 ;
+                    break;
+                case 2:
+                    DisplayMetrics displayMetrics3 = getApplicationContext().getResources().getDisplayMetrics();
+                    int bushesY3 = Math.round(containerHeight - containerHeight/4/ (displayMetrics3.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+                    img.setBackgroundResource(R.drawable.mid3);
+                    params.setMargins(i * 500, height/ 2+ 60, 0, 0);
+                    params.width = containerWidth / 2 ;
+                    params.height = containerHeight / 3 ;
+                    break;
+                case 3:
+                    DisplayMetrics displayMetrics4 = getApplicationContext().getResources().getDisplayMetrics();
+                    int bushesY4 = Math.round(containerHeight - containerHeight/4/ (displayMetrics4.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+                    img.setBackgroundResource(R.drawable.mid4);
+                    params.setMargins(i * 500, height/ 2 + 60, 0, 0);
+                    params.width = containerWidth / 2 ;
+                    params.height = containerHeight / 3 ;
+                    break;
+
+
+            }
+            mountains_layer.addView(img, params);
+
+        }
+    }
+
+
     private void animateCar(final int carIntPosition) {
 
 
         final RelativeLayout.LayoutParams paramsCar2 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsCar2.setMargins((carIntPosition * 2)-1000, height -450, 0, 0);
+        paramsCar2.setMargins((carIntPosition * 2)-1000, height -600, 0, 0);
         System.out.println("CARPOSITION"+carIntPosition * 2);
-        paramsCar2.width = 400;
-        paramsCar2.height = 400;
+        paramsCar2.width = 600;
+        paramsCar2.height = 500;
 
         TranslateAnimation transAnimation1 = new TranslateAnimation(0, 2000, 0, 0);
         transAnimation1.setDuration(3500);
