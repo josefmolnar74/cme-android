@@ -6,119 +6,89 @@
     android:orientation="vertical"
     android:weightSum="100">
 
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/topbarLinear"
         android:layout_height="0dp"
         android:layout_weight="8"
-        android:background="@color/cme_light">
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:id="@+id/topbarLinear"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/cme_dark">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal"
-            android:background="@drawable/border"
-            android:weightSum="100"
-            android:id="@+id/relativeLayout"
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:id="@+id/logoButton"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo"
+            android:background="@null"
+            android:layout_weight="10"
+            android:layout_marginLeft="20dp" />
+
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:id="@+id/contactsButton"
+            android:layout_weight="16"
+            android:padding="8dp"
+            android:src="@drawable/careteam"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:cropToPadding="false"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/journalButton"
+            android:layout_toStartOf="@+id/journalButton" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:id="@+id/journeyButton"
+            android:layout_weight="16"
+            android:padding="4dp"
+            android:src="@drawable/myjourney"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:cropToPadding="false"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/loggedIn"
+            android:layout_toStartOf="@+id/loggedIn"
+            android:layout_marginRight="50dp"
+            android:layout_marginEnd="50dp" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:id="@+id/journalButton"
+            android:layout_weight="16"
+            android:padding="8dp"
+            android:src="@drawable/myjournal"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:cropToPadding="false"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/journeyButton"
+            android:layout_toStartOf="@+id/journeyButton" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/loggedIn"
+            android:text="name"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/white" />
 
-            <ImageButton
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:id="@+id/logoButton"
-                android:scaleType="fitCenter"
-                android:src="@drawable/logo"
-                android:background="@null"
-                android:layout_weight="10"
-                android:layout_marginLeft="20dp" />
+    </RelativeLayout>
 
-
-            <ImageButton
-                android:layout_width="80dp"
-                android:layout_height="90dp"
-                android:id="@+id/contactsButton"
-                android:layout_weight="16"
-                android:padding="8dp"
-                android:src="@drawable/careteam"
-                android:scaleType="fitCenter"
-                android:background="@null"
-                android:cropToPadding="false"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
-
-            <ImageButton
-                android:layout_width="80dp"
-                android:layout_height="90dp"
-                android:id="@+id/journeyButton"
-                android:layout_weight="16"
-                android:padding="4dp"
-                android:src="@drawable/myjourney"
-                android:scaleType="fitCenter"
-                android:background="@null"
-                android:cropToPadding="false"
-                android:layout_marginLeft="28dp"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/journalButton" />
-
-            <ImageButton
-                android:layout_width="80dp"
-                android:layout_height="90dp"
-                android:id="@+id/myWallButton"
-                android:layout_weight="16"
-                android:padding="4dp"
-                android:src="@drawable/cwall"
-                android:scaleType="fitCenter"
-                android:background="@null"
-                android:cropToPadding="false"
-                android:layout_marginLeft="28dp"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/journeyButton"
-                android:visibility="invisible" />
-
-            <ImageButton
-                android:layout_width="80dp"
-                android:layout_height="90dp"
-                android:id="@+id/journalButton"
-                android:layout_weight="16"
-                android:padding="8dp"
-                android:src="@drawable/myjournal"
-                android:scaleType="fitCenter"
-                android:background="@null"
-                android:cropToPadding="false"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/contactsButton"
-                android:layout_marginLeft="28dp" />
-
-            <ImageButton
-                android:layout_width="80dp"
-                android:layout_height="90dp"
-                android:padding="5dp"
-                android:id="@+id/userSettingsButton"
-                android:layout_weight="10"
-                android:background="@null"
-                android:src="@drawable/settingswhite"
-                android:scaleType="fitCenter"
-                android:layout_marginLeft="28dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/loggedIn"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/logoButton"
-                android:layout_toEndOf="@+id/logoButton"
-                android:layout_marginLeft="100dp" />
-
-        </RelativeLayout>
-    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -279,7 +249,7 @@
                 android:layout_alignParentEnd="true"
                 android:id="@+id/relativeLayout3"
                 android:layout_alignParentTop="false"
-                android:background="@color/cme_light">
+                android:background="@color/white">
 
                 <ImageButton
                     android:layout_width="75dp"
