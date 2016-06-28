@@ -10,6 +10,7 @@
     <color name="Friend">#b972de</color>
     <color name="addcontact">#cdcfd1</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
     <color name="cme_light">#7fc9cb</color>
     <color name="cme_dark">#41969e</color>
 </resources>

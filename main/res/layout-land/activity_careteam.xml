@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="0.06"
-        android:background="@color/cme_dark"
+        android:layout_weight="0.08"
+        android:background="@color/cme_light"
         android:weightSum="100">
 
         <ImageButton
@@ -98,7 +98,7 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:id="@+id/careTeamMain"
         android:weightSum="100"
-        android:layout_weight="0.94"
+        android:layout_weight="0.92"
         android:baselineAligned="false">
 
         <RelativeLayout
