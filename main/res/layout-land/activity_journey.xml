@@ -13,13 +13,12 @@
         android:id="@+id/topbarLinear"
         android:layout_height="0dp"
         android:layout_weight="8"
-        android:background="@color/cme_light">
+        android:background="@color/cme_dark">
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="horizontal"
-            android:background="@drawable/border"
             android:weightSum="100"
             android:id="@+id/relativeLayout"
             android:layout_alignParentRight="true"
@@ -279,7 +278,7 @@
                 android:layout_alignParentEnd="true"
                 android:id="@+id/relativeLayout3"
                 android:layout_alignParentTop="false"
-                android:background="@color/cme_light">
+                android:background="@color/white">
 
                 <ImageButton
                     android:layout_width="75dp"
