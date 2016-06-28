@@ -376,7 +376,7 @@ public class ConnectionHandler {
 
     public void updateBeverage(Beverage beverage){
         Gson gson = new Gson();
-        String msgData = gson.toJson(status);
+        String msgData = gson.toJson(beverage );
         sendMessage(MESSAGE_UPDATE, CONTENT_BEVERAGE, msgData);
     }
 

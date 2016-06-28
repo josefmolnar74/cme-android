@@ -224,11 +224,13 @@ public class JourneyActivity extends AppCompatActivity {
     private void careTeam() {
         Intent myIntent = new Intent(this, CareTeamActivity.class);
         startActivity(myIntent);
+        finish();
     }
 
     private void journal() {
         Intent myIntent = new Intent(this, JournalActivity.class);
         startActivity(myIntent);
+        finish();
     }
 
 

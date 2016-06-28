@@ -154,6 +154,7 @@ public class JournalActivity extends AppCompatActivity {
         final Button medicationBreakfastButton  = (Button) findViewById(R.id.btn_journal_medication_breakfast);
         final Button medicationLunchButton      = (Button) findViewById(R.id.btn_journal_medication_lunch);
         final Button medicationDinnerButton     = (Button) findViewById(R.id.btn_journal_medication_dinner);
+        final ImageButton emotionsButton        = (ImageButton) findViewById(R.id.btn_journal_emotions);
         final ImageButton journeyButton         = (ImageButton) findViewById(R.id.btn_journal_journey_button);
         final ImageButton careTeamButton        = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
         final CalendarView calendar             = (CalendarView) findViewById(R.id.cal_journal_calendar);
@@ -242,6 +243,13 @@ public class JournalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 journeyActivity();
+            }
+        });
+
+        emotionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEmotions();
             }
         });
 
@@ -540,6 +548,63 @@ public class JournalActivity extends AppCompatActivity {
                 popupWindow.dismiss();
             }
         });
+    }
+
+    public void showEmotions() {
+
+        LayoutInflater layoutInflater
+                = (LayoutInflater) getBaseContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.emotions_popup, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        popupWindow.setFocusable(true);
+        popupWindow.update();
+
+        final ImageButton   buttonEmotion1           = (ImageButton) popupView.findViewById(R.id.btn_emotion1);
+        final ImageButton   buttonEmotion2           = (ImageButton) popupView.findViewById(R.id.btn_emotion2);
+        final ImageButton   buttonEmotion3           = (ImageButton) popupView.findViewById(R.id.btn_emotion3);
+        final ImageButton   buttonEmotion4           = (ImageButton) popupView.findViewById(R.id.btn_emotion4);
+        final ImageButton   buttonEmotion5           = (ImageButton) popupView.findViewById(R.id.btn_emotion5);
+        final ImageButton   buttonEmotion6           = (ImageButton) popupView.findViewById(R.id.btn_emotion6);
+
+        RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.emotions_popup);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        buttonEmotion1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        buttonEmotion2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        buttonEmotion3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        buttonEmotion4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        buttonEmotion5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        buttonEmotion6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
     }
 
     public void createSideeffectPain(final String sideeffectType) {
@@ -1278,11 +1343,13 @@ public class JournalActivity extends AppCompatActivity {
     private void careTeam(){
         Intent myIntent = new Intent(this, CareTeamActivity.class);
         startActivity(myIntent);
+        finish();
     }
 
     private void journeyActivity(){
         Intent myIntent = new Intent(this, JourneyActivity.class);
         startActivity(myIntent);
+        finish();
     }
 
 }

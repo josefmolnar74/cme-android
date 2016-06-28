@@ -92,5 +92,6 @@ public class JoinCareTeamActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterActivity.class);
         intent.putExtra(RegisterActivity.INVITED_EMAIL, inputEmail.getText().toString());
         startActivity(intent);
+        finish();
     }
 }
