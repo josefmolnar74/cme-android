@@ -3,7 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/family_avatars_popup"
-    android:background="#b4000000"
     android:weightSum="1">
 
     <LinearLayout
