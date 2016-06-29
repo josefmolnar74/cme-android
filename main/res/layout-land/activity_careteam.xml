@@ -102,10 +102,6 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:id="@+id/careTeamMain"
         android:weightSum="100"
         android:layout_weight="0.92"
@@ -117,22 +113,24 @@
             android:id="@+id/careTeamLeft"
             android:layout_height="match_parent"
             android:weightSum="100"
-            android:background="#ffffff"
-            android:layout_weight="50">
+            android:layout_weight="50"
+            android:background="@drawable/border">
 
+            >
             <GridView
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:columnWidth="150dp"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:columnWidth="100dp"
                 android:numColumns="auto_fit"
-                android:verticalSpacing="50dp"
-                android:horizontalSpacing="50dp"
+                android:verticalSpacing="60dp"
+                android:horizontalSpacing="60dp"
                 android:stretchMode="columnWidth"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:id="@+id/gridview_careteam_family"
                 android:layout_below="@+id/text_careTeamFamily"
                 android:layout_alignParentLeft="true"
@@ -167,7 +165,7 @@
             android:id="@+id/careTeamRight"
             android:layout_height="match_parent"
             android:weightSum="100"
-            android:background="#ffffff"
+            android:background="@drawable/border"
             android:layout_weight="50">
 
             <TextView
@@ -185,6 +183,8 @@
                 android:layout_height="60dp"
                 android:id="@+id/btn_careteam_add_healthcare"
                 android:background="@drawable/addcontact"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
@@ -192,10 +192,10 @@
             <GridView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:columnWidth="150dp"
                 android:numColumns="auto_fit"
                 android:verticalSpacing="50dp"

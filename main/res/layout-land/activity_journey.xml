@@ -224,7 +224,8 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:id="@+id/relativeLayout_roadlayout"
-                    android:layout_height="fill_parent">
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/border">
 
                     <RelativeLayout
                         android:id="@+id/roadlayer"
@@ -303,7 +304,7 @@
                 android:layout_alignParentEnd="true"
                 android:id="@+id/relativeLayout3"
                 android:layout_alignParentTop="false"
-                android:background="@color/white">
+                android:background="@drawable/border">
 
                 <ImageButton
                     android:layout_width="75dp"
