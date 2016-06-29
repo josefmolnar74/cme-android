@@ -129,9 +129,19 @@
                     android:layout_height="fill_parent">
 
                     <RelativeLayout
+                        android:id="@+id/cloud_layout"
                         android:layout_width="7000dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/cloudjourneyxml"></RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/big_mountains_layer"
+                        android:layout_width="10000dp"
+                        android:layout_height="400px"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="180px"
+                        android:background="@drawable/backmountainxml"></RelativeLayout>
                 </RelativeLayout>
             </HorizontalScrollView>
 
@@ -146,6 +156,13 @@
                     android:id="@+id/relativeLayout_background2"
                     android:layout_height="fill_parent" >
 
+                    <RelativeLayout
+                        android:id="@+id/mountains_layer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="135px"></RelativeLayout>
                 </RelativeLayout>
             </HorizontalScrollView>
 
@@ -161,14 +178,34 @@
                     >
 
                     <RelativeLayout
-                        android:id="@+id/big_mountain_layer"
+                        android:id="@+id/bushes_layer"
                         android:layout_width="10000dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/backhillxml"
-                        android:layout_marginBottom="65dp"
+                        android:background="@drawable/bushesxml"
+                        android:layout_marginBottom="65px"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentBottom="true">
+                        android:layout_alignParentBottom="true"
+                        android:visibility="invisible">
                     </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/lion_layer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="155px">
+
+                        <ImageView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/img_lion"
+                            android:background="@drawable/lionnaked"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="false" />
+                    </RelativeLayout>
+
                 </RelativeLayout>
             </HorizontalScrollView>
 
@@ -215,7 +252,7 @@
                 android:id="@+id/Scroll_Bushes" >
 
                 <RelativeLayout
-                    android:id="@+id/bushesLayer"
+                    android:id="@+id/front_bushes_layer"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"></RelativeLayout>
             </HorizontalScrollView>

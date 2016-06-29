@@ -62,6 +62,7 @@ public class JourneyActivity extends AppCompatActivity {
     ImageView page2;
     ImageView page3;
     ImageView eventInfoImage;
+    ImageView lion;
 
     ImageButton sun;
     Boolean sunSwitch = true;
@@ -99,10 +100,11 @@ public class JourneyActivity extends AppCompatActivity {
     RelativeLayout eventLayout;
     RelativeLayout containerLayout;
     RelativeLayout bottomLayout;
-    RelativeLayout bushesLayer;
+    RelativeLayout front_bushes_layer;
     RelativeLayout relativeLayout3;
+    RelativeLayout big_mountain_layer;
+    RelativeLayout bushes_layer;
     RelativeLayout mountains_layer;
-    RelativeLayout tree_layer;
     int eventsSameDate = 0;
     String subCategoryClicked = "";
     Date date;
@@ -152,8 +154,9 @@ public class JourneyActivity extends AppCompatActivity {
         Scroll_background2 = (HorizontalScrollView)findViewById(R.id.Scroll_background2);
         Scroll_background3 = (HorizontalScrollView) findViewById(R.id.Scroll_background3);
 
-        tree_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background3);
-        mountains_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background2);
+        lion = (ImageView) findViewById(R.id.img_lion);
+        bushes_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background3);
+        big_mountain_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background2);
         car = (ImageView) findViewById(R.id.img_car_journey);
         addAppointment = (ImageButton) findViewById(R.id.btn_appointment_journey);
         addTreatment = (ImageButton) findViewById(R.id.btn_treatment_journey);
@@ -167,8 +170,9 @@ public class JourneyActivity extends AppCompatActivity {
         containerLayout = (RelativeLayout) findViewById(R.id.layerCoantainerJourney);
         eventLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
         bottomLayout = (RelativeLayout) findViewById(R.id.relativeLayout_roadlayout);
-        bushesLayer = (RelativeLayout) findViewById(R.id.bushesLayer);
+        front_bushes_layer = (RelativeLayout) findViewById(R.id.front_bushes_layer);
         journeyScreen = (RelativeLayout) findViewById(R.id.journeyscreen);
+        mountains_layer = (RelativeLayout) findViewById(R.id.mountains_layer);
         wholeScreen = (LinearLayout) findViewById(R.id.journeyLayout);
         careTeamButton = (ImageButton) findViewById(R.id.contactsButton);
         journalButton = (ImageButton) findViewById(R.id.journalButton);
@@ -383,7 +387,7 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.event_physiotherapist_bubble);
                     break;
                 case "dietician":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.event_dietician_bubble);
                     break;
                 case "mr":
                     btn.setBackgroundResource(R.drawable.greenbubble);
@@ -745,7 +749,7 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory6.setBackgroundResource(R.drawable.event_anestetisten_bubble);
                 subCategory7.setBackgroundResource(R.drawable.event_therapist_bubble);
                 subCategory8.setBackgroundResource(R.drawable.event_physiotherapist_bubble);
-                subCategory9.setBackgroundResource(R.drawable.greenbubble);
+                subCategory9.setBackgroundResource(R.drawable.event_dietician_bubble);
 
                 subCategoryClicked = "medical_oncologist";
                 eventInfoText(subCategoryClicked);
@@ -1245,7 +1249,7 @@ public class JourneyActivity extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.event_physiotherapist_bubble);
                 break;
             case "dietician":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.event_dietician_bubble);
                 break;
             case "mr":
                 btn.setBackgroundResource(R.drawable.greenbubble);
@@ -1674,7 +1678,7 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.event_physiotherapist_bubble);
                 break;
             case "dietician":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.event_dietician_bubble);
                 break;
             case "mr":
                 categoryImage.setBackgroundResource(R.drawable.greenbubble);
@@ -1909,7 +1913,6 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void generateBushes() {
 
-
         int bushesCount = lastButtonX / 400;
         bushesCount = bushesCount * 3;
         for (int i = 0; i <= bushesCount; i++) {
@@ -1920,38 +1923,37 @@ public class JourneyActivity extends AppCompatActivity {
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-
             Random r = new Random();
             int bushesRandom = r.nextInt(3);
 
             switch (bushesRandom) {
                 case 0:
-                    DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-                    int bushesY1 = Math.round(containerHeight - 81 / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+
                     img.setBackgroundResource(R.drawable.bushes1);
-                    params.setMargins(i * 400, bushesY1, 0, 0);
-                  //  params.width = cont;
-                  //  params.height = bushesHeight;
+                    params.setMargins(i * 400, 0, 0, 0);
+
                     break;
                 case 1:
-                    DisplayMetrics displayMetrics2 = getApplicationContext().getResources().getDisplayMetrics();
-                    int bushesY2 = Math.round(containerHeight - 71 / (displayMetrics2.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+
                     img.setBackgroundResource(R.drawable.bushes2);
-                    params.setMargins(i * 400, bushesY2, 0, 0);
-                  //  params.width = bushesWidth;
-                  //  params.height = bushesHeight;
+                    params.setMargins(i * 400, 0, 0, 0);
+
                     break;
                 case 2:
-                    DisplayMetrics displayMetrics3 = getApplicationContext().getResources().getDisplayMetrics();
-                    int bushesY3 = Math.round(containerHeight - 140/ (displayMetrics3.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+
                     img.setBackgroundResource(R.drawable.bushes3);
-                    params.setMargins(i * 400, bushesY3, 0, 0);
-                   // params.width = bushesWidth;/   params.height = bushesHeight*2;
+                    params.setMargins(i * 400, 0, 0, 0);
+
                     break;
 
 
             }
-            bushesLayer.addView(img, params);
+            front_bushes_layer.addView(img, params);
+
+            RelativeLayout.LayoutParams layoutParams =
+                    (RelativeLayout.LayoutParams)img.getLayoutParams();
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            img.setLayoutParams(layoutParams);
 
         }
     }
@@ -1971,45 +1973,38 @@ public class JourneyActivity extends AppCompatActivity {
 
 
             Random r = new Random();
-            int bushesRandom = r.nextInt(4);
+            int bushesRandom = r.nextInt(3);
 
             switch (bushesRandom) {
                 case 0:
-                    DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-                    int bushesY1 = Math.round(containerHeight - containerHeight/4 / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.mid1);
-                    params.setMargins(i * 500, 300, 0, 0);
-                      params.width = containerWidth / 2 ;
-                      params.height = containerHeight / 2 ;
+                    params.setMargins(i * 500, 0, 0, 0);
+                    params.height = 300;
+                    params.width = 600;
                     break;
                 case 1:
-                    DisplayMetrics displayMetrics2 = getApplicationContext().getResources().getDisplayMetrics();
-                    int bushesY2 = Math.round(containerHeight - containerHeight/4 / (displayMetrics2.xdpi / DisplayMetrics.DENSITY_DEFAULT));
                     img.setBackgroundResource(R.drawable.mid2);
-                    params.setMargins(i * 500, 300, 0, 0);
-                    params.width = containerWidth / 2 ;
-                    params.height = containerHeight / 2 ;
+                    params.setMargins(i * 500, 0, 0, 0);
+                    params.height = 250;
+                    params.width = 600;
                     break;
                 case 2:
-                    DisplayMetrics displayMetrics3 = getApplicationContext().getResources().getDisplayMetrics();
-                    int bushesY3 = Math.round(containerHeight - containerHeight/4/ (displayMetrics3.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-                    img.setBackgroundResource(R.drawable.mid3);
-                    params.setMargins(i * 500, 300, 0, 0);
-                    params.width = containerWidth / 2 ;
-                    params.height = containerHeight / 2 ;
-                    break;
-                case 3:
-                    DisplayMetrics displayMetrics4 = getApplicationContext().getResources().getDisplayMetrics();
-                    int bushesY4 = Math.round(containerHeight - containerHeight/4/ (displayMetrics4.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-                    img.setBackgroundResource(R.drawable.mid4);
-                    params.setMargins(i * 500, 300 + 60, 0, 0);
-                    params.width = containerWidth / 2 ;
-                    params.height = containerHeight / 2 ;
-                    break;
 
+                    img.setBackgroundResource(R.drawable.mid4);
+                    params.setMargins(i * 500, 0, 0, 0);
+                    params.height = 350;
+                    params.width = 600;
+                    break;
 
             }
             mountains_layer.addView(img, params);
+
+            RelativeLayout.LayoutParams layoutParams =
+                    (RelativeLayout.LayoutParams)img.getLayoutParams();
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            img.setLayoutParams(layoutParams);
+
+
 
         }
     }
@@ -2025,6 +2020,22 @@ public class JourneyActivity extends AppCompatActivity {
         System.out.println("CARPOSITION"+carIntPosition * 2);
         paramsCar2.width = 600;
         paramsCar2.height = 500;
+
+        final RelativeLayout.LayoutParams paramsLion = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsLion.width = 500;
+        paramsLion.height = 300;
+        paramsLion.setMargins(carIntPosition / 2 + 1000,0,0,0);
+        lion.setLayoutParams(paramsLion);
+
+        RelativeLayout.LayoutParams layoutParams =
+                (RelativeLayout.LayoutParams)lion.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        lion.setLayoutParams(layoutParams);
+
+
+
 
         TranslateAnimation transAnimation1 = new TranslateAnimation(0, 2000, 0, 0);
         transAnimation1.setDuration(3500);
@@ -2112,7 +2123,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event1);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 2);
-        Events event2 = new Events("Treatments", "cytostatika", "take meds before!", c.getTime(), null, null, null);
+        Events event2 = new Events("treatments", "cytostatika", "take meds before!", c.getTime(), null, null, null);
         eventList.add(event2);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 5);
@@ -2136,15 +2147,15 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event7);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 10);
-        Events event8 = new Events("Treatments", "surgery", "whole day", c.getTime(), null, null, null);
+        Events event8 = new Events("treatments", "surgery", "whole day", c.getTime(), null, null, null);
         eventList.add(event8);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 12);
-        Events event9 = new Events("Treatments", "surgery", "ohh noo =(", c.getTime(), null, null, null);
+        Events event9 = new Events("treatments", "surgery", "ohh noo =(", c.getTime(), null, null, null);
         eventList.add(event9);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 13);
-        Events event10 = new Events("Treatments", "cytostatika", "evening", c.getTime(), null, null, null);
+        Events event10 = new Events("treatments", "cytostatika", "evening", c.getTime(), null, null, null);
         eventList.add(event10);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 14);
@@ -2224,7 +2235,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event29);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 46);
-        Events event30 = new Events("Treatments", "surgery", "whole day", c.getTime(), null, null, null);
+        Events event30 = new Events("treatments", "surgery", "whole day", c.getTime(), null, null, null);
         eventList.add(event30);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 48);

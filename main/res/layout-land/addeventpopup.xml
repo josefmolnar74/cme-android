@@ -17,92 +17,101 @@
         android:layout_alignParentTop="true"></FrameLayout>
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/img_subcategory1"
         android:layout_marginLeft="10dp"
         android:background="@drawable/greenbubble"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_marginTop="10dp" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/img_subcategory2"
         android:layout_marginLeft="20dp"
         android:background="@drawable/pinkbubble"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/img_subcategory1"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_marginTop="10dp" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/img_subcategory3"
         android:layout_marginLeft="20dp"
         android:background="@drawable/bluebubble"
         android:layout_toRightOf="@+id/img_subcategory2"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_marginTop="10dp" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/img_subcategory4"
         android:layout_marginLeft="20dp"
         android:background="@drawable/orangebubblee"
         android:layout_toRightOf="@+id/img_subcategory3"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_marginTop="10dp" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/img_subcategory5"
         android:background="@drawable/greenbubble"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/img_subcategory4"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_marginTop="10dp" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/img_subcategory6"
         android:layout_marginLeft="20dp"
         android:layout_alignBottom="@+id/imageView11"
         android:background="@drawable/pinkbubble"
         android:layout_toRightOf="@+id/img_subcategory5"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_marginTop="10dp" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/img_subcategory7"
         android:layout_marginLeft="20dp"
         android:background="@drawable/bluebubble"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/textView7"
         android:layout_toRightOf="@+id/img_subcategory6"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_marginTop="10dp" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/img_subcategory8"
         android:layout_marginLeft="20dp"
         android:background="@drawable/orangebubble"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/img_subcategory7"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_marginTop="10dp" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/img_subcategory9"
         android:layout_marginLeft="20dp"
         android:background="@drawable/orangebubble"
         android:visibility="invisible"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/img_subcategory8" />
+        android:layout_toEndOf="@+id/img_subcategory8"
+        android:layout_marginTop="10dp" />
 
     <ImageButton
         android:layout_width="50dp"
@@ -167,7 +176,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_alignTop="@+id/txt_subcategory_main"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="30dp" />
+                android:layout_marginRight="150dp" />
 
             <TextView
                 android:layout_width="300dp"
