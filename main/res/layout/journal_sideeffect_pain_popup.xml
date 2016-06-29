@@ -9,12 +9,13 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/cme_light"
+        android:background="@color/white"
         android:weightSum="1"
         android:columnCount="3"
         android:rowCount="3"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/gridLayout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,7 +29,11 @@
             android:layout_column="1"
             android:layout_gravity="center"
             android:textAlignment="gravity"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:backgroundTint="@color/cme_light"
+            android:backgroundTintMode="multiply"
+            android:foregroundTintMode="add"
+            android:foreground="@color/accent_material_dark" />
 
         <Button
             android:layout_width="40dp"
@@ -85,7 +90,7 @@
         <RelativeLayout
             android:layout_row="1"
             android:layout_column="1"
-            android:background="@color/cme_light"
+            android:background="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -327,5 +332,14 @@
         </RelativeLayout>
 
     </GridLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton2"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/gridLayout"
+        android:layout_marginEnd="96dp"
+        android:layout_marginTop="186dp" />
 
 </RelativeLayout>

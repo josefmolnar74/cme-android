@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:id="@+id/logoButton"
             android:scaleType="fitCenter"
-            android:src="@drawable/logo"
+            android:src="@drawable/logo_icon"
             android:background="@null"
             android:layout_weight="10"
             />

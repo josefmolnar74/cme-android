@@ -1099,7 +1099,7 @@ public class JournalActivity extends AppCompatActivity {
                 if (fatigueIdForToday >= 0){
                     sideeffectValueString = connectHandler.journal.sideeffect_data.get(fatigueIdForToday).value;
                     seekBar1.setProgress(Integer.parseInt(sideeffectValueString));
-                    textSeekBarResult1.setText(sideeffectValueString);
+                     textSeekBarResult1.setText(sideeffectValueString);
                 }
                 break;
         }
