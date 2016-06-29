@@ -117,75 +117,118 @@
             android:layout_toLeftOf="@+id/linearLayout">
 
             <HorizontalScrollView
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:id="@+id/Scroll_background"
                 android:scrollbars="none">
 
                 <RelativeLayout
-                    android:layout_width="40000dp"
+                    android:layout_width="wrap_content"
                     android:background="@drawable/backgroundjourneyxml"
                     android:id="@+id/relativeLayout_background"
                     android:layout_height="fill_parent">
 
                     <RelativeLayout
-                        android:layout_width="7000dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/cloudjourneyxml"></RelativeLayout>
+                        android:id="@+id/cloud_layout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"></RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/big_mountains_layer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="400px"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="180px"></RelativeLayout>
                 </RelativeLayout>
             </HorizontalScrollView>
 
             <HorizontalScrollView
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:id="@+id/Scroll_background2"
                 android:scrollbars="none">
 
                 <RelativeLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:id="@+id/relativeLayout_background2"
                     android:layout_height="fill_parent" >
 
+                    <RelativeLayout
+                        android:id="@+id/mountains_layer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="135px"></RelativeLayout>
                 </RelativeLayout>
             </HorizontalScrollView>
 
             <HorizontalScrollView
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/Scroll_lion" >
+
+                <RelativeLayout
+                    android:id="@+id/lion_layer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="155px">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/img_lion"
+                        android:background="@drawable/lionnaked"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="false" />
+                </RelativeLayout>
+
+
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:id="@+id/Scroll_background3" >
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout_background3"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     >
 
                     <RelativeLayout
-                        android:id="@+id/big_mountain_layer"
-                        android:layout_width="10000dp"
+                        android:id="@+id/bushes_layer"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/backhillxml"
-                        android:layout_marginBottom="65dp"
+                        android:layout_marginBottom="65px"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentBottom="true">
+                        android:layout_alignParentBottom="true"
+                        android:visibility="visible">
                     </RelativeLayout>
+
+
+
                 </RelativeLayout>
             </HorizontalScrollView>
 
             <HorizontalScrollView
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:id="@+id/Scroll_roadlayer"
                 android:scrollbars="none">
 
                 <RelativeLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:id="@+id/relativeLayout_roadlayout"
                     android:layout_height="fill_parent">
 
                     <RelativeLayout
                         android:id="@+id/roadlayer"
-                        android:layout_width="50000dp"
+                        android:layout_width="fill_parent"
                         android:background="@drawable/roadxml"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"></RelativeLayout>
@@ -196,7 +239,7 @@
                         android:tileMode="repeat"
                         android:id="@+id/img_car_journey"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/car"
+                        android:src="@drawable/bus"
                         android:visibility="visible"
                         android:layout_gravity="bottom|left"
                         android:layout_alignParentTop="false"
@@ -209,19 +252,19 @@
             </HorizontalScrollView>
 
             <HorizontalScrollView
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:scrollbars="none"
                 android:id="@+id/Scroll_Bushes" >
 
                 <RelativeLayout
-                    android:id="@+id/bushesLayer"
+                    android:id="@+id/front_bushes_layer"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"></RelativeLayout>
             </HorizontalScrollView>
 
             <HorizontalScrollView
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:id="@+id/Scroll_eventlayer"
                 android:scrollbars="none"
