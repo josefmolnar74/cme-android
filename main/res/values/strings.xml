@@ -163,7 +163,7 @@
     <string name="txt_curr_events">Händelser</string>
 
     ////////Events////////////
-
+    <string name="Event_Start">My journy starts here!</string>
     <string name="Event_Appointments">Möten</string>
     <string name="Event_Tests">Undersökningar</string>
     <string name="Event_Treatments">Behandlingar</string>
