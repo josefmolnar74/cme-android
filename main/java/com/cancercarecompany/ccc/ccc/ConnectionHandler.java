@@ -29,6 +29,7 @@ public class ConnectionHandler {
     public StatusData status;
     public SideeffectData sideeffects;
     public BeverageData beverages;
+    public JournalData journal;
 
     public static final String MESSAGE_LOGIN = "login";
     public static final String MESSAGE_CREATE = "create";
@@ -45,6 +46,7 @@ public class ConnectionHandler {
     public static final String CONTENT_STATUS = "status";
     public static final String CONTENT_SIDEEFFECT = "sideeffect";
     public static final String CONTENT_BEVERAGE = "beverage";
+    public static final String CONTENT_JOURNAL = "journal";
 
     public static ConnectionHandler getInstance() {
         return ourInstance;
@@ -146,6 +148,10 @@ public class ConnectionHandler {
                                         break;
                                     case CONTENT_BEVERAGE:
                                         beverages = gson.fromJson(resultData, BeverageData.class);
+                                        break;
+
+                                    case CONTENT_JOURNAL:
+                                        journal = gson.fromJson(resultData, JournalData.class);
                                         break;
                                 }
                                 break;
@@ -383,6 +389,11 @@ public class ConnectionHandler {
     public void deleteBeverage(int beverageID){
         String msgData = String.format("{\"beverage_ID\":\"%d\"}", beverageID);
         sendMessage(MESSAGE_DELETE, CONTENT_BEVERAGE, msgData);
+    }
+
+    public void getJournalForPatient(int patientID){
+        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+        sendMessage(MESSAGE_READ, CONTENT_JOURNAL, msgData);
     }
 
 }

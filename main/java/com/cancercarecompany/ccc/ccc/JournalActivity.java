@@ -182,29 +182,31 @@ public class JournalActivity extends AppCompatActivity {
 
         //Get journal data
         connectHandler = ConnectionHandler.getInstance();
-        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
+        connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
+
+/*        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
         connectHandler.getStatusForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
         connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
         connectHandler.getBeveragesForPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy){}
+*/        while (connectHandler.socketBusy){}
 
         TextView loggedIn = (TextView) findViewById(R.id.loggedIn);
         if (connectHandler.person != null){
             loggedIn.setText(connectHandler.person.first_name);
         }
 
-        if (connectHandler.status != null){
-            for (int i = 0; i < connectHandler.status.status_data.size(); i++) {
+        if (connectHandler.journal != null){
+            for (int i = 0; i < connectHandler.journal.status_data.size(); i++) {
                 //TODO Check if there is status for today
                 boolean dateIsToday = false;
                 try {
-                    dateIsToday = checkIfDateIsToday(connectHandler.status.status_data.get(i).date);
+                    dateIsToday = checkIfDateIsToday(connectHandler.journal.status_data.get(i).date);
                 } catch (ParseException e){}
                 if (dateIsToday){
-                    statusList.add(connectHandler.status.status_data.get(i));
+                    statusList.add(connectHandler.journal.status_data.get(i));
                 }
             }
         }
@@ -218,19 +220,19 @@ public class JournalActivity extends AppCompatActivity {
 
         int savedBeverageAmount = 0;
         beverageIdForToday = -1; //init
-        if (connectHandler.beverages.beverage_data.size() > 0){
+        if (connectHandler.journal.beverage_data.size() > 0){
             // Check if beverage has already been saved today
             // Get last saved beverage and check for date
-            int lastIndex = connectHandler.beverages.beverage_data.size()-1;
+            int lastIndex = connectHandler.journal.beverage_data.size()-1;
             boolean dateIsToday = false;
             try {
-                dateIsToday = checkIfDateIsToday(connectHandler.beverages.beverage_data.get(lastIndex).date);
+                dateIsToday = checkIfDateIsToday(connectHandler.journal.beverage_data.get(lastIndex).date);
             } catch (ParseException e){}
 
             if (dateIsToday){
                 // yep, beverage has been saved today
                 beverageIdForToday = lastIndex;
-                savedBeverageAmount = connectHandler.beverages.beverage_data.get(beverageIdForToday).amount;
+                savedBeverageAmount = connectHandler.journal.beverage_data.get(beverageIdForToday).amount;
             }
         }
 
@@ -464,7 +466,7 @@ public class JournalActivity extends AppCompatActivity {
                                             amount);
         if (beverageIdForToday >= 0){
             // update already existing beverage for today
-            beverage.beverage_ID = connectHandler.beverages.beverage_data.get(beverageIdForToday).beverage_ID;
+            beverage.beverage_ID = connectHandler.journal.beverage_data.get(beverageIdForToday).beverage_ID;
             connectHandler.updateBeverage(beverage);
         } else{
             // Beverage exist for today, create a new one
@@ -784,9 +786,9 @@ public class JournalActivity extends AppCompatActivity {
         // if sideeffect exist, initalise the saved checkbox values
         String sideeffectValueString = null;
         if ((painIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_PAIN)){
-            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(painIdForToday).value;
+            sideeffectValueString = connectHandler.journal.sideeffect_data.get(painIdForToday).value;
         } else if ((tinglingIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_TINGLING)){
-            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(tinglingIdForToday).value;
+            sideeffectValueString = connectHandler.journal.sideeffect_data.get(tinglingIdForToday).value;
         }
 
         if (sideeffectValueString != null){
@@ -1080,7 +1082,7 @@ public class JournalActivity extends AppCompatActivity {
         switch(sideeffectType){
             case SIDEEFFECT_TYPE_APPETITE:
                 if (appetiteIdForToday >= 0){
-                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(appetiteIdForToday).value;
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(appetiteIdForToday).value;
                     // Populate the seekbar values for the existing side effect
                     //Separate Breakfast, lunch, dinner and convert string values to integer and set progress default
                     String[] parts = sideeffectValueString.split(",");
@@ -1097,7 +1099,7 @@ public class JournalActivity extends AppCompatActivity {
                 break;
             case SIDEEFFECT_TYPE_FATIGUE:
                 if (fatigueIdForToday >= 0){
-                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(fatigueIdForToday).value;
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(fatigueIdForToday).value;
                     seekBar1.setProgress(Integer.parseInt(sideeffectValueString));
                     textSeekBarResult1.setText(sideeffectValueString);
                 }
@@ -1260,22 +1262,22 @@ public class JournalActivity extends AppCompatActivity {
         switch(sideeffectType){
             case SIDEEFFECT_TYPE_DIARRHEA:
                 if (diarrheaIdForToday >= 0){
-                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(diarrheaIdForToday).value;
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(diarrheaIdForToday).value;
                 }
                 break;
             case SIDEEFFECT_TYPE_MOUTH:
                 if (mouthIdForToday >= 0){
-                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(mouthIdForToday).value;
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(mouthIdForToday).value;
                 }
                 break;
             case SIDEEFFECT_TYPE_VOMIT:
                 if (vomitIdForToday >= 0){
-                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(vomitIdForToday).value;
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(vomitIdForToday).value;
                 }
                 break;
             case SIDEEFFECT_TYPE_DIZZINESS:
                 if (dizzinessIdForToday >= 0){
-                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(dizzinessIdForToday).value;
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(dizzinessIdForToday).value;
                 }
                 break;
         }
@@ -1377,56 +1379,56 @@ public class JournalActivity extends AppCompatActivity {
         vomitButton.getBackground().setTint(getColor(R.color.button_material_light));
         otherButton.getBackground().setTint(getColor(R.color.button_material_light));
 
-        if (connectHandler.sideeffects.sideeffect_data != null){
-            for (int position=0; position < connectHandler.sideeffects.sideeffect_data.size(); position++){
+        if (connectHandler.journal.sideeffect_data != null){
+            for (int position=0; position < connectHandler.journal.sideeffect_data.size(); position++){
                 boolean dateIsToday = false;
                 try {
-                    dateIsToday = checkIfDateIsToday(connectHandler.sideeffects.sideeffect_data.get(position).date);
+                    dateIsToday = checkIfDateIsToday(connectHandler.journal.sideeffect_data.get(position).date);
                 } catch (ParseException e){}
                 if (dateIsToday){
-                    switch (connectHandler.sideeffects.sideeffect_data.get(position).type){
+                    switch (connectHandler.journal.sideeffect_data.get(position).type){
                         case SIDEEFFECT_TYPE_FATIGUE:
-//                        fatigueIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+//                        fatigueIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             fatigueIdForToday = position;
                             fatigueButton.getBackground().setTint(getColor(R.color.cme_light));
                             break;
                         case SIDEEFFECT_TYPE_PAIN:
-//                        painIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+//                        painIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             painIdForToday = position;
                             painButton.getBackground().setTint(getColor(R.color.cme_light));
                             break;
                         case SIDEEFFECT_TYPE_MOUTH:
-//                        mouthIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+//                        mouthIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             mouthIdForToday = position;
                             mouthButton.getBackground().setTint(getColor(R.color.cme_light));
                             break;
                         case SIDEEFFECT_TYPE_TINGLING:
-//                        tinglingIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+//                        tinglingIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             tinglingIdForToday = position;
                             tinglingButton.getBackground().setTint(getColor(R.color.cme_light));
                             break;
                         case SIDEEFFECT_TYPE_DIARRHEA:
-//                        diarrheaIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+//                        diarrheaIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             diarrheaIdForToday = position;
                             diarrheaButton.getBackground().setTint(getColor(R.color.cme_light));
                             break;
                         case SIDEEFFECT_TYPE_APPETITE:
-//                        appetiteIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+//                        appetiteIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             appetiteIdForToday = position;
                             appetiteButton.getBackground().setTint(getColor(R.color.cme_light));
                             break;
                         case SIDEEFFECT_TYPE_DIZZINESS:
-//                        dizzinessIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+//                        dizzinessIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             dizzinessIdForToday = position;
                             dizzinessButton.getBackground().setTint(getColor(R.color.cme_light));
                             break;
                         case SIDEEFFECT_TYPE_VOMIT:
-//                        vomitIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+//                        vomitIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             vomitIdForToday = position;
                             vomitButton.getBackground().setTint(getColor(R.color.cme_light));
                             break;
                         case SIDEEFFECT_TYPE_OTHER:
-//                        otherIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
+//                        otherIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             otherIdForToday = position;
                             otherButton.getBackground().setTint(getColor(R.color.cme_light));
                             break;
