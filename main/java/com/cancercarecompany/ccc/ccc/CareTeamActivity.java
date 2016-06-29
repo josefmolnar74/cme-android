@@ -1,7 +1,6 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -13,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
@@ -23,7 +21,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -60,7 +57,13 @@ public class CareTeamActivity extends AppCompatActivity {
 
         connectHandler = ConnectionHandler.getInstance();
 
-        TextView loggedIn = (TextView) findViewById(R.id.loggedIn);
+        // Display patient name on topbar
+        TextView patientNameText = (TextView) findViewById(R.id.txt_careteam_patient_name);
+        if (connectHandler.patient != null){
+            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
+        }
+
+        TextView loggedIn = (TextView) findViewById(R.id.txt_journal_loggedIn);
         if (connectHandler.person != null){
             loggedIn.setText(connectHandler.person.first_name);
         }

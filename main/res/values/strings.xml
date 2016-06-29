@@ -3,6 +3,7 @@
     <string name="preference_file_key">com.cancercarecompany.cme.PREFERENCE_FILE_KEY</string>
 
     <string name="journal_status_header">Status</string>
+    <string name="journal_patient_name">Patient: </string>
     <string name="journal_sideeffects_fatigue">Trötthet</string>
     <string name="journal_sideeffects_pain">Smärta</string>
     <string name="journal_sideeffects_mouth_change">Munförändring</string>
@@ -76,6 +77,15 @@
     <string name="journal_sideeffects_vomit_radioButton1">Blood/röd</string>
     <string name="journal_sideeffects_vomit_radioButton2">Klar/grönaktig</string>
     <string name="journal_sideeffects_vomit_radioButton3">Onedbruten mat</string>
+    <string name="journal_emotion_happy">Glad</string>
+    <string name="journal_emotion_sad">Ledsen</string>
+    <string name="journal_emotion_worried">Orolig</string>
+    <string name="journal_emotion_frustrated">Frustrerad</string>
+    <string name="journal_emotion_satisfied">Nöjd</string>
+    <string name="journal_emotion_tired">Trött</string>
+    <string name="journal_emotion_scared">Rädd</string>
+    <string name="journal_emotion_sick">Sjuk</string>
+    <string name="journal_emotion_nauseous">Illamående</string>
 
     <string name="welcome">Welcome to play, explore and document your cancer journey. It is free for patients and will always be.</string>
     <string name="button_create_care_team">Create care team</string>

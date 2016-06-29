@@ -3,17 +3,13 @@ package com.cancercarecompany.ccc.ccc;
 
 import android.app.Activity;
 import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.media.Image;
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.EventLog;
 import android.view.Display;
 import android.view.DragEvent;
 import android.view.Gravity;
@@ -26,7 +22,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -36,14 +31,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +45,6 @@ import java.util.Random;
 
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -137,10 +126,21 @@ public class JourneyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey);
         eventList = new ArrayList<Events>();
-/*
+
         connectHandler = ConnectionHandler.getInstance();
 
-        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
+        // Display patient name on topbar
+        TextView patientNameText = (TextView) findViewById(R.id.txt_journey_patient_name);
+        if (connectHandler.patient != null){
+            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
+        }
+
+        TextView loggedIn = (TextView) findViewById(R.id.txt_journal_loggedIn);
+        if (connectHandler.person != null){
+            loggedIn.setText(connectHandler.person.first_name);
+        }
+
+/*        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
 
         for (int i=0; i < connectHandler.events.event_data.size();i++){
