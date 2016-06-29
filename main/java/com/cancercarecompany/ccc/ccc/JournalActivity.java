@@ -3,7 +3,6 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,6 +13,8 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -78,6 +79,7 @@ public class JournalActivity extends AppCompatActivity {
     int dizzinessIdForToday;
     int vomitIdForToday;
     int otherIdForToday;
+    int beverageIdForToday;
 
     public static final String TIME_SIMPLE_FORMAT = "yyyy-MM-dd";
     public static final String DATE_SIMPLE_FORMAT = "kk:mm:ss";
@@ -88,7 +90,7 @@ public class JournalActivity extends AppCompatActivity {
     public static final String SIDEEFFECT_TYPE_TINGLING     = "Tingling/numbness";
     public static final String SIDEEFFECT_TYPE_DIARRHEA     = "Diarrhea";
     public static final String SIDEEFFECT_TYPE_APPETITE     = "Appetite";
-    public static final String SIDEEFFECT_TYPE_DIZINESS     = "Dizziness";
+    public static final String SIDEEFFECT_TYPE_DIZZINESS     = "Dizziness";
     public static final String SIDEEFFECT_TYPE_VOMIT        = "Vomit";
     public static final String SIDEEFFECT_TYPE_OTHER        = "Other";
 
@@ -120,6 +122,16 @@ public class JournalActivity extends AppCompatActivity {
     public static final String SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE       = "LAB";
     public static final String SIDEEFFECT_PAIN_TAILBONE_VALUE           = "TAI";
 
+    public static final String SIDEEFFECT_DIARRHEA_VALUE_1 = "1";
+    public static final String SIDEEFFECT_DIARRHEA_VALUE_2 = "2";
+    public static final String SIDEEFFECT_DIARRHEA_VALUE_3 = "3";
+    public static final String SIDEEFFECT_DIARRHEA_VALUE_4 = "4";
+    public static final String SIDEEFFECT_DIARRHEA_VALUE_5 = "MORE THAN 4";
+
+    private String[] sideeffectDiarrheaValues = {SIDEEFFECT_DIARRHEA_VALUE_1,
+                        SIDEEFFECT_DIARRHEA_VALUE_2,SIDEEFFECT_DIARRHEA_VALUE_3,
+                        SIDEEFFECT_DIARRHEA_VALUE_4,SIDEEFFECT_DIARRHEA_VALUE_5};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,16 +147,16 @@ public class JournalActivity extends AppCompatActivity {
         vomitButton = (Button) findViewById(R.id.btn_journal_sideeffect_vomit);
         otherButton = (Button) findViewById(R.id.btn_journal_sideeffect_other);
 
-        final EditText statusTextEditText   = (EditText) findViewById(R.id.edtxt_journal_status);
-        final TextView txt_med_txt          = (TextView) findViewById(R.id.txt_med_int);
-        final TextView txt_diary_head       = (TextView) findViewById(R.id.txt_journal_header);
-        final Button saveStatusButton       = (Button) findViewById(R.id.btn_journal_status_save);
-        final Button medBreakfastButton     = (Button) findViewById(R.id.btn_journal_medication_breakfast);
-        final Button medLunchButton         = (Button) findViewById(R.id.btn_journal_medication_lunch);
-        final Button medDinnerButton        = (Button) findViewById(R.id.btn_journal_medication_dinner);
-        final ImageButton journeyButton     = (ImageButton) findViewById(R.id.btn_journal_journey_button);
-        final ImageButton careTeamButton    = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
-        final CalendarView calendar         = (CalendarView) findViewById(R.id.cal_journal_calendar);
+        final EditText statusTextEditText       = (EditText) findViewById(R.id.edtxt_journal_status);
+//        final TextView txt_med_txt            = (TextView) findViewById(R.id.txt_med_int);
+        final TextView txt_diary_head           = (TextView) findViewById(R.id.txt_journal_header);
+        final Button saveStatusButton           = (Button) findViewById(R.id.btn_journal_status_save);
+        final Button medicationBreakfastButton  = (Button) findViewById(R.id.btn_journal_medication_breakfast);
+        final Button medicationLunchButton      = (Button) findViewById(R.id.btn_journal_medication_lunch);
+        final Button medicationDinnerButton     = (Button) findViewById(R.id.btn_journal_medication_dinner);
+        final ImageButton journeyButton         = (ImageButton) findViewById(R.id.btn_journal_journey_button);
+        final ImageButton careTeamButton        = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
+        final CalendarView calendar             = (CalendarView) findViewById(R.id.cal_journal_calendar);
         //Get journal data
         connectHandler = ConnectionHandler.getInstance();
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
@@ -152,6 +164,8 @@ public class JournalActivity extends AppCompatActivity {
         connectHandler.getStatusForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
         connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy){}
+        connectHandler.getBeveragesForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
 
         if (connectHandler.status != null){
@@ -174,8 +188,30 @@ public class JournalActivity extends AppCompatActivity {
         statusAdapter = new JournalStatusAdapter(this, statusList);
         statusGridView.setAdapter(statusAdapter);
 
+        int savedBeverageAmount = 0;
+        beverageIdForToday = -1; //init
+        if (connectHandler.beverages.beverage_data.size() > 0){
+            // Check if beverage has already been saved today
+            // Get last saved beverage and check for date
+            int lastIndex = connectHandler.beverages.beverage_data.size()-1;
+            boolean dateIsToday = false;
+            try {
+                dateIsToday = checkIfDateIsToday(connectHandler.beverages.beverage_data.get(lastIndex).date);
+            } catch (ParseException e){}
+
+            if (dateIsToday){
+                // yep, beverage has been saved today
+                beverageIdForToday = lastIndex;
+                savedBeverageAmount = connectHandler.beverages.beverage_data.get(beverageIdForToday).amount;
+            }
+        }
+
         for (int i = 0; i < 8 ; i++) {
-            beverageList.add("empty");
+            if (i < savedBeverageAmount){
+                beverageList.add("full");
+            } else{
+                beverageList.add("empty");
+            }
         }
 
         beverageGridView = (GridView) findViewById(R.id.gridview_journal_beverage);
@@ -270,79 +306,88 @@ public class JournalActivity extends AppCompatActivity {
                 createSideeffectAppetite(SIDEEFFECT_TYPE_APPETITE);            }
         });
 
+        mouthButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createSideeffectDiarrhea(SIDEEFFECT_TYPE_MOUTH);            }
+        });
+
         dizzinessButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createSideeffectDiarrhea(SIDEEFFECT_TYPE_DIZZINESS);
             }
         });
 
         diarrheaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createSideeffectDiarrhea(SIDEEFFECT_TYPE_DIARRHEA);
             }
         });
 
         vomitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createSideeffectDiarrhea(SIDEEFFECT_TYPE_VOMIT);
             }
         });
 
-        medBreakfastButton.setOnClickListener(new View.OnClickListener() {
+        medicationBreakfastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (fr_mark.equals(Boolean.FALSE)) {
                     fr_mark = Boolean.TRUE;
-                    medBreakfastButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medicationBreakfastButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     fr_mark = Boolean.FALSE;
-                    medBreakfastButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medicationBreakfastButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
-                    txt_med_txt.setText(R.string.txt_med_done);
+//                    txt_med_txt.setText(R.string.txt_med_done);
                 } else {
-                    txt_med_txt.setText(R.string.txt_med_info);
+//                    txt_med_txt.setText(R.string.txt_med_info);
                 }
             }
 
         });
 
 
-        medLunchButton.setOnClickListener(new View.OnClickListener() {
+        medicationLunchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ( lu_mark.equals(Boolean.FALSE)) {
                     lu_mark = Boolean.TRUE;
-                    medLunchButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medicationLunchButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     lu_mark = Boolean.FALSE;
-                    medLunchButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medicationLunchButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
-                    txt_med_txt.setText(R.string.txt_med_done);
+//                    txt_med_txt.setText(R.string.txt_med_done);
                 } else {
-                    txt_med_txt.setText(R.string.txt_med_info);
+//                    txt_med_txt.setText(R.string.txt_med_info);
                 }
             }
         });
 
-        medDinnerButton.setOnClickListener(new View.OnClickListener() {
+        medicationDinnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ( mi_mark.equals(Boolean.FALSE)) {
                     mi_mark = Boolean.TRUE;
-                    medDinnerButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medicationDinnerButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     mi_mark = Boolean.FALSE;
-                    medDinnerButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medicationDinnerButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
-                    txt_med_txt.setText(R.string.txt_med_done);
+//                    txt_med_txt.setText(R.string.txt_med_done);
                 } else {
-                    txt_med_txt.setText(R.string.txt_med_info);
+//                    txt_med_txt.setText(R.string.txt_med_info);
                 }
             }
         });
@@ -363,6 +408,34 @@ public class JournalActivity extends AppCompatActivity {
                 txt_diary_head.setText((txt_diary_head.getText()) + " " + year + "-" + month + "-" + date);
             }
         });
+    }
+    @Override
+    protected void onPause() {
+
+        // Save beverage amount
+        int amount = 0;
+        for (int i = 0; i < beverageList.size();i++){
+            if (beverageList.get(i) == "full"){
+                amount += 1;
+            }
+        }
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
+        Beverage beverage = new Beverage(   0,
+                                            connectHandler.patient.patient_ID,
+                                            connectHandler.person.person_ID,
+                                            date,
+                                            time,
+                                            amount);
+        if (beverageIdForToday >= 0){
+            // update already existing beverage for today
+            beverage.beverage_ID = connectHandler.beverages.beverage_data.get(beverageIdForToday).beverage_ID;
+            connectHandler.updateBeverage(beverage);
+        } else{
+            // Beverage exist for today, create a new one
+            connectHandler.createBeverage(beverage);
+        }
+        super.onPause();
     }
 
     public void showStatus(final int position) {
@@ -512,7 +585,14 @@ public class JournalActivity extends AppCompatActivity {
         final Button    buttonSave                  = (Button) popupView.findViewById(R.id.btn_journal_status_save);
         final Button    buttonCancel                = (Button) popupView.findViewById(R.id.btn_journal_status_cancel);
 
-        sideeffectsHeaderTextView.setText(sideeffectType);
+        switch(sideeffectType){
+            case SIDEEFFECT_TYPE_PAIN:
+                sideeffectsHeaderTextView.setText(R.string.journal_sideeffects_pain);
+                break;
+            case SIDEEFFECT_TYPE_TINGLING:
+                sideeffectsHeaderTextView.setText(R.string.journal_sideeffects_tingling);
+                break;
+        }
         // Replace X with patient name
         textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
 
@@ -784,43 +864,38 @@ public class JournalActivity extends AppCompatActivity {
         // Initialize seekbar popup
         switch(sideeffectType){
             case SIDEEFFECT_TYPE_APPETITE:
-                textSideeffectsHeader.setText(SIDEEFFECT_TYPE_APPETITE);
-                textSideeffectQuestion.setText(R.string.txt_journal_sideeffects_appetite_question);
-                textSideeffectsHeader1.setText(R.string.txt_journal_sideeffects_appetite_seekbar_headline1);
-                textSeekBarMin1.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min1);
-                textSeekBarMax1.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min1);
-                textSideeffectsHeader2.setText(R.string.txt_journal_sideeffects_appetite_seekbar_headline2);
-                textSeekBarMin2.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min2);
-                textSeekBarMax2.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min2);
-                textSideeffectsHeader3.setText(R.string.txt_journal_sideeffects_appetite_seekbar_headline3);
-                textSeekBarMin3.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min3);
-                textSeekBarMax3.setText(R.string.txt_journal_sideeffects_appetite_seekbar_min3);
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_appetite);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
+                textSideeffectsHeader1.setText(R.string.journal_sideeffects_appetite_seekbar_headline1);
+                textSeekBarMin1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
+                textSeekBarMax1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
+                textSideeffectsHeader2.setText(R.string.journal_sideeffects_appetite_seekbar_headline2);
+                textSeekBarMin2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
+                textSeekBarMax2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
+                textSideeffectsHeader3.setText(R.string.journal_sideeffects_appetite_seekbar_headline3);
+                textSeekBarMin3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
+                textSeekBarMax3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
                 break;
             case SIDEEFFECT_TYPE_FATIGUE:
-                textSideeffectsHeader.setText(SIDEEFFECT_TYPE_FATIGUE);
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_fatigue);
                 seekbarLayout2.removeAllViews();
                 seekbarLayout3.removeAllViews();
-                textSideeffectQuestion.setText(R.string.txt_journal_sideeffects_fatigue_question);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_fatigue_question);
                 textSideeffectsHeader1.setVisibility(View.INVISIBLE);
-                textSeekBarMin1.setText(R.string.txt_journal_sideeffects_fatigue_seekbar_min1);
-                textSeekBarMax1.setText(R.string.txt_journal_sideeffects_fatigue_seekbar_max1);
+                textSeekBarMin1.setText(R.string.journal_sideeffects_fatigue_seekbar_min1);
+                textSeekBarMax1.setText(R.string.journal_sideeffects_fatigue_seekbar_max1);
                 break;
         }
 
         // Replace X with patient name
         textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
 
-        // if sideeffect exist, initalise the saved checkbox values
+        // Get position for todays sideeffect
         String sideeffectValueString = null;
-        if ((appetiteIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_APPETITE)){
-            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(appetiteIdForToday).value;
-        } else if ((fatigueIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_FATIGUE)) {
-            sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(fatigueIdForToday).value;
-        }
-
-        if (sideeffectValueString != null){
-            switch(sideeffectType){
-                case SIDEEFFECT_TYPE_APPETITE:
+        switch(sideeffectType){
+            case SIDEEFFECT_TYPE_APPETITE:
+                if (appetiteIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(appetiteIdForToday).value;
                     // Populate the seekbar values for the existing side effect
                     //Separate Breakfast, lunch, dinner and convert string values to integer and set progress default
                     String[] parts = sideeffectValueString.split(",");
@@ -833,13 +908,15 @@ public class JournalActivity extends AppCompatActivity {
                     Integer value3 = Integer.parseInt(parts[2].substring(parts[2].indexOf(":") + 1));
                     seekBar3.setProgress(value3);
                     textSeekBarResult3.setText(value3.toString());
-                    break;
-
-                case SIDEEFFECT_TYPE_FATIGUE:
-                    seekBar1.setProgress(Integer.parseInt(sideeffectValueString ));
-                    textSeekBarResult1.setText(sideeffectValueString);
-                    break;
-            }
+                }
+                break;
+            case SIDEEFFECT_TYPE_FATIGUE:
+                if (fatigueIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(fatigueIdForToday).value;
+                    seekBar1.setProgress(Integer.parseInt(sideeffectValueString));
+                     textSeekBarResult1.setText(sideeffectValueString);
+                }
+                break;
         }
 
         popupWindow.setFocusable(true);
@@ -930,25 +1007,153 @@ public class JournalActivity extends AppCompatActivity {
 
     }
 
-    /*   public void add_yrsel(String choice) {
-            popup_add_yrsel(choice);
-            //popup_add_fatigue("Pain");
+    public void createSideeffectDiarrhea(final String sideeffectType) {
+
+
+        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.journal_sideeffect_diarrhea_popup, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
+        final Button        buttonSave              = (Button) popupView.findViewById(R.id.btn_journal_sideeffects_diarrhea_save);
+        final Button        buttonCancel            = (Button) popupView.findViewById(R.id.btn_journal_sideeffects_diarrhea_cancel);
+        final TextView      textSideeffectsHeader   = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_diarrhea_popup_headline);
+        final TextView      textSideeffectQuestion  = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_diarrhea_popup_question);
+        final RadioGroup    radioGroup              = (RadioGroup) popupView.findViewById(R.id.rg_journal_sideeffects_dirrhea_popup);
+        final RadioButton   radioButton1            = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection1);
+        final RadioButton   radioButton2            = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection2);
+        final RadioButton   radioButton3            = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection3);
+        final RadioButton   radioButton4            = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection4);
+        final RadioButton   radioButton5            = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection5);
+
+        // Initialize seekbar popup
+        switch(sideeffectType){
+            case SIDEEFFECT_TYPE_DIARRHEA:
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_diarrhea);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_diarrhea_question);
+                radioButton1.setText(R.string.journal_sideeffects_diarrhea_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffects_diarrhea_radioButton2);
+                radioButton3.setText(R.string.journal_sideeffects_diarrhea_radioButton3);
+                radioButton4.setText(R.string.journal_sideeffects_diarrhea_radioButton4);
+                radioButton5.setText(R.string.journal_sideeffects_diarrhea_radioButton5);
+                break;
+            case SIDEEFFECT_TYPE_MOUTH:
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_mouth_change_header);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_mouth_change_question);
+                radioButton1.setText(R.string.journal_sideeffects_mouth_change_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffects_mouth_change_radioButton2);
+                radioButton3.setText(R.string.journal_sideeffects_mouth_change_radioButton3);
+                radioButton4.setText(R.string.journal_sideeffects_mouth_change_radioButton4);
+                radioButton5.setVisibility(View.INVISIBLE);
+                break;
+            case SIDEEFFECT_TYPE_VOMIT:
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_vomit_header);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_vomit_question);
+                radioButton1.setText(R.string.journal_sideeffects_vomit_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffects_vomit_radioButton2);
+                radioButton3.setText(R.string.journal_sideeffects_vomit_radioButton3);
+                radioButton4.setVisibility(View.INVISIBLE);
+                radioButton5.setVisibility(View.INVISIBLE);
+                break;
+            case SIDEEFFECT_TYPE_DIZZINESS:
+                textSideeffectsHeader.setText(R.string.journal_sideeffects_dizziness_header);
+                textSideeffectQuestion.setText(R.string.journal_sideeffects_dizziness_question);
+                radioButton1.setText(R.string.journal_sideeffects_dizziness_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffects_dizziness_radioButton2);
+                radioButton3.setVisibility(View.INVISIBLE);
+                radioButton4.setVisibility(View.INVISIBLE);
+                radioButton5.setVisibility(View.INVISIBLE);
+                break;
         }
-    */
-    public void popup_add_yrsel(String choice) {
-        LayoutInflater layoutInflater
-                = (LayoutInflater) getBaseContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.biv_slider_0_10_popup, null);
 
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, 1000, 2000);
+        // Replace X with patient name
+        textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
 
+        // if sideeffect exist, initalise the saved checkbox values
+        String sideeffectValueString = null;
+
+        // Get position for todays sideeffect
+        switch(sideeffectType){
+            case SIDEEFFECT_TYPE_DIARRHEA:
+                if (diarrheaIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(diarrheaIdForToday).value;
+                }
+                break;
+            case SIDEEFFECT_TYPE_MOUTH:
+                if (mouthIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(mouthIdForToday).value;
+                }
+                break;
+            case SIDEEFFECT_TYPE_VOMIT:
+                if (vomitIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(vomitIdForToday).value;
+                }
+                break;
+            case SIDEEFFECT_TYPE_DIZZINESS:
+                if (dizzinessIdForToday >= 0){
+                    sideeffectValueString = connectHandler.sideeffects.sideeffect_data.get(dizzinessIdForToday).value;
+                }
+                break;
+        }
+
+        if (sideeffectValueString != null){
+            switch(Integer.parseInt(sideeffectValueString)){
+                case 1:
+                    radioButton1.setChecked(true);
+                    break;
+                case 2:
+                    radioButton2.setChecked(true);
+                    break;
+                case 3:
+                    radioButton3.setChecked(true);
+                    break;
+                case 4:
+                    radioButton4.setChecked(true);
+                    break;
+                case 5:
+                    radioButton5.setChecked(true);
+                    break;
+            }
+        }
         popupWindow.setFocusable(true);
         popupWindow.update();
+        RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_journal_sideeffect_diarrhea_popup);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
 
-        relativeLayout = (RelativeLayout) findViewById(R.id.rel_lay_scr);
-        popupWindow.showAsDropDown(relativeLayout, 500, -1100);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sideeffectValue = "";
+                Integer radioButtonPosition = 0;
+                int selectedId=radioGroup.getCheckedRadioButtonId();
+                //Get which option was selected
+                if (selectedId == radioButton1.getId()){
+//                    radioButtonPosition = 1;
+                    sideeffectValue += "1";
+                } else if (selectedId == radioButton2.getId()){
+                    sideeffectValue += "2";
+                } else if (selectedId == radioButton3.getId()){
+                    sideeffectValue += "3";
+                } else if (selectedId == radioButton4.getId()){
+                    sideeffectValue += "4";
+                } else if (selectedId == radioButton5.getId()){
+                    sideeffectValue += "5";
+                }
+
+                buttonCancel.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.VISIBLE);
+                saveSideeffect(sideeffectType, sideeffectValue);
+                popupWindow.dismiss();
+            }
+
+        });
+
     }
 
     private boolean checkIfDateIsToday(String dateString) throws ParseException {
@@ -989,52 +1194,59 @@ public class JournalActivity extends AppCompatActivity {
 
         if (connectHandler.sideeffects.sideeffect_data != null){
             for (int position=0; position < connectHandler.sideeffects.sideeffect_data.size(); position++){
-                switch (connectHandler.sideeffects.sideeffect_data.get(position).type){
-                    case SIDEEFFECT_TYPE_FATIGUE:
+                boolean dateIsToday = false;
+                try {
+                    dateIsToday = checkIfDateIsToday(connectHandler.sideeffects.sideeffect_data.get(position).date);
+                } catch (ParseException e){}
+                if (dateIsToday){
+                    switch (connectHandler.sideeffects.sideeffect_data.get(position).type){
+                        case SIDEEFFECT_TYPE_FATIGUE:
 //                        fatigueIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        fatigueIdForToday = position;
-                        fatigueButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_PAIN:
+                            fatigueIdForToday = position;
+                            fatigueButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_PAIN:
 //                        painIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        painIdForToday = position;
-                        painButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_MOUTH:
+                            painIdForToday = position;
+                            painButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_MOUTH:
 //                        mouthIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        mouthIdForToday = position;
-                        mouthButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_TINGLING:
+                            mouthIdForToday = position;
+                            mouthButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_TINGLING:
 //                        tinglingIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        tinglingIdForToday = position;
-                        tinglingButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_DIARRHEA:
+                            tinglingIdForToday = position;
+                            tinglingButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_DIARRHEA:
 //                        diarrheaIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        diarrheaIdForToday = position;
-                        diarrheaButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_APPETITE:
+                            diarrheaIdForToday = position;
+                            diarrheaButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_APPETITE:
 //                        appetiteIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        appetiteIdForToday = position;
-                        appetiteButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_DIZINESS:
+                            appetiteIdForToday = position;
+                            appetiteButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_DIZZINESS:
 //                        dizzinessIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        dizzinessIdForToday = position;
-                        dizzinessButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_VOMIT:
+                            dizzinessIdForToday = position;
+                            dizzinessButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_VOMIT:
 //                        vomitIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        vomitIdForToday = position;
-                        vomitButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
-                    case SIDEEFFECT_TYPE_OTHER:
+                            vomitIdForToday = position;
+                            vomitButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                        case SIDEEFFECT_TYPE_OTHER:
 //                        otherIdForToday = connectHandler.sideeffects.sideeffect_data.get(i).sideeffect_ID;
-                        otherIdForToday = position;
-                        otherButton.getBackground().setTint(getColor(R.color.cme_light));
-                        break;
+                            otherIdForToday = position;
+                            otherButton.getBackground().setTint(getColor(R.color.cme_light));
+                            break;
+                    }
+
                 }
             }
         }

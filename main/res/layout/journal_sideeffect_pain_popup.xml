@@ -9,12 +9,13 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/cme_light"
+        android:background="@color/white"
         android:weightSum="1"
         android:columnCount="3"
         android:rowCount="3"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/gridLayout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,7 +29,11 @@
             android:layout_column="1"
             android:layout_gravity="center"
             android:textAlignment="gravity"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:backgroundTint="@color/cme_light"
+            android:backgroundTintMode="multiply"
+            android:foregroundTintMode="add"
+            android:foreground="@color/accent_material_dark" />
 
         <Button
             android:layout_width="40dp"
@@ -85,7 +90,7 @@
         <RelativeLayout
             android:layout_row="1"
             android:layout_column="1"
-            android:background="@color/cme_light"
+            android:background="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -116,15 +121,15 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Right hand"
                     android:id="@+id/checkBox_journal_sideeffect_right_hand"
                     android:layout_row="0"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="@string/journal_sideeffects_pain_right_hand" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Right shoulder"
+                    android:text="@string/journal_sideeffects_pain_right_shoulder"
                     android:id="@+id/checkBox_journal_sideeffect_right_shoulder"
                     android:layout_row="1"
                     android:layout_column="0" />
@@ -132,7 +137,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Right chest"
+                    android:text="@string/journal_sideeffects_pain_right_chest"
                     android:id="@+id/checkBox_journal_sideeffect_right_chest"
                     android:layout_row="2"
                     android:layout_column="0" />
@@ -140,7 +145,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Right arm"
+                    android:text="@string/journal_sideeffects_pain_right_arm"
                     android:id="@+id/checkBox_journal_sideeffect_right_arm"
                     android:layout_row="3"
                     android:layout_column="0" />
@@ -148,7 +153,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Right hip"
+                    android:text="@string/journal_sideeffects_pain_right_hip"
                     android:id="@+id/checkBox_journal_sideeffect_right_hip"
                     android:layout_row="4"
                     android:layout_column="0" />
@@ -156,7 +161,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Right upper leg"
+                    android:text="@string/journal_sideeffects_pain_right_upper_leg"
                     android:id="@+id/checkBox_journal_sideeffect_right_upper_leg"
                     android:layout_row="5"
                     android:layout_column="0" />
@@ -164,7 +169,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Right knee"
+                    android:text="@string/journal_sideeffects_pain_right_knee"
                     android:id="@+id/checkBox_journal_sideeffect_right_knee"
                     android:layout_row="6"
                     android:layout_column="0" />
@@ -172,7 +177,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Right lower leg"
+                    android:text="@string/journal_sideeffects_pain_right_lower_leg"
                     android:id="@+id/checkBox_journal_sideeffect_right_lower_leg"
                     android:layout_row="7"
                     android:layout_column="0" />
@@ -180,7 +185,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Right foot"
+                    android:text="@string/journal_sideeffects_pain_right_foot"
                     android:id="@+id/checkBox_journal_sideeffect_right_foot"
                     android:layout_row="8"
                     android:layout_column="0" />
@@ -188,7 +193,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Left hand"
+                    android:text="@string/journal_sideeffects_pain_left_hand"
                     android:id="@+id/checkBox_journal_sideeffect_left_hand"
                     android:layout_row="0"
                     android:layout_column="1" />
@@ -196,7 +201,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Left shoulder"
+                    android:text="@string/journal_sideeffects_pain_left_shoulder"
                     android:id="@+id/checkBox_journal_sideeffect_left_shoulder"
                     android:layout_row="1"
                     android:layout_column="1" />
@@ -204,7 +209,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Left chest"
+                    android:text="@string/journal_sideeffects_pain_left_chest"
                     android:id="@+id/checkBox_journal_sideeffect_left_chest"
                     android:layout_row="2"
                     android:layout_column="1" />
@@ -212,7 +217,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Left arm"
+                    android:text="@string/journal_sideeffects_pain_left_arm"
                     android:id="@+id/checkBox_journal_sideeffect_left_arm"
                     android:layout_row="3"
                     android:layout_column="1" />
@@ -220,7 +225,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Left hip"
+                    android:text="@string/journal_sideeffects_pain_left_hip"
                     android:id="@+id/checkBox_journal_sideeffect_left_hip"
                     android:layout_row="4"
                     android:layout_column="1" />
@@ -228,7 +233,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Left upper leg"
+                    android:text="@string/journal_sideeffects_pain_left_upper_leg"
                     android:id="@+id/checkBox_journal_sideeffect_left_upper_leg"
                     android:layout_row="5"
                     android:layout_column="1" />
@@ -236,7 +241,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Left knee"
+                    android:text="@string/journal_sideeffects_pain_left_knee"
                     android:id="@+id/checkBox_journal_sideeffect_left_knee"
                     android:layout_row="6"
                     android:layout_column="1" />
@@ -244,7 +249,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Left lower leg"
+                    android:text="@string/journal_sideeffects_pain_left_lower_leg"
                     android:id="@+id/checkBox_journal_sideeffect_left_lower_leg"
                     android:layout_row="7"
                     android:layout_column="1" />
@@ -252,7 +257,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Left foot "
+                    android:text="@string/journal_sideeffects_pain_left_foot"
                     android:id="@+id/checkBox_journal_sideeffect_left_foot"
                     android:layout_row="8"
                     android:layout_column="1" />
@@ -260,7 +265,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Head"
+                    android:text="@string/journal_sideeffects_pain_head"
                     android:id="@+id/checkBox_journal_sideeffect_head"
                     android:layout_row="0"
                     android:layout_column="2" />
@@ -268,7 +273,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Neck"
+                    android:text="@string/journal_sideeffects_pain_neck"
                     android:id="@+id/checkBox_journal_sideeffect_neck"
                     android:layout_row="1"
                     android:layout_column="2" />
@@ -276,7 +281,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Upper back"
+                    android:text="@string/journal_sideeffects_pain_upper_back"
                     android:id="@+id/checkBox_journal_sideeffect_upper_back"
                     android:layout_row="2"
                     android:layout_column="2" />
@@ -284,7 +289,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mid back"
+                    android:text="@string/journal_sideeffects_pain_mid_back"
                     android:id="@+id/checkBox_journal_sideeffect_mid_back"
                     android:layout_row="3"
                     android:layout_column="2" />
@@ -292,7 +297,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lower back"
+                    android:text="@string/journal_sideeffects_pain_lower_back"
                     android:id="@+id/checkBox_journal_sideeffect_lower_back"
                     android:layout_row="4"
                     android:layout_column="2" />
@@ -300,7 +305,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Right abdomen"
+                    android:text="@string/journal_sideeffects_pain_right_abdomen"
                     android:id="@+id/checkBox_journal_sideeffect_right_abdomen"
                     android:layout_row="5"
                     android:layout_column="2" />
@@ -308,7 +313,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Left abdomen"
+                    android:text="@string/journal_sideeffects_pain_left_abdomen"
                     android:id="@+id/checkBox_journal_sideeffect_left_abdomen"
                     android:layout_row="6"
                     android:layout_column="2" />
@@ -316,7 +321,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tailbone"
+                    android:text="@string/journal_sideeffects_pain_tailbone"
                     android:id="@+id/checkBox_journal_sideeffect_tailbone"
                     android:layout_row="7"
                     android:layout_column="2" />
@@ -327,5 +332,14 @@
         </RelativeLayout>
 
     </GridLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton2"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/gridLayout"
+        android:layout_marginEnd="96dp"
+        android:layout_marginTop="186dp" />
 
 </RelativeLayout>

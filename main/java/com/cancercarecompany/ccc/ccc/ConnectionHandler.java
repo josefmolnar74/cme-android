@@ -28,6 +28,7 @@ public class ConnectionHandler {
     public EventData events;
     public StatusData status;
     public SideeffectData sideeffects;
+    public BeverageData beverages;
 
     public static final String MESSAGE_LOGIN = "login";
     public static final String MESSAGE_CREATE = "create";
@@ -43,6 +44,7 @@ public class ConnectionHandler {
     public static final String CONTENT_EVENT = "event";
     public static final String CONTENT_STATUS = "status";
     public static final String CONTENT_SIDEEFFECT = "sideeffect";
+    public static final String CONTENT_BEVERAGE = "beverage";
 
     public static ConnectionHandler getInstance() {
         return ourInstance;
@@ -141,6 +143,9 @@ public class ConnectionHandler {
                                         break;
                                     case CONTENT_SIDEEFFECT:
                                         sideeffects = gson.fromJson(resultData, SideeffectData.class);
+                                        break;
+                                    case CONTENT_BEVERAGE:
+                                        beverages = gson.fromJson(resultData, BeverageData.class);
                                         break;
                                 }
                                 break;
@@ -356,6 +361,28 @@ public class ConnectionHandler {
     public void deleteSideeffect(int sideeffectID){
         String msgData = String.format("{\"sideeffect_ID\":\"%d\"}", sideeffectID);
         sendMessage(MESSAGE_DELETE, CONTENT_SIDEEFFECT, msgData);
+    }
+
+    public void createBeverage(Beverage beverage){
+        Gson gson = new Gson();
+        String msgData = gson.toJson(beverage);
+        sendMessage(MESSAGE_CREATE, CONTENT_BEVERAGE, msgData);
+    }
+
+    public void getBeveragesForPatient(int patientID){
+        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+        sendMessage(MESSAGE_READ, CONTENT_BEVERAGE, msgData);
+    }
+
+    public void updateBeverage(Beverage beverage){
+        Gson gson = new Gson();
+        String msgData = gson.toJson(status);
+        sendMessage(MESSAGE_UPDATE, CONTENT_BEVERAGE, msgData);
+    }
+
+    public void deleteBeverage(int beverageID){
+        String msgData = String.format("{\"beverage_ID\":\"%d\"}", beverageID);
+        sendMessage(MESSAGE_DELETE, CONTENT_BEVERAGE, msgData);
     }
 
 }

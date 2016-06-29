@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="#ffffff"
+        android:background="@color/cme_dark"
         android:id="@+id/journal_topbar">
 
         <ImageButton
@@ -243,7 +243,7 @@
                             <Button
                                 android:layout_width="200dp"
                                 android:layout_height="80dp"
-                                android:text="@string/txt_sideeffect_fatigue"
+                                android:text="@string/journal_sideeffects_fatigue"
                                 android:id="@+id/btn_journal_sideeffect_fatigue"
                                 android:drawableLeft="@drawable/journal_sideeffects_tiredness_resize"
                                 android:padding="16dp"
@@ -253,7 +253,7 @@
                             <Button
                                 android:layout_width="200dp"
                                 android:layout_height="80dp"
-                                android:text="@string/txt_biv_smarta"
+                                android:text="@string/journal_sideeffects_pain"
                                 android:id="@+id/btn_journal_sideeffect_pain"
                                 android:drawableLeft="@drawable/journal_sideeffects_pain_resize"
                                 android:padding="16dp"
@@ -263,7 +263,7 @@
                             <Button
                                 android:layout_width="200dp"
                                 android:layout_height="80dp"
-                                android:text="@string/txt_biv_munfor"
+                                android:text="@string/journal_sideeffects_mouth_change"
                                 android:drawableLeft="@drawable/journal_sideeffects_mouth_resize"
                                 android:id="@+id/btn_journal_sideeffect_mouth"
                                 android:padding="16dp"
@@ -273,7 +273,7 @@
                             <Button
                                 android:layout_width="200dp"
                                 android:layout_height="80dp"
-                                android:text="@string/txt_biv_stick"
+                                android:text="@string/journal_sideeffects_tingling"
                                 android:id="@+id/btn_journal_sideeffect_tingling"
                                 android:drawableLeft="@drawable/journal_sideeffects_tingling_resize"
                                 android:padding="16dp"
@@ -283,7 +283,7 @@
                             <Button
                                 android:layout_width="200dp"
                                 android:layout_height="80dp"
-                                android:text="@string/txt_biv_avfr"
+                                android:text="@string/journal_sideeffects_diarrhea"
                                 android:id="@+id/btn_journal_sideeffect_diarrhea"
                                 android:drawableLeft="@drawable/journal_sideeffects_diarrhea_resize"
                                 android:padding="16dp"
@@ -293,7 +293,7 @@
                             <Button
                                 android:layout_width="200dp"
                                 android:layout_height="80dp"
-                                android:text="@string/txt_biv_aptit"
+                                android:text="@string/journal_sideeffects_appetite"
                                 android:id="@+id/btn_journal_sideeffect_appetite"
                                 android:drawableLeft="@drawable/journal_sideeffects_appetite_resize"
                                 android:padding="16dp"
@@ -303,7 +303,7 @@
                             <Button
                                 android:layout_width="200dp"
                                 android:layout_height="80dp"
-                                android:text="@string/txt_biv_yrs"
+                                android:text="@string/journal_sideeffects_dizziness"
                                 android:id="@+id/btn_journal_sideeffect_dizziness"
                                 android:drawableLeft="@drawable/journal_sideeffects_dizziness_resize"
                                 android:padding="16dp"
@@ -313,7 +313,7 @@
                             <Button
                                 android:layout_width="200dp"
                                 android:layout_height="80dp"
-                                android:text="@string/txt_krak"
+                                android:text="@string/journal_sideeffects_vomit"
                                 android:id="@+id/btn_journal_sideeffect_vomit"
                                 android:drawableLeft="@drawable/journal_sideeffects_vomit_resize"
                                 android:padding="16dp"
@@ -323,7 +323,7 @@
                             <Button
                                 android:layout_width="200dp"
                                 android:layout_height="80dp"
-                                android:text="@string/txt_journal_sideeffect_other"
+                                android:text="@string/journal_sideeffects_other"
                                 android:id="@+id/btn_journal_sideeffect_other"
                                 android:drawableLeft="@drawable/journal_sideeffects_other_resize"
                                 android:padding="16dp"

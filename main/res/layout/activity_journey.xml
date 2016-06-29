@@ -1,12 +1,319 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.cancercarecompany.ccc.ccc.JourneyActivity">
+    android:id="@+id/journeyLayout"
+    android:orientation="vertical"
+    android:weightSum="100">
 
-</RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:id="@+id/topbarLinear"
+        android:layout_height="0dp"
+        android:layout_weight="8">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/border"
+            android:weightSum="100"
+            android:id="@+id/relativeLayout"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <ImageButton
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:id="@+id/logoButton"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo"
+                android:background="@null"
+                android:layout_weight="10"
+                android:layout_marginLeft="20dp" />
+
+
+            <ImageButton
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:id="@+id/contactsButton"
+                android:layout_weight="16"
+                android:padding="8dp"
+                android:src="@drawable/careteam"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:cropToPadding="false"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <ImageButton
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:id="@+id/journeyButton"
+                android:layout_weight="16"
+                android:padding="4dp"
+                android:src="@drawable/myjourney"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:cropToPadding="false"
+                android:layout_marginLeft="28dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/journalButton" />
+
+            <ImageButton
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:id="@+id/myWallButton"
+                android:layout_weight="16"
+                android:padding="4dp"
+                android:src="@drawable/cwall"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:cropToPadding="false"
+                android:layout_marginLeft="28dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/journeyButton"
+                android:visibility="invisible" />
+
+            <ImageButton
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:id="@+id/journalButton"
+                android:layout_weight="16"
+                android:padding="8dp"
+                android:src="@drawable/myjournal"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:cropToPadding="false"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/contactsButton"
+                android:layout_marginLeft="28dp" />
+
+            <ImageButton
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:padding="5dp"
+                android:id="@+id/userSettingsButton"
+                android:layout_weight="10"
+                android:background="@null"
+                android:src="@drawable/settingswhite"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="28dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/loggedIn"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/logoButton"
+                android:layout_toEndOf="@+id/logoButton"
+                android:layout_marginLeft="100dp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/journeyscreen"
+        android:layout_height="0dp"
+        android:weightSum="100"
+        android:layout_weight="92">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="92"
+            android:id="@+id/layerCoantainerJourney"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/linearLayout">
+
+            <HorizontalScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/Scroll_background"
+                android:scrollIndicators="none">
+
+                <RelativeLayout
+                    android:layout_width="40000dp"
+                    android:background="@drawable/backgroundjourneyxml"
+                    android:id="@+id/relativeLayout_background"
+                    android:layout_height="fill_parent">
+
+                </RelativeLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/Scroll_background2"
+                android:scrollIndicators="none">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:id="@+id/relativeLayout_background2"
+                    android:layout_height="fill_parent" >
+
+                    <RelativeLayout
+                        android:id="@+id/treelayer"
+                        android:layout_width="10000dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="false"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="136dp"
+                        android:background="@drawable/mountainsjourneyxml" />
+                </RelativeLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/Scroll_roadlayer"
+                android:scrollIndicators="none">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:id="@+id/relativeLayout_roadlayout"
+                    android:layout_height="fill_parent">
+
+                    <RelativeLayout
+                        android:id="@+id/roadlayer"
+                        android:layout_width="50000dp"
+                        android:background="@drawable/roadxml"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"></RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="350dp"
+                        android:layout_height="300dp"
+                        android:tileMode="repeat"
+                        android:id="@+id/img_car_journey"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/car"
+                        android:visibility="visible"
+                        android:layout_gravity="bottom|left"
+                        android:layout_alignParentTop="false"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="20dp" />
+                </RelativeLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/Scroll_eventlayer"
+                android:scrollIndicators="none">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:id="@+id/relativeLayout_eventlayer"
+                    android:layout_height="fill_parent">
+
+                </RelativeLayout>
+            </HorizontalScrollView>
+
+            <ImageButton
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:id="@+id/btn_sun_journey"
+                android:background="@drawable/sun"
+                android:layout_gravity="right"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/linearLayout">
+
+            <RelativeLayout
+                android:layout_width="90dp"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/relativeLayout3"
+                android:layout_alignParentTop="false"
+                android:background="@drawable/borderpopup">
+
+                <ImageButton
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:scaleType="matrix"
+                    android:id="@+id/btn_appointment_journey"
+                    android:background="@drawable/appointment"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:onClick="addTreatment"
+                    android:layout_marginTop="50dp" />
+
+                <ImageButton
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/btn_treatment_journey"
+                    android:background="@drawable/otherdrop"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="40dp"
+                    android:layout_below="@+id/btn_appointment_journey"
+                    android:onClick="addTreatment"
+                    android:layout_alignStart="@+id/btn_appointment_journey" />
+
+                <ImageButton
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/btn_test_journey"
+                    android:background="@drawable/test"
+                    android:scaleType="centerCrop"
+                    android:layout_below="@+id/btn_treatment_journey"
+                    android:onClick="addTreatment"
+                    android:layout_alignStart="@+id/btn_treatment_journey"
+                    android:layout_marginTop="40dp" />
+
+                <ImageButton
+                    android:layout_width="75dp"
+                    android:layout_height="65dp"
+                    android:id="@+id/btn_foto_journey"
+                    android:background="@drawable/photo"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="40dp"
+                    android:layout_below="@+id/btn_test_journey"
+                    android:onClick="addTreatment"
+                    android:layout_centerHorizontal="true" />
+
+                <ImageButton
+                    android:layout_width="75dp"
+                    android:layout_height="65dp"
+                    android:id="@+id/btn_hospital_journey"
+                    android:background="@drawable/hospital"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="63dp"
+                    android:onClick="addTreatment"
+                    android:layout_below="@+id/btn_foto_journey"
+                    android:layout_centerHorizontal="true" />
+
+                <FrameLayout
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:background="#000000"></FrameLayout>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
