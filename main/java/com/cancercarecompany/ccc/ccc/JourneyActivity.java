@@ -234,7 +234,7 @@ public class JourneyActivity extends AppCompatActivity {
         refreshEvents();
 
 
-
+        System.out.println(lastButtonX);
         cloud_layout.getLayoutParams().width = lastButtonX / 4;
         cloud_layout.setBackgroundResource(R.drawable.cloudjourneyxml);
         big_mountain_layer.getLayoutParams().width = lastButtonX / 3;
@@ -2060,9 +2060,8 @@ public class JourneyActivity extends AppCompatActivity {
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsLion.width = 500;
         paramsLion.height = 300;
-        paramsLion.setMargins(carIntPosition / 2 + 1000,0,0,0);
+        paramsLion.setMargins(carIntPosition / 2 + 1000,0,0,50);
         lion.setLayoutParams(paramsLion);
-
         RelativeLayout.LayoutParams layoutParams =
                 (RelativeLayout.LayoutParams)lion.getLayoutParams();
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);

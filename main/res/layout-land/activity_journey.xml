@@ -167,6 +167,31 @@
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
+                android:id="@+id/Scroll_lion" >
+
+                <RelativeLayout
+                    android:id="@+id/lion_layer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="155px">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/img_lion"
+                        android:background="@drawable/lionnaked"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="false" />
+                </RelativeLayout>
+
+
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
                 android:id="@+id/Scroll_background3" >
 
                 <RelativeLayout
@@ -188,31 +213,6 @@
 
 
                 </RelativeLayout>
-            </HorizontalScrollView>
-
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:id="@+id/Scroll_lion" >
-
-                <RelativeLayout
-                    android:id="@+id/lion_layer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="155px">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/img_lion"
-                        android:background="@drawable/lionnaked"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="false" />
-                </RelativeLayout>
-
-
             </HorizontalScrollView>
 
             <HorizontalScrollView
