@@ -2293,7 +2293,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event35);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 62);
-        Events event36 = new Events("Appointments", "portakat", "eating habits", c.getTime(), null, null, null);
+        Events event36 = new Events("Appointments", "portacat", "eating habits", c.getTime(), null, null, null);
         eventList.add(event36);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 64);
