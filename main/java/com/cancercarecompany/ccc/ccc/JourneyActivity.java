@@ -89,22 +89,30 @@ public class JourneyActivity extends AppCompatActivity {
     int eventLocation = 0;
     Date currentDate;
     Date journeyStart;
+
     HorizontalScrollView eventScroll;
     HorizontalScrollView bottomScroll;
     HorizontalScrollView Scroll_background3;
     HorizontalScrollView Scroll_background2;
     HorizontalScrollView Scroll_background;
     HorizontalScrollView Scroll_bushes;
+    HorizontalScrollView Scroll_lion;
+
     RelativeLayout journeyScreen;
     RelativeLayout layoutButtons;
     RelativeLayout eventLayout;
     RelativeLayout containerLayout;
     RelativeLayout bottomLayout;
+    RelativeLayout lion_layer;
     RelativeLayout front_bushes_layer;
     RelativeLayout relativeLayout3;
     RelativeLayout big_mountain_layer;
     RelativeLayout bushes_layer;
     RelativeLayout mountains_layer;
+    RelativeLayout background_layer;
+    RelativeLayout road_layer;
+    RelativeLayout cloud_layout;
+
     int eventsSameDate = 0;
     String subCategoryClicked = "";
     Date date;
@@ -155,8 +163,9 @@ public class JourneyActivity extends AppCompatActivity {
         Scroll_background3 = (HorizontalScrollView) findViewById(R.id.Scroll_background3);
 
         lion = (ImageView) findViewById(R.id.img_lion);
-        bushes_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background3);
-        big_mountain_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background2);
+        background_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background);
+        bushes_layer = (RelativeLayout) findViewById(R.id.bushes_layer);
+        big_mountain_layer = (RelativeLayout) findViewById(R.id.big_mountains_layer);
         car = (ImageView) findViewById(R.id.img_car_journey);
         addAppointment = (ImageButton) findViewById(R.id.btn_appointment_journey);
         addTreatment = (ImageButton) findViewById(R.id.btn_treatment_journey);
@@ -166,6 +175,10 @@ public class JourneyActivity extends AppCompatActivity {
         eventScroll = (HorizontalScrollView) findViewById(R.id.Scroll_eventlayer);
         bottomScroll = (HorizontalScrollView) findViewById(R.id.Scroll_roadlayer);
         Scroll_bushes = (HorizontalScrollView) findViewById(R.id.Scroll_Bushes);
+        Scroll_lion = (HorizontalScrollView) findViewById(R.id.Scroll_lion);
+
+        cloud_layout = (RelativeLayout) findViewById(R.id.cloud_layout);
+        road_layer = (RelativeLayout) findViewById(R.id.roadlayer);
         layoutButtons = (RelativeLayout) findViewById(R.id.relativeLayout3);
         containerLayout = (RelativeLayout) findViewById(R.id.layerCoantainerJourney);
         eventLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
@@ -173,6 +186,7 @@ public class JourneyActivity extends AppCompatActivity {
         front_bushes_layer = (RelativeLayout) findViewById(R.id.front_bushes_layer);
         journeyScreen = (RelativeLayout) findViewById(R.id.journeyscreen);
         mountains_layer = (RelativeLayout) findViewById(R.id.mountains_layer);
+        lion_layer = (RelativeLayout) findViewById(R.id.lion_layer);
         wholeScreen = (LinearLayout) findViewById(R.id.journeyLayout);
         careTeamButton = (ImageButton) findViewById(R.id.contactsButton);
         journalButton = (ImageButton) findViewById(R.id.journalButton);
@@ -209,7 +223,7 @@ public class JourneyActivity extends AppCompatActivity {
 
 
         currentDate = Calendar.getInstance().getTime();
-        Events diagnoseStart = new Events("Start", "Start", "Journey starts here", date, null, null, null);
+        Events diagnoseStart = new Events("start", "start", "Journey starts here", date, null, null, null);
         eventList.add(diagnoseStart);
         journeyStart = eventList.get(0).startDate;
 
@@ -218,7 +232,25 @@ public class JourneyActivity extends AppCompatActivity {
         animateSun();
         ExampleJourney();
         refreshEvents();
-       // generateClouds();
+
+
+
+        cloud_layout.getLayoutParams().width = lastButtonX / 4;
+        cloud_layout.setBackgroundResource(R.drawable.cloudjourneyxml);
+        big_mountain_layer.getLayoutParams().width = lastButtonX / 3;
+        big_mountain_layer.setBackgroundResource(R.drawable.backmountainxml);
+        mountains_layer.getLayoutParams().width = lastButtonX / 2;
+        lion_layer.getLayoutParams().width = lastButtonX / 2;
+        bushes_layer.getLayoutParams().width = lastButtonX * 2;
+        bushes_layer.setBackgroundResource(R.drawable.bushesxml);
+        road_layer.getLayoutParams().width = lastButtonX * 2;
+        road_layer.setBackgroundResource(R.drawable.roadxml);
+        front_bushes_layer.getLayoutParams().width = lastButtonX * 3;
+
+
+
+
+
 
         final ViewTreeObserver observer = containerLayout.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -243,8 +275,10 @@ public class JourneyActivity extends AppCompatActivity {
                 Scroll_background.setScrollX(scrollX / 4);
                 Scroll_background2.setScrollX(scrollX / 3);
                 Scroll_background3.setScrollX(scrollX / 2);
+                Scroll_lion.setScrollX(scrollX / 2);
                 bottomScroll.setScrollX(scrollX * 2);
                 Scroll_bushes.setScrollX(scrollX * 3);
+
 
             }
         });
@@ -390,10 +424,10 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.event_dietician_bubble);
                     break;
                 case "mr":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.event_mr_bubble);
                     break;
                 case "dt":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.dt);
                     break;
                 case "hearing_tests":
                     btn.setBackgroundResource(R.drawable.event_hearing_test_bubble);
@@ -402,13 +436,13 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
                     break;
                 case "eeg":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.event_eeg_bubble);
                     break;
                 case "ekg":
                     btn.setBackgroundResource(R.drawable.event_ekg_bubble);
                     break;
                 case "kidney_investigation":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.event_kidney_investigation_bubble);
                     break;
                 case "ultrasound":
                     btn.setBackgroundResource(R.drawable.event_ultrasound_bubble);
@@ -423,10 +457,10 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.event_cytostatika_bubble);
                     break;
                 case "surgery":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.event_surgery_bubble);
                     break;
                 case "stem_cell_transplantation":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.event_stem_cell_transplantation_bubble);
                     break;
                 case "radiation":
                     btn.setBackgroundResource(R.drawable.event_radiation_bubble);
@@ -441,10 +475,10 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
                     break;
                 case "portacat":
-                    btn.setBackgroundResource(R.drawable.greenbubble);
+                    btn.setBackgroundResource(R.drawable.event_portakat_bubble);
                     break;
                 case "hospital":
-                    btn.setBackgroundResource(R.drawable.hospital);
+                    btn.setBackgroundResource(R.drawable.event_hospital_bubble);
                     break;
                 case "picture_memory":
                     btn.setBackgroundResource(R.drawable.photominne);
@@ -844,13 +878,13 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory8.setVisibility(View.VISIBLE);
 
                 subCategory1.setBackgroundResource(R.drawable.event_cytostatika_bubble);
-                subCategory2.setBackgroundResource(R.drawable.greenbubble);
-                subCategory3.setBackgroundResource(R.drawable.greenbubble);
+                subCategory2.setBackgroundResource(R.drawable.event_surgery_bubble);
+                subCategory3.setBackgroundResource(R.drawable.event_stem_cell_transplantation_bubble);
                 subCategory4.setBackgroundResource(R.drawable.event_radiation_bubble);
                 subCategory5.setBackgroundResource(R.drawable.event_dialysis_bubble);
                 subCategory6.setBackgroundResource(R.drawable.event_biological_therapy_bubble);
                 subCategory7.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
-                subCategory8.setBackgroundResource(R.drawable.greenbubble);
+                subCategory8.setBackgroundResource(R.drawable.event_portakat_bubble);
 
                 subCategoryClicked = "cytostatika";
                 eventInfoText(subCategoryClicked);
@@ -941,13 +975,13 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory9.setVisibility(View.VISIBLE);
 
                 subCategory1.setBackgroundResource(R.drawable.event_bloodtest_bubble);
-                subCategory2.setBackgroundResource(R.drawable.greenbubble);
-                subCategory3.setBackgroundResource(R.drawable.greenbubble);
+                subCategory2.setBackgroundResource(R.drawable.event_mr_bubble);
+                subCategory3.setBackgroundResource(R.drawable.dt);
                 subCategory4.setBackgroundResource(R.drawable.event_hearing_test_bubble);
                 subCategory5.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
-                subCategory6.setBackgroundResource(R.drawable.greenbubble);
+                subCategory6.setBackgroundResource(R.drawable.event_eeg_bubble);
                 subCategory7.setBackgroundResource(R.drawable.event_ekg_bubble);
-                subCategory8.setBackgroundResource(R.drawable.greenbubble);
+                subCategory8.setBackgroundResource(R.drawable.event_kidney_investigation_bubble);
                 subCategory9.setBackgroundResource(R.drawable.event_ultrasound_bubble);
 
                 subCategoryClicked = "bloodtest";
@@ -1252,10 +1286,10 @@ public class JourneyActivity extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.event_dietician_bubble);
                 break;
             case "mr":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.event_mr_bubble);
                 break;
             case "dt":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.dt);
                 break;
             case "hearing_tests":
                 btn.setBackgroundResource(R.drawable.event_hearing_test_bubble);
@@ -1264,13 +1298,13 @@ public class JourneyActivity extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
                 break;
             case "eeg":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.event_eeg_bubble);
                 break;
             case "ekg":
                 btn.setBackgroundResource(R.drawable.event_ekg_bubble);
                 break;
             case "kidney_investigation":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.event_kidney_investigation_bubble);
                 break;
             case "ultrasound":
                 btn.setBackgroundResource(R.drawable.event_ultrasound_bubble);
@@ -1285,10 +1319,10 @@ public class JourneyActivity extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.event_cytostatika_bubble);
                 break;
             case "surgery":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.event_surgery_bubble);
                 break;
             case "stem_cell_transplantation":
-                btn.setBackgroundResource(R.drawable.greenbubble);
+                btn.setBackgroundResource(R.drawable.event_stem_cell_transplantation_bubble);
                 break;
             case "radiation":
                 btn.setBackgroundResource(R.drawable.event_radiation_bubble);
@@ -1303,13 +1337,13 @@ public class JourneyActivity extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
                 break;
             case "portacat":
-                btn.setBackgroundResource(R.drawable.pinkbubble);
+                btn.setBackgroundResource(R.drawable.event_portakat_bubble);
                 break;
             case "picture_memory":
                 btn.setBackgroundResource(R.drawable.photominne);
                 break;
             case "hospital":
-                btn.setBackgroundResource(R.drawable.hospital);
+                btn.setBackgroundResource(R.drawable.event_hospital_bubble);
                 break;
             case "start":
                 btn.setBackgroundResource(R.drawable.journeystart);
@@ -1681,10 +1715,10 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.event_dietician_bubble);
                 break;
             case "mr":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.event_mr_bubble);
                 break;
             case "dt":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.dt);
                 break;
             case "hearing_tests":
                 categoryImage.setBackgroundResource(R.drawable.event_hearing_test_bubble);
@@ -1693,13 +1727,13 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
                 break;
             case "eeg":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.event_eeg_bubble);
                 break;
             case "ekg":
                 categoryImage.setBackgroundResource(R.drawable.event_ekg_bubble);
                 break;
             case "kidney_investigation":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.event_kidney_investigation_bubble);
                 break;
             case "ultrasound":
                 categoryImage.setBackgroundResource(R.drawable.event_ultrasound_bubble);
@@ -1708,10 +1742,10 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.event_cytostatika_bubble);
                 break;
             case "surgery":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.event_surgery_bubble);
                 break;
             case "stem_cell_transplantation":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.event_stem_cell_transplantation_bubble);
                 break;
             case "radiation":
                 categoryImage.setBackgroundResource(R.drawable.event_radiation_bubble);
@@ -1726,13 +1760,13 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
                 break;
             case "portacat":
-                categoryImage.setBackgroundResource(R.drawable.greenbubble);
+                categoryImage.setBackgroundResource(R.drawable.event_portakat_bubble);
                 break;
             case "bloodtest":
                 categoryImage.setBackgroundResource(R.drawable.event_bloodtest_bubble);
                 break;
             case "hospital":
-                categoryImage.setBackgroundResource(R.drawable.hospital);
+                categoryImage.setBackgroundResource(R.drawable.event_hospital_bubble);
                 break;
             case "picture_memory":
                 categoryImage.setBackgroundResource(R.drawable.photominne);
@@ -2135,7 +2169,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event4);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 7);
-        Events event5 = new Events("Image_Memory", "picture_memory", "photo of me", c.getTime(), null, null, null);
+        Events event5 = new Events("Image_Memory", "cytostatika", "photo of me", c.getTime(), null, null, null);
         eventList.add(event5);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 8);
@@ -2151,7 +2185,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event8);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 12);
-        Events event9 = new Events("treatments", "surgery", "ohh noo =(", c.getTime(), null, null, null);
+        Events event9 = new Events("treatments", "cytostatika", "ohh noo =(", c.getTime(), null, null, null);
         eventList.add(event9);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 13);
@@ -2179,7 +2213,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event15);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 22);
-        Events event16 = new Events("Appointments", "medical_oncologist", "eating habits", c.getTime(), null, null, null);
+        Events event16 = new Events("Appointments", "cytostatika", "eating habits", c.getTime(), null, null, null);
         eventList.add(event16);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 24);
@@ -2191,7 +2225,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event18);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 27);
-        Events event19 = new Events("Appointments", "therapist", "eat before", c.getTime(), null, null, null);
+        Events event19 = new Events("Appointments", "hospital", "eat before", c.getTime(), null, null, null);
         eventList.add(event19);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 28);
@@ -2203,11 +2237,11 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event21);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 30);
-        Events event22 = new Events("Appointments", "nurse", "tråkigt", c.getTime(), null, null, null);
+        Events event22 = new Events("Appointments", "targeted_therapy", "tråkigt", c.getTime(), null, null, null);
         eventList.add(event22);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 31);
-        Events event23 = new Events("Appointments", "dietician", "eating habits", c.getTime(), null, null, null);
+        Events event23 = new Events("Appointments", "ultrasound", "eating habits", c.getTime(), null, null, null);
         eventList.add(event23);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 32);
@@ -2231,7 +2265,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event28);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 45);
-        Events event29 = new Events("Appointments", "therapist", "help", c.getTime(), null, null, null);
+        Events event29 = new Events("Appointments", "stem_cell_transplantation", "help", c.getTime(), null, null, null);
         eventList.add(event29);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 46);
@@ -2243,7 +2277,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event31);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 52);
-        Events event32 = new Events("Image_Memory", "picture_memory", "photo of me", c.getTime(), null, null, null);
+        Events event32 = new Events("Image_Memory", "cytostatika", "photo of me", c.getTime(), null, null, null);
         eventList.add(event32);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 55);
@@ -2251,7 +2285,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event33);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 57);
-        Events event34 = new Events("Appointments", "therapist", "at hospital", c.getTime(), null, null, null);
+        Events event34 = new Events("Appointments", "stem_cell_transplantation", "at hospital", c.getTime(), null, null, null);
         eventList.add(event34);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 61);
@@ -2259,11 +2293,11 @@ public class JourneyActivity extends AppCompatActivity {
         eventList.add(event35);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 62);
-        Events event36 = new Events("Appointments", "anestetisten", "eating habits", c.getTime(), null, null, null);
+        Events event36 = new Events("Appointments", "portakat", "eating habits", c.getTime(), null, null, null);
         eventList.add(event36);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 64);
-        Events event37 = new Events("Appointments", "anestetisten", "at hospital", c.getTime(), null, null, null);
+        Events event37 = new Events("Appointments", "radiation", "at hospital", c.getTime(), null, null, null);
         eventList.add(event37);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 66);

@@ -204,7 +204,7 @@
     <string name="event_ekg">EKG</string>
     <string name="event_kidney_investigation">Njurundersökning</string>
     <string name="event_ultrasound">Ultraljud</string>
-    <string name="event_cytostatika">Cytistatika</string>
+    <string name="event_cytostatika">Cytostatika</string>
     <string name="event_cytostatika_txt1">Cytostatika, eller cellgifter som det ibland kallas, är den vanligaste typen av medicin som man får när man får cancer. Det är en grupp av mycket starka mediciner som saktar ner eller dödar elaka cancer celler. </string>
     <string name="event_cytostatika_txt2">Det finns flera biverkningar man kan få när man tar cellgifter. Man kan till exempel tappa håret eller så kan mat börja smaka konstigt. Men alla dessa biverkningar slutar när du slutar med cellgifterna.</string>
     <string name="event_cytostatika_txt3">I början får du oftast cellgifter i flyttande form. Längre fram i behandlingen kanske du får det i tablet form istället. Fråga din Läkare vad du kommer att få!  Dotorn bestämmer också hur ofta och hur många gånger du behöver ha cellgifter.  Alla cancer är ju olika!</string>
