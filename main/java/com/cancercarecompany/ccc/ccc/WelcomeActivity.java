@@ -9,6 +9,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -31,6 +33,12 @@ public class WelcomeActivity extends AppCompatActivity {
         loginPassword = (EditText) findViewById(R.id.text_login_password);
         loginSave = (CheckBox) findViewById(R.id.checkBox_save_login);
 
+        // Statusbar color
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(this.getResources().getColor(R.color.black));
+
 
         //Check if username and password has been saved in share preferences
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
@@ -45,11 +53,13 @@ public class WelcomeActivity extends AppCompatActivity {
     public void onClickCreateCareTeam(View view){
         Intent intent = new Intent(this, CreateCareTeamActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void onClickJoinCareTeam(View view){
         Intent intent = new Intent(this, JoinCareTeamActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void onClickLogin(View view){
@@ -96,6 +106,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
             Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);
+            finish();
         }
     }
 

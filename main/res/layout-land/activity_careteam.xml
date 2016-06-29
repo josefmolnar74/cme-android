@@ -12,8 +12,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="0.06"
+        android:layout_weight="0.08"
+        android:id="@+id/topbarLinear"
         android:background="@color/cme_dark"
         android:weightSum="100">
 
@@ -54,10 +54,10 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/loggedIn"
-            android:layout_toStartOf="@+id/loggedIn"
-            android:layout_marginRight="47dp"
-            android:layout_marginEnd="47dp" />
+            android:layout_toLeftOf="@+id/txt_journal_loggedIn"
+            android:layout_toStartOf="@+id/txt_journal_loggedIn"
+            android:layout_marginRight="50dp"
+            android:layout_marginEnd="50dp" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -77,13 +77,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/loggedIn"
+            android:id="@+id/txt_journal_loggedIn"
             android:text="name"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/txt_careteam_patient_name"
+            android:text="@string/journal_patient_name"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/logoButton"
             android:textColor="@color/white" />
 
     </RelativeLayout>
@@ -98,7 +108,7 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:id="@+id/careTeamMain"
         android:weightSum="100"
-        android:layout_weight="0.94"
+        android:layout_weight="0.92"
         android:baselineAligned="false">
 
         <RelativeLayout

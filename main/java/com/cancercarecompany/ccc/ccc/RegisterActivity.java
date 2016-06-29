@@ -6,6 +6,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -60,6 +62,12 @@ public class RegisterActivity extends AppCompatActivity {
         invitedEmail = intent.getStringExtra(INVITED_EMAIL);
         registerEmail.setText(invitedEmail);
 
+        // Statusbar color
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(this.getResources().getColor(R.color.black));
+
         registerButton = (TextView) findViewById(R.id.button_register);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);
+            finish();
         }
     }
 
@@ -118,6 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
         //User email already exist please use another email
         Intent myIntent = new Intent(this, WelcomeActivity.class);
         startActivity(myIntent);
+        finish();
     }
 
 }
