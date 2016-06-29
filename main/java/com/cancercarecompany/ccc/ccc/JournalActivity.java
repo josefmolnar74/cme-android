@@ -60,6 +60,8 @@ public class JournalActivity extends AppCompatActivity {
     Boolean kv_mark = Boolean.FALSE;
     ImageButton journeyButton;
     ImageButton careTeamButton;
+    ImageButton emotionsButton;
+    TextView emotionText;
 
     Button fatigueButton;
     Button painButton;
@@ -82,8 +84,18 @@ public class JournalActivity extends AppCompatActivity {
     int otherIdForToday;
     int beverageIdForToday;
 
-    public static final String TIME_SIMPLE_FORMAT = "yyyy-MM-dd";
-    public static final String DATE_SIMPLE_FORMAT = "kk:mm:ss";
+    public static final String TIME_SIMPLE_FORMAT   = "yyyy-MM-dd";
+    public static final String DATE_SIMPLE_FORMAT   = "kk:mm:ss";
+
+    public static final String EMOTION_HAPPY        = "Happy";
+    public static final String EMOTION_SAD          = "Sad";
+    public static final String EMOTION_FRUSTRATED   = "Frustrated";
+    public static final String EMOTION_WORRIED      = "Worried";
+    public static final String EMOTION_SATISFIED    = "Satisfied";
+    public static final String EMOTION_TIRED        = "Tired";
+    public static final String EMOTION_SICK         = "Sick";
+    public static final String EMOTION_NAUSEOUS     = "Nauseous";
+    public static final String EMOTION_SCARED       = "Scared";
 
     public static final String SIDEEFFECT_TYPE_FATIGUE      = "Fatigue";
     public static final String SIDEEFFECT_TYPE_PAIN         = "Pain";
@@ -94,7 +106,6 @@ public class JournalActivity extends AppCompatActivity {
     public static final String SIDEEFFECT_TYPE_DIZZINESS     = "Dizziness";
     public static final String SIDEEFFECT_TYPE_VOMIT        = "Vomit";
     public static final String SIDEEFFECT_TYPE_OTHER        = "Other";
-
 
     public static final String SIDEEFFECT_PAIN_RIGHT_HAND_VALUE         = "RHA";
     public static final String SIDEEFFECT_PAIN_RIGHT_SHOULDER_VALUE     = "RSH";
@@ -147,19 +158,19 @@ public class JournalActivity extends AppCompatActivity {
         dizzinessButton = (Button) findViewById(R.id.btn_journal_sideeffect_dizziness);
         vomitButton = (Button) findViewById(R.id.btn_journal_sideeffect_vomit);
         otherButton = (Button) findViewById(R.id.btn_journal_sideeffect_other);
+        emotionsButton = (ImageButton) findViewById(R.id.btn_journal_emotions);
 
         final EditText statusTextEditText       = (EditText) findViewById(R.id.edtxt_journal_status);
 //        final TextView txt_med_txt            = (TextView) findViewById(R.id.txt_med_int);
-        final TextView txt_diary_head           = (TextView) findViewById(R.id.txt_journal_header);
+        final TextView journalHeaderText = (TextView) findViewById(R.id.txt_journal_header);
         final Button saveStatusButton           = (Button) findViewById(R.id.btn_journal_status_save);
         final Button medicationBreakfastButton  = (Button) findViewById(R.id.btn_journal_medication_breakfast);
         final Button medicationLunchButton      = (Button) findViewById(R.id.btn_journal_medication_lunch);
         final Button medicationDinnerButton     = (Button) findViewById(R.id.btn_journal_medication_dinner);
-        final ImageButton emotionsButton        = (ImageButton) findViewById(R.id.btn_journal_emotions);
         final ImageButton journeyButton         = (ImageButton) findViewById(R.id.btn_journal_journey_button);
         final ImageButton careTeamButton        = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
         final CalendarView calendar             = (CalendarView) findViewById(R.id.cal_journal_calendar);
-
+        emotionText =  (TextView) findViewById(R.id.txt_journal_emotions);
         // Statusbar color
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -177,6 +188,11 @@ public class JournalActivity extends AppCompatActivity {
         while (connectHandler.socketBusy){}
         connectHandler.getBeveragesForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
+
+        TextView loggedIn = (TextView) findViewById(R.id.loggedIn);
+        if (connectHandler.person != null){
+            loggedIn.setText(connectHandler.person.first_name);
+        }
 
         if (connectHandler.status != null){
             for (int i = 0; i < connectHandler.status.status_data.size(); i++) {
@@ -276,7 +292,7 @@ public class JournalActivity extends AppCompatActivity {
                             date,
                             time,
                             statusTextEditText.getText().toString(),
-                            "happy",
+                            emotionText.getText().toString(),
                             1);
                     connectHandler.createStatus(newStatus);
 
@@ -421,8 +437,8 @@ public class JournalActivity extends AppCompatActivity {
             public void onSelectedDayChange(CalendarView view, int year, int month, int date) {
                 Toast.makeText(getApplicationContext(),date+ "/"+month+"/"+year,4000).show();
                 //     getString(R.string.txt_journal_headline, year,month, date);
-                txt_diary_head.setText(R.string.txt_journal_headline);
-                txt_diary_head.setText((txt_diary_head.getText()) + " " + year + "-" + month + "-" + date);
+                journalHeaderText.setText(R.string.txt_journal_headline);
+                journalHeaderText.setText((journalHeaderText.getText()) + " " + year + "-" + month + "-" + date);
             }
         });
     }
@@ -570,50 +586,104 @@ public class JournalActivity extends AppCompatActivity {
         popupWindow.setFocusable(true);
         popupWindow.update();
 
-        final ImageButton   buttonEmotion1           = (ImageButton) popupView.findViewById(R.id.btn_emotion1);
-        final ImageButton   buttonEmotion2           = (ImageButton) popupView.findViewById(R.id.btn_emotion2);
-        final ImageButton   buttonEmotion3           = (ImageButton) popupView.findViewById(R.id.btn_emotion3);
-        final ImageButton   buttonEmotion4           = (ImageButton) popupView.findViewById(R.id.btn_emotion4);
-        final ImageButton   buttonEmotion5           = (ImageButton) popupView.findViewById(R.id.btn_emotion5);
-        final ImageButton   buttonEmotion6           = (ImageButton) popupView.findViewById(R.id.btn_emotion6);
+        final ImageButton buttonEmotionHappy = (ImageButton) popupView.findViewById(R.id.btn_emotion_happy);
+        final ImageButton buttonEmotionSad = (ImageButton) popupView.findViewById(R.id.btn_emotion_sad);
+        final ImageButton buttonEmotionFrustrated = (ImageButton) popupView.findViewById(R.id.btn_emotion_frustrated);
+        final ImageButton buttonEmotionSatisfied = (ImageButton) popupView.findViewById(R.id.btn_emotion_satisfied);
+        final ImageButton buttonEmotionSick = (ImageButton) popupView.findViewById(R.id.btn_emotion_sick);
+        final ImageButton buttonEmotionNauseous = (ImageButton) popupView.findViewById(R.id.btn_emotion_nauseous);
+        final ImageButton buttonEmotionTired = (ImageButton) popupView.findViewById(R.id.btn_emotion_tired);
+        final ImageButton buttonEmotionScared = (ImageButton) popupView.findViewById(R.id.btn_emotion_scared);
+        final ImageButton buttonEmotionWorried = (ImageButton) popupView.findViewById(R.id.btn_emotion_worried);
+        final TextView emotionHappyText = (TextView) popupView.findViewById(R.id.txt_emotion_happy);
+        final TextView emotionSadText = (TextView) popupView.findViewById(R.id.txt_emotion_sad);
+        final TextView emotionFrustratedText = (TextView) popupView.findViewById(R.id.txt_emotion_frustrated);
+        final TextView emotionSatisfiedText = (TextView) popupView.findViewById(R.id.txt_emotion_satisfied);
+        final TextView emotionSickText = (TextView) popupView.findViewById(R.id.txt_emotion_sick);
+        final TextView emotionNauseousText = (TextView) popupView.findViewById(R.id.txt_emotion_nauseous);
+        final TextView emotionTiredText = (TextView) popupView.findViewById(R.id.txt_emotion_tired);
+        final TextView emotionScaredText = (TextView) popupView.findViewById(R.id.txt_emotion_scared);
+        final TextView emotionWorriedText = (TextView) popupView.findViewById(R.id.txt_emotion_worried);
 
         RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.emotions_popup);
-        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(relativeLayout, Gravity.LEFT, 0, 0);
 
-        buttonEmotion1.setOnClickListener(new View.OnClickListener() {
+        buttonEmotionHappy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            }
-        });
+                emotionsButton.setImageResource(R.drawable.emotion_happy);
+                emotionText.setText(emotionHappyText.getText());
+                popupWindow.dismiss();
 
-        buttonEmotion2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
             }
         });
 
-        buttonEmotion3.setOnClickListener(new View.OnClickListener() {
+        buttonEmotionSad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                emotionsButton.setImageResource(R.drawable.emotion_sad);
+                emotionText.setText(emotionSadText.getText());
+                popupWindow.dismiss();
             }
         });
 
-        buttonEmotion4.setOnClickListener(new View.OnClickListener() {
+        buttonEmotionFrustrated.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            }
-        });
-        buttonEmotion5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-        buttonEmotion6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                emotionsButton.setImageResource(R.drawable.emotion_frustrated);
+                emotionText.setText(emotionFrustratedText.getText());
+                popupWindow.dismiss();
             }
         });
 
+        buttonEmotionSatisfied.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emotionsButton.setImageResource(R.drawable.emotion_satisfied);
+                emotionText.setText(emotionSatisfiedText.getText());
+                popupWindow.dismiss();
+            }
+        });
+        buttonEmotionSick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emotionsButton.setImageResource(R.drawable.emotion_sick);
+                emotionText.setText(emotionSickText.getText());
+                popupWindow.dismiss();
+            }
+        });
+        buttonEmotionNauseous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emotionsButton.setImageResource(R.drawable.emotion_nauseous);
+                emotionText.setText(emotionNauseousText.getText());
+                popupWindow.dismiss();
+            }
+        });
+        buttonEmotionWorried.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emotionsButton.setImageResource(R.drawable.emotion_worried);
+                emotionText.setText(emotionWorriedText.getText());
+                popupWindow.dismiss();
+            }
+        });
+        buttonEmotionScared.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emotionsButton.setImageResource(R.drawable.emotion_scared);
+                emotionText.setText(emotionScaredText.getText());
+                popupWindow.dismiss();
+            }
+        });
+        buttonEmotionTired.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emotionsButton.setImageResource(R.drawable.emotion_tired);
+                emotionText.setText(emotionTiredText.getText());
+                popupWindow.dismiss();
+            }
+        });
     }
 
     public void createSideeffectPain(final String sideeffectType) {
