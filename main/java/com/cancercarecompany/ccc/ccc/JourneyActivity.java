@@ -1,10 +1,12 @@
 
 package com.cancercarecompany.ccc.ccc;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
@@ -70,6 +72,7 @@ public class JourneyActivity extends AppCompatActivity {
     ImageView page1;
     ImageView page2;
     ImageView page3;
+    ImageView eventInfoImage;
 
     ImageButton sun;
     Boolean sunSwitch = true;
@@ -352,97 +355,97 @@ public class JourneyActivity extends AppCompatActivity {
             subCategoryClicked = eventList.get(i).subCategory.toString();
 
             switch (subCategoryClicked) {
-                case "Medical_Oncologist":
-                    btn.setBackgroundResource(R.drawable.doctormanbubble);
+                case "medical_oncologist":
+                    btn.setBackgroundResource(R.drawable.event_medical_oncologist_bubble);
                     break;
-                case "Hematologist_Doctor":
-                    btn.setBackgroundResource(R.drawable.anestetistbubble);
+                case "hematologist_doctor":
+                    btn.setBackgroundResource(R.drawable.event_hematologist_doctor_bubble);
                     break;
-                case "Nurse":
-                    btn.setBackgroundResource(R.drawable.nursebubble);
+                case "nurse":
+                    btn.setBackgroundResource(R.drawable.event_nurse_bubble);
                     break;
-                case "Bloodtest":
-                    btn.setBackgroundResource(R.drawable.bloodtestbubble);
+                case "bloodtest":
+                    btn.setBackgroundResource(R.drawable.event_bloodtest_bubble);
                     break;
-                case "Dentist":
-                    btn.setBackgroundResource(R.drawable.dentistbubble);
+                case "dentist":
+                    btn.setBackgroundResource(R.drawable.event_dentist_bubble);
                     break;
-                case "Surgeon":
-                    btn.setBackgroundResource(R.drawable.surgeonbubble);
+                case "surgeon":
+                    btn.setBackgroundResource(R.drawable.event_surgeon_bubble);
                     break;
-                case "Anestetisten":
-                    btn.setBackgroundResource(R.drawable.anestetistbubble);
+                case "anestetisten":
+                    btn.setBackgroundResource(R.drawable.event_anestetisten_bubble);
                     break;
-                case "Therapist":
-                    btn.setBackgroundResource(R.drawable.therapybubble);
+                case "therapist":
+                    btn.setBackgroundResource(R.drawable.event_therapist_bubble);
                     break;
-                case "Physiotherapist":
-                    btn.setBackgroundResource(R.drawable.therapybubble);
+                case "physiotherapist":
+                    btn.setBackgroundResource(R.drawable.event_physiotherapist_bubble);
                     break;
-                case "Dietician":
-                    btn.setBackgroundResource(R.drawable.nursebubble);
+                case "dietician":
+                    btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
-                case "MR":
-                    btn.setBackgroundResource(R.drawable.mrbubble);
+                case "mr":
+                    btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
-                case "DT":
-                    btn.setBackgroundResource(R.drawable.bluebubble);
+                case "dt":
+                    btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
-                case "Hearing_Tests":
-                    btn.setBackgroundResource(R.drawable.hearingtestbubble);
+                case "hearing_tests":
+                    btn.setBackgroundResource(R.drawable.event_hearing_test_bubble);
                     break;
-                case "Bone_Marrow_Samples":
-                    btn.setBackgroundResource(R.drawable.bonemarrowbubble);
+                case "bone_marrow_samples":
+                    btn.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
                     break;
-                case "EEG":
-                    btn.setBackgroundResource(R.drawable.eegbubble);
+                case "eeg":
+                    btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
-                case "EKG":
-                    btn.setBackgroundResource(R.drawable.ekgbubble);
+                case "ekg":
+                    btn.setBackgroundResource(R.drawable.event_ekg_bubble);
                     break;
-                case "Kidney_Investigation":
-                    btn.setBackgroundResource(R.drawable.kidneyinvestigationbubble);
+                case "kidney_investigation":
+                    btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
-                case "Ultrasound":
-                    btn.setBackgroundResource(R.drawable.ultrasoundbubble);
+                case "ultrasound":
+                    btn.setBackgroundResource(R.drawable.event_ultrasound_bubble);
                     break;
-                case "Alternating Current":
-                    btn.setBackgroundResource(R.drawable.pinkbubble);
+                case "alternating current":
+                    btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
-                case "Transplantation":
-                    btn.setBackgroundResource(R.drawable.pinkbubble);
+                case "transplantation":
+                    btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
-                case "Cytistatika":
-                    btn.setBackgroundResource(R.drawable.cytistatikabubble);
+                case "cytostatika":
+                    btn.setBackgroundResource(R.drawable.event_cytostatika_bubble);
                     break;
-                case "Surgery":
-                    btn.setBackgroundResource(R.drawable.pinkbubble);
+                case "surgery":
+                    btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
-                case "Stem_Cell_Transplantation":
-                    btn.setBackgroundResource(R.drawable.stemcelltransplantationbubble);
+                case "stem_cell_transplantation":
+                    btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
-                case "Radiation":
-                    btn.setBackgroundResource(R.drawable.radiationbubble);
+                case "radiation":
+                    btn.setBackgroundResource(R.drawable.event_radiation_bubble);
                     break;
-                case "Dialysis":
-                    btn.setBackgroundResource(R.drawable.dialysisbubble);
+                case "dialysis":
+                    btn.setBackgroundResource(R.drawable.event_dialysis_bubble);
                     break;
-                case "Biological_Therapy":
-                    btn.setBackgroundResource(R.drawable.biologicaltherapybubble);
+                case "biological_therapy":
+                    btn.setBackgroundResource(R.drawable.event_biological_therapy_bubble);
                     break;
-                case "Targeted_Therapy":
-                    btn.setBackgroundResource(R.drawable.targetedtherapybubble);
+                case "targeted_therapy":
+                    btn.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
                     break;
-                case "Portacat":
-                    btn.setBackgroundResource(R.drawable.pinkbubble);
+                case "portacat":
+                    btn.setBackgroundResource(R.drawable.greenbubble);
                     break;
-                case "Hospital":
+                case "hospital":
                     btn.setBackgroundResource(R.drawable.hospital);
                     break;
-                case "Picture_Memory":
+                case "picture_memory":
                     btn.setBackgroundResource(R.drawable.photominne);
                     break;
-                case "Start":
+                case "start":
                     btn.setBackgroundResource(R.drawable.journeystart);
                     break;
             }
@@ -475,7 +478,7 @@ public class JourneyActivity extends AppCompatActivity {
             params.setMargins((currentEventInt * 2) + 300, topMargin, 0, 0);
             params.width = height / 7;
             params.height = height / 7;
-            if (subCategoryClicked == "Start") {
+            if (subCategoryClicked == "start") {
                 params.setMargins((currentEventInt * 2), topMargin, 0, 0);
                 params.width = (height / 7) * 2;
                 params.height = (height / 7) * 2;
@@ -508,19 +511,19 @@ public class JourneyActivity extends AppCompatActivity {
 
 
         if(viewID == appointmentID) {
-               vCategory = "Appointments";
+               vCategory = "appointments";
         }
         if(viewID == treatmentID) {
-            vCategory = "Treatments";
+            vCategory = "treatments";
         }
         if(viewID == testID) {
-            vCategory = "Tests";
+            vCategory = "tests";
         }
         if(viewID == fotoID) {
-            vCategory = "Picture_Memory";
+            vCategory = "picture_memory";
         }
         if(viewID == hospitalID) {
-            vCategory = "Hospital";
+            vCategory = "hospital";
         }
             System.out.println(vCategory);
 
@@ -540,6 +543,7 @@ public class JourneyActivity extends AppCompatActivity {
         popupWindow.update();
 
         ImageButton saveButton = (ImageButton) popupView.findViewById(R.id.btn_saveEvent_Journey);
+        eventInfoImage = (ImageView) popupView.findViewById(R.id.img_subcategory_detail);
         final ImageView subCategory1 = (ImageView) popupView.findViewById(R.id.img_subcategory1);
         final ImageView subCategory2 = (ImageView) popupView.findViewById(R.id.img_subcategory2);
         final ImageView subCategory3 = (ImageView) popupView.findViewById(R.id.img_subcategory3);
@@ -574,10 +578,10 @@ public class JourneyActivity extends AppCompatActivity {
 
                 System.out.println(currentPage);
 
+                eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
 
-
-                eventInfoText.setText(getResources().getString(getResources().getIdentifier("Event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
-
+                int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
+                eventInfoImage.setBackgroundResource(resourceId);
                 switch (currentPage) {
 
 
@@ -630,8 +634,10 @@ public class JourneyActivity extends AppCompatActivity {
 
                 System.out.println(currentPage);
 
-                eventInfoText.setText(getResources().getString(getResources().getIdentifier("Event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
+                eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
 
+                int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
+                eventInfoImage.setBackgroundResource(resourceId);
 
 
                 switch (currentPage) {
@@ -709,7 +715,7 @@ public class JourneyActivity extends AppCompatActivity {
 
 
         switch (Category) {
-            case "Appointments":
+            case "appointments":
 
                 subCategory1.setVisibility(View.INVISIBLE);
                 subCategory2.setVisibility(View.INVISIBLE);
@@ -731,17 +737,17 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory8.setVisibility(View.VISIBLE);
                 subCategory9.setVisibility(View.VISIBLE);
 
-                subCategory1.setBackgroundResource(R.drawable.doctorman);
-                subCategory2.setBackgroundResource(R.drawable.anestetien);
-                subCategory3.setBackgroundResource(R.drawable.nurse);
-                subCategory4.setBackgroundResource(R.drawable.dentist);
-                subCategory5.setBackgroundResource(R.drawable.surgeon);
-                subCategory6.setBackgroundResource(R.drawable.anestetien);
-                subCategory7.setBackgroundResource(R.drawable.therapy);
-                subCategory8.setBackgroundResource(R.drawable.doctorman);
-                subCategory9.setBackgroundResource(R.drawable.anestetien);
+                subCategory1.setBackgroundResource(R.drawable.event_medical_oncologist_bubble);
+                subCategory2.setBackgroundResource(R.drawable.event_hematologist_doctor_bubble);
+                subCategory3.setBackgroundResource(R.drawable.event_nurse_bubble);
+                subCategory4.setBackgroundResource(R.drawable.event_dentist_bubble);
+                subCategory5.setBackgroundResource(R.drawable.event_surgeon_bubble);
+                subCategory6.setBackgroundResource(R.drawable.event_anestetisten_bubble);
+                subCategory7.setBackgroundResource(R.drawable.event_therapist_bubble);
+                subCategory8.setBackgroundResource(R.drawable.event_physiotherapist_bubble);
+                subCategory9.setBackgroundResource(R.drawable.greenbubble);
 
-                subCategoryClicked = "Medical_Oncologist";
+                subCategoryClicked = "medical_oncologist";
                 eventInfoText(subCategoryClicked);
 
 
@@ -749,14 +755,14 @@ public class JourneyActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        subCategoryClicked = "Medical_Oncologist";
+                        subCategoryClicked = "medical_oncologist";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Hematologist_Doctor";
+                        subCategoryClicked = "hematologist_doctor";
 
                         eventInfoText(subCategoryClicked);
                     }
@@ -764,55 +770,55 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Nurse";
+                        subCategoryClicked = "nurse";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Dentist";
+                        subCategoryClicked = "dentist";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory5.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Surgeon";
+                        subCategoryClicked = "surgeon";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory6.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Anestetisten";
+                        subCategoryClicked = "anestetisten";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory7.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Therapist";
+                        subCategoryClicked = "therapist";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory8.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Physiotherapist";
+                        subCategoryClicked = "physiotherapist";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory9.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Dietician";
+                        subCategoryClicked = "dietician";
                         eventInfoText(subCategoryClicked);
                     }
                 });
 
                 break;
-            case "Treatments":
+            case "treatments":
                 subCategory1.setVisibility(View.INVISIBLE);
                 subCategory2.setVisibility(View.INVISIBLE);
                 subCategory3.setVisibility(View.INVISIBLE);
@@ -833,36 +839,36 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory7.setVisibility(View.VISIBLE);
                 subCategory8.setVisibility(View.VISIBLE);
 
-                subCategory1.setBackgroundResource(R.drawable.cytatiska);
-                subCategory2.setBackgroundResource(R.drawable.ekg);
-                subCategory3.setBackgroundResource(R.drawable.targettherapy);
-                subCategory4.setBackgroundResource(R.drawable.treatmentradio);
-                subCategory5.setBackgroundResource(R.drawable.treatmentdialys);
-                subCategory6.setBackgroundResource(R.drawable.treatmentbiologic);
-                subCategory7.setBackgroundResource(R.drawable.treatmenttarget);
-                subCategory8.setBackgroundResource(R.drawable.portakat);
+                subCategory1.setBackgroundResource(R.drawable.event_cytostatika_bubble);
+                subCategory2.setBackgroundResource(R.drawable.greenbubble);
+                subCategory3.setBackgroundResource(R.drawable.greenbubble);
+                subCategory4.setBackgroundResource(R.drawable.event_radiation_bubble);
+                subCategory5.setBackgroundResource(R.drawable.event_dialysis_bubble);
+                subCategory6.setBackgroundResource(R.drawable.event_biological_therapy_bubble);
+                subCategory7.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
+                subCategory8.setBackgroundResource(R.drawable.greenbubble);
 
-                subCategoryClicked = "Cytistatika";
+                subCategoryClicked = "cytostatika";
                 eventInfoText(subCategoryClicked);
 
                 subCategory1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Cytistatika";
+                        subCategoryClicked = "cytostatika";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Surgery";
+                        subCategoryClicked = "surgery";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Stem_Cell_Transplantation";
+                        subCategoryClicked = "stem_cell_transplantation";
                         eventInfoText(subCategoryClicked);
 
                     }
@@ -870,7 +876,7 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Radiation";
+                        subCategoryClicked = "radiation";
                         eventInfoText(subCategoryClicked);
 
                     }
@@ -878,21 +884,21 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory5.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Dialysis";
+                        subCategoryClicked = "dialysis";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory6.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Biological_Therapy";
+                        subCategoryClicked = "biological_therapy";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory7.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Targeted_Therapy";
+                        subCategoryClicked = "targeted_therapy";
                         eventInfoText(subCategoryClicked);
 
                     }
@@ -900,7 +906,7 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory8.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Portacat";
+                        subCategoryClicked = "portacat";
                         eventInfoText(subCategoryClicked);
 
                     }
@@ -908,7 +914,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                 break;
 
-            case "Tests":
+            case "tests":
 
                 subCategory1.setVisibility(View.INVISIBLE);
                 subCategory2.setVisibility(View.INVISIBLE);
@@ -930,23 +936,23 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory8.setVisibility(View.VISIBLE);
                 subCategory9.setVisibility(View.VISIBLE);
 
-                subCategory1.setBackgroundResource(R.drawable.blooddrop);
-                subCategory2.setBackgroundResource(R.drawable.mr);
-                subCategory3.setBackgroundResource(R.drawable.dt);
-                subCategory4.setBackgroundResource(R.drawable.hearingtest);
-                subCategory5.setBackgroundResource(R.drawable.bonemarrow);
-                subCategory6.setBackgroundResource(R.drawable.eegtest);
-                subCategory7.setBackgroundResource(R.drawable.ekg);
-                subCategory8.setBackgroundResource(R.drawable.kidney);
-                subCategory9.setBackgroundResource(R.drawable.ultrajudback);
+                subCategory1.setBackgroundResource(R.drawable.event_bloodtest_bubble);
+                subCategory2.setBackgroundResource(R.drawable.greenbubble);
+                subCategory3.setBackgroundResource(R.drawable.greenbubble);
+                subCategory4.setBackgroundResource(R.drawable.event_hearing_test_bubble);
+                subCategory5.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
+                subCategory6.setBackgroundResource(R.drawable.greenbubble);
+                subCategory7.setBackgroundResource(R.drawable.event_ekg_bubble);
+                subCategory8.setBackgroundResource(R.drawable.greenbubble);
+                subCategory9.setBackgroundResource(R.drawable.event_ultrasound_bubble);
 
-                subCategoryClicked = "Bloodtest";
-
+                subCategoryClicked = "bloodtest";
+                eventInfoText(subCategoryClicked);
 
                 subCategory1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Bloodtest";
+                        subCategoryClicked = "bloodtest";
                         eventInfoText(subCategoryClicked);
 
                     }
@@ -954,28 +960,28 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "MR";
+                        subCategoryClicked = "mr";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "DT";
+                        subCategoryClicked = "dt";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Hearing_Tests";
+                        subCategoryClicked = "hearing_tests";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory5.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Bone_Marrow_Samples";
+                        subCategoryClicked = "bone_marrow_samples";
                         eventInfoText(subCategoryClicked);
 
                     }
@@ -983,14 +989,14 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory6.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "EEG";
+                        subCategoryClicked = "eeg";
                         eventInfoText(subCategoryClicked);
                     }
                 });
                 subCategory7.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "EKG";
+                        subCategoryClicked = "ekg";
                         eventInfoText(subCategoryClicked);
 
                     }
@@ -998,7 +1004,7 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory8.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Kidney_Investigation";
+                        subCategoryClicked = "kidney_investigation";
                         eventInfoText(subCategoryClicked);
 
                     }
@@ -1006,14 +1012,14 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory9.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Ultrasound";
+                        subCategoryClicked = "ultrasound";
                         eventInfoText(subCategoryClicked);
 
                     }
                 });
 
                 break;
-            case "Picture_Memory":
+            case "picture_memory":
 
                 subCategory1.setVisibility(View.INVISIBLE);
                 subCategory2.setVisibility(View.INVISIBLE);
@@ -1029,14 +1035,14 @@ public class JourneyActivity extends AppCompatActivity {
 
                 subCategory1.setBackgroundResource(R.drawable.photominne);
 
-                subCategoryClicked = "Picture_Memory";
+                subCategoryClicked = "picture_memory";
                 eventInfoText(subCategoryClicked);
 
 
                 subCategory1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Picture_Memory";
+                        subCategoryClicked = "picture_memory";
                         eventInfoText(subCategoryClicked);
 
                     }
@@ -1044,7 +1050,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                 break;
 
-            case "Hospital":
+            case "hospital":
 
                 subCategory1.setVisibility(View.INVISIBLE);
                 subCategory2.setVisibility(View.INVISIBLE);
@@ -1060,7 +1066,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                 subCategory1.setBackgroundResource(R.drawable.hospital);
 
-                subCategoryClicked = "Hospital";
+                subCategoryClicked = "hospital";
 
                 eventInfoText(subCategoryClicked);
 
@@ -1068,7 +1074,7 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subCategoryClicked = "Hospital";
+                        subCategoryClicked = "hospital";
                         eventInfoText(subCategoryClicked);
 
                     }
@@ -1139,25 +1145,28 @@ public class JourneyActivity extends AppCompatActivity {
 
         eventInfoText.setText("Det finns ingen information om detta eventet ännu!");
 
-        eventHeadline.setText(getResources().getString(getResources().getIdentifier("Event_"+subCategoryClicked, "string", getPackageName())));
-        int resource1 = getResources().getIdentifier("Event_"+subCategoryClicked+"_txt1", "string", getPackageName());
-        int resource2 = getResources().getIdentifier("Event_"+subCategoryClicked+"_txt2", "string", getPackageName());
-        int resource3 = getResources().getIdentifier("Event_"+subCategoryClicked+"_txt3", "string", getPackageName());
+        eventHeadline.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked, "string", getPackageName())));
+        int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
+        eventInfoImage.setBackgroundResource(resourceId);
+
+        int resource1 = getResources().getIdentifier("event_"+subCategoryClicked+"_txt1", "string", getPackageName());
+        int resource2 = getResources().getIdentifier("event_"+subCategoryClicked+"_txt2", "string", getPackageName());
+        int resource3 = getResources().getIdentifier("event_"+subCategoryClicked+"_txt3", "string", getPackageName());
 
 
         if(resource1 != 0){
-            eventInfoText.setText(getResources().getString(getResources().getIdentifier("Event_"+subCategoryClicked+"_txt1", "string", getPackageName())));
-            eventPage1 = getResources().getString(getResources().getIdentifier("Event_"+subCategoryClicked+"_txt1", "string", getPackageName()));
+            eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt1", "string", getPackageName())));
+            eventPage1 = getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt1", "string", getPackageName()));
             pages ++;
         }
 
         if(resource2 != 0){
-            eventPage2 = getResources().getString(getResources().getIdentifier("Event_"+subCategoryClicked+"_txt2", "string", getPackageName())) ;
+            eventPage2 = getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt2", "string", getPackageName())) ;
             pages ++;
         }
 
         if(resource3 != 0){
-            eventPage3 = getResources().getString(getResources().getIdentifier("Event_"+subCategoryClicked+"_txt3", "string", getPackageName())) ;
+            eventPage3 = getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt3", "string", getPackageName())) ;
             pages ++;
         }
 
@@ -1211,94 +1220,94 @@ public class JourneyActivity extends AppCompatActivity {
         String subCategory = eventList.get(id_).subCategory.toString();
 
         switch (subCategory) {
-            case "Medical_Oncologist":
-                btn.setBackgroundResource(R.drawable.doctormanbubble);
+            case "medical_oncologist":
+                btn.setBackgroundResource(R.drawable.event_medical_oncologist_bubble);
                 break;
-            case "Hematologist_Doctor":
-                btn.setBackgroundResource(R.drawable.doctormanbubble);
+            case "hematologist_doctor":
+                btn.setBackgroundResource(R.drawable.event_hematologist_doctor_bubble);
                 break;
-            case "Nurse":
-                btn.setBackgroundResource(R.drawable.nursebubble);
+            case "nurse":
+                btn.setBackgroundResource(R.drawable.event_nurse_bubble);
                 break;
-            case "Dentist":
-                btn.setBackgroundResource(R.drawable.dentistbubble);
+            case "dentist":
+                btn.setBackgroundResource(R.drawable.event_dentist_bubble);
                 break;
-            case "Surgeon":
-                btn.setBackgroundResource(R.drawable.surgeonbubble);
+            case "surgeon":
+                btn.setBackgroundResource(R.drawable.event_surgeon_bubble);
                 break;
-            case "Anestetisten":
-                btn.setBackgroundResource(R.drawable.anestetistbubble);
+            case "anestetisten":
+                btn.setBackgroundResource(R.drawable.event_anestetisten_bubble);
                 break;
-            case "Therapist":
-                btn.setBackgroundResource(R.drawable.therapybubble);
+            case "therapist":
+                btn.setBackgroundResource(R.drawable.event_therapist_bubble);
                 break;
-            case "Physiotherapist":
-                btn.setBackgroundResource(R.drawable.orangebubble);
+            case "physiotherapist":
+                btn.setBackgroundResource(R.drawable.event_physiotherapist_bubble);
                 break;
-            case "Dietician":
-                btn.setBackgroundResource(R.drawable.anestetistbubble);
+            case "dietician":
+                btn.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "MR":
-                btn.setBackgroundResource(R.drawable.mrbubble);
+            case "mr":
+                btn.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "DT":
-                btn.setBackgroundResource(R.drawable.kidneyinvestigationbubble);
+            case "dt":
+                btn.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "Hearing_Tests":
-                btn.setBackgroundResource(R.drawable.hearingtestbubble);
+            case "hearing_tests":
+                btn.setBackgroundResource(R.drawable.event_hearing_test_bubble);
                 break;
-            case "Bone_Marrow_Samples":
-                btn.setBackgroundResource(R.drawable.bonemarrowbubble);
+            case "bone_marrow_samples":
+                btn.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
                 break;
-            case "EEG":
-                btn.setBackgroundResource(R.drawable.eegbubble);
+            case "eeg":
+                btn.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "EKG":
-                btn.setBackgroundResource(R.drawable.ekgbubble);
+            case "ekg":
+                btn.setBackgroundResource(R.drawable.event_ekg_bubble);
                 break;
-            case "Kidney_Investigation":
-                btn.setBackgroundResource(R.drawable.kidneyinvestigationbubble);
+            case "kidney_investigation":
+                btn.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "Ultrasound":
-                btn.setBackgroundResource(R.drawable.ultrasoundbubble);
+            case "ultrasound":
+                btn.setBackgroundResource(R.drawable.event_ultrasound_bubble);
                 break;
-            case "Alternating_Current":
-                btn.setBackgroundResource(R.drawable.otherdropbubble);
+            case "alternating_current":
+                btn.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "Transplantation":
+            case "transplantation":
+                btn.setBackgroundResource(R.drawable.greenbubble);
+                break;
+            case "cytostatika":
+                btn.setBackgroundResource(R.drawable.event_cytostatika_bubble);
+                break;
+            case "surgery":
+                btn.setBackgroundResource(R.drawable.greenbubble);
+                break;
+            case "stem_cell_transplantation":
+                btn.setBackgroundResource(R.drawable.greenbubble);
+                break;
+            case "radiation":
+                btn.setBackgroundResource(R.drawable.event_radiation_bubble);
+                break;
+            case "dialysis":
+                btn.setBackgroundResource(R.drawable.event_dialysis_bubble);
+                break;
+            case "biological_therapy":
+                btn.setBackgroundResource(R.drawable.event_biological_therapy_bubble);
+                break;
+            case "targeted_therapy":
+                btn.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
+                break;
+            case "portacat":
                 btn.setBackgroundResource(R.drawable.pinkbubble);
                 break;
-            case "Cytistatika":
-                btn.setBackgroundResource(R.drawable.cytistatikabubble);
-                break;
-            case "Surgery":
-                btn.setBackgroundResource(R.drawable.pinkbubble);
-                break;
-            case "Stem_Cell_Transplantation":
-                btn.setBackgroundResource(R.drawable.stemcelltransplantationbubble);
-                break;
-            case "Radiation":
-                btn.setBackgroundResource(R.drawable.radiationbubble);
-                break;
-            case "Dialysis":
-                btn.setBackgroundResource(R.drawable.dialysisbubble);
-                break;
-            case "Biological_Therapy":
-                btn.setBackgroundResource(R.drawable.treatmentbiologic);
-                break;
-            case "Targeted_Therapy":
-                btn.setBackgroundResource(R.drawable.targetedtherapybubble);
-                break;
-            case "Portacat":
-                btn.setBackgroundResource(R.drawable.pinkbubble);
-                break;
-            case "Picture_Memory":
+            case "picture_memory":
                 btn.setBackgroundResource(R.drawable.photominne);
                 break;
-            case "Hospital":
+            case "hospital":
                 btn.setBackgroundResource(R.drawable.hospital);
                 break;
-            case "Start":
+            case "start":
                 btn.setBackgroundResource(R.drawable.journeystart);
                 break;
         }
@@ -1348,7 +1357,7 @@ public class JourneyActivity extends AppCompatActivity {
         params.setMargins((currentEventInt * 2) + 300, topMargin, 0, 0);
         params.width = (height / 7);
         params.height = (height / 7);
-        if (subCategory == "Start") {
+        if (subCategory == "start") {
             params.setMargins((currentEventInt * 2), topMargin, 0, 0);
             params.width = (height / 7) * 2;
             params.height = (height / 7) * 2;
@@ -1377,6 +1386,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         eventInfoText = (TextView) popupView.findViewById(R.id.txt_subcategory_main);
         eventHeadline = (TextView) popupView.findViewById(R.id.txt_subcategory_journey);
+        eventInfoImage = (ImageView) popupView.findViewById(R.id.img_subcategory_detail);
         page1 = (ImageView) popupView.findViewById(R.id.img_page1);
         page2 = (ImageView) popupView.findViewById(R.id.img_page2);
         page3 = (ImageView) popupView.findViewById(R.id.img_page3);
@@ -1409,7 +1419,10 @@ public class JourneyActivity extends AppCompatActivity {
 
 
 
-                eventInfoText.setText(getResources().getString(getResources().getIdentifier("Event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
+                eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
+                    int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
+                    eventInfoImage.setBackgroundResource(resourceId);
+
 
                 switch (currentPage) {
 
@@ -1463,10 +1476,9 @@ public class JourneyActivity extends AppCompatActivity {
 
                 System.out.println(currentPage);
 
-                eventInfoText.setText(getResources().getString(getResources().getIdentifier("Event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
-
-
-
+                eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
+                int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
+                eventInfoImage.setBackgroundResource(resourceId);
 
 
                 switch (currentPage) {
@@ -1637,91 +1649,91 @@ public class JourneyActivity extends AppCompatActivity {
 
         switch (eventList.get(id_).subCategory) {
 
-            case "Medical_Oncologist":
-                categoryImage.setBackgroundResource(R.drawable.doctorman);
+            case "medical_oncologist":
+                categoryImage.setBackgroundResource(R.drawable.event_medical_oncologist_bubble);
                 break;
-            case "Hematologist_Doctor":
-                categoryImage.setBackgroundResource(R.drawable.doctorman);
+            case "hematologist_doctor":
+                categoryImage.setBackgroundResource(R.drawable.event_hematologist_doctor_bubble);
                 break;
-            case "Nurse":
-                categoryImage.setBackgroundResource(R.drawable.nurse);
+            case "nurse":
+                categoryImage.setBackgroundResource(R.drawable.event_nurse_bubble);
                 break;
-            case "Dentist":
-                categoryImage.setBackgroundResource(R.drawable.dentist);
+            case "dentist":
+                categoryImage.setBackgroundResource(R.drawable.event_dentist_bubble);
                 break;
-            case "Surgeon":
-                categoryImage.setBackgroundResource(R.drawable.surgeon);
+            case "surgeon":
+                categoryImage.setBackgroundResource(R.drawable.event_surgeon_bubble);
                 break;
-            case "Anestetisten":
-                categoryImage.setBackgroundResource(R.drawable.anestetien);
+            case "anestetisten":
+                categoryImage.setBackgroundResource(R.drawable.event_anestetisten_bubble);
                 break;
-            case "Therapist":
-                categoryImage.setBackgroundResource(R.drawable.therapy);
+            case "therapist":
+                categoryImage.setBackgroundResource(R.drawable.event_therapist_bubble);
                 break;
-            case "Physiotherapist":
-                categoryImage.setBackgroundResource(R.drawable.therapy);
+            case "physiotherapist":
+                categoryImage.setBackgroundResource(R.drawable.event_physiotherapist_bubble);
                 break;
-            case "Dietician":
-                categoryImage.setBackgroundResource(R.drawable.nurse);
+            case "dietician":
+                categoryImage.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "MR":
-                categoryImage.setBackgroundResource(R.drawable.mr);
+            case "mr":
+                categoryImage.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "DT":
-                categoryImage.setBackgroundResource(R.drawable.dt);
+            case "dt":
+                categoryImage.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "Hearing_Tests":
-                categoryImage.setBackgroundResource(R.drawable.hearingtest);
+            case "hearing_tests":
+                categoryImage.setBackgroundResource(R.drawable.event_hearing_test_bubble);
                 break;
-            case "Bone_Marrow_Samples":
-                categoryImage.setBackgroundResource(R.drawable.bonemarrow);
+            case "bone_marrow_samples":
+                categoryImage.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
                 break;
-            case "EEG":
-                categoryImage.setBackgroundResource(R.drawable.eegtest);
+            case "eeg":
+                categoryImage.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "EKG":
-                categoryImage.setBackgroundResource(R.drawable.ekg);
+            case "ekg":
+                categoryImage.setBackgroundResource(R.drawable.event_ekg_bubble);
                 break;
-            case "Kidney_Investigation":
-                categoryImage.setBackgroundResource(R.drawable.kidney);
+            case "kidney_investigation":
+                categoryImage.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "Ultrasound":
-                categoryImage.setBackgroundResource(R.drawable.ultrajudback);
+            case "ultrasound":
+                categoryImage.setBackgroundResource(R.drawable.event_ultrasound_bubble);
                 break;
-            case "Cytistatika":
-                categoryImage.setBackgroundResource(R.drawable.cytistatika);
+            case "cytostatika":
+                categoryImage.setBackgroundResource(R.drawable.event_cytostatika_bubble);
                 break;
-            case "Surgery":
-                categoryImage.setBackgroundResource(R.drawable.surgery);
+            case "surgery":
+                categoryImage.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "Stem_Cell_Transplantation":
-                categoryImage.setBackgroundResource(R.drawable.stemcelltransplantation);
+            case "stem_cell_transplantation":
+                categoryImage.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "Radiation":
-                categoryImage.setBackgroundResource(R.drawable.radiation);
+            case "radiation":
+                categoryImage.setBackgroundResource(R.drawable.event_radiation_bubble);
                 break;
-            case "Dialysis":
-                categoryImage.setBackgroundResource(R.drawable.dialysis);
+            case "dialysis":
+                categoryImage.setBackgroundResource(R.drawable.event_dialysis_bubble);
                 break;
-            case "Biological_Therapy":
-                categoryImage.setBackgroundResource(R.drawable.biologicaltherapy);
+            case "biological_therapy":
+                categoryImage.setBackgroundResource(R.drawable.event_biological_therapy_bubble);
                 break;
-            case "Targeted_Therapy":
-                categoryImage.setBackgroundResource(R.drawable.targetedtherapy);
+            case "targeted_therapy":
+                categoryImage.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
                 break;
-            case "Portacat":
-                categoryImage.setBackgroundResource(R.drawable.portakat);
+            case "portacat":
+                categoryImage.setBackgroundResource(R.drawable.greenbubble);
                 break;
-            case "Bloodtest":
-                categoryImage.setBackgroundResource(R.drawable.bloodtest);
+            case "bloodtest":
+                categoryImage.setBackgroundResource(R.drawable.event_bloodtest_bubble);
                 break;
-            case "Hospital":
+            case "hospital":
                 categoryImage.setBackgroundResource(R.drawable.hospital);
                 break;
-            case "Picture_memory":
+            case "picture_memory":
                 categoryImage.setBackgroundResource(R.drawable.photominne);
                 break;
-            case "Start":
+            case "start":
                 categoryImage.setBackgroundResource(R.drawable.journeystart);
                 break;
         }
@@ -1944,7 +1956,6 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
-
     private void generateMountains() {
 
 
@@ -2097,199 +2108,199 @@ public class JourneyActivity extends AppCompatActivity {
         c.setTime(eventList.get(0).startDate);
 
         c.add(Calendar.DATE, 1);
-        Events event1 = new Events("Appointments", "Medical_Oncologist", "at hospital", c.getTime(), null, null, null);
+        Events event1 = new Events("Appointments", "medical_oncologist", "at hospital", c.getTime(), null, null, null);
         eventList.add(event1);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 2);
-        Events event2 = new Events("Treatments", "Cytistatika", "take meds before!", c.getTime(), null, null, null);
+        Events event2 = new Events("Treatments", "cytostatika", "take meds before!", c.getTime(), null, null, null);
         eventList.add(event2);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 5);
-        Events event3 = new Events("Appointments", "Nurse", "help", c.getTime(), null, null, null);
+        Events event3 = new Events("Appointments", "nurse", "help", c.getTime(), null, null, null);
         eventList.add(event3);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 6);
-        Events event4 = new Events("Tests", "Bone_Marrow_Samples", "bloodtest1", c.getTime(), null, null, null);
+        Events event4 = new Events("Tests", "bone_marrow_samples", "bloodtest1", c.getTime(), null, null, null);
         eventList.add(event4);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 7);
-        Events event5 = new Events("Image_Memory", "Picture_Memory", "photo of me", c.getTime(), null, null, null);
+        Events event5 = new Events("Image_Memory", "picture_memory", "photo of me", c.getTime(), null, null, null);
         eventList.add(event5);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 8);
-        Events event6 = new Events("Hospital", "Hospital", "xray at dentist", c.getTime(), null, null, null);
+        Events event6 = new Events("Hospital", "hospital", "xray at dentist", c.getTime(), null, null, null);
         eventList.add(event6);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 9);
-        Events event7 = new Events("Appointments", "Medical_Oncologist", "at hospital", c.getTime(), null, null, null);
+        Events event7 = new Events("Appointments", "medical_oncologist", "at hospital", c.getTime(), null, null, null);
         eventList.add(event7);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 10);
-        Events event8 = new Events("Treatments", "Surgery", "whole day", c.getTime(), null, null, null);
+        Events event8 = new Events("Treatments", "surgery", "whole day", c.getTime(), null, null, null);
         eventList.add(event8);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 12);
-        Events event9 = new Events("Treatments", "Surgery", "ohh noo =(", c.getTime(), null, null, null);
+        Events event9 = new Events("Treatments", "surgery", "ohh noo =(", c.getTime(), null, null, null);
         eventList.add(event9);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 13);
-        Events event10 = new Events("Treatments", "Cytistatika", "evening", c.getTime(), null, null, null);
+        Events event10 = new Events("Treatments", "cytostatika", "evening", c.getTime(), null, null, null);
         eventList.add(event10);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 14);
-        Events event11 = new Events("Appointments", "Medical_Oncologist", "zzzzz", c.getTime(), null, null, null);
+        Events event11 = new Events("Appointments", "medical_oncologist", "zzzzz", c.getTime(), null, null, null);
         eventList.add(event11);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 15);
-        Events event12 = new Events("Tests", "MR", "Lunds sjukhus", c.getTime(), null, null, null);
+        Events event12 = new Events("Tests", "mr", "Lunds sjukhus", c.getTime(), null, null, null);
         eventList.add(event12);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 17);
-        Events event13 = new Events("Tests", "DT", "take images", c.getTime(), null, null, null);
+        Events event13 = new Events("Tests", "dt", "take images", c.getTime(), null, null, null);
         eventList.add(event13);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 18);
-        Events event14 = new Events("Tests", "Bone_Marrow_Samples", "wooow", c.getTime(), null, null, null);
+        Events event14 = new Events("Tests", "bone_marrow_samples", "wooow", c.getTime(), null, null, null);
         eventList.add(event14);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 19);
-        Events event15 = new Events("Appointments", "Medical_Oncologist", "Dr Edith", c.getTime(), null, null, null);
+        Events event15 = new Events("Appointments", "medical_oncologist", "Dr Edith", c.getTime(), null, null, null);
         eventList.add(event15);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 22);
-        Events event16 = new Events("Appointments", "Medical_Oncologist", "eating habits", c.getTime(), null, null, null);
+        Events event16 = new Events("Appointments", "medical_oncologist", "eating habits", c.getTime(), null, null, null);
         eventList.add(event16);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 24);
-        Events event17 = new Events("Appointments", "Nurse", "at Malmö", c.getTime(), null, null, null);
+        Events event17 = new Events("Appointments", "nurse", "at Malmö", c.getTime(), null, null, null);
         eventList.add(event17);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 26);
-        Events event18 = new Events("Appointments", "Therapist", "whole day", c.getTime(), null, null, null);
+        Events event18 = new Events("Appointments", "therapist", "whole day", c.getTime(), null, null, null);
         eventList.add(event18);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 27);
-        Events event19 = new Events("Appointments", "Therapist", "eat before", c.getTime(), null, null, null);
+        Events event19 = new Events("Appointments", "therapist", "eat before", c.getTime(), null, null, null);
         eventList.add(event19);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 28);
-        Events event20 = new Events("Tests", "Bloodtest", "dropp näring", c.getTime(), null, null, null);
+        Events event20 = new Events("Tests", "bloodtest", "dropp näring", c.getTime(), null, null, null);
         eventList.add(event20);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 29);
-        Events event21 = new Events("Hospital", "Hospital", "visit lund hospital", c.getTime(), null, null, null);
+        Events event21 = new Events("Hospital", "hospital", "visit lund hospital", c.getTime(), null, null, null);
         eventList.add(event21);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 30);
-        Events event22 = new Events("Appointments", "Nurse", "tråkigt", c.getTime(), null, null, null);
+        Events event22 = new Events("Appointments", "nurse", "tråkigt", c.getTime(), null, null, null);
         eventList.add(event22);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 31);
-        Events event23 = new Events("Appointments", "Dietician", "eating habits", c.getTime(), null, null, null);
+        Events event23 = new Events("Appointments", "dietician", "eating habits", c.getTime(), null, null, null);
         eventList.add(event23);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 32);
-        Events event24 = new Events("Tests", "Bone_Marrow_Samples", "Lunds sjukhus", c.getTime(), null, null, null);
+        Events event24 = new Events("Tests", "bone_marrow_samples", "Lunds sjukhus", c.getTime(), null, null, null);
         eventList.add(event24);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 34);
-        Events event25 = new Events("Appointments", "Dentist", "xray at dentist", c.getTime(), null, null, null);
+        Events event25 = new Events("Appointments", "dentist", "xray at dentist", c.getTime(), null, null, null);
         eventList.add(event25);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 36);
-        Events event26 = new Events("Tests", "Bloodtest", "Lunds sjukhus", c.getTime(), null, null, null);
+        Events event26 = new Events("Tests", "bloodtest", "Lunds sjukhus", c.getTime(), null, null, null);
         eventList.add(event26);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 40);
-        Events event27 = new Events("Appointments", "Dietician", "at hospital", c.getTime(), null, null, null);
+        Events event27 = new Events("Appointments", "dietician", "at hospital", c.getTime(), null, null, null);
         eventList.add(event27);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 41);
-        Events event28 = new Events("Appointments", "Nurse", "zzzzz", c.getTime(), null, null, null);
+        Events event28 = new Events("Appointments", "nurse", "zzzzz", c.getTime(), null, null, null);
         eventList.add(event28);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 45);
-        Events event29 = new Events("Appointments", "Therapist", "help", c.getTime(), null, null, null);
+        Events event29 = new Events("Appointments", "therapist", "help", c.getTime(), null, null, null);
         eventList.add(event29);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 46);
-        Events event30 = new Events("Treatments", "Surgery", "whole day", c.getTime(), null, null, null);
+        Events event30 = new Events("Treatments", "surgery", "whole day", c.getTime(), null, null, null);
         eventList.add(event30);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 48);
-        Events event31 = new Events("Hospital", "Hospital", "at hospital", c.getTime(), null, null, null);
+        Events event31 = new Events("Hospital", "hospital", "at hospital", c.getTime(), null, null, null);
         eventList.add(event31);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 52);
-        Events event32 = new Events("Image_Memory", "Picture_Memory", "photo of me", c.getTime(), null, null, null);
+        Events event32 = new Events("Image_Memory", "picture_memory", "photo of me", c.getTime(), null, null, null);
         eventList.add(event32);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 55);
-        Events event33 = new Events("Appointments", "Nurse", "whole day", c.getTime(), null, null, null);
+        Events event33 = new Events("Appointments", "nurse", "whole day", c.getTime(), null, null, null);
         eventList.add(event33);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 57);
-        Events event34 = new Events("Appointments", "Therapist", "at hospital", c.getTime(), null, null, null);
+        Events event34 = new Events("Appointments", "therapist", "at hospital", c.getTime(), null, null, null);
         eventList.add(event34);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 61);
-        Events event35 = new Events("Appointments", "Nurse", "tråkigt", c.getTime(), null, null, null);
+        Events event35 = new Events("Appointments", "nurse", "tråkigt", c.getTime(), null, null, null);
         eventList.add(event35);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 62);
-        Events event36 = new Events("Appointments", "Anestetisten", "eating habits", c.getTime(), null, null, null);
+        Events event36 = new Events("Appointments", "anestetisten", "eating habits", c.getTime(), null, null, null);
         eventList.add(event36);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 64);
-        Events event37 = new Events("Appointments", "Anestetisten", "at hospital", c.getTime(), null, null, null);
+        Events event37 = new Events("Appointments", "anestetisten", "at hospital", c.getTime(), null, null, null);
         eventList.add(event37);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 66);
-        Events event38 = new Events("Appointments", "Therapist", "eating habits", c.getTime(), null, null, null);
+        Events event38 = new Events("Appointments", "therapist", "eating habits", c.getTime(), null, null, null);
         eventList.add(event38);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 70);
-        Events event39 = new Events("Tests", "Bloodtest", "bloodtest1", c.getTime(), null, null, null);
+        Events event39 = new Events("Tests", "bloodtest", "bloodtest1", c.getTime(), null, null, null);
         eventList.add(event39);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 71);
-        Events event40 = new Events("Appointments", "Nurse", "whole day", c.getTime(), null, null, null);
+        Events event40 = new Events("Appointments", "nurse", "whole day", c.getTime(), null, null, null);
         eventList.add(event40);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 74);
-        Events event41 = new Events("Tests", "MR", "bloodtest1", c.getTime(), null, null, null);
+        Events event41 = new Events("Tests", "mr", "bloodtest1", c.getTime(), null, null, null);
         eventList.add(event41);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 76);
-        Events event42 = new Events("Tests", "DT", "Lunds sjukhus", c.getTime(), null, null, null);
+        Events event42 = new Events("Tests", "dt", "Lunds sjukhus", c.getTime(), null, null, null);
         eventList.add(event42);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 78);
-        Events event43 = new Events("Appointments", "Anestetisten", "at hospital", c.getTime(), null, null, null);
+        Events event43 = new Events("Appointments", "anestetisten", "at hospital", c.getTime(), null, null, null);
         eventList.add(event43);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 80);
-        Events event44 = new Events("Hospital", "Hospital", "wooow", c.getTime(), null, null, null);
+        Events event44 = new Events("Hospital", "hospital", "wooow", c.getTime(), null, null, null);
         eventList.add(event44);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 82);
-        Events event45 = new Events("Tests", "Bone_Marrow_Samples", "Lunds sjukhus", c.getTime(), null, null, null);
+        Events event45 = new Events("Tests", "bone_marrow_samples", "Lunds sjukhus", c.getTime(), null, null, null);
         eventList.add(event45);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 84);
-        Events event46 = new Events("Appointments", "Anestetisten", "at hospital", c.getTime(), null, null, null);
+        Events event46 = new Events("Appointments", "anestetisten", "at hospital", c.getTime(), null, null, null);
         eventList.add(event46);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 86);
-        Events event47 = new Events("Tests", "MR", "Lunds sjukhus", c.getTime(), null, null, null);
+        Events event47 = new Events("Tests", "targeted_therapy", "Lunds sjukhus", c.getTime(), null, null, null);
         eventList.add(event47);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 88);
-        Events event48 = new Events("Tests", "DT", "wooow", c.getTime(), null, null, null);
+        Events event48 = new Events("Tests", "dt", "wooow", c.getTime(), null, null, null);
         eventList.add(event48);
         c.setTime(eventList.get(0).startDate);
         c.add(Calendar.DATE, 89);
-        Events event49 = new Events("Tests", "MR", "Lunds sjukhus", c.getTime(), null, null, null);
+        Events event49 = new Events("Tests", "mr", "Lunds sjukhus", c.getTime(), null, null, null);
         eventList.add(event49);
         c.setTime(eventList.get(0).startDate);
 
