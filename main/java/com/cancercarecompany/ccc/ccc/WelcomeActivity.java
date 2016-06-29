@@ -67,7 +67,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void login(){
-        Person newUser = new Person(0, null, null, loginEmail.getText().toString(), loginPassword.getText().toString(), null);
+        Person newUser = new Person(0, null, null, loginEmail.getText().toString(), loginPassword.getText().toString(), 0, null);
         connectHandler.login(newUser);
 
         while (connectHandler.socketBusy){}

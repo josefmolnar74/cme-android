@@ -79,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register(){
-        Person newUser = new Person(0 , registerFirstName.getText().toString(), registerLastName.getText().toString(), registerEmail.getText().toString(), registerPassword.getText().toString(), null);
+        Person newUser = new Person(0 , registerFirstName.getText().toString(), registerLastName.getText().toString(), registerEmail.getText().toString(), registerPassword.getText().toString(), 0, null);
         connectHandler.createUser(newUser);
         while (connectHandler.socketBusy){}
 

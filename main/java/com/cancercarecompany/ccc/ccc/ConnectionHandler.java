@@ -159,10 +159,10 @@ public class ConnectionHandler {
                             case MESSAGE_UPDATE:
                                 switch (header.content){
                                     case CONTENT_PERSON:
-                                        person = gson.fromJson(resultData, Person.class);
+//                                        person = gson.fromJson(resultData, Person.class);
                                         break;
                                     case CONTENT_PATIENT:
-                                        Patient patient = gson.fromJson(resultData, Patient.class);
+//                                        Patient patient = gson.fromJson(resultData, Patient.class);
                                         break;
                                     case CONTENT_CARE_TEAM:
 //                                        CareTeamMember careTeam = gson.fromJson(resultData, CareTeamMember.class);
@@ -211,7 +211,7 @@ public class ConnectionHandler {
     public void createUser(Person newUser) {
         Gson gson = new Gson();
         if (person == null) {
-            person = new Person(newUser.person_ID, newUser.first_name, newUser.last_name, newUser.email,newUser.password, null);
+            person = new Person(newUser.person_ID, newUser.first_name, newUser.last_name, newUser.email,newUser.password,newUser.avatar, null);
         }
         String messageData = gson.toJson(person);
         sendMessage(MESSAGE_CREATE, CONTENT_PERSON, messageData);

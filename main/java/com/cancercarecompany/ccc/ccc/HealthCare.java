@@ -14,9 +14,10 @@ public class HealthCare {
     public String phone_number2;
     public String phone_number3;
     public String email;
+    public int avatar;
 
     public HealthCare(int healthcare_ID, int patient_ID, String title, String name, String department,
-                      String phone_number1, String phone_number2, String phone_number3, String email) {
+                      String phone_number1, String phone_number2, String phone_number3, String email, int avatar) {
 
         this.healthcare_ID = healthcare_ID; //default value, does not matter because updated during read from database
         this.patient_ID = patient_ID;
@@ -27,5 +28,6 @@ public class HealthCare {
         this.phone_number2 = phone_number2;
         this.phone_number3 = phone_number3;
         this.email = email;
+        this.avatar = avatar;
     }
 }

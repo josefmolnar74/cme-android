@@ -184,6 +184,9 @@ public class JournalActivity extends AppCompatActivity {
         connectHandler = ConnectionHandler.getInstance();
         connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
 
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(date)));
+
         // Display patient name on topbar
         if (connectHandler.patient != null){
             patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
