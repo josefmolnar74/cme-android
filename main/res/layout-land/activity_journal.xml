@@ -30,7 +30,7 @@
 
         <ImageButton
             android:layout_width="80dp"
-            android:layout_height="90dp"
+            android:layout_height="match_parent"
             android:id="@+id/btn_journal_careteam_button"
             android:layout_weight="16"
             android:padding="8dp"
@@ -44,7 +44,7 @@
 
         <ImageButton
             android:layout_width="80dp"
-            android:layout_height="90dp"
+            android:layout_height="match_parent"
             android:id="@+id/btn_journal_journey_button"
             android:layout_weight="16"
             android:padding="4dp"
@@ -53,14 +53,14 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/loggedIn"
-            android:layout_toStartOf="@+id/loggedIn"
+            android:layout_toLeftOf="@+id/txt_journal_loggedIn"
+            android:layout_toStartOf="@+id/txt_journal_loggedIn"
             android:layout_marginRight="47dp"
             android:layout_marginEnd="47dp" />
 
         <ImageButton
             android:layout_width="80dp"
-            android:layout_height="90dp"
+            android:layout_height="match_parent"
             android:id="@+id/btn_journal_journal_button"
             android:layout_weight="16"
             android:padding="8dp"
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/loggedIn"
+            android:id="@+id/txt_journal_loggedIn"
             android:text="name"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -84,6 +84,17 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:textColor="#ffffff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/txt_journal_patientName"
+            android:text="@string/journal_patient_name"
+            android:layout_marginRight="20dp"
+            android:textColor="#ffffff"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/logoButton" />
 
     </RelativeLayout>
 

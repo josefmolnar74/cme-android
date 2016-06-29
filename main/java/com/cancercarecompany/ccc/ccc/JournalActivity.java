@@ -164,7 +164,8 @@ public class JournalActivity extends AppCompatActivity {
 
         final EditText statusTextEditText       = (EditText) findViewById(R.id.edtxt_journal_status);
 //        final TextView txt_med_txt            = (TextView) findViewById(R.id.txt_med_int);
-        final TextView journalHeaderText = (TextView) findViewById(R.id.txt_journal_header);
+        final TextView journalHeaderText =        (TextView) findViewById(R.id.txt_journal_header);
+        final TextView patientNameText =          (TextView) findViewById(R.id.txt_journal_patientName);
         final Button saveStatusButton           = (Button) findViewById(R.id.btn_journal_status_save);
         final Button medicationBreakfastButton  = (Button) findViewById(R.id.btn_journal_medication_breakfast);
         final Button medicationLunchButton      = (Button) findViewById(R.id.btn_journal_medication_lunch);
@@ -179,21 +180,18 @@ public class JournalActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(this.getResources().getColor(R.color.black));
 
-
         //Get journal data
         connectHandler = ConnectionHandler.getInstance();
         connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
 
-/*        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy){}
-        connectHandler.getStatusForPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy){}
-        connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy){}
-        connectHandler.getBeveragesForPatient(connectHandler.patient.patient_ID);
-*/        while (connectHandler.socketBusy){}
+        // Display patient name on topbar
+        if (connectHandler.patient != null){
+            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
+        }
 
-        TextView loggedIn = (TextView) findViewById(R.id.loggedIn);
+        while (connectHandler.socketBusy){}
+
+        TextView loggedIn = (TextView) findViewById(R.id.txt_journal_loggedIn);
         if (connectHandler.person != null){
             loggedIn.setText(connectHandler.person.first_name);
         }
