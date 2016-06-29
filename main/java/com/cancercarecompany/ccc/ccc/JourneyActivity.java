@@ -134,10 +134,15 @@ public class JourneyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey);
         eventList = new ArrayList<Events>();
-/*
+
         connectHandler = ConnectionHandler.getInstance();
 
-        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
+        TextView loggedIn = (TextView) findViewById(R.id.loggedIn);
+        if (connectHandler.person != null){
+            loggedIn.setText(connectHandler.person.first_name);
+        }
+
+/*        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
 
         for (int i=0; i < connectHandler.events.event_data.size();i++){

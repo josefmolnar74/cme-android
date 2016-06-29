@@ -84,6 +84,8 @@ public class JournalActivity extends AppCompatActivity {
     int otherIdForToday;
     int beverageIdForToday;
 
+    String emotion = "";
+
     public static final String TIME_SIMPLE_FORMAT   = "yyyy-MM-dd";
     public static final String DATE_SIMPLE_FORMAT   = "kk:mm:ss";
 
@@ -292,7 +294,7 @@ public class JournalActivity extends AppCompatActivity {
                             date,
                             time,
                             statusTextEditText.getText().toString(),
-                            emotionText.getText().toString(),
+                            emotion,
                             1);
                     connectHandler.createStatus(newStatus);
 
@@ -483,6 +485,7 @@ public class JournalActivity extends AppCompatActivity {
         popupWindow.update();
 
         final EditText statusEditText        = (EditText) popupView.findViewById(R.id.txt_journal_status_popup_status_text);
+        final ImageButton emotionButton     = (ImageButton) popupView.findViewById(R.id.img_journal_status_popup_emotion);
         final Button   buttonSave           = (Button) popupView.findViewById(R.id.btn_journal_status_save);
         final Button   buttonCancel         = (Button) popupView.findViewById(R.id.btn_journal_status_cancel);
         final Button   buttonEdit           = (Button) popupView.findViewById(R.id.btn_journal_status_edit);
@@ -490,6 +493,35 @@ public class JournalActivity extends AppCompatActivity {
 
         statusEditText.setFocusable(false);
         statusEditText.setText(statusList.get(position).status);
+        switch (statusList.get(position).emotion){
+            case EMOTION_HAPPY:
+                emotionButton.setImageResource(R.drawable.emotion_happy);
+                break;
+            case EMOTION_SAD:
+                emotionButton.setImageResource(R.drawable.emotion_sad);
+                break;
+            case EMOTION_WORRIED:
+                emotionButton.setImageResource(R.drawable.emotion_worried);
+                break;
+            case EMOTION_TIRED:
+                emotionButton.setImageResource(R.drawable.emotion_tired);
+                break;
+            case EMOTION_FRUSTRATED:
+                emotionButton.setImageResource(R.drawable.emotion_frustrated);
+                break;
+            case EMOTION_SATISFIED:
+                emotionButton.setImageResource(R.drawable.emotion_satisfied);
+                break;
+            case EMOTION_SICK:
+                emotionButton.setImageResource(R.drawable.emotion_sick);
+                break;
+            case EMOTION_NAUSEOUS:
+                emotionButton.setImageResource(R.drawable.emotion_nauseous);
+                break;
+            case EMOTION_SCARED:
+                emotionButton.setImageResource(R.drawable.emotion_scared);
+                break;
+        }
         buttonEdit.setVisibility(View.VISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
         buttonDelete.setVisibility(View.INVISIBLE);
@@ -613,6 +645,7 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 emotionsButton.setImageResource(R.drawable.emotion_happy);
                 emotionText.setText(emotionHappyText.getText());
+                emotion = EMOTION_HAPPY;
                 popupWindow.dismiss();
 
             }
@@ -623,6 +656,7 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 emotionsButton.setImageResource(R.drawable.emotion_sad);
                 emotionText.setText(emotionSadText.getText());
+                emotion = EMOTION_SAD;
                 popupWindow.dismiss();
             }
         });
@@ -632,6 +666,7 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 emotionsButton.setImageResource(R.drawable.emotion_frustrated);
                 emotionText.setText(emotionFrustratedText.getText());
+                emotion = EMOTION_FRUSTRATED;
                 popupWindow.dismiss();
             }
         });
@@ -641,6 +676,7 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 emotionsButton.setImageResource(R.drawable.emotion_satisfied);
                 emotionText.setText(emotionSatisfiedText.getText());
+                emotion = EMOTION_SATISFIED;
                 popupWindow.dismiss();
             }
         });
@@ -649,6 +685,7 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 emotionsButton.setImageResource(R.drawable.emotion_sick);
                 emotionText.setText(emotionSickText.getText());
+                emotion = EMOTION_SICK;
                 popupWindow.dismiss();
             }
         });
@@ -657,6 +694,7 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 emotionsButton.setImageResource(R.drawable.emotion_nauseous);
                 emotionText.setText(emotionNauseousText.getText());
+                emotion = EMOTION_NAUSEOUS;
                 popupWindow.dismiss();
             }
         });
@@ -665,6 +703,7 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 emotionsButton.setImageResource(R.drawable.emotion_worried);
                 emotionText.setText(emotionWorriedText.getText());
+                emotion = EMOTION_WORRIED;
                 popupWindow.dismiss();
             }
         });
@@ -673,6 +712,7 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 emotionsButton.setImageResource(R.drawable.emotion_scared);
                 emotionText.setText(emotionScaredText.getText());
+                emotion = EMOTION_SCARED;
                 popupWindow.dismiss();
             }
         });
@@ -681,6 +721,7 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 emotionsButton.setImageResource(R.drawable.emotion_tired);
                 emotionText.setText(emotionTiredText.getText());
+                emotion = EMOTION_TIRED;
                 popupWindow.dismiss();
             }
         });

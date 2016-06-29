@@ -16,18 +16,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Emotions"
-            android:id="@+id/emotions_popup_header">
-
-        </TextView>
-
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
