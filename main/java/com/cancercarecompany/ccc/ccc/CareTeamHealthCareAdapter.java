@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,10 +34,10 @@ public class CareTeamHealthCareAdapter extends ArrayAdapter<HealthCare> {
         ImageView healthcareImage = (ImageView) customGridView.findViewById(R.id.careteam_healthcare_grid_avatar);
         switch (healthcareList.get(position).avatar) {
             case 1:
-                healthcareImage.setImageResource(R.drawable.avatar_health_care_doctor_female);
+                healthcareImage.setImageResource(R.drawable.avatar_healthcare_doctor_female);
                 break;
             case 2:
-                healthcareImage.setImageResource(R.drawable.avatar_health_care_nurse);
+                healthcareImage.setImageResource(R.drawable.avatar_healthcare_nurse);
                 break;
             case 3:
                 healthcareImage.setImageResource(R.drawable.avatar_healthcare_anestetist);

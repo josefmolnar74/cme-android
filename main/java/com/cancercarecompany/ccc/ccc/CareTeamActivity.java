@@ -40,6 +40,7 @@ public class CareTeamActivity extends AppCompatActivity {
     ImageButton journeyButton;
     ImageButton journalButton;
     ImageButton familyAvatar;
+    ImageButton healthcareAvatar;
     ConnectionHandler connectHandler;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -197,6 +198,7 @@ public class CareTeamActivity extends AppCompatActivity {
         final Button   buttonEdit       = (Button) popupView.findViewById(R.id.btn_healthcare_edit);
         final Button   buttonDelete     = (Button) popupView.findViewById(R.id.btn_healthcare_delete);
         final TextView alertText        = (TextView) popupView.findViewById(R.id.txt_careteaminvite_alerttext);
+        healthcareAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_health_care_avatar);
 
         buttonSave.setVisibility(View.VISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
@@ -207,13 +209,21 @@ public class CareTeamActivity extends AppCompatActivity {
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         popupWindow.isFocusable();
 
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
+        healthcareAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertText.setVisibility(View.INVISIBLE);
                 popupWindow.dismiss();
             }
         });
+
+        healthcareAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHealthcareAvatars();
+            }
+        });
+
 
         buttonSave.setOnClickListener(new  View.OnClickListener() {
             @Override
@@ -600,22 +610,22 @@ public class CareTeamActivity extends AppCompatActivity {
         final Button   buttonEdit       = (Button) popupView.findViewById(R.id.btn_healthcare_edit);
         final Button   buttonDelete     = (Button) popupView.findViewById(R.id.btn_healthcare_delete);
         final TextView alertText        = (TextView) popupView.findViewById(R.id.txt_careteaminvite_alerttext);
-        ImageButton healthCareAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_health_care_avatar);
+        healthcareAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_health_care_avatar);
         switch(healthcareList.get(gridPosition).avatar) {
             case 1:
-                healthCareAvatar.setImageResource(R.drawable.avatar_health_care_doctor_female);
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_female);
                 break;
             case 2:
-                healthCareAvatar.setImageResource(R.drawable.avatar_health_care_nurse);
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_nurse);
                 break;
             case 3:
-                healthCareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
                 break;
             case 4:
-                healthCareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
                 break;
             case 5:
-                healthCareAvatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
                 break;
         }
         buttonSave.setVisibility(View.VISIBLE);
@@ -646,6 +656,13 @@ public class CareTeamActivity extends AppCompatActivity {
 
         relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_healthcare_popup);
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        healthcareAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHealthcareAvatars();
+            }
+        });
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -957,5 +974,74 @@ public class CareTeamActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    void showHealthcareAvatars(){
+        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View avatarView = layoutInflater.inflate(R.layout.careteam_popup_healthcare_avatars, null);
+        final PopupWindow avatarWindow = new PopupWindow(avatarView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        final ImageButton avatar1 = (ImageButton) avatarView.findViewById(R.id.btn_healthcare_avatar_1);
+        final ImageButton avatar2 = (ImageButton) avatarView.findViewById(R.id.btn_healthcare_avatar_2);
+        final ImageButton avatar3 = (ImageButton) avatarView.findViewById(R.id.btn_healthcare_avatar_3);
+        final ImageButton avatar4 = (ImageButton) avatarView.findViewById(R.id.btn_healthcare_avatar_4);
+        final ImageButton avatar5 = (ImageButton) avatarView.findViewById(R.id.btn_healthcare_avatar_5);
+
+        avatarWindow.setFocusable(true);
+        avatarWindow.update();
+
+        RelativeLayout relativeLayout = (RelativeLayout) avatarView.findViewById(R.id.healthcare_avatars_popup);
+        avatarWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        avatar1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedHealthcareAvatar = 1;
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_female);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedHealthcareAvatar = 2;
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_nurse);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedHealthcareAvatar = 3;
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedHealthcareAvatar = 4;
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedHealthcareAvatar = 5;
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
+                avatarWindow.dismiss();
+
+            }
+        });
+
     }
 }
