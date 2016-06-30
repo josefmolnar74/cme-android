@@ -656,10 +656,10 @@ public class CareTeamActivity extends AppCompatActivity {
         editPhoneNumber3.setFocusable(false);
         editEmail.setFocusable(false);
 
-        buttonEdit.setVisibility(View.INVISIBLE);
+        buttonEdit.setVisibility(View.VISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
         buttonDelete.setVisibility(View.INVISIBLE);
-        buttonSave.setVisibility(View.VISIBLE);
+        buttonSave.setVisibility(View.INVISIBLE);
 
         relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_healthcare_popup);
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
@@ -677,14 +677,14 @@ public class CareTeamActivity extends AppCompatActivity {
                 buttonEdit.setVisibility(View.VISIBLE);
                 buttonSave.setVisibility(View.INVISIBLE);
                 buttonCancel.setVisibility(View.VISIBLE);
-                saveHealthCare(gridPosition);
+                updateHealthCare(gridPosition);
                 popupWindow.dismiss();
             }
 
-            private void saveHealthCare(int gridPosition) {
+            private void updateHealthCare(int gridPosition) {
 
                 HealthCare newHealthCare = new HealthCare(
-                        0, //patient_ID will be set when creating
+                        healthcareList.get(gridPosition).healthcare_ID,
                         connectHandler.patient.patient_ID,
                         editTitle.getText().toString(),
                         editName.getText().toString(),
@@ -695,9 +695,21 @@ public class CareTeamActivity extends AppCompatActivity {
                         editEmail.getText().toString(),
                         selectedHealthcareAvatar);
 
+                connectHandler.updateHealthcare(newHealthCare);
+
                 while (connectHandler.socketBusy){}
 
-                healthcareList.add(newHealthCare);
+                //update healthcareList as well
+
+                healthcareList.get(gridPosition).name = editName.getText().toString();
+                healthcareList.get(gridPosition).title = editTitle.getText().toString();
+                healthcareList.get(gridPosition).department = editDepartment.getText().toString();
+                healthcareList.get(gridPosition).phone_number1 = editPhoneNumber1.getText().toString();
+                healthcareList.get(gridPosition).phone_number2 = editPhoneNumber2.getText().toString();
+                healthcareList.get(gridPosition).phone_number3 = editPhoneNumber3.getText().toString();
+                healthcareList.get(gridPosition).email = editEmail.getText().toString();
+                healthcareList.get(gridPosition).avatar = selectedHealthcareAvatar;
+
                 healthCareAdapter.notifyDataSetChanged();
             }
 
@@ -714,20 +726,29 @@ public class CareTeamActivity extends AppCompatActivity {
             }
 
             private void prepareForEdit(int gridPosition) {
-/*
-                editFirstName.setFocusable(true);
-                editFirstName.setFocusableInTouchMode(true);
-                editFirstName.setEnabled(true);
-                editLastName.setFocusable(true);
-                editLastName.setFocusableInTouchMode(true);
-                editLastName.setEnabled(true);
+
+                editTitle.setFocusable(true);
+                editTitle.setFocusableInTouchMode(true);
+                editTitle.setEnabled(true);
+                editName.setFocusable(true);
+                editName.setFocusableInTouchMode(true);
+                editName.setEnabled(true);
+                editDepartment.setFocusable(true);
+                editDepartment.setFocusableInTouchMode(true);
+                editDepartment.setEnabled(true);
+                editPhoneNumber1.setFocusable(true);
+                editPhoneNumber1.setFocusableInTouchMode(true);
+                editPhoneNumber1.setEnabled(true);
+                editPhoneNumber2.setFocusable(true);
+                editPhoneNumber2.setFocusableInTouchMode(true);
+                editPhoneNumber2.setEnabled(true);
+                editPhoneNumber3.setFocusable(true);
+                editPhoneNumber3.setFocusableInTouchMode(true);
+                editPhoneNumber3.setEnabled(true);
                 editEmail.setFocusable(true);
                 editEmail.setFocusableInTouchMode(true);
                 editEmail.setEnabled(true);
-                editPhoneNumber.setFocusable(true);
-                editPhoneNumber.setFocusableInTouchMode(true);
-                editPhoneNumber.setEnabled(true);
-*/
+
             }
         });
 
@@ -754,6 +775,7 @@ public class CareTeamActivity extends AppCompatActivity {
                 buttonCancel.setVisibility(View.INVISIBLE);
                 buttonDelete.setVisibility(View.INVISIBLE);
                 deleteHealthcare(gridPosition);
+                healthcareList.remove(gridPosition);
             }
             private void deleteHealthcare(int gridPosition) {
 
