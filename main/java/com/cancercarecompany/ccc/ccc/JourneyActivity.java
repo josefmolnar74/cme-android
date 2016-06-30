@@ -63,6 +63,9 @@ public class JourneyActivity extends AppCompatActivity {
     ImageView page3;
     ImageView eventInfoImage;
     ImageView lion;
+    ImageView sign1;
+    ImageView sign2;
+    ImageView sign3;
 
     ImageButton sun;
     Boolean sunSwitch = true;
@@ -193,6 +196,12 @@ public class JourneyActivity extends AppCompatActivity {
         logoButton = (ImageButton) findViewById(R.id.logoButton);
         sun = (ImageButton) findViewById(R.id.btn_sun_journey);
         relativeLayout3 = (RelativeLayout) findViewById(R.id.relativeLayout3);
+        sign1 = (ImageView) findViewById(R.id.sign1);
+        sign2 = (ImageView) findViewById(R.id.sign2);
+        sign3 = (ImageView) findViewById(R.id.sign3);
+
+
+
 
         addAppointment.setOnTouchListener(new MyTouchListener());
         eventLayout.setOnDragListener(new MyDragListener());
@@ -352,13 +361,15 @@ public class JourneyActivity extends AppCompatActivity {
         carIntPosition = (carIntPosition * 2) +300;
 
 
-        paramsCar.setMargins(0, height - 600, 0, 0);
-
-        paramsCar.width = 600;
-        paramsCar.height = 500;
+       paramsCar.setMargins(0,0,0,50);
 
         car.setLayoutParams(paramsCar);
         bottomLayout.addView(car, paramsCar);
+        RelativeLayout.LayoutParams layoutParams =
+                (RelativeLayout.LayoutParams)car.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        car.setLayoutParams(layoutParams);
+
         animateCar(carIntPosition);
 
 
@@ -1261,6 +1272,9 @@ public class JourneyActivity extends AppCompatActivity {
             case "medical_oncologist":
                 btn.setBackgroundResource(R.drawable.event_medical_oncologist_bubble);
                 break;
+            case "bloodtest":
+                btn.setBackgroundResource(R.drawable.event_bloodtest_bubble);
+                break;
             case "hematologist_doctor":
                 btn.setBackgroundResource(R.drawable.event_hematologist_doctor_bubble);
                 break;
@@ -2007,28 +2021,35 @@ public class JourneyActivity extends AppCompatActivity {
 
 
             Random r = new Random();
-            int bushesRandom = r.nextInt(3);
+            int bushesRandom = r.nextInt(4);
 
             switch (bushesRandom) {
                 case 0:
-                    img.setBackgroundResource(R.drawable.mid1);
-                    params.setMargins(i * 500, 0, 0, 0);
-                    params.height = 300;
-                    params.width = 600;
+                    img.setBackgroundResource(R.drawable.hill1);
+                    params.setMargins(i * 400, 0, 0, 0);
+                //    params.height = 300;
+                //    params.width = 600;
                     break;
                 case 1:
-                    img.setBackgroundResource(R.drawable.mid2);
-                    params.setMargins(i * 500, 0, 0, 0);
-                    params.height = 250;
-                    params.width = 600;
+                    img.setBackgroundResource(R.drawable.hill2);
+                    params.setMargins(i * 400, 0, 0, 0);
+               //     params.height = 250;
+                //    params.width = 600;
                     break;
                 case 2:
 
-                    img.setBackgroundResource(R.drawable.mid4);
-                    params.setMargins(i * 500, 0, 0, 0);
-                    params.height = 350;
-                    params.width = 600;
+                    img.setBackgroundResource(R.drawable.hill3);
+                    params.setMargins(i * 400, 0, 0, 0);
+                 //   params.height = 350;
+                 //   params.width = 600;
                     break;
+                case 3:
+
+                img.setBackgroundResource(R.drawable.hill4);
+                params.setMargins(i * 400, 0, 0, 0);
+                //   params.height = 350;
+                //   params.width = 600;
+                break;
 
             }
             mountains_layer.addView(img, params);
@@ -2050,24 +2071,59 @@ public class JourneyActivity extends AppCompatActivity {
         final RelativeLayout.LayoutParams paramsCar2 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsCar2.setMargins((carIntPosition * 2)-1000, height -600, 0, 0);
+        paramsCar2.setMargins((carIntPosition * 2)-800, 0, 0, 50);
         System.out.println("CARPOSITION"+carIntPosition * 2);
-        paramsCar2.width = 600;
-        paramsCar2.height = 500;
+
 
         final RelativeLayout.LayoutParams paramsLion = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsLion.width = 500;
-        paramsLion.height = 300;
-        paramsLion.setMargins(carIntPosition / 2 + 1000,0,0,50);
+
+        paramsLion.setMargins(carIntPosition / 2 + 700,0,0,0);
         lion.setLayoutParams(paramsLion);
         RelativeLayout.LayoutParams layoutParams =
                 (RelativeLayout.LayoutParams)lion.getLayoutParams();
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         lion.setLayoutParams(layoutParams);
 
+        //sign1
+        RelativeLayout.LayoutParams paramsSign1 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsSign1.setMargins(carIntPosition / 2 + 200,0,0,0);
+        sign1.setLayoutParams(paramsSign1);
+        RelativeLayout.LayoutParams layoutParams1 =
+                (RelativeLayout.LayoutParams)sign1.getLayoutParams();
+        layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
 
+        sign1.setLayoutParams(paramsSign1);
+        sign1.setLayoutParams(layoutParams1);
+
+        ///sign 2
+
+        RelativeLayout.LayoutParams paramsSign2 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsSign2.setMargins(5000,0,0,0);
+        sign2.setLayoutParams(paramsSign2);
+        RelativeLayout.LayoutParams layoutParams2 =
+                (RelativeLayout.LayoutParams)sign2.getLayoutParams();
+        layoutParams2.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        sign2.setLayoutParams(paramsSign2);
+        sign2.setLayoutParams(layoutParams2);
+
+        ///sign3
+
+        final RelativeLayout.LayoutParams paramsSign3 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsSign3.setMargins(1000,0,0,0);
+        sign3.setLayoutParams(paramsSign3);
+        RelativeLayout.LayoutParams layoutParams3 =
+                (RelativeLayout.LayoutParams)sign3.getLayoutParams();
+        layoutParams3.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        sign3.setLayoutParams(paramsSign3);
+        sign3.setLayoutParams(layoutParams3);
 
 
         TranslateAnimation transAnimation1 = new TranslateAnimation(0, 2000, 0, 0);
@@ -2093,6 +2149,11 @@ public class JourneyActivity extends AppCompatActivity {
                         eventScroll.isSmoothScrollingEnabled();
                         eventScroll.smoothScrollTo((carIntPosition)-500, 0);
                         car.setLayoutParams(paramsCar2);
+
+                        RelativeLayout.LayoutParams layoutParams =
+                                (RelativeLayout.LayoutParams)car.getLayoutParams();
+                        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+                        car.setLayoutParams(layoutParams);
                     }
                 });
 

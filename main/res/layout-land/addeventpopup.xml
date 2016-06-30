@@ -168,15 +168,15 @@
                 android:layout_marginTop="20dp" />
 
             <ImageView
-                android:layout_width="300dp"
-                android:layout_height="300dp"
+                android:layout_width="270dp"
+                android:layout_height="270dp"
                 android:scaleType="centerCrop"
                 android:background="@drawable/cancerone"
                 android:id="@+id/img_subcategory_detail"
                 android:layout_marginLeft="20dp"
                 android:layout_alignTop="@+id/txt_subcategory_main"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="150dp" />
+                android:layout_marginRight="50dp" />
 
             <TextView
                 android:layout_width="300dp"

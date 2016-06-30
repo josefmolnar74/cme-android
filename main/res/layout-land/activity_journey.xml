@@ -136,10 +136,10 @@
                     <RelativeLayout
                         android:id="@+id/big_mountains_layer"
                         android:layout_width="wrap_content"
-                        android:layout_height="400px"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginBottom="180px"></RelativeLayout>
+                        android:layout_marginBottom="125px"></RelativeLayout>
                 </RelativeLayout>
             </HorizontalScrollView>
 
@@ -184,6 +184,24 @@
                         android:background="@drawable/lionnaked"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="false" />
+
+                    <ImageView
+                        android:background="@drawable/sign1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sign1" />
+
+                    <ImageView
+                       android:background="@drawable/sign2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sign2" />
+
+                    <ImageView
+                        android:background="@drawable/sign3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sign3" />
                 </RelativeLayout>
 
 
@@ -204,7 +222,7 @@
                         android:id="@+id/bushes_layer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="65px"
+                        android:layout_marginBottom="130px"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentBottom="true"
                         android:visibility="visible">
@@ -271,6 +289,7 @@
                 android:fillViewport="false">
 
                 <RelativeLayout
+                    android:animateLayoutChanges="true"
                     android:layout_width="wrap_content"
                     android:id="@+id/relativeLayout_eventlayer"
                     android:layout_height="fill_parent">
