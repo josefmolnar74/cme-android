@@ -140,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Family/Friends"
+                android:text="@string/careteam_family"
                 android:id="@+id/text_careTeamFamily"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
@@ -176,7 +176,7 @@
                 android:textSize="@dimen/XLARGE"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:text="Health care" />
+                android:text="@string/careteam_healthcare" />
 
             <Button
                 android:layout_width="60dp"
