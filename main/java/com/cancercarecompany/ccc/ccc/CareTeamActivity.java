@@ -224,6 +224,13 @@ public class CareTeamActivity extends AppCompatActivity {
             }
         });
 
+        buttonCancel.setOnClickListener(new  View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertText.setVisibility(View.INVISIBLE);
+                 popupWindow.dismiss();
+            }
+        });
 
         buttonSave.setOnClickListener(new  View.OnClickListener() {
             @Override
@@ -478,7 +485,7 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonEdit.setVisibility(View.INVISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
         buttonDelete.setVisibility(View.INVISIBLE);
-        buttonSave.setVisibility(View.VISIBLE);
+        buttonSave.setVisibility(View.INVISIBLE);
 
         relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_member_popup);
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
