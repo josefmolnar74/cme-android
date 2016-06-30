@@ -87,6 +87,9 @@
     <string name="journal_emotion_sick">Sjuk</string>
     <string name="journal_emotion_nauseous">Illamående</string>
 
+    <string name="careteam_healthcare">Hälsovård</string>
+    <string name="careteam_family">Familj - vänner</string>
+
     <string name="welcome">Welcome to play, explore and document your cancer journey. It is free for patients and will always be.</string>
     <string name="button_create_care_team">Create care team</string>
     <string name="button_join_care_team">Join care team</string>

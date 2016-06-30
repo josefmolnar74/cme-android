@@ -30,6 +30,8 @@ public class CareTeamActivity extends AppCompatActivity {
     ArrayList<CareTeamMember> familyList = new ArrayList<>();
     ArrayList<HealthCare> healthcareList = new ArrayList<>();
 
+    public int selectedFamilyAvatar;
+    public int selectedHealthcareAvatar;
     GridView familyGridView;
     GridView healthCareGridView;
     CareTeamFamilyAdapter familyAdapter;
@@ -37,12 +39,15 @@ public class CareTeamActivity extends AppCompatActivity {
     RelativeLayout relativeLayout;
     ImageButton journeyButton;
     ImageButton journalButton;
+    ImageButton familyAvatar;
+    ImageButton healthcareAvatar;
     ConnectionHandler connectHandler;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +118,7 @@ public class CareTeamActivity extends AppCompatActivity {
                         connectHandler.invites.invite_data.get(i).invited_last_name,
                         connectHandler.invites.invite_data.get(i).invited_email,
                         connectHandler.invites.invite_data.get(i).invited_relationship,
+                        connectHandler.invites.invite_data.get(i).invited_avatar,
                         connectHandler.invites.invite_data.get(i).invited_admin);
                 familyList.add(invitedCareTeamMember);
             }
@@ -192,6 +198,7 @@ public class CareTeamActivity extends AppCompatActivity {
         final Button   buttonEdit       = (Button) popupView.findViewById(R.id.btn_healthcare_edit);
         final Button   buttonDelete     = (Button) popupView.findViewById(R.id.btn_healthcare_delete);
         final TextView alertText        = (TextView) popupView.findViewById(R.id.txt_careteaminvite_alerttext);
+        healthcareAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_health_care_avatar);
 
         buttonSave.setVisibility(View.VISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
@@ -202,11 +209,26 @@ public class CareTeamActivity extends AppCompatActivity {
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         popupWindow.isFocusable();
 
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
+        healthcareAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertText.setVisibility(View.INVISIBLE);
                 popupWindow.dismiss();
+            }
+        });
+
+        healthcareAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHealthcareAvatars();
+            }
+        });
+
+        buttonCancel.setOnClickListener(new  View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertText.setVisibility(View.INVISIBLE);
+                 popupWindow.dismiss();
             }
         });
 
@@ -230,7 +252,9 @@ public class CareTeamActivity extends AppCompatActivity {
                             editPhoneNumber1.getText().toString(),
                             editPhoneNumber2.getText().toString(),
                             editPhoneNumber3.getText().toString(),
-                            editEmail.getText().toString());
+                            editEmail.getText().toString(),
+                            selectedHealthcareAvatar);
+
 
                     connectHandler.createHealthcare(newHealthcare);
 
@@ -279,6 +303,15 @@ public class CareTeamActivity extends AppCompatActivity {
         adapter_admin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_admin.setAdapter(adapter_admin);
 
+        familyAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_family_avatar);
+        familyAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFamilyAvatars();
+            }
+        });
+
+
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -314,6 +347,7 @@ public class CareTeamActivity extends AppCompatActivity {
                                                     editLastName.getText().toString(),
                                                     emailString,
                                                     editRelation.getText().toString(),
+                                                    selectedFamilyAvatar,
                                                     admin,
                                                     0,
                                                     0);
@@ -326,6 +360,7 @@ public class CareTeamActivity extends AppCompatActivity {
                             newInvite.invited_last_name,
                             newInvite.invited_email,
                             newInvite.invited_relationship,
+                            newInvite.invited_avatar,
                             newInvite.invited_admin);
 
                     familyList.add(invitedCareTeamMember);
@@ -372,6 +407,63 @@ public class CareTeamActivity extends AppCompatActivity {
         final Button   buttonCancel         = (Button) popupView.findViewById(R.id.btn_careteam_cancel);
         final Button   buttonEdit           = (Button) popupView.findViewById(R.id.btn_careteam_edit);
         final Button   buttonDelete         = (Button) popupView.findViewById(R.id.btn_careteam_delete);
+        familyAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_family_avatar);
+        switch(familyList.get(listPosition).avatar){
+            case 1:
+                familyAvatar.setImageResource(R.drawable.family_avatar_1);
+                break;
+            case 2:
+                familyAvatar.setImageResource(R.drawable.family_avatar_2);
+                break;
+            case 3:
+                familyAvatar.setImageResource(R.drawable.family_avatar_3);
+                break;
+            case 4:
+                familyAvatar.setImageResource(R.drawable.family_avatar_4);
+                break;
+            case 5:
+                familyAvatar.setImageResource(R.drawable.family_avatar_5);
+                break;
+            case 6:
+                familyAvatar.setImageResource(R.drawable.family_avatar_6);
+                break;
+            case 7:
+                familyAvatar.setImageResource(R.drawable.family_avatar_7);
+                break;
+            case 8:
+                familyAvatar.setImageResource(R.drawable.family_avatar_8);
+                break;
+            case 9:
+                familyAvatar.setImageResource(R.drawable.family_avatar_9);
+                break;
+            case 10:
+                familyAvatar.setImageResource(R.drawable.family_avatar_10);
+                break;
+            case 11:
+                familyAvatar.setImageResource(R.drawable.family_avatar_11);
+                break;
+            case 12:
+                familyAvatar.setImageResource(R.drawable.family_avatar_12);
+                break;
+            case 13:
+                familyAvatar.setImageResource(R.drawable.family_avatar_13);
+                break;
+            case 14:
+                familyAvatar.setImageResource(R.drawable.family_avatar_14);
+                break;
+            case 15:
+                familyAvatar.setImageResource(R.drawable.family_avatar_15);
+                break;
+            case 16:
+                familyAvatar.setImageResource(R.drawable.family_avatar_16);
+                break;
+            case 17:
+                familyAvatar.setImageResource(R.drawable.family_avatar_17);
+                break;
+            case 18:
+                familyAvatar.setImageResource(R.drawable.family_avatar_18);
+                break;
+        }
 
         editFirstName.setText(familyList.get(listPosition).first_name);
         editLastName.setText(familyList.get(listPosition).last_name);
@@ -393,7 +485,7 @@ public class CareTeamActivity extends AppCompatActivity {
         buttonEdit.setVisibility(View.INVISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
         buttonDelete.setVisibility(View.INVISIBLE);
-        buttonSave.setVisibility(View.VISIBLE);
+        buttonSave.setVisibility(View.INVISIBLE);
 
         relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_member_popup);
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
@@ -410,11 +502,15 @@ public class CareTeamActivity extends AppCompatActivity {
 
             private void saveContact(int listPosition) {
 
-//                if
-                // update person functionality must to be implemented
-//                Person updated
-//                while (connectHandler.socketBusy){}
-//                healthCareAdapter.notifyDataSetChanged();
+                Person updatePerson = new Person(familyList.get(listPosition).person_ID,
+                                                    editFirstName.getText().toString(),
+                                                    editLastName.getText().toString(),
+                                                    editEmail.getText().toString(),
+                                                    editPhoneNumber.getText().toString(),
+                                                    selectedFamilyAvatar,
+                                                    null);
+
+                connectHandler.updateUser(updatePerson);
             }
 
         });
@@ -488,6 +584,13 @@ public class CareTeamActivity extends AppCompatActivity {
                 popupWindow.dismiss();
             }
         });
+
+        familyAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFamilyAvatars();
+            }
+        });
     }
 
     public void showHealthcare(final int gridPosition) {
@@ -514,7 +617,24 @@ public class CareTeamActivity extends AppCompatActivity {
         final Button   buttonEdit       = (Button) popupView.findViewById(R.id.btn_healthcare_edit);
         final Button   buttonDelete     = (Button) popupView.findViewById(R.id.btn_healthcare_delete);
         final TextView alertText        = (TextView) popupView.findViewById(R.id.txt_careteaminvite_alerttext);
-
+        healthcareAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_health_care_avatar);
+        switch(healthcareList.get(gridPosition).avatar) {
+            case 1:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_female);
+                break;
+            case 2:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_nurse);
+                break;
+            case 3:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
+                break;
+            case 4:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
+                break;
+            case 5:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
+                break;
+        }
         buttonSave.setVisibility(View.VISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
         buttonEdit.setVisibility(View.INVISIBLE);
@@ -536,13 +656,20 @@ public class CareTeamActivity extends AppCompatActivity {
         editPhoneNumber3.setFocusable(false);
         editEmail.setFocusable(false);
 
-        buttonEdit.setVisibility(View.INVISIBLE);
+        buttonEdit.setVisibility(View.VISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
         buttonDelete.setVisibility(View.INVISIBLE);
-        buttonSave.setVisibility(View.VISIBLE);
+        buttonSave.setVisibility(View.INVISIBLE);
 
         relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_healthcare_popup);
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        healthcareAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHealthcareAvatars();
+            }
+        });
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -550,14 +677,14 @@ public class CareTeamActivity extends AppCompatActivity {
                 buttonEdit.setVisibility(View.VISIBLE);
                 buttonSave.setVisibility(View.INVISIBLE);
                 buttonCancel.setVisibility(View.VISIBLE);
-                saveHealthCare(gridPosition);
+                updateHealthCare(gridPosition);
                 popupWindow.dismiss();
             }
 
-            private void saveHealthCare(int gridPosition) {
+            private void updateHealthCare(int gridPosition) {
 
                 HealthCare newHealthCare = new HealthCare(
-                        0, //patient_ID will be set when creating
+                        healthcareList.get(gridPosition).healthcare_ID,
                         connectHandler.patient.patient_ID,
                         editTitle.getText().toString(),
                         editName.getText().toString(),
@@ -565,11 +692,24 @@ public class CareTeamActivity extends AppCompatActivity {
                         editPhoneNumber1.getText().toString(),
                         editPhoneNumber2.getText().toString(),
                         editPhoneNumber3.getText().toString(),
-                        editEmail.getText().toString());
+                        editEmail.getText().toString(),
+                        selectedHealthcareAvatar);
+
+                connectHandler.updateHealthcare(newHealthCare);
 
                 while (connectHandler.socketBusy){}
 
-                healthcareList.add(newHealthCare);
+                //update healthcareList as well
+
+                healthcareList.get(gridPosition).name = editName.getText().toString();
+                healthcareList.get(gridPosition).title = editTitle.getText().toString();
+                healthcareList.get(gridPosition).department = editDepartment.getText().toString();
+                healthcareList.get(gridPosition).phone_number1 = editPhoneNumber1.getText().toString();
+                healthcareList.get(gridPosition).phone_number2 = editPhoneNumber2.getText().toString();
+                healthcareList.get(gridPosition).phone_number3 = editPhoneNumber3.getText().toString();
+                healthcareList.get(gridPosition).email = editEmail.getText().toString();
+                healthcareList.get(gridPosition).avatar = selectedHealthcareAvatar;
+
                 healthCareAdapter.notifyDataSetChanged();
             }
 
@@ -586,20 +726,29 @@ public class CareTeamActivity extends AppCompatActivity {
             }
 
             private void prepareForEdit(int gridPosition) {
-/*
-                editFirstName.setFocusable(true);
-                editFirstName.setFocusableInTouchMode(true);
-                editFirstName.setEnabled(true);
-                editLastName.setFocusable(true);
-                editLastName.setFocusableInTouchMode(true);
-                editLastName.setEnabled(true);
+
+                editTitle.setFocusable(true);
+                editTitle.setFocusableInTouchMode(true);
+                editTitle.setEnabled(true);
+                editName.setFocusable(true);
+                editName.setFocusableInTouchMode(true);
+                editName.setEnabled(true);
+                editDepartment.setFocusable(true);
+                editDepartment.setFocusableInTouchMode(true);
+                editDepartment.setEnabled(true);
+                editPhoneNumber1.setFocusable(true);
+                editPhoneNumber1.setFocusableInTouchMode(true);
+                editPhoneNumber1.setEnabled(true);
+                editPhoneNumber2.setFocusable(true);
+                editPhoneNumber2.setFocusableInTouchMode(true);
+                editPhoneNumber2.setEnabled(true);
+                editPhoneNumber3.setFocusable(true);
+                editPhoneNumber3.setFocusableInTouchMode(true);
+                editPhoneNumber3.setEnabled(true);
                 editEmail.setFocusable(true);
                 editEmail.setFocusableInTouchMode(true);
                 editEmail.setEnabled(true);
-                editPhoneNumber.setFocusable(true);
-                editPhoneNumber.setFocusableInTouchMode(true);
-                editPhoneNumber.setEnabled(true);
-*/
+
             }
         });
 
@@ -626,6 +775,7 @@ public class CareTeamActivity extends AppCompatActivity {
                 buttonCancel.setVisibility(View.INVISIBLE);
                 buttonDelete.setVisibility(View.INVISIBLE);
                 deleteHealthcare(gridPosition);
+                healthcareList.remove(gridPosition);
             }
             private void deleteHealthcare(int gridPosition) {
 
@@ -649,4 +799,278 @@ public class CareTeamActivity extends AppCompatActivity {
         finish();
     }
 
+    void showFamilyAvatars(){
+        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View avatarView = layoutInflater.inflate(R.layout.careteam_popup_family_avatars, null);
+        final PopupWindow avatarWindow = new PopupWindow(avatarView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        final ImageButton avatar1 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_1);
+        final ImageButton avatar2 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_2);
+        final ImageButton avatar3 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_3);
+        final ImageButton avatar4 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_4);
+        final ImageButton avatar5 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_5);
+        final ImageButton avatar6 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_6);
+        final ImageButton avatar7 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_7);
+        final ImageButton avatar8 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_8);
+        final ImageButton avatar9 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_9);
+        final ImageButton avatar10 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_10);
+        final ImageButton avatar11 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_11);
+        final ImageButton avatar12 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_12);
+        final ImageButton avatar13 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_13);
+        final ImageButton avatar14 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_14);
+        final ImageButton avatar15 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_15);
+        final ImageButton avatar16 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_16);
+        final ImageButton avatar17 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_17);
+        final ImageButton avatar18 = (ImageButton) avatarView.findViewById(R.id.btn_family_avatar_18);
+
+        avatarWindow.setFocusable(true);
+        avatarWindow.update();
+
+//        final ImageButton buttonEmotionHappy = (ImageButton) avatarView.findViewById(R.id.btn_emotion_happy);
+
+        RelativeLayout relativeLayout = (RelativeLayout) avatarView.findViewById(R.id.family_avatars_popup);
+        avatarWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        avatar1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 1;
+                familyAvatar.setImageResource(R.drawable.family_avatar_1);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 2;
+                familyAvatar.setImageResource(R.drawable.family_avatar_2);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 3;
+                familyAvatar.setImageResource(R.drawable.family_avatar_3);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 4;
+                familyAvatar.setImageResource(R.drawable.family_avatar_4);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 5;
+                familyAvatar.setImageResource(R.drawable.family_avatar_5);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 6;
+                familyAvatar.setImageResource(R.drawable.family_avatar_6);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 7;
+                familyAvatar.setImageResource(R.drawable.family_avatar_7);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 8;
+                familyAvatar.setImageResource(R.drawable.family_avatar_8);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 9;
+                familyAvatar.setImageResource(R.drawable.family_avatar_9);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 10;
+                familyAvatar.setImageResource(R.drawable.family_avatar_10);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 11;
+                familyAvatar.setImageResource(R.drawable.family_avatar_11);
+                avatarWindow.dismiss();
+
+            }
+        });
+        avatar12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 12;
+                familyAvatar.setImageResource(R.drawable.family_avatar_12);
+                avatarWindow.dismiss();
+
+            }
+        });
+        avatar13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 13;
+                familyAvatar.setImageResource(R.drawable.family_avatar_13);
+                avatarWindow.dismiss();
+
+            }
+        });
+        avatar14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 14;
+                familyAvatar.setImageResource(R.drawable.family_avatar_14);
+                avatarWindow.dismiss();
+
+            }
+        });
+        avatar15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 15;
+                familyAvatar.setImageResource(R.drawable.family_avatar_15);
+                avatarWindow.dismiss();
+
+            }
+        });
+        avatar16.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 16;
+                familyAvatar.setImageResource(R.drawable.family_avatar_16);
+                avatarWindow.dismiss();
+
+            }
+        });
+        avatar17.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 17;
+                familyAvatar.setImageResource(R.drawable.family_avatar_17);
+                avatarWindow.dismiss();
+
+            }
+        });
+        avatar18.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedFamilyAvatar = 18;
+                familyAvatar.setImageResource(R.drawable.family_avatar_18);
+                avatarWindow.dismiss();
+
+            }
+        });
+    }
+
+    void showHealthcareAvatars(){
+        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View avatarView = layoutInflater.inflate(R.layout.careteam_popup_healthcare_avatars, null);
+        final PopupWindow avatarWindow = new PopupWindow(avatarView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        final ImageButton avatar1 = (ImageButton) avatarView.findViewById(R.id.btn_healthcare_avatar_1);
+        final ImageButton avatar2 = (ImageButton) avatarView.findViewById(R.id.btn_healthcare_avatar_2);
+        final ImageButton avatar3 = (ImageButton) avatarView.findViewById(R.id.btn_healthcare_avatar_3);
+        final ImageButton avatar4 = (ImageButton) avatarView.findViewById(R.id.btn_healthcare_avatar_4);
+        final ImageButton avatar5 = (ImageButton) avatarView.findViewById(R.id.btn_healthcare_avatar_5);
+
+        avatarWindow.setFocusable(true);
+        avatarWindow.update();
+
+        RelativeLayout relativeLayout = (RelativeLayout) avatarView.findViewById(R.id.healthcare_avatars_popup);
+        avatarWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        avatar1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedHealthcareAvatar = 1;
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_female);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedHealthcareAvatar = 2;
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_nurse);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedHealthcareAvatar = 3;
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedHealthcareAvatar = 4;
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+        avatar5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedHealthcareAvatar = 5;
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
+                avatarWindow.dismiss();
+
+            }
+        });
+
+    }
 }

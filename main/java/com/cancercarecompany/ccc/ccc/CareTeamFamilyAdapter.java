@@ -33,8 +33,61 @@ public class CareTeamFamilyAdapter extends ArrayAdapter<CareTeamMember> {
         relationshipTextView.setText(familyList.get(position).relationship);
         ImageView familyMemberImage = (ImageView) customlistview.findViewById(R.id.careTeamFamilyImage);
         // if invited whom has not accepted yet
-        if (familyList.get(position).person_ID == 0){
-            familyMemberImage.setImageResource(R.drawable.careteam_family_invited);
+        switch(familyList.get(position).avatar){
+            case 1:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_1);
+                break;
+            case 2:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_2);
+                break;
+            case 3:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_3);
+                break;
+            case 4:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_4);
+                break;
+            case 5:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_5);
+                break;
+            case 6:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_6);
+                break;
+            case 7:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_7);
+                break;
+            case 8:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_8);
+                break;
+            case 9:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_9);
+                break;
+            case 10:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_10);
+                break;
+            case 11:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_11);
+                break;
+            case 12:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_12);
+                break;
+            case 13:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_13);
+                break;
+            case 14:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_14);
+                break;
+            case 15:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_15);
+                break;
+            case 16:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_16);
+                break;
+            case 17:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_17);
+                break;
+            case 18:
+                familyMemberImage.setImageResource(R.drawable.family_avatar_18);
+                break;
         }
         return customlistview;
     }

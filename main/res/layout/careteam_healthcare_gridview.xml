@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="80dp"
         android:layout_height="90dp"
-        android:id="@+id/imageView2"
+        android:id="@+id/careteam_healthcare_grid_avatar"
         android:src="@drawable/careteam_healthcare_image"/>
 
 

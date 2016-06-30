@@ -184,6 +184,9 @@ public class JournalActivity extends AppCompatActivity {
         connectHandler = ConnectionHandler.getInstance();
         connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
 
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(date)));
+
         // Display patient name on topbar
         if (connectHandler.patient != null){
             patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
@@ -599,9 +602,9 @@ public class JournalActivity extends AppCompatActivity {
                 deleteCareTeamMembers(position);
             }
             private void deleteCareTeamMembers(int index) {
+                connectHandler.deleteStatus(statusList.get(position).status_ID);
                 statusList.remove(position);
                 statusAdapter.notifyDataSetChanged();
-                connectHandler.deleteStatus(statusList.get(position).status_ID);
                 popupWindow.dismiss();
             }
         });
@@ -1454,7 +1457,7 @@ public class JournalActivity extends AppCompatActivity {
         while (connectHandler.socketBusy){}
 
         // update existing sideeffects, better solution, where only todays sideeffects are read TBD
-        connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
+        connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
         findSideeffectsForToday();
         // and voila :)

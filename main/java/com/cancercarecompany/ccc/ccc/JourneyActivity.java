@@ -25,6 +25,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -102,13 +103,13 @@ public class JourneyActivity extends AppCompatActivity {
     HorizontalScrollView Scroll_lion;
 
     RelativeLayout journeyScreen;
-    RelativeLayout layoutButtons;
+    GridLayout layoutButtons;
     RelativeLayout eventLayout;
     RelativeLayout containerLayout;
     RelativeLayout bottomLayout;
     RelativeLayout lion_layer;
     RelativeLayout front_bushes_layer;
-    RelativeLayout relativeLayout3;
+    GridLayout relativeLayout3;
     RelativeLayout big_mountain_layer;
     RelativeLayout bushes_layer;
     RelativeLayout mountains_layer;
@@ -182,7 +183,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         cloud_layout = (RelativeLayout) findViewById(R.id.cloud_layout);
         road_layer = (RelativeLayout) findViewById(R.id.roadlayer);
-        layoutButtons = (RelativeLayout) findViewById(R.id.relativeLayout3);
+        layoutButtons = (GridLayout) findViewById(R.id.relativeLayout3);
         containerLayout = (RelativeLayout) findViewById(R.id.layerCoantainerJourney);
         eventLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
         bottomLayout = (RelativeLayout) findViewById(R.id.relativeLayout_roadlayout);
@@ -195,12 +196,15 @@ public class JourneyActivity extends AppCompatActivity {
         journalButton = (ImageButton) findViewById(R.id.journalButton);
         logoButton = (ImageButton) findViewById(R.id.logoButton);
         sun = (ImageButton) findViewById(R.id.btn_sun_journey);
-        relativeLayout3 = (RelativeLayout) findViewById(R.id.relativeLayout3);
+
         sign1 = (ImageView) findViewById(R.id.sign1);
         sign2 = (ImageView) findViewById(R.id.sign2);
         sign3 = (ImageView) findViewById(R.id.sign3);
 
 
+
+
+        relativeLayout3 = (GridLayout) findViewById(R.id.relativeLayout3);
 
 
         addAppointment.setOnTouchListener(new MyTouchListener());
