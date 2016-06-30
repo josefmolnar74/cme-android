@@ -602,9 +602,9 @@ public class JournalActivity extends AppCompatActivity {
                 deleteCareTeamMembers(position);
             }
             private void deleteCareTeamMembers(int index) {
+                connectHandler.deleteStatus(statusList.get(position).status_ID);
                 statusList.remove(position);
                 statusAdapter.notifyDataSetChanged();
-                connectHandler.deleteStatus(statusList.get(position).status_ID);
                 popupWindow.dismiss();
             }
         });
@@ -1457,7 +1457,7 @@ public class JournalActivity extends AppCompatActivity {
         while (connectHandler.socketBusy){}
 
         // update existing sideeffects, better solution, where only todays sideeffects are read TBD
-        connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
+        connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
         findSideeffectsForToday();
         // and voila :)
