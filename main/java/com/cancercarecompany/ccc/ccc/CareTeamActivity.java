@@ -391,6 +391,62 @@ public class CareTeamActivity extends AppCompatActivity {
         final Button   buttonEdit           = (Button) popupView.findViewById(R.id.btn_careteam_edit);
         final Button   buttonDelete         = (Button) popupView.findViewById(R.id.btn_careteam_delete);
         familyAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_family_avatar);
+        switch(familyList.get(listPosition).avatar){
+            case 1:
+                familyAvatar.setImageResource(R.drawable.family_avatar_1);
+                break;
+            case 2:
+                familyAvatar.setImageResource(R.drawable.family_avatar_2);
+                break;
+            case 3:
+                familyAvatar.setImageResource(R.drawable.family_avatar_3);
+                break;
+            case 4:
+                familyAvatar.setImageResource(R.drawable.family_avatar_4);
+                break;
+            case 5:
+                familyAvatar.setImageResource(R.drawable.family_avatar_5);
+                break;
+            case 6:
+                familyAvatar.setImageResource(R.drawable.family_avatar_6);
+                break;
+            case 7:
+                familyAvatar.setImageResource(R.drawable.family_avatar_7);
+                break;
+            case 8:
+                familyAvatar.setImageResource(R.drawable.family_avatar_8);
+                break;
+            case 9:
+                familyAvatar.setImageResource(R.drawable.family_avatar_9);
+                break;
+            case 10:
+                familyAvatar.setImageResource(R.drawable.family_avatar_10);
+                break;
+            case 11:
+                familyAvatar.setImageResource(R.drawable.family_avatar_11);
+                break;
+            case 12:
+                familyAvatar.setImageResource(R.drawable.family_avatar_12);
+                break;
+            case 13:
+                familyAvatar.setImageResource(R.drawable.family_avatar_13);
+                break;
+            case 14:
+                familyAvatar.setImageResource(R.drawable.family_avatar_14);
+                break;
+            case 15:
+                familyAvatar.setImageResource(R.drawable.family_avatar_15);
+                break;
+            case 16:
+                familyAvatar.setImageResource(R.drawable.family_avatar_16);
+                break;
+            case 17:
+                familyAvatar.setImageResource(R.drawable.family_avatar_17);
+                break;
+            case 18:
+                familyAvatar.setImageResource(R.drawable.family_avatar_18);
+                break;
+        }
 
         editFirstName.setText(familyList.get(listPosition).first_name);
         editLastName.setText(familyList.get(listPosition).last_name);
@@ -544,7 +600,24 @@ public class CareTeamActivity extends AppCompatActivity {
         final Button   buttonEdit       = (Button) popupView.findViewById(R.id.btn_healthcare_edit);
         final Button   buttonDelete     = (Button) popupView.findViewById(R.id.btn_healthcare_delete);
         final TextView alertText        = (TextView) popupView.findViewById(R.id.txt_careteaminvite_alerttext);
-
+        ImageButton healthCareAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_health_care_avatar);
+        switch(healthcareList.get(gridPosition).avatar) {
+            case 1:
+                healthCareAvatar.setImageResource(R.drawable.avatar_health_care_doctor_female);
+                break;
+            case 2:
+                healthCareAvatar.setImageResource(R.drawable.avatar_health_care_nurse);
+                break;
+            case 3:
+                healthCareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
+                break;
+            case 4:
+                healthCareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
+                break;
+            case 5:
+                healthCareAvatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
+                break;
+        }
         buttonSave.setVisibility(View.VISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
         buttonEdit.setVisibility(View.INVISIBLE);
