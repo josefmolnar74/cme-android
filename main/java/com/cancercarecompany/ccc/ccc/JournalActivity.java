@@ -189,7 +189,8 @@ public class JournalActivity extends AppCompatActivity {
 
         // Display patient name on topbar
         if (connectHandler.patient != null){
-            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
+            //            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
+            patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
         }
 
         while (connectHandler.socketBusy){}
