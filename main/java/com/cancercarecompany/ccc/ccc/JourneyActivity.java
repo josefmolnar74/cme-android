@@ -35,6 +35,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,7 +52,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class JourneyActivity extends AppCompatActivity {
 
-    ArrayList<Events> eventList;
+    ArrayList<Event> eventList;
+    int patientID = 0;
+    int personID = 0;
+
     ImageButton addAppointment;
     ImageButton addTreatment;
     ImageButton addTest;
@@ -132,36 +136,41 @@ public class JourneyActivity extends AppCompatActivity {
 
 
     View vID;
-    private GoogleApiClient client;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey);
-        eventList = new ArrayList<Events>();
+        eventList = new ArrayList<Event>();
 
         connectHandler = ConnectionHandler.getInstance();
 
         // Display patient name on topbar
         TextView patientNameText = (TextView) findViewById(R.id.txt_journey_patient_name);
         if (connectHandler.patient != null){
-            //            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
-            patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
+            patientNameText.setText(getResources().getString(R.string.txt_patient)+" "+connectHandler.patient.patient_name);
+            patientID = connectHandler.patient.patient_ID;
+            personID = connectHandler.person.person_ID;
+
+            System.out.println("PersonID: "+personID+" PatientID: "+patientID);
         }
 
-        TextView loggedIn = (TextView) findViewById(R.id.txt_journal_loggedIn);
-        if (connectHandler.person != null){
-            loggedIn.setText(connectHandler.person.first_name);
+        TextView loggedIn = (TextView) findViewById(R.id.txt_journey_loggedIn);
+        if (connectHandler.person.first_name != null){
+            loggedIn.setText(getResources().getString(R.string.txt_logged_in_as)+ " "+connectHandler.person.first_name);
         }
 
-/*        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
+
+        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
 
         for (int i=0; i < connectHandler.events.event_data.size();i++){
             eventList.add(connectHandler.events.event_data.get(i));
+           System.out.println("eventsize"+connectHandler.events.event_data.size());
         }
-        */
+
 
         Scroll_background = (HorizontalScrollView)findViewById(R.id.Scroll_background);
         Scroll_background2 = (HorizontalScrollView)findViewById(R.id.Scroll_background2);
@@ -203,8 +212,6 @@ public class JourneyActivity extends AppCompatActivity {
         sign3 = (ImageView) findViewById(R.id.sign3);
 
 
-
-
         relativeLayout3 = (GridLayout) findViewById(R.id.relativeLayout3);
 
 
@@ -227,43 +234,18 @@ public class JourneyActivity extends AppCompatActivity {
         width = size.x;
         height = size.y;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            date = sdf.parse("01/06/2016");
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
 
         currentDate = Calendar.getInstance().getTime();
-        Events diagnoseStart = new Events("start", "start", "Journey starts here", date, null, null, null);
-        eventList.add(diagnoseStart);
-        journeyStart = eventList.get(0).startDate;
+
+
+        journeyStart = eventList.get(0).date;
 
         ((ViewGroup)car.getParent()).removeView(car);
 
         animateSun();
         ExampleJourney();
         refreshEvents();
-
-
-        System.out.println(lastButtonX);
-        cloud_layout.getLayoutParams().width = lastButtonX / 4;
-        cloud_layout.setBackgroundResource(R.drawable.cloudjourneyxml);
-        big_mountain_layer.getLayoutParams().width = lastButtonX / 3;
-        big_mountain_layer.setBackgroundResource(R.drawable.backmountainxml);
-        mountains_layer.getLayoutParams().width = lastButtonX / 2;
-        lion_layer.getLayoutParams().width = lastButtonX / 2;
-        bushes_layer.getLayoutParams().width = lastButtonX * 2;
-        bushes_layer.setBackgroundResource(R.drawable.bushesxml);
-        road_layer.getLayoutParams().width = lastButtonX * 2;
-        road_layer.setBackgroundResource(R.drawable.roadxml);
-        front_bushes_layer.getLayoutParams().width = lastButtonX * 3;
-
-
-
-
+        adjustLayouts();
 
 
         final ViewTreeObserver observer = containerLayout.getViewTreeObserver();
@@ -272,7 +254,6 @@ public class JourneyActivity extends AppCompatActivity {
             public void onGlobalLayout() {
                 containerHeight = containerLayout.getHeight();
                 containerWidth = containerLayout.getWidth();
-                System.out.println("container Height" + containerHeight);
                 generateBushes();
                 generateMountains();
                 containerLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -293,7 +274,6 @@ public class JourneyActivity extends AppCompatActivity {
                 bottomScroll.setScrollX(scrollX * 2);
                 Scroll_bushes.setScrollX(scrollX * 3);
 
-
             }
         });
 
@@ -311,9 +291,13 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        sun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sunPopup();
+            }
+        });
+
     }
 
     private void careTeam() {
@@ -344,16 +328,17 @@ public class JourneyActivity extends AppCompatActivity {
             layout.removeView(imageButton);
         }
 
-        Collections.sort(eventList, new Comparator<Events>() {
+        Collections.sort(eventList, new Comparator<Event>() {
             @Override
-            public int compare(Events lhs, Events rhs) {
+            public int compare(Event lhs, Event rhs) {
 
-                return lhs.startDate.compareTo(rhs.startDate);
+                return lhs.date.compareTo(rhs.date);
 
             }
         });
 
-        startDate = eventList.get(0).startDate.getTime();
+        startDate = eventList.get(0).date.getTime();
+        journeyStart = eventList.get(0).date;
 
         RelativeLayout.LayoutParams paramsCar = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -364,7 +349,6 @@ public class JourneyActivity extends AppCompatActivity {
         carPosition = carPosition / 1000000;
         int carIntPosition = (int) carPosition;
         carIntPosition = (carIntPosition * 2) +300;
-
 
        paramsCar.setMargins(0,0,0,50);
 
@@ -406,7 +390,7 @@ public class JourneyActivity extends AppCompatActivity {
                 }
             });
 
-            subCategoryClicked = eventList.get(i).subCategory.toString();
+            subCategoryClicked = eventList.get(i).sub_category.toString();
 
             switch (subCategoryClicked) {
                 case "medical_oncologist":
@@ -511,7 +495,7 @@ public class JourneyActivity extends AppCompatActivity {
             ImageButton indexButton = ((ImageButton) findViewById(i));
 
             Calendar currentEventCal = Calendar.getInstance();
-            currentEventCal.setTime(eventList.get(i).startDate);
+            currentEventCal.setTime(eventList.get(i).date);
             currentEventCal.set(Calendar.HOUR_OF_DAY, 0);
             currentEventCal.set(Calendar.MINUTE, 0);
             currentEventCal.set(Calendar.SECOND, 0);
@@ -541,14 +525,9 @@ public class JourneyActivity extends AppCompatActivity {
             indexButton.setLayoutParams(params);
             lastButtonX = (currentEventInt * 2) + 300;
 
-
-
         }
 
-
-
     }
-
 
     public void popup(View v) {
 
@@ -734,11 +713,7 @@ public class JourneyActivity extends AppCompatActivity {
 
             }
 
-
-
         });
-
-
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -747,12 +722,9 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
-
-        System.out.println("popup location = " + location + "     popup id = " + vID.getId());
-
         if(location>0) {
             Calendar c = Calendar.getInstance();
-            c.setTime(eventList.get(0).startDate);
+            c.setTime(eventList.get(0).date);
             System.out.println(location);
 
             location = (location / 172);
@@ -1159,7 +1131,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                     String thisEvent = df.format(date);
-                    String indexEvent = df.format(eventList.get(i).startDate);
+                    String indexEvent = df.format(eventList.get(i).date);
 
                     if (thisEvent.equals(indexEvent)) {
                         eventsSameDate = eventsSameDate + 1;
@@ -1170,8 +1142,9 @@ public class JourneyActivity extends AppCompatActivity {
                 if (eventsSameDate < 3) {
                     if (date.getTime() > startDate) {
 
-                        Events event = new Events(Category, subCategoryClicked, eventNotes.getText().toString(), date, null, null, null);
+                        Event event = new Event(-1,0,0,0,null,Category, subCategoryClicked, date, 0, eventNotes.getText().toString(), null, null);
                         eventList.add(event);
+                        connectHandler.createEvent(event);
                         createEventButton();
                         popupWindow.dismiss();
                         SimpleDateFormat toastDate = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
@@ -1271,7 +1244,7 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
-        String subCategory = eventList.get(id_).subCategory.toString();
+        String subCategory = eventList.get(id_).sub_category;
 
         switch (subCategory) {
             case "medical_oncologist":
@@ -1376,7 +1349,7 @@ public class JourneyActivity extends AppCompatActivity {
         ImageButton indexButton = ((ImageButton) findViewById(eventList.size() - 1));
 
         Calendar currentEventCal = Calendar.getInstance();
-        currentEventCal.setTime(eventList.get(id_).startDate);
+        currentEventCal.setTime(eventList.get(id_).date);
         currentEventCal.set(Calendar.HOUR_OF_DAY, 0);
         currentEventCal.set(Calendar.MINUTE, 0);
         currentEventCal.set(Calendar.SECOND, 0);
@@ -1396,15 +1369,13 @@ public class JourneyActivity extends AppCompatActivity {
         for (int i = 0; i < eventList.size(); i++) {
             if (i != id_) {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                String thisEvent = df.format(eventList.get(id_).startDate);
-                String indexEvent = df.format(eventList.get(i).startDate);
+                String thisEvent = df.format(eventList.get(id_).date);
+                String indexEvent = df.format(eventList.get(i).date);
 
                 if (thisEvent.equals(indexEvent)) {
                     eventsSameDate = eventsSameDate + 1;
                     ImageButton collidateButton = ((ImageButton) findViewById(i));
                     topMargin = (int) collidateButton.getY() + (height / 7);
-                    System.out.println("collidatebutton" + collidateButton.getY());
-                    System.out.println("esstimatedtopmargoin" + topMargin);
                 }
 
             }
@@ -1419,7 +1390,6 @@ public class JourneyActivity extends AppCompatActivity {
             params.width = (height / 7) * 2;
             params.height = (height / 7) * 2;
         }
-        System.out.println("topmargin" + topMargin);
         indexButton.setLayoutParams(params);
         topMargin = 100;
     }
@@ -1515,11 +1485,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                         break;
 
-
-
                 }
-
-
 
             }
 
@@ -1572,27 +1538,21 @@ public class JourneyActivity extends AppCompatActivity {
 
                         break;
 
-
-
                 }
 
             }
 
-
-
         });
 
-
-
-        subCategoryClicked = eventList.get(id_).subCategory.toString();
-        eventHeadline.setText(eventList.get(id_).subCategory.toString());
+        subCategoryClicked = eventList.get(id_).sub_category.toString();
+        eventHeadline.setText(eventList.get(id_).sub_category.toString());
         eventInfoText(subCategoryClicked);
 
         notesDetail.setText(eventList.get(id_).notes.toString());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd-HH:mm");
 
 
-        String dateString = simpleDateFormat.format(eventList.get(id_).startDate.getTime());
+        String dateString = simpleDateFormat.format(eventList.get(id_).date.getTime());
         timeDetail.setText(dateString);
 
         cancelButtonDetail.setOnClickListener(new View.OnClickListener() {
@@ -1617,7 +1577,7 @@ public class JourneyActivity extends AppCompatActivity {
                 editTime.setVisibility(View.VISIBLE);
 
                     Calendar c = Calendar.getInstance();
-                    c.setTime(eventList.get(id_).startDate);
+                    c.setTime(eventList.get(id_).date);
 
                     editDate.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
@@ -1652,6 +1612,7 @@ public class JourneyActivity extends AppCompatActivity {
                 View imageButton = layout.findViewById(id_);
                 layout.removeView(imageButton);
                 eventList.remove(id_);
+                connectHandler.deleteEvent(eventList.get(id_).event_ID);
                 reArrangeBtnId(id_);
 
 
@@ -1671,7 +1632,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                     String thisEvent = df.format(date);
-                    String indexEvent = df.format(eventList.get(i).startDate);
+                    String indexEvent = df.format(eventList.get(i).date);
 
                     if (thisEvent.equals(indexEvent)) {
                         eventsSameDate = eventsSameDate + 1;
@@ -1682,8 +1643,9 @@ public class JourneyActivity extends AppCompatActivity {
                 if (eventsSameDate < 3) {
                     if (date.getTime() > startDate) {
 
-                        Events event = new Events(detailCategory, subCategoryClicked, editNotes.getText().toString(), date, null, null, null);
+                        Event event = new Event(-1,0,0,0,null,detailCategory, subCategoryClicked, date, 0, editNotes.getText().toString(), null, null);
                         eventList.add(event);
+                        connectHandler.createEvent(event);
                         createEventButton();
                         popupWindow.dismiss();
                         SimpleDateFormat toastDate = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
@@ -1702,9 +1664,7 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
-
-
-        switch (eventList.get(id_).subCategory) {
+        switch (eventList.get(id_).sub_category) {
 
             case "medical_oncologist":
                 categoryImage.setBackgroundResource(R.drawable.event_medical_oncologist_bubble);
@@ -1804,6 +1764,7 @@ public class JourneyActivity extends AppCompatActivity {
                 View imageButton = layout.findViewById(id_);
                 layout.removeView(imageButton);
                 eventList.remove(id_);
+                connectHandler.deleteEvent(eventList.get(id_).event_ID);
                 reArrangeBtnId(id_);
                 popupWindow.dismiss();
                 String toastMessage = "Event deleted!";
@@ -1838,16 +1799,8 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void generateClouds() {
 
-        Collections.sort(eventList, new Comparator<Events>() {
-            @Override
-            public int compare(Events lhs, Events rhs) {
-
-                return lhs.startDate.compareTo(rhs.startDate);
-
-            }
-        });
         int lastEvent = eventList.size() - 1;
-        long lastEventLong = eventList.get(lastEvent).startDate.getTime();
+        long lastEventLong = eventList.get(lastEvent).date.getTime();
         long screenSize = lastEventLong - startDate;
         long cloudCount = screenSize / 1000000;
         cloudCount = cloudCount / 5;
@@ -1962,6 +1915,26 @@ public class JourneyActivity extends AppCompatActivity {
 
     }
 
+
+    private void adjustLayouts() {
+        System.out.println(lastButtonX);
+        if (lastButtonX < 10000){
+            lastButtonX = 10000;
+            eventLayout.getLayoutParams().width = 10000;
+        }
+        cloud_layout.getLayoutParams().width = lastButtonX / 3;
+        cloud_layout.setBackgroundResource(R.drawable.cloudjourneyxml);
+        big_mountain_layer.getLayoutParams().width = lastButtonX / 3;
+        big_mountain_layer.setBackgroundResource(R.drawable.backmountainxml);
+        mountains_layer.getLayoutParams().width = lastButtonX / 2;
+        lion_layer.getLayoutParams().width = lastButtonX;
+        bushes_layer.getLayoutParams().width = lastButtonX * 2;
+        bushes_layer.setBackgroundResource(R.drawable.bushesxml);
+        road_layer.getLayoutParams().width = lastButtonX * 2;
+        road_layer.setBackgroundResource(R.drawable.roadxml);
+        front_bushes_layer.getLayoutParams().width = lastButtonX * 3;
+
+    }
 
 
     private void generateBushes() {
@@ -2173,6 +2146,35 @@ public class JourneyActivity extends AppCompatActivity {
 
     }
 
+    private void sunPopup() {
+
+        LayoutInflater layoutInflater
+                = (LayoutInflater) getBaseContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.sunpopup, null);
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView, (int) (width * 0.40), (int) (height * 0.60));
+        relativeLayout = (RelativeLayout) findViewById(R.id.layerCoantainerJourney);
+
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        popupView.bringToFront();
+        popupWindow.setFocusable(true);
+        popupWindow.update();
+
+        EditText userEmail = (EditText) popupView.findViewById(R.id.et_journey_questionemail);
+        ImageButton cancel = (ImageButton) popupView.findViewById(R.id.img_journey_cancelquestion);
+
+        userEmail.setText(connectHandler.person.email);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+    }
 
     private void animateSun() {
 
@@ -2214,6 +2216,7 @@ public class JourneyActivity extends AppCompatActivity {
 
 
     private void ExampleJourney() {
+        /*
         Calendar c = Calendar.getInstance();
         c.setTime(eventList.get(0).startDate);
 
@@ -2413,7 +2416,7 @@ public class JourneyActivity extends AppCompatActivity {
         Events event49 = new Events("Tests", "mr", "Lunds sjukhus", c.getTime(), null, null, null);
         eventList.add(event49);
         c.setTime(eventList.get(0).startDate);
-
+*/
     }
 }
 

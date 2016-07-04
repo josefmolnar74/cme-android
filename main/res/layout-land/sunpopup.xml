@@ -1,51 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="500dp"
-    android:layout_height="500dp">
+    android:layout_height="500dp"
+    android:background="@drawable/borderpopup">
 
     <ImageButton
         android:background="@drawable/close"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton"
+        android:id="@+id/img_journey_cancelquestion"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentEnd="false"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp" />
+        android:layout_alignParentTop="true" />
 
     <ImageButton
         android:background="@drawable/mark"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton3"
+        android:id="@+id/img_journey_savequestion"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginLeft="40dp" />
 
     <EditText
         android:background="@drawable/borderpopup"
         android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:id="@+id/editText2"
-        android:layout_centerInParent="true" />
+        android:layout_height="200dp"
+        android:id="@+id/et_journey_question"
+        android:inputType="textMultiLine"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txt_journey_question"
+        android:layout_marginTop="50dp"
+        android:gravity="top"
+        android:hint="@string/journey_question_hint" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_alignParentStart="true"
         android:background="#000000"
-        android:layout_below="@+id/imageButton"
+        android:layout_below="@+id/img_journey_cancelquestion"
         android:layout_marginTop="10dp"></FrameLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Question"
-        android:id="@+id/textView"
+        android:text="@string/journey_question"
+        android:id="@+id/txt_journey_question"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:textSize="45dp"
-        android:layout_marginTop="10dp" />
+        android:textSize="30dp"
+        android:layout_marginTop="15dp" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/et_journey_questionemail"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/borderpopup"
+        android:layout_below="@+id/et_journey_question"
+        android:layout_marginTop="80dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/journey_questionemail"
+        android:id="@+id/txt_journey_writeemail"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/et_journey_question"
+        android:layout_marginTop="60dp" />
 </RelativeLayout>

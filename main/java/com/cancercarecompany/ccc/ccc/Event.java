@@ -1,5 +1,6 @@
 package com.cancercarecompany.ccc.ccc;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -13,16 +14,16 @@ public class Event {
     int healthcare_ID;
     String healthcare_name;
     String category;
-    String subCategory;
+    String sub_category;
     Date date;
-    Date time;
+    long time;
     String notes;
     String status;
     String emotion;
 
 
     public Event( int event_ID, int patient_ID, int person_ID, int healthcare_ID, String healthcare_name, String category, String subCategory,
-                  Date date, Date time, String notes, String status, String emotion){
+                  Date date, long time, String notes, String status, String emotion){
 
         this.event_ID   = event_ID;
         this.patient_ID = patient_ID;
@@ -30,6 +31,7 @@ public class Event {
         this.healthcare_ID = healthcare_ID;
         this.healthcare_name = healthcare_name;
         this.category = category;
+        this.sub_category = subCategory;
         this.date = date;
         this.time = time;
         this.notes = notes;
