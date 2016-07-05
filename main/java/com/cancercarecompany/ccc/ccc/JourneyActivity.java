@@ -129,6 +129,7 @@ public class JourneyActivity extends AppCompatActivity {
     int height;
     int containerHeight;
     int containerWidth;
+    int carIntPosition = 0;
     TextView eventInfoText;
     TextView eventHeadline;
 
@@ -233,19 +234,24 @@ public class JourneyActivity extends AppCompatActivity {
         display.getSize(size);
         width = size.x;
         height = size.y;
-
-
         currentDate = Calendar.getInstance().getTime();
-
-
+        if (eventList.size() == 0){
+            Event startEvent = new Event(-1,patientID,personID,0,null,"start","start",currentDate, 0, "My journey starts here!", null, null);
+            eventList.add(startEvent);
+            connectHandler.createEvent(startEvent);
+        }
         journeyStart = eventList.get(0).date;
 
         ((ViewGroup)car.getParent()).removeView(car);
+
+        System.out.println(width);
 
         animateSun();
         ExampleJourney();
         refreshEvents();
         adjustLayouts();
+        generateLion();
+        generateSigns();
 
 
         final ViewTreeObserver observer = containerLayout.getViewTreeObserver();
@@ -347,21 +353,23 @@ public class JourneyActivity extends AppCompatActivity {
 
         long carPosition = currentDate.getTime() - startDate;
         carPosition = carPosition / 1000000;
-        int carIntPosition = (int) carPosition;
+        carIntPosition = (int) carPosition;
         carIntPosition = (carIntPosition * 2) +300;
 
-       paramsCar.setMargins(0,0,0,50);
-
+        if (carIntPosition < width){
+            paramsCar.setMargins(carIntPosition,0,0,50);
+        }else {
+            paramsCar.setMargins(0, 0, 0, 50);
+        }
         car.setLayoutParams(paramsCar);
         bottomLayout.addView(car, paramsCar);
-        RelativeLayout.LayoutParams layoutParams =
-                (RelativeLayout.LayoutParams)car.getLayoutParams();
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)car.getLayoutParams();
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         car.setLayoutParams(layoutParams);
 
-        animateCar(carIntPosition);
-
-
+        if (carIntPosition > width) {
+            animateCar(carIntPosition);
+        }
 
         for (int i = 0; i < eventList.size(); i++) {
 
@@ -516,7 +524,7 @@ public class JourneyActivity extends AppCompatActivity {
             params.setMargins((currentEventInt * 2) + 300, topMargin, 0, 0);
             params.width = height / 7;
             params.height = height / 7;
-            if (subCategoryClicked == "start") {
+            if (subCategoryClicked.equals("start")) {
                 params.setMargins((currentEventInt * 2), topMargin, 0, 0);
                 params.width = (height / 7) * 2;
                 params.height = (height / 7) * 2;
@@ -524,7 +532,7 @@ public class JourneyActivity extends AppCompatActivity {
 
             indexButton.setLayoutParams(params);
             lastButtonX = (currentEventInt * 2) + 300;
-
+            System.out.println(lastButtonX);
         }
 
     }
@@ -1611,8 +1619,8 @@ public class JourneyActivity extends AppCompatActivity {
                 ViewGroup layout = (ViewGroup) findViewById(R.id.relativeLayout_eventlayer);
                 View imageButton = layout.findViewById(id_);
                 layout.removeView(imageButton);
-                eventList.remove(id_);
                 connectHandler.deleteEvent(eventList.get(id_).event_ID);
+                eventList.remove(id_);
                 reArrangeBtnId(id_);
 
 
@@ -1763,8 +1771,8 @@ public class JourneyActivity extends AppCompatActivity {
                 ViewGroup layout = (ViewGroup) findViewById(R.id.relativeLayout_eventlayer);
                 View imageButton = layout.findViewById(id_);
                 layout.removeView(imageButton);
-                eventList.remove(id_);
                 connectHandler.deleteEvent(eventList.get(id_).event_ID);
+                eventList.remove(id_);
                 reArrangeBtnId(id_);
                 popupWindow.dismiss();
                 String toastMessage = "Event deleted!";
@@ -1918,9 +1926,9 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void adjustLayouts() {
         System.out.println(lastButtonX);
-        if (lastButtonX < 10000){
-            lastButtonX = 10000;
-            eventLayout.getLayoutParams().width = 10000;
+        if (lastButtonX < 8000){
+            lastButtonX = 8000;
+            eventLayout.getLayoutParams().width = lastButtonX;
         }
         cloud_layout.getLayoutParams().width = lastButtonX / 3;
         cloud_layout.setBackgroundResource(R.drawable.cloudjourneyxml);
@@ -1984,6 +1992,19 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
+    private void generateLion(){
+        final RelativeLayout.LayoutParams paramsLion = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        paramsLion.setMargins(carIntPosition / 2 + 700,0,0,0);
+        lion.setLayoutParams(paramsLion);
+        RelativeLayout.LayoutParams layoutParams =
+                (RelativeLayout.LayoutParams)lion.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        lion.setLayoutParams(layoutParams);
+    }
+
     private void generateMountains() {
 
 
@@ -2045,64 +2066,11 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void animateCar(final int carIntPosition) {
 
-
         final RelativeLayout.LayoutParams paramsCar2 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsCar2.setMargins((carIntPosition * 2)-800, 0, 0, 50);
         System.out.println("CARPOSITION"+carIntPosition * 2);
-
-
-        final RelativeLayout.LayoutParams paramsLion = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-        paramsLion.setMargins(carIntPosition / 2 + 700,0,0,0);
-        lion.setLayoutParams(paramsLion);
-        RelativeLayout.LayoutParams layoutParams =
-                (RelativeLayout.LayoutParams)lion.getLayoutParams();
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        lion.setLayoutParams(layoutParams);
-
-        //sign1
-        RelativeLayout.LayoutParams paramsSign1 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsSign1.setMargins(carIntPosition / 2 + 200,0,0,0);
-        sign1.setLayoutParams(paramsSign1);
-        RelativeLayout.LayoutParams layoutParams1 =
-                (RelativeLayout.LayoutParams)sign1.getLayoutParams();
-        layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-
-        sign1.setLayoutParams(paramsSign1);
-        sign1.setLayoutParams(layoutParams1);
-
-        ///sign 2
-
-        RelativeLayout.LayoutParams paramsSign2 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsSign2.setMargins(5000,0,0,0);
-        sign2.setLayoutParams(paramsSign2);
-        RelativeLayout.LayoutParams layoutParams2 =
-                (RelativeLayout.LayoutParams)sign2.getLayoutParams();
-        layoutParams2.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        sign2.setLayoutParams(paramsSign2);
-        sign2.setLayoutParams(layoutParams2);
-
-        ///sign3
-
-        final RelativeLayout.LayoutParams paramsSign3 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsSign3.setMargins(1000,0,0,0);
-        sign3.setLayoutParams(paramsSign3);
-        RelativeLayout.LayoutParams layoutParams3 =
-                (RelativeLayout.LayoutParams)sign3.getLayoutParams();
-        layoutParams3.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        sign3.setLayoutParams(paramsSign3);
-        sign3.setLayoutParams(layoutParams3);
-
 
         TranslateAnimation transAnimation1 = new TranslateAnimation(0, 2000, 0, 0);
         transAnimation1.setDuration(3500);
@@ -2211,6 +2179,49 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void generateSigns() {
+
+        //sign1
+        RelativeLayout.LayoutParams paramsSign1 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsSign1.setMargins(carIntPosition / 2 + 200,0,0,0);
+        sign1.setLayoutParams(paramsSign1);
+        RelativeLayout.LayoutParams layoutParams1 =
+                (RelativeLayout.LayoutParams)sign1.getLayoutParams();
+        layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+
+        sign1.setLayoutParams(paramsSign1);
+        sign1.setLayoutParams(layoutParams1);
+
+        ///sign 2
+
+        RelativeLayout.LayoutParams paramsSign2 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsSign2.setMargins(lastButtonX / 3,0,0,0);
+        sign2.setLayoutParams(paramsSign2);
+        RelativeLayout.LayoutParams layoutParams2 =
+                (RelativeLayout.LayoutParams)sign2.getLayoutParams();
+        layoutParams2.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        sign2.setLayoutParams(paramsSign2);
+        sign2.setLayoutParams(layoutParams2);
+
+        ///sign3
+
+        final RelativeLayout.LayoutParams paramsSign3 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsSign3.setMargins(lastButtonX / 2,0,0,0);
+        sign3.setLayoutParams(paramsSign3);
+        RelativeLayout.LayoutParams layoutParams3 =
+                (RelativeLayout.LayoutParams)sign3.getLayoutParams();
+        layoutParams3.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        sign3.setLayoutParams(paramsSign3);
+        sign3.setLayoutParams(layoutParams3);
 
     }
 

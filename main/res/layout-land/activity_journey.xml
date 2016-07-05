@@ -57,7 +57,7 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/txt_journal_loggedIn" />
+            android:layout_toStartOf="@+id/txt_journey_loggedIn" />
 
         <ImageButton
             android:layout_width="80dp"
