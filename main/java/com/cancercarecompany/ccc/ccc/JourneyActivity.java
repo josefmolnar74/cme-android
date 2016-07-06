@@ -3,12 +3,16 @@ package com.cancercarecompany.ccc.ccc;
 
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.media.Image;
 import android.media.MediaPlayer;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.DragEvent;
@@ -130,6 +134,7 @@ public class JourneyActivity extends AppCompatActivity {
     int containerHeight;
     int containerWidth;
     int carIntPosition = 0;
+    float screenPositionClicked;
     TextView eventInfoText;
     TextView eventHeadline;
 
@@ -173,9 +178,13 @@ public class JourneyActivity extends AppCompatActivity {
         }
 
 
-        Scroll_background = (HorizontalScrollView)findViewById(R.id.Scroll_background);
-        Scroll_background2 = (HorizontalScrollView)findViewById(R.id.Scroll_background2);
+        Scroll_background = (HorizontalScrollView) findViewById(R.id.Scroll_background);
+        Scroll_background2 = (HorizontalScrollView) findViewById(R.id.Scroll_background2);
         Scroll_background3 = (HorizontalScrollView) findViewById(R.id.Scroll_background3);
+        eventScroll = (HorizontalScrollView) findViewById(R.id.Scroll_eventlayer);
+        bottomScroll = (HorizontalScrollView) findViewById(R.id.Scroll_roadlayer);
+        Scroll_bushes = (HorizontalScrollView) findViewById(R.id.Scroll_Bushes);
+        Scroll_lion = (HorizontalScrollView) findViewById(R.id.Scroll_lion);
 
         lion = (ImageView) findViewById(R.id.img_lion);
         background_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background);
@@ -187,10 +196,7 @@ public class JourneyActivity extends AppCompatActivity {
         addTest = (ImageButton) findViewById(R.id.btn_test_journey);
         addFoto = (ImageButton) findViewById(R.id.btn_foto_journey);
         addHospital = (ImageButton) findViewById(R.id.btn_hospital_journey);
-        eventScroll = (HorizontalScrollView) findViewById(R.id.Scroll_eventlayer);
-        bottomScroll = (HorizontalScrollView) findViewById(R.id.Scroll_roadlayer);
-        Scroll_bushes = (HorizontalScrollView) findViewById(R.id.Scroll_Bushes);
-        Scroll_lion = (HorizontalScrollView) findViewById(R.id.Scroll_lion);
+
 
         cloud_layout = (RelativeLayout) findViewById(R.id.cloud_layout);
         road_layer = (RelativeLayout) findViewById(R.id.roadlayer);
@@ -303,6 +309,23 @@ public class JourneyActivity extends AppCompatActivity {
                 sunPopup();
             }
         });
+
+        eventScroll.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+
+                    Rect hitBoxLion = new Rect();
+                    lion.getGlobalVisibleRect(hitBoxLion);
+                    if (hitBoxLion.contains((int) event.getRawX(), (int) event.getRawY())){
+                        System.out.println("LION CLICKED!");
+                    }
+
+                }
+                return false;
+            }
+        });
+
 
     }
 
@@ -2197,6 +2220,7 @@ public class JourneyActivity extends AppCompatActivity {
         sign1.setLayoutParams(paramsSign1);
         sign1.setLayoutParams(layoutParams1);
 
+
         ///sign 2
 
         RelativeLayout.LayoutParams paramsSign2 = new RelativeLayout.LayoutParams(
@@ -2209,6 +2233,12 @@ public class JourneyActivity extends AppCompatActivity {
         layoutParams2.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         sign2.setLayoutParams(paramsSign2);
         sign2.setLayoutParams(layoutParams2);
+        sign2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sunPopup();
+            }
+        });
 
         ///sign3
 
@@ -2222,10 +2252,14 @@ public class JourneyActivity extends AppCompatActivity {
         layoutParams3.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         sign3.setLayoutParams(paramsSign3);
         sign3.setLayoutParams(layoutParams3);
+        sign3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sunPopup();
+            }
+        });
 
     }
-
-
     private void ExampleJourney() {
         /*
         Calendar c = Calendar.getInstance();

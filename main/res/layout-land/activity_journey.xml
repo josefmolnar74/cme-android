@@ -287,7 +287,8 @@
                 android:layout_height="fill_parent"
                 android:id="@+id/Scroll_eventlayer"
                 android:scrollbars="none"
-                android:fillViewport="false">
+                android:fillViewport="false"
+                >
 
                 <RelativeLayout
                     android:animateLayoutChanges="true"
