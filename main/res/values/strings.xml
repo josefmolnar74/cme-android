@@ -170,6 +170,7 @@
     <string name="journey_question_hint">Skriv din fråga här !</string>
     <string name="txt_logged_in_as">Inloggad som: </string>
     <string name="txt_patient">Patient: </string>
+    <string name="txt_lion_toast">Jag har också tappat mitt hår.\r\ Jag vet hur du känner dig !</string>
 
     ////////Events////////////
     <string name="event_start">My journy starts here!</string>

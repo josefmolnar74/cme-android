@@ -54,6 +54,8 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import org.w3c.dom.Text;
+
 public class JourneyActivity extends AppCompatActivity {
 
     ArrayList<Event> eventList;
@@ -96,6 +98,7 @@ public class JourneyActivity extends AppCompatActivity {
     RelativeLayout swipeLayout;
     int topMargin = 0;
     ImageView car;
+    ImageView img_lion_text;
     long startDate;
     long currentEvent;
     int eventLocation = 0;
@@ -187,6 +190,7 @@ public class JourneyActivity extends AppCompatActivity {
         Scroll_lion = (HorizontalScrollView) findViewById(R.id.Scroll_lion);
 
         lion = (ImageView) findViewById(R.id.img_lion);
+        img_lion_text = (ImageView) findViewById(R.id.img_lion_text);
         background_layer = (RelativeLayout) findViewById(R.id.relativeLayout_background);
         bushes_layer = (RelativeLayout) findViewById(R.id.bushes_layer);
         big_mountain_layer = (RelativeLayout) findViewById(R.id.big_mountains_layer);
@@ -318,7 +322,7 @@ public class JourneyActivity extends AppCompatActivity {
                     Rect hitBoxLion = new Rect();
                     lion.getGlobalVisibleRect(hitBoxLion);
                     if (hitBoxLion.contains((int) event.getRawX(), (int) event.getRawY())){
-                        System.out.println("LION CLICKED!");
+                        lionMessage();
                     }
 
                 }
@@ -2026,6 +2030,7 @@ public class JourneyActivity extends AppCompatActivity {
                 (RelativeLayout.LayoutParams)lion.getLayoutParams();
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         lion.setLayoutParams(layoutParams);
+
     }
 
     private void generateMountains() {
@@ -2133,6 +2138,23 @@ public class JourneyActivity extends AppCompatActivity {
 
             }
         });
+
+
+    }
+
+    private void lionMessage(){
+
+
+        final RelativeLayout.LayoutParams paramsLionText = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        paramsLionText.setMargins(lion.getLeft() - 100,lion.getTop() - height/4,0,0);
+        System.out.println("lionleft"+lion.getLeft());
+        System.out.println("liontop"+lion.getTop());
+
+        img_lion_text.setLayoutParams(paramsLionText);
+        img_lion_text.setVisibility(View.VISIBLE);
 
 
     }
