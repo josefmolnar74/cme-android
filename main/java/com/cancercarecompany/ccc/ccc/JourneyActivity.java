@@ -1999,7 +1999,7 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void generateBushes() {
 
-        int bushesCount = lastButtonX / 400;
+        int bushesCount = lastButtonX / 500;
         bushesCount = bushesCount * 3;
         for (int i = 0; i <= bushesCount; i++) {
 
@@ -2010,28 +2010,20 @@ public class JourneyActivity extends AppCompatActivity {
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
 
             Random r = new Random();
-            int bushesRandom = r.nextInt(3);
+            int bushesRandom = r.nextInt(2);
 
             switch (bushesRandom) {
                 case 0:
-
                     img.setBackgroundResource(R.drawable.bushes1);
-                    params.setMargins(i * 400, 0, 0, 0);
+                    params.setMargins(i * width/2, 0, 0, 0);
 
                     break;
                 case 1:
 
                     img.setBackgroundResource(R.drawable.bushes2);
-                    params.setMargins(i * 400, 0, 0, 0);
+                    params.setMargins(i * width/2, 0, 0, 0);
 
                     break;
-                case 2:
-
-                    img.setBackgroundResource(R.drawable.bushes3);
-                    params.setMargins(i * 400, 0, 0, 0);
-
-                    break;
-
 
             }
             front_bushes_layer.addView(img, params);
@@ -2065,9 +2057,7 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     private void generateMountains() {
-
-
-        int mountainsCount = lastButtonX / 300;
+        int mountainsCount = lastButtonX / 500;
         mountainsCount = mountainsCount * 3;
         for (int i = 0; i <= mountainsCount; i++) {
 
@@ -2077,37 +2067,22 @@ public class JourneyActivity extends AppCompatActivity {
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-
             Random r = new Random();
-            int bushesRandom = r.nextInt(4);
+            int bushesRandom = r.nextInt(3);
 
             switch (bushesRandom) {
                 case 0:
                     img.setBackgroundResource(R.drawable.hill1);
-                    params.setMargins(i * 400, 0, 0, 0);
-                //    params.height = 300;
-                //    params.width = 600;
+                    params.setMargins(i * width/2 -100, 0, 0, 0);
                     break;
                 case 1:
                     img.setBackgroundResource(R.drawable.hill2);
-                    params.setMargins(i * 400, 0, 0, 0);
-               //     params.height = 250;
-                //    params.width = 600;
+                    params.setMargins(i * width/2 -100, 0, 0, 0);
                     break;
                 case 2:
-
                     img.setBackgroundResource(R.drawable.hill3);
-                    params.setMargins(i * 400, 0, 0, 0);
-                 //   params.height = 350;
-                 //   params.width = 600;
+                    params.setMargins(i * width/2 -100, 0, 0, 0);
                     break;
-                case 3:
-
-                img.setBackgroundResource(R.drawable.hill4);
-                params.setMargins(i * 400, 0, 0, 0);
-                //   params.height = 350;
-                //   params.width = 600;
-                break;
 
             }
             mountains_layer.addView(img, params);
@@ -2116,11 +2091,8 @@ public class JourneyActivity extends AppCompatActivity {
                     (RelativeLayout.LayoutParams)img.getLayoutParams();
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
             img.setLayoutParams(layoutParams);
-
-
         }
     }
-
 
     private void animateCar(final int carIntPosition) {
 
