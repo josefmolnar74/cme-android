@@ -266,12 +266,9 @@ public class JourneyActivity extends AppCompatActivity {
         System.out.println(width);
 
         animateSun();
-        ExampleJourney();
+        //ExampleJourney();
         refreshEvents();
         adjustLayouts();
-        generateLion();
-        generateSigns();
-
 
 
 
@@ -281,12 +278,13 @@ public class JourneyActivity extends AppCompatActivity {
             public void onGlobalLayout() {
                 containerHeight = containerLayout.getHeight();
                 containerWidth = containerLayout.getWidth();
+                generateCar();
                 generateBushes();
                 generateMountains();
+                generateLion();
+                generateSigns();
+                generateClouds();
 
-                if (carIntPosition < width) {
-                    lionMessage();
-                }
                 containerLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -387,32 +385,6 @@ public class JourneyActivity extends AppCompatActivity {
 
         startDate = eventList.get(0).date.getTime();
         journeyStart = eventList.get(0).date;
-
-        RelativeLayout.LayoutParams paramsCar = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-
-        long carPosition = currentDate.getTime() - startDate;
-        carPosition = carPosition / 1000000;
-        carIntPosition = (int) carPosition;
-        carIntPosition = (carIntPosition * 2) + 300;
-
-        if (carIntPosition < width) {
-            paramsCar.setMargins(carIntPosition, 0, 0, 50);
-        } else {
-            paramsCar.setMargins(0, 0, 0, 50);
-        }
-        car.setLayoutParams(paramsCar);
-        bottomLayout.addView(car, paramsCar);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) car.getLayoutParams();
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        car.setLayoutParams(layoutParams);
-
-        if (carIntPosition > width) {
-            animateCar(carIntPosition);
-        }
-
 
         for (int i = 0; i < eventList.size(); i++) {
 
@@ -1849,15 +1821,34 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
+    private void generateCar() {
+
+        RelativeLayout.LayoutParams paramsCar = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        long carPosition = currentDate.getTime() - startDate;
+        carPosition = carPosition / 1000000;
+        carIntPosition = (int) carPosition;
+        carIntPosition = (carIntPosition * 2) + 300;
+
+        if (carIntPosition < width) {
+            paramsCar.setMargins(carIntPosition, 0, 0, 50);
+        } else {
+            paramsCar.setMargins(0, 0, 0, 50);
+        }
+        car.setLayoutParams(paramsCar);
+        bottomLayout.addView(car, paramsCar);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) car.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        car.setLayoutParams(layoutParams);
+
+    }
+
     private void generateClouds() {
 
-        int lastEvent = eventList.size() - 1;
-        long lastEventLong = eventList.get(lastEvent).date.getTime();
-        long screenSize = lastEventLong - startDate;
-        long cloudCount = screenSize / 1000000;
-        cloudCount = cloudCount / 5;
-        cloudCount = cloudCount / 400;
 
+       int cloudCount = background_layer.getWidth() / 500;
 
         for (int i = 0; i <= cloudCount; i++) {
 
@@ -1866,26 +1857,44 @@ public class JourneyActivity extends AppCompatActivity {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(i * 1000, 0, 0, 0);
-            params.width = width / 4;
-            params.height = (height / 6);
             Random r = new Random();
             int cloudRandom = r.nextInt(3);
-            System.out.println(cloudRandom);
+            int cloudPositionRandom = r.nextInt(5);
+            int cloudPositionY = 0;
+
+            switch (cloudPositionRandom){
+                case 0:
+                    cloudPositionY = 0;
+                    break;
+                case 1:
+                    cloudPositionY = height/16;
+                    break;
+                case 2:
+                    cloudPositionY = height/13;
+                    break;
+                case 3:
+                    cloudPositionY = height/10;
+                    break;
+                case 4:
+                    cloudPositionY = height/9;
+                    break;
+            }
             switch (cloudRandom) {
                 case 0:
                     btn.setBackgroundResource(R.drawable.cloud1);
+                    params.setMargins(i * width/2 -100, cloudPositionY, 0, 0);
                     break;
                 case 1:
                     btn.setBackgroundResource(R.drawable.cloud2);
+                    params.setMargins(i * width/2 -100, cloudPositionY, 0, 0);
                     break;
                 case 2:
                     btn.setBackgroundResource(R.drawable.cloud3);
+                    params.setMargins(i * width/2 -100, cloudPositionY, 0, 0);
                     break;
             }
 
-           // cloudLayout.addView(btn, params);
-            System.out.println(btn.getId());
+           cloud_layout.addView(btn, params);
         }
 
     }
@@ -1974,11 +1983,10 @@ public class JourneyActivity extends AppCompatActivity {
             lastButtonX = 8000;
             eventLayout.getLayoutParams().width = lastButtonX;
         }
-        cloud_layout.getLayoutParams().width = lastButtonX / 3;
-        cloud_layout.setBackgroundResource(R.drawable.cloudjourneyxml);
-        big_mountain_layer.getLayoutParams().width = lastButtonX / 3;
+        cloud_layout.getLayoutParams().width = lastButtonX / 2;
+        big_mountain_layer.getLayoutParams().width = lastButtonX / 2;
         big_mountain_layer.setBackgroundResource(R.drawable.backmountainxml);
-        mountains_layer.getLayoutParams().width = lastButtonX / 2;
+        mountains_layer.getLayoutParams().width = lastButtonX;
         lion_layer.getLayoutParams().width = lastButtonX;
         bushes_layer.getLayoutParams().width = lastButtonX * 2;
         bushes_layer.setBackgroundResource(R.drawable.bushesxml);
@@ -2047,6 +2055,12 @@ public class JourneyActivity extends AppCompatActivity {
                 (RelativeLayout.LayoutParams)lion.getLayoutParams();
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         lion.setLayoutParams(layoutParams);
+
+        if (carIntPosition < width) {
+            lionMessage();
+        }else{
+            animateCar(carIntPosition);
+        }
 
     }
 
@@ -2162,17 +2176,19 @@ public class JourneyActivity extends AppCompatActivity {
     private void lionMessage(){
 
 
-        final RelativeLayout.LayoutParams paramsLionText = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-        paramsLionText.setMargins(lion.getLeft() - 100,lion.getTop() - height/4,0,0);
-        img_lion_text.setLayoutParams(paramsLionText);
 
 
-        CountDownTimer lionTimer = new CountDownTimer(4000,1) {
+        CountDownTimer lionTimer = new CountDownTimer(6000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+                final RelativeLayout.LayoutParams paramsLionText = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+                paramsLionText.setMargins(lion.getLeft() - 100,lion.getTop() - height/4,0,0);
+                img_lion_text.setLayoutParams(paramsLionText);
+
+
                 img_lion_text.setVisibility(View.VISIBLE);
             }
 
