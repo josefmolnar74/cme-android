@@ -91,6 +91,17 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="50dp" />
 
+            <VideoView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:id="@+id/vid_subcategory_addevent"
+                android:layout_alignTop="@+id/img_subcategory_detail"
+                android:layout_alignStart="@+id/img_subcategory_detail"
+                android:layout_alignBottom="@+id/img_subcategory_detail"
+                android:layout_alignParentEnd="false"
+                android:layout_alignLeft="@+id/img_subcategory_detail"
+                android:visibility="invisible" />
+
             <TextView
                 android:layout_width="300dp"
                 android:layout_height="385dp"

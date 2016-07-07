@@ -170,7 +170,8 @@
     <string name="journey_question_hint">Skriv din fråga här !</string>
     <string name="txt_logged_in_as">Inloggad som: </string>
     <string name="txt_patient">Patient: </string>
-    <string name="txt_lion_toast">Jag har också tappat mitt hår.\r\ Jag vet hur du känner dig !</string>
+    <string name="txt_lion">När man får cellgifter så brukar man ofta tappa håret. Det är för att medicinen du får som ska ta bort de elaka cancerceller, även brukar ta bort dina hårceller. Men det är ingen fara! Håret kommer att växa tillbaka när du inte längre behöver ta cellgifter. Till dess får du ha roliga hattar, testa peruk eller visa upp ditt fina huvud!</string>
+    <string name="txt_lion_head">Vart tog mitt hår vägen?</string>
 
     ////////Events////////////
     <string name="event_start">My journy starts here!</string>

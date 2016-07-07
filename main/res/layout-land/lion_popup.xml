@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="600dp"
+    android:layout_height="450dp"
+    android:background="@drawable/borderpopup">
+
+    <ImageButton
+        android:background="@drawable/close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/img_journey_cancellion"
+        android:layout_marginRight="10dp"
+        android:layout_alignEnd="@+id/txt_journey_lion"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentStart="true"
+        android:background="#000000"
+        android:layout_below="@+id/img_journey_cancelquestion"
+        android:layout_marginTop="60dp"
+        android:id="@+id/frameLayout2"></FrameLayout>
+
+    <TextView
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/txt_lion"
+        android:id="@+id/txt_journey_lion"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/txt_lion_head"
+        android:id="@+id/txt_journey_lion_head"
+        android:layout_alignBottom="@+id/frameLayout2"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_marginBottom="10dp" />
+
+</RelativeLayout>

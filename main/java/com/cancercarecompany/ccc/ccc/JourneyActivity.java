@@ -5,12 +5,17 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.Image;
 import android.media.MediaPlayer;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -52,6 +57,7 @@ import java.util.Random;
 import java.util.Timer;
 
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -94,6 +100,7 @@ public class JourneyActivity extends AppCompatActivity {
     String eventPage1 = "";
     String eventPage2 = "";
     String eventPage3 = "";
+    VideoView videoView;
 
 
     RelativeLayout relativeLayout;
@@ -149,7 +156,6 @@ public class JourneyActivity extends AppCompatActivity {
     View vID;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,26 +166,27 @@ public class JourneyActivity extends AppCompatActivity {
 
         // Display patient name on topbar
         TextView patientNameText = (TextView) findViewById(R.id.txt_journey_patient_name);
-        if (connectHandler.patient != null){
-            patientNameText.setText(getResources().getString(R.string.txt_patient)+" "+connectHandler.patient.patient_name);
+        if (connectHandler.patient != null) {
+            patientNameText.setText(getResources().getString(R.string.txt_patient) + " " + connectHandler.patient.patient_name);
             patientID = connectHandler.patient.patient_ID;
             personID = connectHandler.person.person_ID;
 
-            System.out.println("PersonID: "+personID+" PatientID: "+patientID);
+            System.out.println("PersonID: " + personID + " PatientID: " + patientID);
         }
 
         TextView loggedIn = (TextView) findViewById(R.id.txt_journey_loggedIn);
-        if (connectHandler.person.first_name != null){
-            loggedIn.setText(getResources().getString(R.string.txt_logged_in_as)+ " "+connectHandler.person.first_name);
+        if (connectHandler.person.first_name != null) {
+            loggedIn.setText(getResources().getString(R.string.txt_logged_in_as) + " " + connectHandler.person.first_name);
         }
 
 
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy){}
+        while (connectHandler.socketBusy) {
+        }
 
-        for (int i=0; i < connectHandler.events.event_data.size();i++){
+        for (int i = 0; i < connectHandler.events.event_data.size(); i++) {
             eventList.add(connectHandler.events.event_data.get(i));
-           System.out.println("eventsize"+connectHandler.events.event_data.size());
+            System.out.println("eventsize" + connectHandler.events.event_data.size());
         }
 
 
@@ -247,14 +254,14 @@ public class JourneyActivity extends AppCompatActivity {
         width = size.x;
         height = size.y;
         currentDate = Calendar.getInstance().getTime();
-        if (eventList.size() == 0){
-            Event startEvent = new Event(-1,patientID,personID,0,null,"start","start",currentDate, 0, "My journey starts here!", null, null);
+        if (eventList.size() == 0) {
+            Event startEvent = new Event(-1, patientID, personID, 0, null, "start", "start", currentDate, 0, "My journey starts here!", null, null);
             eventList.add(startEvent);
             connectHandler.createEvent(startEvent);
         }
         journeyStart = eventList.get(0).date;
 
-        ((ViewGroup)car.getParent()).removeView(car);
+        ((ViewGroup) car.getParent()).removeView(car);
 
         System.out.println(width);
 
@@ -266,6 +273,8 @@ public class JourneyActivity extends AppCompatActivity {
         generateSigns();
 
 
+
+
         final ViewTreeObserver observer = containerLayout.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -274,6 +283,10 @@ public class JourneyActivity extends AppCompatActivity {
                 containerWidth = containerLayout.getWidth();
                 generateBushes();
                 generateMountains();
+
+                if (carIntPosition < width) {
+                    lionMessage();
+                }
                 containerLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -323,8 +336,8 @@ public class JourneyActivity extends AppCompatActivity {
 
                     Rect hitBoxLion = new Rect();
                     lion.getGlobalVisibleRect(hitBoxLion);
-                    if (hitBoxLion.contains((int) event.getRawX(), (int) event.getRawY())){
-
+                    if (hitBoxLion.contains((int) event.getRawX(), (int) event.getRawY())) {
+                        lionPopup();
                     }
 
                 }
@@ -383,22 +396,23 @@ public class JourneyActivity extends AppCompatActivity {
         long carPosition = currentDate.getTime() - startDate;
         carPosition = carPosition / 1000000;
         carIntPosition = (int) carPosition;
-        carIntPosition = (carIntPosition * 2) +300;
+        carIntPosition = (carIntPosition * 2) + 300;
 
-        if (carIntPosition < width){
-            paramsCar.setMargins(carIntPosition,0,0,50);
-        }else {
+        if (carIntPosition < width) {
+            paramsCar.setMargins(carIntPosition, 0, 0, 50);
+        } else {
             paramsCar.setMargins(0, 0, 0, 50);
         }
         car.setLayoutParams(paramsCar);
         bottomLayout.addView(car, paramsCar);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)car.getLayoutParams();
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) car.getLayoutParams();
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         car.setLayoutParams(layoutParams);
 
         if (carIntPosition > width) {
             animateCar(carIntPosition);
         }
+
 
         for (int i = 0; i < eventList.size(); i++) {
 
@@ -614,6 +628,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         ImageButton saveButton = (ImageButton) popupView.findViewById(R.id.btn_saveEvent_Journey);
         eventInfoImage = (ImageView) popupView.findViewById(R.id.img_subcategory_detail);
+        videoView = (VideoView)popupView.findViewById(R.id.vid_subcategory_addevent);
         final ImageView subCategory1 = (ImageView) popupView.findViewById(R.id.img_subcategory1);
         final ImageView subCategory2 = (ImageView) popupView.findViewById(R.id.img_subcategory2);
         final ImageView subCategory3 = (ImageView) popupView.findViewById(R.id.img_subcategory3);
@@ -1259,7 +1274,6 @@ public class JourneyActivity extends AppCompatActivity {
 
         }
 
-
     }
 
 
@@ -1451,6 +1465,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventInfoText = (TextView) popupView.findViewById(R.id.txt_subcategory_main);
         eventHeadline = (TextView) popupView.findViewById(R.id.txt_subcategory_journey);
         eventInfoImage = (ImageView) popupView.findViewById(R.id.img_subcategory_detail);
+        videoView = (VideoView)popupView.findViewById(R.id.vid_subcategory_addevent);
         page1 = (ImageView) popupView.findViewById(R.id.img_page1);
         page2 = (ImageView) popupView.findViewById(R.id.img_page2);
         page3 = (ImageView) popupView.findViewById(R.id.img_page3);
@@ -2026,7 +2041,7 @@ public class JourneyActivity extends AppCompatActivity {
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-        paramsLion.setMargins(carIntPosition / 2 + 500,0,0,0);
+        paramsLion.setMargins(carIntPosition / 2 + width/2,0,0,0);
         lion.setLayoutParams(paramsLion);
         RelativeLayout.LayoutParams layoutParams =
                 (RelativeLayout.LayoutParams)lion.getLayoutParams();
@@ -2087,7 +2102,6 @@ public class JourneyActivity extends AppCompatActivity {
                     (RelativeLayout.LayoutParams)img.getLayoutParams();
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
             img.setLayoutParams(layoutParams);
-
 
 
         }
@@ -2156,7 +2170,7 @@ public class JourneyActivity extends AppCompatActivity {
         img_lion_text.setLayoutParams(paramsLionText);
 
 
-        CountDownTimer lionTimer = new CountDownTimer(6000,1) {
+        CountDownTimer lionTimer = new CountDownTimer(4000,1) {
             @Override
             public void onTick(long millisUntilFinished) {
                 img_lion_text.setVisibility(View.VISIBLE);
@@ -2167,6 +2181,33 @@ public class JourneyActivity extends AppCompatActivity {
                 img_lion_text.setVisibility(View.INVISIBLE);
             }
         }.start();
+
+    }
+
+    private void lionPopup(){
+
+        LayoutInflater layoutInflater
+                = (LayoutInflater) getBaseContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.lion_popup, null);
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView, (int) (width * 0.40), (int) (height * 0.60));
+        relativeLayout = (RelativeLayout) findViewById(R.id.layerCoantainerJourney);
+
+        ImageButton cancel = (ImageButton)popupView.findViewById(R.id.img_journey_cancellion);
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+        popupView.bringToFront();
+        popupWindow.setFocusable(true);
+        popupWindow.update();
+
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
 
     }
 
@@ -2244,7 +2285,7 @@ public class JourneyActivity extends AppCompatActivity {
         RelativeLayout.LayoutParams paramsSign1 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsSign1.setMargins(lastButtonX/6,0,0,0);
+        paramsSign1.setMargins(lastButtonX/10,0,0,0);
         sign1.setLayoutParams(paramsSign1);
         RelativeLayout.LayoutParams layoutParams1 =
                 (RelativeLayout.LayoutParams)sign1.getLayoutParams();
