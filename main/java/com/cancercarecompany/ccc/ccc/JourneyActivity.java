@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.Image;
 import android.media.MediaPlayer;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Random;
+import java.util.Timer;
 
 import android.widget.Toast;
 
@@ -322,7 +324,7 @@ public class JourneyActivity extends AppCompatActivity {
                     Rect hitBoxLion = new Rect();
                     lion.getGlobalVisibleRect(hitBoxLion);
                     if (hitBoxLion.contains((int) event.getRawX(), (int) event.getRawY())){
-                        lionMessage();
+
                     }
 
                 }
@@ -2024,7 +2026,7 @@ public class JourneyActivity extends AppCompatActivity {
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-        paramsLion.setMargins(carIntPosition / 2 + 700,0,0,0);
+        paramsLion.setMargins(carIntPosition / 2 + 500,0,0,0);
         lion.setLayoutParams(paramsLion);
         RelativeLayout.LayoutParams layoutParams =
                 (RelativeLayout.LayoutParams)lion.getLayoutParams();
@@ -2128,6 +2130,7 @@ public class JourneyActivity extends AppCompatActivity {
                                 (RelativeLayout.LayoutParams)car.getLayoutParams();
                         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
                         car.setLayoutParams(layoutParams);
+                        lionMessage();
                     }
                 });
 
@@ -2150,12 +2153,20 @@ public class JourneyActivity extends AppCompatActivity {
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         paramsLionText.setMargins(lion.getLeft() - 100,lion.getTop() - height/4,0,0);
-        System.out.println("lionleft"+lion.getLeft());
-        System.out.println("liontop"+lion.getTop());
-
         img_lion_text.setLayoutParams(paramsLionText);
-        img_lion_text.setVisibility(View.VISIBLE);
 
+
+        CountDownTimer lionTimer = new CountDownTimer(6000,1) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                img_lion_text.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFinish() {
+                img_lion_text.setVisibility(View.INVISIBLE);
+            }
+        }.start();
 
     }
 
@@ -2233,7 +2244,7 @@ public class JourneyActivity extends AppCompatActivity {
         RelativeLayout.LayoutParams paramsSign1 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsSign1.setMargins(carIntPosition / 2 + 200,0,0,0);
+        paramsSign1.setMargins(lastButtonX/6,0,0,0);
         sign1.setLayoutParams(paramsSign1);
         RelativeLayout.LayoutParams layoutParams1 =
                 (RelativeLayout.LayoutParams)sign1.getLayoutParams();
