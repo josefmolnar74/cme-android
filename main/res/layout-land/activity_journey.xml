@@ -57,7 +57,7 @@
             android:background="@null"
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/txt_journal_loggedIn" />
+            android:layout_toStartOf="@+id/txt_journey_loggedIn" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -79,7 +79,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/txt_journal_loggedIn"
+            android:id="@+id/txt_journey_loggedIn"
             android:text="name"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -137,10 +137,10 @@
                     <RelativeLayout
                         android:id="@+id/big_mountains_layer"
                         android:layout_width="wrap_content"
-                        android:layout_height="400px"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginBottom="180px"></RelativeLayout>
+                        android:layout_marginBottom="125px"></RelativeLayout>
                 </RelativeLayout>
             </HorizontalScrollView>
 
@@ -185,6 +185,32 @@
                         android:background="@drawable/lionnaked"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="false" />
+
+                    <ImageView
+                        android:background="@drawable/sign1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sign1" />
+
+                    <ImageView
+                       android:background="@drawable/sign2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sign2" />
+
+                    <ImageView
+                        android:background="@drawable/sign3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sign3" />
+
+                    <ImageView
+                        android:background="@drawable/lion_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/img_lion_text"
+                        android:visibility="invisible" />
+
                 </RelativeLayout>
 
 
@@ -205,7 +231,7 @@
                         android:id="@+id/bushes_layer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="65px"
+                        android:layout_marginBottom="130px"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentBottom="true"
                         android:visibility="visible">
@@ -270,9 +296,11 @@
                 android:layout_height="fill_parent"
                 android:id="@+id/Scroll_eventlayer"
                 android:scrollbars="none"
-                android:fillViewport="false">
+                android:fillViewport="false"
+                >
 
                 <RelativeLayout
+                    android:animateLayoutChanges="true"
                     android:layout_width="wrap_content"
                     android:id="@+id/relativeLayout_eventlayer"
                     android:layout_height="fill_parent">

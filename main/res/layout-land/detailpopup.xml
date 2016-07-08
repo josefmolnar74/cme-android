@@ -89,7 +89,18 @@
                 android:layout_marginLeft="20dp"
                 android:layout_alignTop="@+id/txt_subcategory_main"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="150dp" />
+                android:layout_marginRight="50dp" />
+
+            <VideoView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:id="@+id/vid_subcategory_addevent"
+                android:layout_alignTop="@+id/img_subcategory_detail"
+                android:layout_alignStart="@+id/img_subcategory_detail"
+                android:layout_alignBottom="@+id/img_subcategory_detail"
+                android:layout_alignParentEnd="false"
+                android:layout_alignLeft="@+id/img_subcategory_detail"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="300dp"
@@ -155,7 +166,7 @@
                 android:layout_height="220dp"
                 android:id="@+id/et_notes_detail_journey"
                 android:hint="Write important event description here!"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:layout_above="@+id/btn_saveEvent_Journey"
                 android:gravity="top"
                 android:layout_marginTop="15dp"

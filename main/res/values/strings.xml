@@ -3,7 +3,7 @@
     <string name="preference_file_key">com.cancercarecompany.cme.PREFERENCE_FILE_KEY</string>
 
     <string name="journal_status_header">Status</string>
-    <string name="journal_patient_name">Patient: </string>
+    <string name="journal_patient_name">s cancerresa</string>
     <string name="journal_sideeffects_fatigue">Trötthet</string>
     <string name="journal_sideeffects_pain">Smärta</string>
     <string name="journal_sideeffects_mouth_change">Munförändring</string>
@@ -165,6 +165,13 @@
     <string name="txt_biv_seek_krk_max">Osmält</string>
     <string name="txt_kvall">Kväll</string>
     <string name="txt_curr_events">Händelser</string>
+    <string name="journey_question">Fråga oss vad som helst!</string>
+    <string name="journey_questionemail">Skriv din email för svar!</string>
+    <string name="journey_question_hint">Skriv din fråga här !</string>
+    <string name="txt_logged_in_as">Inloggad som: </string>
+    <string name="txt_patient">Patient: </string>
+    <string name="txt_lion">När man får cellgifter så brukar man ofta tappa håret. Det är för att medicinen du får som ska ta bort de elaka cancerceller, även brukar ta bort dina hårceller. Men det är ingen fara! Håret kommer att växa tillbaka när du inte längre behöver ta cellgifter. Till dess får du ha roliga hattar, testa peruk eller visa upp ditt fina huvud!</string>
+    <string name="txt_lion_head">Vart tog mitt hår vägen?</string>
 
     ////////Events////////////
     <string name="event_start">My journy starts here!</string>

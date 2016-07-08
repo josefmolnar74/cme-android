@@ -65,7 +65,8 @@ public class CareTeamActivity extends AppCompatActivity {
         // Display patient name on topbar
         TextView patientNameText = (TextView) findViewById(R.id.txt_careteam_patient_name);
         if (connectHandler.patient != null){
-            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
+//            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
+            patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
         }
 
         TextView loggedIn = (TextView) findViewById(R.id.txt_journal_loggedIn);
