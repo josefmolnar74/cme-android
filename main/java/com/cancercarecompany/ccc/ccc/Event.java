@@ -15,15 +15,15 @@ public class Event {
     String healthcare_name;
     String category;
     String sub_category;
-    Date date;
-    long time;
+    String date;
+    String time;
     String notes;
     String status;
     String emotion;
 
 
     public Event( int event_ID, int patient_ID, int person_ID, int healthcare_ID, String healthcare_name, String category, String subCategory,
-                  Date date, long time, String notes, String status, String emotion){
+                  String date, String time, String notes, String status, String emotion){
 
         this.event_ID   = event_ID;
         this.patient_ID = patient_ID;
