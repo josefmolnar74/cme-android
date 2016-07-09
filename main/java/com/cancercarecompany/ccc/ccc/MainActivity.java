@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        journeyButton = (ImageButton) findViewById(R.id.btn_journal_journey_button);
+        journeyButton = (ImageButton) findViewById(R.id.btn_journey_button);
         journeyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton contactButton = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
+        ImageButton contactButton = (ImageButton) findViewById(R.id.btn_careteam_button);
         contactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

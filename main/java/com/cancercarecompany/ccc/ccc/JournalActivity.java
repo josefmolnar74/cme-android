@@ -3,7 +3,6 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.view.Gravity;
@@ -16,6 +15,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -167,13 +167,13 @@ public class JournalActivity extends AppCompatActivity {
         final EditText statusTextEditText       = (EditText) findViewById(R.id.edtxt_journal_status);
 //        final TextView txt_med_txt            = (TextView) findViewById(R.id.txt_med_int);
         final TextView journalHeaderText =        (TextView) findViewById(R.id.txt_journal_header);
-        final TextView patientNameText =          (TextView) findViewById(R.id.txt_journal_patientName);
+        final TextView patientNameText =          (TextView) findViewById(R.id.txt_patientName);
         final Button saveStatusButton           = (Button) findViewById(R.id.btn_journal_status_save);
         final Button medicationBreakfastButton  = (Button) findViewById(R.id.btn_journal_medication_breakfast);
         final Button medicationLunchButton      = (Button) findViewById(R.id.btn_journal_medication_lunch);
         final Button medicationDinnerButton     = (Button) findViewById(R.id.btn_journal_medication_dinner);
-        final ImageButton journeyButton         = (ImageButton) findViewById(R.id.btn_journal_journey_button);
-        final ImageButton careTeamButton        = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
+        final ImageButton journeyButton         = (ImageButton) findViewById(R.id.btn_journey_button);
+        final ImageButton careTeamButton        = (ImageButton) findViewById(R.id.btn_careteam_button);
         final CalendarView calendar             = (CalendarView) findViewById(R.id.cal_journal_calendar);
         emotionText =  (TextView) findViewById(R.id.txt_journal_emotions);
         // Statusbar color
@@ -189,17 +189,77 @@ public class JournalActivity extends AppCompatActivity {
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(date)));
 
+        while (connectHandler.socketBusy){}
+
         // Display patient name on topbar
         if (connectHandler.patient != null){
             //            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
             patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
         }
 
-        while (connectHandler.socketBusy){}
-
-        TextView loggedIn = (TextView) findViewById(R.id.txt_journal_loggedIn);
+        // Display logged in name
+        TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
         if (connectHandler.person != null){
             loggedIn.setText(connectHandler.person.first_name);
+        }
+
+        //Set right avatar image
+        ImageView loggedInAvatarImage = (ImageView) findViewById(R.id.img_loggedin_avatar);
+        switch(connectHandler.person.avatar){
+            case 1:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_1);
+                break;
+            case 2:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_2);
+                break;
+            case 3:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_3);
+                break;
+            case 4:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_4);
+                break;
+            case 5:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_5);
+                break;
+            case 6:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_6);
+                break;
+            case 7:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_7);
+                break;
+            case 8:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_8);
+                break;
+            case 9:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_9);
+                break;
+            case 10:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_10);
+                break;
+            case 11:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_11);
+                break;
+            case 12:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_12);
+                break;
+            case 13:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_13);
+                break;
+            case 14:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_14);
+                break;
+            case 15:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_15);
+                break;
+            case 16:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_16);
+                break;
+            case 17:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_17);
+                break;
+            case 18:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_18);
+                break;
         }
 
         if (connectHandler.journal != null){

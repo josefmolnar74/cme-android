@@ -25,6 +25,7 @@
             android:layout_height="match_parent"
             android:padding="8dp"
             android:id="@+id/logoButton"
+            android:gravity="center"
             android:scaleType="fitCenter"
             android:src="@drawable/logo_icon"
             android:background="@null"
@@ -36,35 +37,36 @@
             android:layout_gravity="center_horizontal"
             android:layout_height="match_parent"
             android:padding="8dp"
-            android:id="@+id/contactsButton"
+            android:id="@+id/btn_careteam_button"
             android:src="@drawable/careteam_start_icon"
             android:gravity="center"
             android:scaleType="fitCenter"
             android:background="@null"
+            android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/journalButton"
-            android:layout_toStartOf="@+id/journalButton" />
+            android:layout_toLeftOf="@+id/btn_journal_button"
+            android:layout_toStartOf="@+id/btn_journal_button" />
 
         <ImageButton
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_width="80dp"
             android:layout_gravity="center_horizontal"
             android:layout_height="match_parent"
             android:padding="8dp"
-            android:id="@+id/journeyButton"
+            android:id="@+id/btn_journey_button"
             android:src="@drawable/journey_start_icon"
             android:scaleType="fitCenter"
             android:gravity="center"
             android:background="@null"
-            android:cropToPadding="false"
-            android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/txt_journey_loggedIn" />
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
 
         <ImageButton
             android:layout_width="80dp"
             android:layout_gravity="center_horizontal"
             android:layout_height="match_parent"
             android:padding="8dp"
-            android:id="@+id/journalButton"
+            android:id="@+id/btn_journal_button"
             android:gravity="center"
             android:src="@drawable/journal_start_icon"
             android:scaleType="fitCenter"
@@ -72,32 +74,47 @@
             android:cropToPadding="false"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/journeyButton"
-            android:layout_toStartOf="@+id/journeyButton" />
+            android:layout_toLeftOf="@+id/btn_journey_button"
+            android:layout_toStartOf="@+id/btn_journey_button" />
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/txt_journey_loggedIn"
+            android:id="@+id/txt_loggedIn"
             android:text="name"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_toLeftOf="@id/btn_careteam_button"
             android:textColor="@color/white"
             android:textAlignment="textEnd" />
+
+        <ImageView
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="30dp"
+            android:padding="3dp"
+            android:id="@+id/img_loggedin_avatar"
+            android:gravity="center"
+            android:src="@drawable/family_avatar_1"
+            android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:cropToPadding="false"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/txt_loggedIn" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/txt_journey_patient_name"
+            android:id="@+id/txt_patientName"
             android:text="@string/journal_patient_name"
+            android:layout_marginRight="20dp"
+            android:textColor="#ffffff"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/logoButton"
-            android:textColor="@color/white" />
+            android:layout_toEndOf="@+id/logoButton" />
 
     </RelativeLayout>
 

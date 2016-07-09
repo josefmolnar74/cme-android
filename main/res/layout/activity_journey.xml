@@ -40,7 +40,7 @@
             <ImageButton
                 android:layout_width="80dp"
                 android:layout_height="90dp"
-                android:id="@+id/contactsButton"
+                android:id="@+id/btn_careteam_button"
                 android:layout_weight="16"
                 android:padding="8dp"
                 android:src="@drawable/careteam"
@@ -53,7 +53,7 @@
             <ImageButton
                 android:layout_width="80dp"
                 android:layout_height="90dp"
-                android:id="@+id/journeyButton"
+                android:id="@+id/btn_journey_button"
                 android:layout_weight="16"
                 android:padding="4dp"
                 android:src="@drawable/myjourney"
@@ -62,7 +62,7 @@
                 android:cropToPadding="false"
                 android:layout_marginLeft="28dp"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/journalButton" />
+                android:layout_toRightOf="@+id/btn_journal_button" />
 
             <ImageButton
                 android:layout_width="80dp"
@@ -76,13 +76,13 @@
                 android:cropToPadding="false"
                 android:layout_marginLeft="28dp"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/journeyButton"
+                android:layout_toRightOf="@+id/btn_journey_button"
                 android:visibility="invisible" />
 
             <ImageButton
                 android:layout_width="80dp"
                 android:layout_height="90dp"
-                android:id="@+id/journalButton"
+                android:id="@+id/btn_journal_button"
                 android:layout_weight="16"
                 android:padding="8dp"
                 android:src="@drawable/myjournal"
@@ -90,7 +90,7 @@
                 android:background="@null"
                 android:cropToPadding="false"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/contactsButton"
+                android:layout_toRightOf="@+id/btn_careteam_button"
                 android:layout_marginLeft="28dp" />
 
             <ImageButton
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/txt_journal_loggedIn"
+                android:id="@+id/txt_loggedIn"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/logoButton"
                 android:layout_toEndOf="@+id/logoButton"
