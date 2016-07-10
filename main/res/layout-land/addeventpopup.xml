@@ -216,7 +216,7 @@
                 android:layout_alignBottom="@+id/img_subcategory_detail"
                 android:layout_alignParentEnd="false"
                 android:layout_alignLeft="@+id/img_subcategory_detail"
-                android:visibility="invisible" />
+                android:visibility="visible" />
         </RelativeLayout>
 
         <RelativeLayout

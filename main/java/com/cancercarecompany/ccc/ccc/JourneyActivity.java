@@ -40,6 +40,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -255,7 +256,7 @@ public class JourneyActivity extends AppCompatActivity {
         height = size.y;
         currentDate = Calendar.getInstance().getTime();
         if (eventList.size() == 0) {
-            Event startEvent = new Event(-1, patientID, personID, 0, null, "start", "start", currentDate, 0, "My journey starts here!", null, null);
+            Event startEvent = new Event(-1, patientID, personID, 0, null, "start", "start", currentDate, null, "My journey starts here!", null, null);
             eventList.add(startEvent);
             connectHandler.createEvent(startEvent);
         }
@@ -676,8 +677,6 @@ public class JourneyActivity extends AppCompatActivity {
 
 
                 }
-
-
 
             }
 
@@ -1166,7 +1165,7 @@ public class JourneyActivity extends AppCompatActivity {
                 if (eventsSameDate < 3) {
                     if (date.getTime() > startDate) {
 
-                        Event event = new Event(-1,0,0,0,null,Category, subCategoryClicked, date, 0, eventNotes.getText().toString(), null, null);
+                        Event event = new Event(-1,0,0,0,null,Category, subCategoryClicked, date, null, eventNotes.getText().toString(), null, null);
                         eventList.add(event);
                         connectHandler.createEvent(event);
                         createEventButton();
@@ -1199,6 +1198,16 @@ public class JourneyActivity extends AppCompatActivity {
         eventHeadline.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked, "string", getPackageName())));
         int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
         eventInfoImage.setBackgroundResource(resourceId);
+
+        String video_name = "event_"+subCategoryClicked+currentPage;
+        String videoFile = "android.resource://"+getPackageName()+"/raw/"+ video_name;
+        videoView.setVideoPath(videoFile);
+        videoView.setMediaController(new MediaController(getApplicationContext()));
+        videoView.requestFocus();
+        videoView.start();
+
+
+        System.out.println(videoView.isPlaying());
 
         int resource1 = getResources().getIdentifier("event_"+subCategoryClicked+"_txt1", "string", getPackageName());
         int resource2 = getResources().getIdentifier("event_"+subCategoryClicked+"_txt2", "string", getPackageName());
@@ -1245,6 +1254,9 @@ public class JourneyActivity extends AppCompatActivity {
                 break;
 
         }
+
+
+
 
     }
 
@@ -1667,7 +1679,7 @@ public class JourneyActivity extends AppCompatActivity {
                 if (eventsSameDate < 3) {
                     if (date.getTime() > startDate) {
 
-                        Event event = new Event(-1,0,0,0,null,detailCategory, subCategoryClicked, date, 0, editNotes.getText().toString(), null, null);
+                        Event event = new Event(-1,0,0,0,null,detailCategory, subCategoryClicked, date, null, editNotes.getText().toString(), null, null);
                         eventList.add(event);
                         connectHandler.createEvent(event);
                         createEventButton();
