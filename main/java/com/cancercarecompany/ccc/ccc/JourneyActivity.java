@@ -1,25 +1,14 @@
 
 package com.cancercarecompany.ccc.ccc;
 
-import android.app.Activity;
 import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.media.Image;
 import android.media.MediaPlayer;
-import android.media.ThumbnailUtils;
-import android.net.Uri;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.DragEvent;
 import android.view.Gravity;
@@ -46,7 +35,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,15 +43,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Random;
-import java.util.Timer;
 
 import android.widget.Toast;
 import android.widget.VideoView;
-
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import org.w3c.dom.Text;
 
 public class JourneyActivity extends AppCompatActivity {
 
@@ -140,7 +122,6 @@ public class JourneyActivity extends AppCompatActivity {
 
     int eventsSameDate = 0;
     String subCategoryClicked = "";
-    Date date;
     LinearLayout wholeScreen;
     int width;
     int height;
@@ -166,24 +147,81 @@ public class JourneyActivity extends AppCompatActivity {
         connectHandler = ConnectionHandler.getInstance();
 
         // Display patient name on topbar
-        TextView patientNameText = (TextView) findViewById(R.id.txt_journey_patient_name);
+        TextView patientNameText = (TextView) findViewById(R.id.txt_patientName);
         if (connectHandler.patient != null) {
-            patientNameText.setText(getResources().getString(R.string.txt_patient) + " " + connectHandler.patient.patient_name);
+            patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
             patientID = connectHandler.patient.patient_ID;
             personID = connectHandler.person.person_ID;
 
             System.out.println("PersonID: " + personID + " PatientID: " + patientID);
         }
 
-        TextView loggedIn = (TextView) findViewById(R.id.txt_journey_loggedIn);
-        if (connectHandler.person.first_name != null) {
-            loggedIn.setText(getResources().getString(R.string.txt_logged_in_as) + " " + connectHandler.person.first_name);
+        TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
+        if (connectHandler.person != null){
+            loggedIn.setText(connectHandler.person.first_name);
         }
 
+        //Set right avatar image
+        ImageView loggedInAvatarImage = (ImageView) findViewById(R.id.img_loggedin_avatar);
+        switch(connectHandler.person.avatar){
+            case 1:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_1);
+                break;
+            case 2:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_2);
+                break;
+            case 3:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_3);
+                break;
+            case 4:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_4);
+                break;
+            case 5:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_5);
+                break;
+            case 6:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_6);
+                break;
+            case 7:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_7);
+                break;
+            case 8:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_8);
+                break;
+            case 9:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_9);
+                break;
+            case 10:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_10);
+                break;
+            case 11:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_11);
+                break;
+            case 12:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_12);
+                break;
+            case 13:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_13);
+                break;
+            case 14:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_14);
+                break;
+            case 15:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_15);
+                break;
+            case 16:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_16);
+                break;
+            case 17:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_17);
+                break;
+            case 18:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_18);
+                break;
+        }
 
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy) {
-        }
+        while (connectHandler.socketBusy) {}
 
         for (int i = 0; i < connectHandler.events.event_data.size(); i++) {
             eventList.add(connectHandler.events.event_data.get(i));
@@ -223,8 +261,8 @@ public class JourneyActivity extends AppCompatActivity {
         mountains_layer = (RelativeLayout) findViewById(R.id.mountains_layer);
         lion_layer = (RelativeLayout) findViewById(R.id.lion_layer);
         wholeScreen = (LinearLayout) findViewById(R.id.journeyLayout);
-        careTeamButton = (ImageButton) findViewById(R.id.contactsButton);
-        journalButton = (ImageButton) findViewById(R.id.journalButton);
+        careTeamButton = (ImageButton) findViewById(R.id.btn_careteam_button);
+        journalButton = (ImageButton) findViewById(R.id.btn_journal_button);
         logoButton = (ImageButton) findViewById(R.id.logoButton);
         sun = (ImageButton) findViewById(R.id.btn_sun_journey);
 
@@ -255,12 +293,16 @@ public class JourneyActivity extends AppCompatActivity {
         width = size.x;
         height = size.y;
         currentDate = Calendar.getInstance().getTime();
+        String dateString = new SimpleDateFormat("yyyy-MM-dd").format(currentDate);
+        String timeString = new SimpleDateFormat("kk:mm:ss").format(currentDate);
+
         if (eventList.size() == 0) {
-            Event startEvent = new Event(-1, patientID, personID, 0, null, "start", "start", currentDate, null, "My journey starts here!", null, null);
+
+            Event startEvent = new Event(0, patientID, personID, 0, "", "start", "start", dateString, timeString, "My journey starts here!", "", "");
             eventList.add(startEvent);
             connectHandler.createEvent(startEvent);
         }
-        journeyStart = eventList.get(0).date;
+        journeyStart = convertToDate(eventList.get(0).date, eventList.get(0).time);
 
         ((ViewGroup) car.getParent()).removeView(car);
 
@@ -384,8 +426,8 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
-        startDate = eventList.get(0).date.getTime();
-        journeyStart = eventList.get(0).date;
+        startDate = convertToDate(eventList.get(0).date, eventList.get(0).time).getTime();
+        journeyStart = convertToDate(eventList.get(0).date, eventList.get(0).time);
 
         for (int i = 0; i < eventList.size(); i++) {
 
@@ -519,7 +561,7 @@ public class JourneyActivity extends AppCompatActivity {
             ImageButton indexButton = ((ImageButton) findViewById(i));
 
             Calendar currentEventCal = Calendar.getInstance();
-            currentEventCal.setTime(eventList.get(i).date);
+            currentEventCal.setTime(convertToDate(eventList.get(i).date, eventList.get(i).time));
             currentEventCal.set(Calendar.HOUR_OF_DAY, 0);
             currentEventCal.set(Calendar.MINUTE, 0);
             currentEventCal.set(Calendar.SECOND, 0);
@@ -584,7 +626,7 @@ public class JourneyActivity extends AppCompatActivity {
         }
             System.out.println(vCategory);
 
-        final String Category = vCategory;
+        final String eventCategory = vCategory;
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -659,7 +701,6 @@ public class JourneyActivity extends AppCompatActivity {
                         page1.setBackgroundResource(R.drawable.blackcircle);
 
                         page2.setBackgroundResource(R.drawable.bluecircle);
-
                         page3.setBackgroundResource(R.drawable.blackcircle);
 
                         break;
@@ -747,7 +788,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         if(location>0) {
             Calendar c = Calendar.getInstance();
-            c.setTime(eventList.get(0).date);
+            c.setTime(convertToDate(eventList.get(0).date, eventList.get(0).time));
             System.out.println(location);
 
             location = (location / 172);
@@ -763,7 +804,7 @@ public class JourneyActivity extends AppCompatActivity {
         }
 
 
-        switch (Category) {
+        switch (eventCategory) {
             case "appointments":
 
                 subCategory1.setVisibility(View.INVISIBLE);
@@ -1154,7 +1195,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                     String thisEvent = df.format(date);
-                    String indexEvent = df.format(eventList.get(i).date);
+                    String indexEvent = df.format(convertToDate(eventList.get(i).date, eventList.get(i).time));
 
                     if (thisEvent.equals(indexEvent)) {
                         eventsSameDate = eventsSameDate + 1;
@@ -1165,7 +1206,11 @@ public class JourneyActivity extends AppCompatActivity {
                 if (eventsSameDate < 3) {
                     if (date.getTime() > startDate) {
 
-                        Event event = new Event(-1,0,0,0,null,Category, subCategoryClicked, date, null, eventNotes.getText().toString(), null, null);
+
+                        String simpleDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                        String simpleTime = new SimpleDateFormat("kk:mm:ss").format(date);
+                        Event event = new Event(0, patientID, personID, 0, "", eventCategory, subCategoryClicked, simpleDate, simpleTime, eventNotes.getText().toString(), "", "");
+
                         eventList.add(event);
                         connectHandler.createEvent(event);
                         createEventButton();
@@ -1281,7 +1326,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         String subCategory = eventList.get(id_).sub_category;
 
-        switch (subCategory) {
+         switch (subCategory) {
             case "medical_oncologist":
                 btn.setBackgroundResource(R.drawable.event_medical_oncologist_bubble);
                 break;
@@ -1384,7 +1429,7 @@ public class JourneyActivity extends AppCompatActivity {
         ImageButton indexButton = ((ImageButton) findViewById(eventList.size() - 1));
 
         Calendar currentEventCal = Calendar.getInstance();
-        currentEventCal.setTime(eventList.get(id_).date);
+        currentEventCal.setTime(convertToDate(eventList.get(id_).date, eventList.get(id_).time));
         currentEventCal.set(Calendar.HOUR_OF_DAY, 0);
         currentEventCal.set(Calendar.MINUTE, 0);
         currentEventCal.set(Calendar.SECOND, 0);
@@ -1404,8 +1449,8 @@ public class JourneyActivity extends AppCompatActivity {
         for (int i = 0; i < eventList.size(); i++) {
             if (i != id_) {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                String thisEvent = df.format(eventList.get(id_).date);
-                String indexEvent = df.format(eventList.get(i).date);
+                String thisEvent = df.format(convertToDate(eventList.get(id_).date, eventList.get(id_).time));
+                String indexEvent = df.format(convertToDate(eventList.get(i).date, eventList.get(i).time));
 
                 if (thisEvent.equals(indexEvent)) {
                     eventsSameDate = eventsSameDate + 1;
@@ -1588,7 +1633,7 @@ public class JourneyActivity extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd-HH:mm");
 
 
-        String dateString = simpleDateFormat.format(eventList.get(id_).date.getTime());
+        String dateString = simpleDateFormat.format(convertToDate(eventList.get(id_).date, eventList.get(id_).time).getTime());
         timeDetail.setText(dateString);
 
         cancelButtonDetail.setOnClickListener(new View.OnClickListener() {
@@ -1613,7 +1658,7 @@ public class JourneyActivity extends AppCompatActivity {
                 editTime.setVisibility(View.VISIBLE);
 
                     Calendar c = Calendar.getInstance();
-                    c.setTime(eventList.get(id_).date);
+                    c.setTime(convertToDate(eventList.get(id_).date, eventList.get(id_).time));
 
                     editDate.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
@@ -1679,7 +1724,10 @@ public class JourneyActivity extends AppCompatActivity {
                 if (eventsSameDate < 3) {
                     if (date.getTime() > startDate) {
 
-                        Event event = new Event(-1,0,0,0,null,detailCategory, subCategoryClicked, date, null, editNotes.getText().toString(), null, null);
+
+                        String dateString = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                        String timeString = new SimpleDateFormat("kk:mm:ss").format(date);
+                        Event event = new Event(0,patientID,personID,0,"",detailCategory,subCategoryClicked, dateString, timeString, editNotes.getText().toString(), "", "");
                         eventList.add(event);
                         connectHandler.createEvent(event);
                         createEventButton();
@@ -2334,6 +2382,21 @@ public class JourneyActivity extends AppCompatActivity {
         });
 
     }
+
+    private Date convertToDate(String date, String time){
+        Date convertedDate = new Date();
+        date = date.split("T")[0];
+        date += "T" +time;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss");
+        try {
+            convertedDate = dateFormat.parse(date);
+        } catch (ParseException e) {
+            System.out.println("Failure when parsing the dateString");
+        }
+
+        return convertedDate;
+    }
+
     private void ExampleJourney() {
         /*
         Calendar c = Calendar.getInstance();

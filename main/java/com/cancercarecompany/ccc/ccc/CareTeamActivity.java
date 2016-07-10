@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -63,15 +64,73 @@ public class CareTeamActivity extends AppCompatActivity {
         connectHandler = ConnectionHandler.getInstance();
 
         // Display patient name on topbar
-        TextView patientNameText = (TextView) findViewById(R.id.txt_careteam_patient_name);
+        TextView patientNameText = (TextView) findViewById(R.id.txt_patientName);
         if (connectHandler.patient != null){
-//            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
             patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
         }
 
-        TextView loggedIn = (TextView) findViewById(R.id.txt_journal_loggedIn);
+        TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
         if (connectHandler.person != null){
             loggedIn.setText(connectHandler.person.first_name);
+        }
+
+        //Set right avatar image
+        ImageView loggedInAvatarImage = (ImageView) findViewById(R.id.img_loggedin_avatar);
+        switch(connectHandler.person.avatar){
+            case 1:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_1);
+                break;
+            case 2:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_2);
+                break;
+            case 3:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_3);
+                break;
+            case 4:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_4);
+                break;
+            case 5:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_5);
+                break;
+            case 6:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_6);
+                break;
+            case 7:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_7);
+                break;
+            case 8:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_8);
+                break;
+            case 9:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_9);
+                break;
+            case 10:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_10);
+                break;
+            case 11:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_11);
+                break;
+            case 12:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_12);
+                break;
+            case 13:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_13);
+                break;
+            case 14:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_14);
+                break;
+            case 15:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_15);
+                break;
+            case 16:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_16);
+                break;
+            case 17:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_17);
+                break;
+            case 18:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_18);
+                break;
         }
 
         familyGridView = (GridView) findViewById(R.id.gridview_careteam_family);
@@ -80,8 +139,8 @@ public class CareTeamActivity extends AppCompatActivity {
         final Button buttonAddHealthCareMember = (Button) findViewById(R.id.btn_careteam_add_healthcare);
         final Button buttonAddFamilyMember   = (Button) findViewById(R.id.btn_careteam_invite_careteam);
 
-        journeyButton = (ImageButton) findViewById(R.id.btn_journal_journey_button);
-        journalButton = (ImageButton) findViewById(R.id.btn_journal_journal_button);
+        journeyButton = (ImageButton) findViewById(R.id.btn_journey_button);
+        journalButton = (ImageButton) findViewById(R.id.btn_journal_button);
 
         journeyButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -165,13 +167,13 @@ public class JournalActivity extends AppCompatActivity {
         final EditText statusTextEditText       = (EditText) findViewById(R.id.edtxt_journal_status);
 //        final TextView txt_med_txt            = (TextView) findViewById(R.id.txt_med_int);
         final TextView journalHeaderText =        (TextView) findViewById(R.id.txt_journal_header);
-        final TextView patientNameText =          (TextView) findViewById(R.id.txt_journal_patientName);
+        final TextView patientNameText =          (TextView) findViewById(R.id.txt_patientName);
         final Button saveStatusButton           = (Button) findViewById(R.id.btn_journal_status_save);
         final Button medicationBreakfastButton  = (Button) findViewById(R.id.btn_journal_medication_breakfast);
         final Button medicationLunchButton      = (Button) findViewById(R.id.btn_journal_medication_lunch);
         final Button medicationDinnerButton     = (Button) findViewById(R.id.btn_journal_medication_dinner);
-        final ImageButton journeyButton         = (ImageButton) findViewById(R.id.btn_journal_journey_button);
-        final ImageButton careTeamButton        = (ImageButton) findViewById(R.id.btn_journal_careteam_button);
+        final ImageButton journeyButton         = (ImageButton) findViewById(R.id.btn_journey_button);
+        final ImageButton careTeamButton        = (ImageButton) findViewById(R.id.btn_careteam_button);
         final CalendarView calendar             = (CalendarView) findViewById(R.id.cal_journal_calendar);
         emotionText =  (TextView) findViewById(R.id.txt_journal_emotions);
         // Statusbar color
@@ -187,17 +189,77 @@ public class JournalActivity extends AppCompatActivity {
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(date)));
 
+        while (connectHandler.socketBusy){}
+
         // Display patient name on topbar
         if (connectHandler.patient != null){
             //            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
             patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
         }
 
-        while (connectHandler.socketBusy){}
-
-        TextView loggedIn = (TextView) findViewById(R.id.txt_journal_loggedIn);
+        // Display logged in name
+        TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
         if (connectHandler.person != null){
             loggedIn.setText(connectHandler.person.first_name);
+        }
+
+        //Set right avatar image
+        ImageView loggedInAvatarImage = (ImageView) findViewById(R.id.img_loggedin_avatar);
+        switch(connectHandler.person.avatar){
+            case 1:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_1);
+                break;
+            case 2:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_2);
+                break;
+            case 3:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_3);
+                break;
+            case 4:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_4);
+                break;
+            case 5:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_5);
+                break;
+            case 6:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_6);
+                break;
+            case 7:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_7);
+                break;
+            case 8:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_8);
+                break;
+            case 9:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_9);
+                break;
+            case 10:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_10);
+                break;
+            case 11:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_11);
+                break;
+            case 12:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_12);
+                break;
+            case 13:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_13);
+                break;
+            case 14:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_14);
+                break;
+            case 15:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_15);
+                break;
+            case 16:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_16);
+                break;
+            case 17:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_17);
+                break;
+            case 18:
+                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_18);
+                break;
         }
 
         if (connectHandler.journal != null){
@@ -377,10 +439,10 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (fr_mark.equals(Boolean.FALSE)) {
                     fr_mark = Boolean.TRUE;
-                    medicationBreakfastButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medicationBreakfastButton.getBackground().setTint(getResources().getColor(R.color.colorAccent));
                 } else {
                     fr_mark = Boolean.FALSE;
-                    medicationBreakfastButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medicationBreakfastButton.getBackground().setTint(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
@@ -398,10 +460,10 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if ( lu_mark.equals(Boolean.FALSE)) {
                     lu_mark = Boolean.TRUE;
-                    medicationLunchButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medicationLunchButton.getBackground().setTint(getResources().getColor(R.color.colorAccent));
                 } else {
                     lu_mark = Boolean.FALSE;
-                    medicationLunchButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medicationLunchButton.getBackground().setTint(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
@@ -417,10 +479,10 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if ( mi_mark.equals(Boolean.FALSE)) {
                     mi_mark = Boolean.TRUE;
-                    medicationDinnerButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    medicationDinnerButton.getBackground().setTint(getResources().getColor(R.color.colorAccent));
                 } else {
                     mi_mark = Boolean.FALSE;
-                    medicationDinnerButton.setBackgroundColor(getResources().getColor(R.color.addcontact));
+                    medicationDinnerButton.getBackground().setTint(getResources().getColor(R.color.addcontact));
                 }
                 if ((fr_mark.equals(Boolean.TRUE) && lu_mark.equals(Boolean.TRUE) &&
                         mi_mark.equals(Boolean.TRUE) && kv_mark.equals(Boolean.TRUE))) {
@@ -441,7 +503,7 @@ public class JournalActivity extends AppCompatActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int date) {
-                Toast.makeText(getApplicationContext(),date+ "/"+month+"/"+year,4000).show();
+                Toast.makeText(getApplicationContext(),date+ "/"+month+"/"+year, Toast.LENGTH_LONG).show();
                 //     getString(R.string.txt_journal_headline, year,month, date);
                 journalHeaderText.setText(R.string.txt_journal_headline);
                 journalHeaderText.setText((journalHeaderText.getText()) + " " + year + "-" + month + "-" + date);
@@ -1362,7 +1424,7 @@ public class JournalActivity extends AppCompatActivity {
 
     private void findSideeffectsForToday(){
 
-        // Initalise values if changes has happened to the list
+        // Initialise values if changes has happened to the list
         fatigueIdForToday = -1;
         painIdForToday = -1;
         mouthIdForToday = -1;
@@ -1372,14 +1434,27 @@ public class JournalActivity extends AppCompatActivity {
         dizzinessIdForToday = -1;
         vomitIdForToday = -1;
         otherIdForToday = -1;
-        fatigueButton.getBackground().setTint(getColor(R.color.button_material_light));
-        painButton.getBackground().setTint(getColor(R.color.button_material_light));
-        mouthButton.getBackground().setTint(getColor(R.color.button_material_light));
-        tinglingButton.getBackground().setTint(getColor(R.color.button_material_light));
-        diarrheaButton.getBackground().setTint(getColor(R.color.button_material_light));
-        appetiteButton.getBackground().setTint(getColor(R.color.button_material_light));
-        vomitButton.getBackground().setTint(getColor(R.color.button_material_light));
-        otherButton.getBackground().setTint(getColor(R.color.button_material_light));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            fatigueButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
+            painButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
+            mouthButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
+            tinglingButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
+            diarrheaButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
+            appetiteButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
+            dizzinessButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
+            vomitButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
+            otherButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
+        }else {
+            fatigueButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
+            painButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
+            mouthButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
+            tinglingButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
+            diarrheaButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
+            appetiteButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
+            dizzinessButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
+            vomitButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
+            otherButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
+        }
 
         if (connectHandler.journal.sideeffect_data != null){
             for (int position=0; position < connectHandler.journal.sideeffect_data.size(); position++){
@@ -1390,49 +1465,76 @@ public class JournalActivity extends AppCompatActivity {
                 if (dateIsToday){
                     switch (connectHandler.journal.sideeffect_data.get(position).type){
                         case SIDEEFFECT_TYPE_FATIGUE:
-//                        fatigueIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             fatigueIdForToday = position;
-                            fatigueButton.getBackground().setTint(getColor(R.color.cme_light));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                fatigueButton.getBackground().setTint(getResources().getColor(R.color.cme_light, getApplication().getTheme()));
+                            }else {
+                                fatigueButton.getBackground().setTint(getResources().getColor(R.color.cme_light));
+                            }
                             break;
                         case SIDEEFFECT_TYPE_PAIN:
-//                        painIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             painIdForToday = position;
-                            painButton.getBackground().setTint(getColor(R.color.cme_light));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                painButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
+                            }else {
+                                painButton.getBackground().setTint(getResources().getColor(R.color.cme_light));
+                            }
                             break;
                         case SIDEEFFECT_TYPE_MOUTH:
-//                        mouthIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             mouthIdForToday = position;
-                            mouthButton.getBackground().setTint(getColor(R.color.cme_light));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                mouthButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
+                            }else {
+                                mouthButton.getBackground().setTint(getResources().getColor(R.color.cme_light));
+                            }
                             break;
                         case SIDEEFFECT_TYPE_TINGLING:
-//                        tinglingIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             tinglingIdForToday = position;
-                            tinglingButton.getBackground().setTint(getColor(R.color.cme_light));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                tinglingButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
+                            }else {
+                                tinglingButton.getBackground().setTint(getResources().getColor(R.color.cme_light));
+                            }
                             break;
                         case SIDEEFFECT_TYPE_DIARRHEA:
-//                        diarrheaIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             diarrheaIdForToday = position;
-                            diarrheaButton.getBackground().setTint(getColor(R.color.cme_light));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                diarrheaButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
+                            }else {
+                                diarrheaButton.getBackground().setTint(getResources().getColor(R.color.cme_light));
+                            }
                             break;
                         case SIDEEFFECT_TYPE_APPETITE:
-//                        appetiteIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             appetiteIdForToday = position;
-                            appetiteButton.getBackground().setTint(getColor(R.color.cme_light));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                appetiteButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
+                            }else {
+                                appetiteButton.getBackground().setTint(getResources().getColor(R.color.cme_light));
+                            }
                             break;
                         case SIDEEFFECT_TYPE_DIZZINESS:
-//                        dizzinessIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             dizzinessIdForToday = position;
-                            dizzinessButton.getBackground().setTint(getColor(R.color.cme_light));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                dizzinessButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
+                            }else {
+                                dizzinessButton.getBackground().setTint(getResources().getColor(R.color.cme_light));
+                            }
                             break;
                         case SIDEEFFECT_TYPE_VOMIT:
-//                        vomitIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             vomitIdForToday = position;
-                            vomitButton.getBackground().setTint(getColor(R.color.cme_light));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                vomitButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
+                            }else {
+                                vomitButton.getBackground().setTint(getResources().getColor(R.color.cme_light));
+                            }
                             break;
                         case SIDEEFFECT_TYPE_OTHER:
-//                        otherIdForToday = connectHandler.journal.sideeffect_data.get(i).sideeffect_ID;
                             otherIdForToday = position;
-                            otherButton.getBackground().setTint(getColor(R.color.cme_light));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                otherButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
+                            }else {
+                                otherButton.getBackground().setTint(getResources().getColor(R.color.cme_light));
+                            }
                             break;
                     }
 
