@@ -343,7 +343,6 @@ public class JourneyActivity extends AppCompatActivity {
             @Override
             public void onScrollChanged() {
                 int scrollX = eventScroll.getScrollX();
-
                 Scroll_background.setScrollX(scrollX / 4);
                 Scroll_background2.setScrollX(scrollX / 3);
                 Scroll_background3.setScrollX(scrollX / 2);
@@ -684,6 +683,12 @@ public class JourneyActivity extends AppCompatActivity {
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
                 Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+                int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
+
+                if (soundResourceId != 0) {
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+                    mp.start();
+                }
                 switch (currentPage) {
 
 
@@ -737,7 +742,12 @@ public class JourneyActivity extends AppCompatActivity {
 
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
                 Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+                int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
 
+                if (soundResourceId != 0) {
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+                    mp.start();
+                }
 
                 switch (currentPage) {
 
@@ -1244,10 +1254,18 @@ public class JourneyActivity extends AppCompatActivity {
 
         eventHeadline.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked, "string", getPackageName())));
         int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-      //  eventInfoImage.setBackgroundResource(resourceId);
-      //  String video_name = "event_"+subCategoryClicked+currentPage;
-       // String videoFile = "android.resource://"+getPackageName()+"/raw/"+ video_name;
+        int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
+
+        if (soundResourceId != 0) {
+            MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+            mp.start();
+        }
         Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+
+
+
+
+
 
         /////--------------------------------------------------------------------------------------
        // videoView.setMediaController(mediaController);
@@ -1529,6 +1547,12 @@ public class JourneyActivity extends AppCompatActivity {
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                     int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
                     Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+                    int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
+
+                    if (soundResourceId != 0) {
+                        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+                        mp.start();
+                    }
 
 
                 switch (currentPage) {
@@ -1582,6 +1606,12 @@ public class JourneyActivity extends AppCompatActivity {
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
                 Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+                int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
+
+                if (soundResourceId != 0) {
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+                    mp.start();
+                }
 
 
                 switch (currentPage) {
@@ -2204,9 +2234,8 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void lionMessage(){
 
-
-
-
+        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.lion);
+        mp.start();
         CountDownTimer lionTimer = new CountDownTimer(6000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -2238,6 +2267,7 @@ public class JourneyActivity extends AppCompatActivity {
         final PopupWindow popupWindow = new PopupWindow(
                 popupView, (int) (width * 0.40), (int) (height * 0.60));
         relativeLayout = (RelativeLayout) findViewById(R.id.layerCoantainerJourney);
+
 
         ImageButton cancel = (ImageButton)popupView.findViewById(R.id.img_journey_cancellion);
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
