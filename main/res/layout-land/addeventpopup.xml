@@ -171,7 +171,6 @@
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:scaleType="centerCrop"
-                android:background="@drawable/cancerone"
                 android:id="@+id/img_subcategory_detail"
                 android:layout_marginLeft="20dp"
                 android:layout_alignTop="@+id/txt_subcategory_main"
@@ -216,7 +215,7 @@
                 android:layout_alignBottom="@+id/img_subcategory_detail"
                 android:layout_alignParentEnd="false"
                 android:layout_alignLeft="@+id/img_subcategory_detail"
-                android:visibility="visible" />
+                android:visibility="invisible" />
         </RelativeLayout>
 
         <RelativeLayout

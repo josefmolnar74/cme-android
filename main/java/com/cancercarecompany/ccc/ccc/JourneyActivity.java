@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,6 +48,8 @@ import java.util.Random;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
+
 public class JourneyActivity extends AppCompatActivity {
 
     ArrayList<Event> eventList;
@@ -59,6 +62,8 @@ public class JourneyActivity extends AppCompatActivity {
     ImageButton addFoto;
     ImageButton addHospital;
     int lastButtonX;
+
+    MediaController mediaController;
 
     ImageView page1;
     ImageView page2;
@@ -401,7 +406,6 @@ public class JourneyActivity extends AppCompatActivity {
         finish();
     }
 
-
     public void addTreatment(View v) {
         System.out.println(v.getId());
         popup(v);
@@ -438,7 +442,6 @@ public class JourneyActivity extends AppCompatActivity {
             ImageButton btn = new ImageButton(this);
             btn.setId(i);
             final int id_ = btn.getId();
-
 
             if (i % 3 == 0) {
                 topMargin = 100;
@@ -679,9 +682,8 @@ public class JourneyActivity extends AppCompatActivity {
                 System.out.println(currentPage);
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
-
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                eventInfoImage.setBackgroundResource(resourceId);
+                Glide.with(getApplicationContext()).load(resourceId).centerCrop().into(eventInfoImage);
                 switch (currentPage) {
 
 
@@ -734,7 +736,7 @@ public class JourneyActivity extends AppCompatActivity {
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
 
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                eventInfoImage.setBackgroundResource(resourceId);
+                Glide.with(getApplicationContext()).load(resourceId).centerCrop().into(eventInfoImage);
 
 
                 switch (currentPage) {
@@ -1210,9 +1212,9 @@ public class JourneyActivity extends AppCompatActivity {
                         String simpleDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
                         String simpleTime = new SimpleDateFormat("kk:mm:ss").format(date);
                         Event event = new Event(0, patientID, personID, 0, "", eventCategory, subCategoryClicked, simpleDate, simpleTime, eventNotes.getText().toString(), "", "");
-
-                        eventList.add(event);
                         connectHandler.createEvent(event);
+                        eventList.add(event);
+
                         createEventButton();
                         popupWindow.dismiss();
                         SimpleDateFormat toastDate = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
@@ -1242,17 +1244,18 @@ public class JourneyActivity extends AppCompatActivity {
 
         eventHeadline.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked, "string", getPackageName())));
         int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-        eventInfoImage.setBackgroundResource(resourceId);
+      //  eventInfoImage.setBackgroundResource(resourceId);
+      //  String video_name = "event_"+subCategoryClicked+currentPage;
+       // String videoFile = "android.resource://"+getPackageName()+"/raw/"+ video_name;
+        Glide.with(getApplicationContext()).load(resourceId).centerCrop().into(eventInfoImage);
 
-        String video_name = "event_"+subCategoryClicked+currentPage;
-        String videoFile = "android.resource://"+getPackageName()+"/raw/"+ video_name;
-        videoView.setVideoPath(videoFile);
-        videoView.setMediaController(new MediaController(getApplicationContext()));
+        /////--------------------------------------------------------------------------------------
+       // videoView.setMediaController(mediaController);
+        videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.event_bloodtest4));
         videoView.requestFocus();
         videoView.start();
-
-
         System.out.println(videoView.isPlaying());
+        /////--------------------------------------------------------------------------------------
 
         int resource1 = getResources().getIdentifier("event_"+subCategoryClicked+"_txt1", "string", getPackageName());
         int resource2 = getResources().getIdentifier("event_"+subCategoryClicked+"_txt2", "string", getPackageName());
@@ -1300,12 +1303,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         }
 
-
-
-
     }
-
-
     private void createEventButton() {
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
@@ -1477,6 +1475,7 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void checkDetail(final int id_) {
         System.out.println(id_);
+        System.out.println(eventList.get(id_).event_ID);
 
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
@@ -1529,7 +1528,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                     int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                    eventInfoImage.setBackgroundResource(resourceId);
+                    Glide.with(getApplicationContext()).load(resourceId).centerCrop().into(eventInfoImage);
 
 
                 switch (currentPage) {
@@ -1582,7 +1581,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                eventInfoImage.setBackgroundResource(resourceId);
+                Glide.with(getApplicationContext()).load(resourceId).centerCrop().into(eventInfoImage);
 
 
                 switch (currentPage) {
@@ -1687,7 +1686,7 @@ public class JourneyActivity extends AppCompatActivity {
         saveButtonDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                System.out.println("Removed event"+eventList.get(id_).event_ID);
                 String detailCategory = eventList.get(id_).category.toString();
                 ViewGroup layout = (ViewGroup) findViewById(R.id.relativeLayout_eventlayer);
                 View imageButton = layout.findViewById(id_);
@@ -1713,17 +1712,14 @@ public class JourneyActivity extends AppCompatActivity {
 
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                     String thisEvent = df.format(date);
-                    String indexEvent = df.format(eventList.get(i).date);
+                    String indexEvent = (eventList.get(i).date);
 
                     if (thisEvent.equals(indexEvent)) {
                         eventsSameDate = eventsSameDate + 1;
-                        System.out.println(eventsSameDate);
-
                     }
                 }
                 if (eventsSameDate < 3) {
                     if (date.getTime() > startDate) {
-
 
                         String dateString = new SimpleDateFormat("yyyy-MM-dd").format(date);
                         String timeString = new SimpleDateFormat("kk:mm:ss").format(date);
@@ -1848,6 +1844,7 @@ public class JourneyActivity extends AppCompatActivity {
                 View imageButton = layout.findViewById(id_);
                 layout.removeView(imageButton);
                 connectHandler.deleteEvent(eventList.get(id_).event_ID);
+                System.out.println("try to remove event"+eventList.get(id_).event_ID);
                 eventList.remove(id_);
                 reArrangeBtnId(id_);
                 popupWindow.dismiss();
