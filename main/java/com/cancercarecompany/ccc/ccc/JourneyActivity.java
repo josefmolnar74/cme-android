@@ -683,7 +683,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                Glide.with(getApplicationContext()).load(resourceId).centerCrop().into(eventInfoImage);
+                Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
                 switch (currentPage) {
 
 
@@ -736,7 +736,7 @@ public class JourneyActivity extends AppCompatActivity {
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
 
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                Glide.with(getApplicationContext()).load(resourceId).centerCrop().into(eventInfoImage);
+                Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
 
 
                 switch (currentPage) {
@@ -1247,7 +1247,7 @@ public class JourneyActivity extends AppCompatActivity {
       //  eventInfoImage.setBackgroundResource(resourceId);
       //  String video_name = "event_"+subCategoryClicked+currentPage;
        // String videoFile = "android.resource://"+getPackageName()+"/raw/"+ video_name;
-        Glide.with(getApplicationContext()).load(resourceId).centerCrop().into(eventInfoImage);
+        Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
 
         /////--------------------------------------------------------------------------------------
        // videoView.setMediaController(mediaController);
@@ -1528,7 +1528,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                     int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                    Glide.with(getApplicationContext()).load(resourceId).centerCrop().into(eventInfoImage);
+                    Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
 
 
                 switch (currentPage) {
@@ -1581,7 +1581,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                Glide.with(getApplicationContext()).load(resourceId).centerCrop().into(eventInfoImage);
+                Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
 
 
                 switch (currentPage) {
