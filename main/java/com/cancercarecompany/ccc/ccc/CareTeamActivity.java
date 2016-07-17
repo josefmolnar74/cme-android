@@ -1,6 +1,9 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -15,6 +18,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -38,11 +42,15 @@ public class CareTeamActivity extends AppCompatActivity {
     CareTeamFamilyAdapter familyAdapter;
     CareTeamHealthCareAdapter healthCareAdapter;
     RelativeLayout relativeLayout;
+    LinearLayout wholeScreen;
     ImageButton journeyButton;
     ImageButton journalButton;
     ImageButton familyAvatar;
     ImageButton healthcareAvatar;
+    ImageButton settingsButton;
     ConnectionHandler connectHandler;
+
+    String languageString;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -54,6 +62,19 @@ public class CareTeamActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_careteam);
+
+
+        wholeScreen = (LinearLayout) findViewById(R.id.careTeamScreen);
+        settingsButton = (ImageButton) findViewById(R.id.btn_careteam_settings);
+
+        // Check language settings
+        SharedPreferences prefs = this.getSharedPreferences(
+                "language_settings", Context.MODE_PRIVATE);
+
+        languageString = prefs.getString("language_settings", "");
+        System.out.println("LANGUAGE SETTINGS: "+languageString);
+        //////////////////////////
+
 
         // Statusbar color
         Window window = this.getWindow();
@@ -233,6 +254,16 @@ public class CareTeamActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Settings settingsClass = new Settings();
+                settingsClass.settingsPopup(wholeScreen, CareTeamActivity.this);
+
+            }
+        });
+
     }
 
     public void createHealthCareMember(){

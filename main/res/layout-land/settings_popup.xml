@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/settings_language_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_settings_SV"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/borderpopup"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/settings_language_headline"
+            android:id="@+id/txt_settings_headline"
+            android:layout_alignParentTop="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_EN"
+            android:id="@+id/btn_settings_EN"
+            android:layout_alignParentStart="false"
+            android:checked="false"
+            android:layout_marginTop="60dp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_SV"
+            android:id="@+id/btn_settings_SV"
+            android:checked="false"
+            android:layout_below="@+id/btn_settings_EN"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp" />
+
+        <ImageView
+            android:background="@drawable/flag_en"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/img_settings_flag_en"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@+id/txt_settings_headline"
+            android:layout_toRightOf="@+id/btn_settings_EN"
+            android:layout_marginTop="30dp" />
+
+        <ImageView
+            android:background="@drawable/flag_sv"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:id="@+id/img_settings_flag_sv"
+            android:layout_alignTop="@+id/txt_settings_headline"
+            android:layout_marginTop="115dp"
+            android:layout_alignLeft="@+id/img_settings_flag_en" />
+
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:id="@+id/btn_settings_save"
+            android:background="@drawable/mark"
+            android:layout_below="@+id/btn_settings_SV"
+            android:layout_marginTop="30dp"
+            android:layout_alignRight="@+id/btn_settings_cancel" />
+
+        <ImageButton
+            android:background="@drawable/close"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/btn_settings_cancel"
+            android:layout_toRightOf="@+id/txt_settings_headline"
+            android:layout_marginLeft="20dp" />
+
+    </RelativeLayout>
+</RelativeLayout>

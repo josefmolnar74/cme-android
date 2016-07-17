@@ -1,6 +1,8 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -47,6 +50,7 @@ public class JournalActivity extends AppCompatActivity {
     GridView beverageGridView;
     JournalBeverageAdapter beverageAdapter;
 
+
     String lbl_datum;
     TextView header;
     TextView fr_medicin;
@@ -63,6 +67,7 @@ public class JournalActivity extends AppCompatActivity {
     ImageButton journeyButton;
     ImageButton careTeamButton;
     ImageButton emotionsButton;
+    ImageButton settingsButton;
     TextView emotionText;
 
     Button fatigueButton;
@@ -87,6 +92,10 @@ public class JournalActivity extends AppCompatActivity {
     int beverageIdForToday;
 
     String emotion = "";
+
+
+    String languageString;
+    LinearLayout wholeScreen;
 
     public static final String TIME_SIMPLE_FORMAT   = "yyyy-MM-dd";
     public static final String DATE_SIMPLE_FORMAT   = "kk:mm:ss";
@@ -153,6 +162,14 @@ public class JournalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
 
+        // Check language settings
+        SharedPreferences prefs = this.getSharedPreferences(
+                "language_settings", Context.MODE_PRIVATE);
+
+        languageString = prefs.getString("language_settings", "");
+        System.out.println("LANGUAGE SETTINGS: "+languageString);
+        //////////////////////////
+
         fatigueButton = (Button) findViewById(R.id.btn_journal_sideeffect_fatigue);
         painButton = (Button) findViewById(R.id.btn_journal_sideeffect_pain);
         mouthButton = (Button) findViewById(R.id.btn_journal_sideeffect_mouth);
@@ -163,6 +180,9 @@ public class JournalActivity extends AppCompatActivity {
         vomitButton = (Button) findViewById(R.id.btn_journal_sideeffect_vomit);
         otherButton = (Button) findViewById(R.id.btn_journal_sideeffect_other);
         emotionsButton = (ImageButton) findViewById(R.id.btn_journal_emotions);
+
+        settingsButton = (ImageButton) findViewById(R.id.btn_journal_settings);
+        wholeScreen = (LinearLayout) findViewById(R.id.layout_journal_screen);
 
         final EditText statusTextEditText       = (EditText) findViewById(R.id.edtxt_journal_status);
 //        final TextView txt_med_txt            = (TextView) findViewById(R.id.txt_med_int);
@@ -507,6 +527,15 @@ public class JournalActivity extends AppCompatActivity {
                 //     getString(R.string.txt_journal_headline, year,month, date);
                 journalHeaderText.setText(R.string.txt_journal_headline);
                 journalHeaderText.setText((journalHeaderText.getText()) + " " + year + "-" + month + "-" + date);
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Settings settingsClass = new Settings();
+                settingsClass.settingsPopup(wholeScreen, JournalActivity.this);
+
             }
         });
     }

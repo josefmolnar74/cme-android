@@ -1,10 +1,14 @@
 
 package com.cancercarecompany.ccc.ccc;
 
+import android.app.Activity;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
@@ -23,6 +27,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -32,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -51,6 +57,9 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 
 public class JourneyActivity extends AppCompatActivity {
+
+    String languageString;
+
 
     ArrayList<Event> eventList;
     int patientID = 0;
@@ -83,6 +92,7 @@ public class JourneyActivity extends AppCompatActivity {
     ImageButton careTeamButton;
     ImageButton journalButton;
     ImageButton logoButton;
+    ImageButton settingsButton;
     int location = 0;
 
     String eventPage1 = "";
@@ -147,9 +157,17 @@ public class JourneyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey);
-        eventList = new ArrayList<Event>();
 
+        eventList = new ArrayList<Event>();
         connectHandler = ConnectionHandler.getInstance();
+
+        // Check language settings
+        SharedPreferences prefs = this.getSharedPreferences(
+                "language_settings", Context.MODE_PRIVATE);
+
+        languageString = prefs.getString("language_settings", "");
+        System.out.println("LANGUAGE SETTINGS: "+languageString);
+        //////////////////////////
 
         // Display patient name on topbar
         TextView patientNameText = (TextView) findViewById(R.id.txt_patientName);
@@ -230,7 +248,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         for (int i = 0; i < connectHandler.events.event_data.size(); i++) {
             eventList.add(connectHandler.events.event_data.get(i));
-            System.out.println("eventsize" + connectHandler.events.event_data.size());
+
         }
 
 
@@ -269,6 +287,7 @@ public class JourneyActivity extends AppCompatActivity {
         careTeamButton = (ImageButton) findViewById(R.id.btn_careteam_button);
         journalButton = (ImageButton) findViewById(R.id.btn_journal_button);
         logoButton = (ImageButton) findViewById(R.id.logoButton);
+        settingsButton = (ImageButton) findViewById(R.id.btn_journey_settings);
         sun = (ImageButton) findViewById(R.id.btn_sun_journey);
 
         sign1 = (ImageView) findViewById(R.id.sign1);
@@ -311,7 +330,6 @@ public class JourneyActivity extends AppCompatActivity {
 
         ((ViewGroup) car.getParent()).removeView(car);
 
-        System.out.println(width);
 
         animateSun();
         //ExampleJourney();
@@ -364,6 +382,15 @@ public class JourneyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 journal();
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Settings settingsClass = new Settings();
+            settingsClass.settingsPopup(wholeScreen, JourneyActivity.this);
+
             }
         });
 
@@ -592,7 +619,6 @@ public class JourneyActivity extends AppCompatActivity {
 
             indexButton.setLayoutParams(params);
             lastButtonX = (currentEventInt * 2) + 300;
-            System.out.println(lastButtonX);
         }
 
     }
@@ -2187,7 +2213,7 @@ public class JourneyActivity extends AppCompatActivity {
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsCar2.setMargins((carIntPosition * 2)-800, 0, 0, 50);
-        System.out.println("CARPOSITION"+carIntPosition * 2);
+
 
         TranslateAnimation transAnimation1 = new TranslateAnimation(0, 2000, 0, 0);
         transAnimation1.setDuration(3500);
@@ -2423,6 +2449,9 @@ public class JourneyActivity extends AppCompatActivity {
 
         return convertedDate;
     }
+
+
+
 
     private void ExampleJourney() {
         /*
