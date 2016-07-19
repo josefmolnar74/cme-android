@@ -1,8 +1,10 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -54,6 +57,7 @@ public class JournalActivity extends AppCompatActivity {
     GridView beverageGridView;
     JournalBeverageAdapter beverageAdapter;
 
+
     String lbl_datum;
     TextView header;
     TextView fr_medicin;
@@ -70,6 +74,7 @@ public class JournalActivity extends AppCompatActivity {
     ImageButton journeyButton;
     ImageButton careTeamButton;
     ImageButton emotionsButton;
+    ImageButton settingsButton;
     TextView emotionText;
 
     Button fatigueButton;
@@ -94,56 +99,58 @@ public class JournalActivity extends AppCompatActivity {
     int beverageIdForToday;
 
     String emotion = "";
+    String languageString;
+    LinearLayout wholeScreen;
 
-    public static final String TIME_SIMPLE_FORMAT = "yyyy-MM-dd";
-    public static final String DATE_SIMPLE_FORMAT = "kk:mm:ss";
+    public static final String TIME_SIMPLE_FORMAT   = "yyyy-MM-dd";
+    public static final String DATE_SIMPLE_FORMAT   = "kk:mm:ss";
 
-    public static final String EMOTION_HAPPY = "Happy";
-    public static final String EMOTION_SAD = "Sad";
-    public static final String EMOTION_FRUSTRATED = "Frustrated";
-    public static final String EMOTION_WORRIED = "Worried";
-    public static final String EMOTION_SATISFIED = "Satisfied";
-    public static final String EMOTION_TIRED = "Tired";
-    public static final String EMOTION_SICK = "Sick";
-    public static final String EMOTION_NAUSEOUS = "Nauseous";
-    public static final String EMOTION_SCARED = "Scared";
+    public static final String EMOTION_HAPPY        = "Happy";
+    public static final String EMOTION_SAD          = "Sad";
+    public static final String EMOTION_FRUSTRATED   = "Frustrated";
+    public static final String EMOTION_WORRIED      = "Worried";
+    public static final String EMOTION_SATISFIED    = "Satisfied";
+    public static final String EMOTION_TIRED        = "Tired";
+    public static final String EMOTION_SICK         = "Sick";
+    public static final String EMOTION_NAUSEOUS     = "Nauseous";
+    public static final String EMOTION_SCARED       = "Scared";
 
-    public static final String SIDEEFFECT_TYPE_FATIGUE = "Fatigue";
-    public static final String SIDEEFFECT_TYPE_PAIN = "Pain";
-    public static final String SIDEEFFECT_TYPE_MOUTH = "Mouth change";
-    public static final String SIDEEFFECT_TYPE_TINGLING = "Tingling/numbness";
-    public static final String SIDEEFFECT_TYPE_DIARRHEA = "Diarrhea";
-    public static final String SIDEEFFECT_TYPE_APPETITE = "Appetite";
-    public static final String SIDEEFFECT_TYPE_DIZZINESS = "Dizziness";
-    public static final String SIDEEFFECT_TYPE_VOMIT = "Vomit";
-    public static final String SIDEEFFECT_TYPE_OTHER = "Other";
+    public static final String SIDEEFFECT_TYPE_FATIGUE      = "Fatigue";
+    public static final String SIDEEFFECT_TYPE_PAIN         = "Pain";
+    public static final String SIDEEFFECT_TYPE_MOUTH        = "Mouth change";
+    public static final String SIDEEFFECT_TYPE_TINGLING     = "Tingling/numbness";
+    public static final String SIDEEFFECT_TYPE_DIARRHEA     = "Diarrhea";
+    public static final String SIDEEFFECT_TYPE_APPETITE     = "Appetite";
+    public static final String SIDEEFFECT_TYPE_DIZZINESS     = "Dizziness";
+    public static final String SIDEEFFECT_TYPE_VOMIT        = "Vomit";
+    public static final String SIDEEFFECT_TYPE_OTHER        = "Other";
 
-    public static final String SIDEEFFECT_PAIN_RIGHT_HAND_VALUE = "RHA";
-    public static final String SIDEEFFECT_PAIN_RIGHT_SHOULDER_VALUE = "RSH";
-    public static final String SIDEEFFECT_PAIN_RIGHT_CHEST_VALUE = "RCH";
-    public static final String SIDEEFFECT_PAIN_RIGHT_ARM_VALUE = "RAR";
-    public static final String SIDEEFFECT_PAIN_RIGHT_HIP_VALUE = "RHI";
-    public static final String SIDEEFFECT_PAIN_RIGHT_UPPER_LEG_VALUE = "RUL";
-    public static final String SIDEEFFECT_PAIN_RIGHT_KNEE_VALUE = "RKN";
-    public static final String SIDEEFFECT_PAIN_RIGHT_LOWER_LEG_VALUE = "RLL";
-    public static final String SIDEEFFECT_PAIN_RIGHT_FOOT_VALUE = "RFO";
-    public static final String SIDEEFFECT_PAIN_LEFT_HAND_VALUE = "LHA";
-    public static final String SIDEEFFECT_PAIN_LEFT_SHOULDER_VALUE = "LSH";
-    public static final String SIDEEFFECT_PAIN_LEFT_CHEST_VALUE = "LCH";
-    public static final String SIDEEFFECT_PAIN_LEFT_ARM_VALUE = "LAR";
-    public static final String SIDEEFFECT_PAIN_LEFT_HIP_VALUE = "LHI";
-    public static final String SIDEEFFECT_PAIN_LEFT_UPPER_LEG_VALUE = "LUL";
-    public static final String SIDEEFFECT_PAIN_LEFT_KNEE_VALUE = "LKN";
-    public static final String SIDEEFFECT_PAIN_LEFT_LOWER_LEG_VALUE = "LLL";
-    public static final String SIDEEFFECT_PAIN_LEFT_FOOT_VALUE = "LFO";
-    public static final String SIDEEFFECT_PAIN_HEAD_VALUE = "HEA";
-    public static final String SIDEEFFECT_PAIN_NECK_VALUE = "NEC";
-    public static final String SIDEEFFECT_PAIN_UPPER_BACK_VALUE = "UBA";
-    public static final String SIDEEFFECT_PAIN_MID_BACK_VALUE = "MBA";
-    public static final String SIDEEFFECT_PAIN_LOWER_BACK_VALUE = "LBA";
-    public static final String SIDEEFFECT_PAIN_RIGHT_ABDOMEN_VALUE = "RAB";
-    public static final String SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE = "LAB";
-    public static final String SIDEEFFECT_PAIN_TAILBONE_VALUE = "TAI";
+    public static final String SIDEEFFECT_PAIN_RIGHT_HAND_VALUE         = "RHA";
+    public static final String SIDEEFFECT_PAIN_RIGHT_SHOULDER_VALUE     = "RSH";
+    public static final String SIDEEFFECT_PAIN_RIGHT_CHEST_VALUE        = "RCH";
+    public static final String SIDEEFFECT_PAIN_RIGHT_ARM_VALUE          = "RAR";
+    public static final String SIDEEFFECT_PAIN_RIGHT_HIP_VALUE          = "RHI";
+    public static final String SIDEEFFECT_PAIN_RIGHT_UPPER_LEG_VALUE    = "RUL";
+    public static final String SIDEEFFECT_PAIN_RIGHT_KNEE_VALUE         = "RKN";
+    public static final String SIDEEFFECT_PAIN_RIGHT_LOWER_LEG_VALUE    = "RLL";
+    public static final String SIDEEFFECT_PAIN_RIGHT_FOOT_VALUE         = "RFO";
+    public static final String SIDEEFFECT_PAIN_LEFT_HAND_VALUE          = "LHA";
+    public static final String SIDEEFFECT_PAIN_LEFT_SHOULDER_VALUE      = "LSH";
+    public static final String SIDEEFFECT_PAIN_LEFT_CHEST_VALUE         = "LCH";
+    public static final String SIDEEFFECT_PAIN_LEFT_ARM_VALUE           = "LAR";
+    public static final String SIDEEFFECT_PAIN_LEFT_HIP_VALUE           = "LHI";
+    public static final String SIDEEFFECT_PAIN_LEFT_UPPER_LEG_VALUE     = "LUL";
+    public static final String SIDEEFFECT_PAIN_LEFT_KNEE_VALUE          = "LKN";
+    public static final String SIDEEFFECT_PAIN_LEFT_LOWER_LEG_VALUE     = "LLL";
+    public static final String SIDEEFFECT_PAIN_LEFT_FOOT_VALUE          = "LFO";
+    public static final String SIDEEFFECT_PAIN_HEAD_VALUE               = "HEA";
+    public static final String SIDEEFFECT_PAIN_NECK_VALUE               = "NEC";
+    public static final String SIDEEFFECT_PAIN_UPPER_BACK_VALUE         = "UBA";
+    public static final String SIDEEFFECT_PAIN_MID_BACK_VALUE           = "MBA";
+    public static final String SIDEEFFECT_PAIN_LOWER_BACK_VALUE         = "LBA";
+    public static final String SIDEEFFECT_PAIN_RIGHT_ABDOMEN_VALUE      = "RAB";
+    public static final String SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE       = "LAB";
+    public static final String SIDEEFFECT_PAIN_TAILBONE_VALUE           = "TAI";
 
     public static final String SIDEEFFECT_DIARRHEA_VALUE_1 = "1";
     public static final String SIDEEFFECT_DIARRHEA_VALUE_2 = "2";
@@ -165,6 +172,14 @@ public class JournalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
         connectHandler = ConnectionHandler.getInstance();
+
+        // Check language settings
+        SharedPreferences prefs = this.getSharedPreferences(
+                "language_settings", Context.MODE_PRIVATE);
+
+        languageString = prefs.getString("language_settings", "");
+        System.out.println("LANGUAGE SETTINGS: "+languageString);
+        //////////////////////////
 
         fatigueButton = (Button) findViewById(R.id.btn_journal_sideeffect_fatigue);
         painButton = (Button) findViewById(R.id.btn_journal_sideeffect_pain);
@@ -196,6 +211,11 @@ public class JournalActivity extends AppCompatActivity {
         statusGridView = (GridView) findViewById(R.id.gridview_journal_status);
         statusAdapter = new JournalStatusAdapter(this, statusList);
         statusGridView.setAdapter(statusAdapter);
+
+        settingsButton = (ImageButton) findViewById(R.id.btn_journal_settings);
+        wholeScreen = (LinearLayout) findViewById(R.id.layout_journal_screen);
+
+        emotionText =  (TextView) findViewById(R.id.txt_journal_emotions);
 
         // Statusbar color
         Window window = this.getWindow();
@@ -451,6 +471,15 @@ public class JournalActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Settings settingsClass = new Settings();
+                settingsClass.settingsPopup(wholeScreen, JournalActivity.this);
+
+            }
+        });
     }
 
     @Override

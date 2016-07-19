@@ -25,6 +25,7 @@ public class Event {
     public Event( int event_ID, int patient_ID, int person_ID, int healthcare_ID, String healthcare_name, String category, String subCategory,
                   String date, String time, String notes, String status, String emotion){
 
+
         this.event_ID   = event_ID;
         this.patient_ID = patient_ID;
         this.person_ID = person_ID;

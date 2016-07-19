@@ -56,7 +56,8 @@
             android:gravity="center"
             android:background="@null"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="false"
+            android:layout_toLeftOf="@+id/btn_journal_settings" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -113,9 +114,23 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/logoButton" />
 
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:id="@+id/btn_journal_settings"
+            android:src="@drawable/settingswhite"
+            android:scaleType="fitCenter"
+            android:gravity="center"
+            android:background="@null"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/layout_journal_screen"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"

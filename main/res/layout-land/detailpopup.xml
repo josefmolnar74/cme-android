@@ -84,7 +84,7 @@
             <ImageView
                 android:layout_width="300dp"
                 android:layout_height="300dp"
-                android:background="@drawable/cancerone"
+                android:scaleType="fitCenter"
                 android:id="@+id/img_subcategory_detail"
                 android:layout_marginLeft="20dp"
                 android:layout_alignTop="@+id/txt_subcategory_main"

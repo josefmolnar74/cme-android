@@ -1,11 +1,16 @@
 
 package com.cancercarecompany.ccc.ccc;
 
+import android.app.Activity;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.media.Image;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +27,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -29,7 +35,9 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -46,7 +54,12 @@ import java.util.Random;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
+
 public class JourneyActivity extends AppCompatActivity {
+
+    String languageString;
+
 
     ArrayList<Event> eventList;
     int patientID = 0;
@@ -58,6 +71,8 @@ public class JourneyActivity extends AppCompatActivity {
     ImageButton addFoto;
     ImageButton addHospital;
     int lastButtonX;
+
+    MediaController mediaController;
 
     ImageView page1;
     ImageView page2;
@@ -77,6 +92,7 @@ public class JourneyActivity extends AppCompatActivity {
     ImageButton careTeamButton;
     ImageButton journalButton;
     ImageButton logoButton;
+    ImageButton settingsButton;
     int location = 0;
 
     String eventPage1 = "";
@@ -141,9 +157,17 @@ public class JourneyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey);
-        eventList = new ArrayList<Event>();
 
+        eventList = new ArrayList<Event>();
         connectHandler = ConnectionHandler.getInstance();
+
+        // Check language settings
+        SharedPreferences prefs = this.getSharedPreferences(
+                "language_settings", Context.MODE_PRIVATE);
+
+        languageString = prefs.getString("language_settings", "");
+        System.out.println("LANGUAGE SETTINGS: "+languageString);
+        //////////////////////////
 
         // Display patient name on topbar
         TextView patientNameText = (TextView) findViewById(R.id.txt_patientName);
@@ -224,7 +248,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         for (int i = 0; i < connectHandler.events.event_data.size(); i++) {
             eventList.add(connectHandler.events.event_data.get(i));
-            System.out.println("eventsize" + connectHandler.events.event_data.size());
+
         }
 
 
@@ -263,6 +287,7 @@ public class JourneyActivity extends AppCompatActivity {
         careTeamButton = (ImageButton) findViewById(R.id.btn_careteam_button);
         journalButton = (ImageButton) findViewById(R.id.btn_journal_button);
         logoButton = (ImageButton) findViewById(R.id.logoButton);
+        settingsButton = (ImageButton) findViewById(R.id.btn_journey_settings);
         sun = (ImageButton) findViewById(R.id.btn_sun_journey);
 
         sign1 = (ImageView) findViewById(R.id.sign1);
@@ -296,6 +321,7 @@ public class JourneyActivity extends AppCompatActivity {
         String timeString = new SimpleDateFormat("kk:mm:ss").format(currentDate);
 
         if (eventList.size() == 0) {
+
             Event startEvent = new Event(0, patientID, personID, 0, "", "start", "start", dateString, timeString, "My journey starts here!", "", "");
             eventList.add(startEvent);
             connectHandler.createEvent(startEvent);
@@ -304,7 +330,6 @@ public class JourneyActivity extends AppCompatActivity {
 
         ((ViewGroup) car.getParent()).removeView(car);
 
-        System.out.println(width);
 
         animateSun();
         //ExampleJourney();
@@ -336,7 +361,6 @@ public class JourneyActivity extends AppCompatActivity {
             @Override
             public void onScrollChanged() {
                 int scrollX = eventScroll.getScrollX();
-
                 Scroll_background.setScrollX(scrollX / 4);
                 Scroll_background2.setScrollX(scrollX / 3);
                 Scroll_background3.setScrollX(scrollX / 2);
@@ -358,6 +382,15 @@ public class JourneyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 journal();
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Settings settingsClass = new Settings();
+            settingsClass.settingsPopup(wholeScreen, JourneyActivity.this);
+
             }
         });
 
@@ -399,7 +432,6 @@ public class JourneyActivity extends AppCompatActivity {
         finish();
     }
 
-
     public void addTreatment(View v) {
         System.out.println(v.getId());
         popup(v);
@@ -436,7 +468,6 @@ public class JourneyActivity extends AppCompatActivity {
             ImageButton btn = new ImageButton(this);
             btn.setId(i);
             final int id_ = btn.getId();
-
 
             if (i % 3 == 0) {
                 topMargin = 100;
@@ -588,7 +619,6 @@ public class JourneyActivity extends AppCompatActivity {
 
             indexButton.setLayoutParams(params);
             lastButtonX = (currentEventInt * 2) + 300;
-            System.out.println(lastButtonX);
         }
 
     }
@@ -677,9 +707,14 @@ public class JourneyActivity extends AppCompatActivity {
                 System.out.println(currentPage);
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
-
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                eventInfoImage.setBackgroundResource(resourceId);
+                Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+                int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
+
+                if (soundResourceId != 0) {
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+                    mp.start();
+                }
                 switch (currentPage) {
 
 
@@ -717,8 +752,6 @@ public class JourneyActivity extends AppCompatActivity {
 
                 }
 
-
-
             }
 
             public void onSwipeLeft() {
@@ -734,8 +767,13 @@ public class JourneyActivity extends AppCompatActivity {
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
 
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                eventInfoImage.setBackgroundResource(resourceId);
+                Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+                int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
 
+                if (soundResourceId != 0) {
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+                    mp.start();
+                }
 
                 switch (currentPage) {
 
@@ -1206,12 +1244,13 @@ public class JourneyActivity extends AppCompatActivity {
                 if (eventsSameDate < 3) {
                     if (date.getTime() > startDate) {
 
+
                         String simpleDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
                         String simpleTime = new SimpleDateFormat("kk:mm:ss").format(date);
                         Event event = new Event(0, patientID, personID, 0, "", eventCategory, subCategoryClicked, simpleDate, simpleTime, eventNotes.getText().toString(), "", "");
-
-                        eventList.add(event);
                         connectHandler.createEvent(event);
+                        eventList.add(event);
+
                         createEventButton();
                         popupWindow.dismiss();
                         SimpleDateFormat toastDate = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
@@ -1241,7 +1280,26 @@ public class JourneyActivity extends AppCompatActivity {
 
         eventHeadline.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked, "string", getPackageName())));
         int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-        eventInfoImage.setBackgroundResource(resourceId);
+        int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
+
+        if (soundResourceId != 0) {
+            MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+            mp.start();
+        }
+        Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+
+
+
+
+
+
+        /////--------------------------------------------------------------------------------------
+       // videoView.setMediaController(mediaController);
+        videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.event_bloodtest4));
+        videoView.requestFocus();
+        videoView.start();
+        System.out.println(videoView.isPlaying());
+        /////--------------------------------------------------------------------------------------
 
         int resource1 = getResources().getIdentifier("event_"+subCategoryClicked+"_txt1", "string", getPackageName());
         int resource2 = getResources().getIdentifier("event_"+subCategoryClicked+"_txt2", "string", getPackageName());
@@ -1290,8 +1348,6 @@ public class JourneyActivity extends AppCompatActivity {
         }
 
     }
-
-
     private void createEventButton() {
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
@@ -1463,6 +1519,7 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void checkDetail(final int id_) {
         System.out.println(id_);
+        System.out.println(eventList.get(id_).event_ID);
 
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
@@ -1515,7 +1572,13 @@ public class JourneyActivity extends AppCompatActivity {
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                     int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                    eventInfoImage.setBackgroundResource(resourceId);
+                    Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+                    int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
+
+                    if (soundResourceId != 0) {
+                        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+                        mp.start();
+                    }
 
 
                 switch (currentPage) {
@@ -1568,7 +1631,13 @@ public class JourneyActivity extends AppCompatActivity {
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                eventInfoImage.setBackgroundResource(resourceId);
+                Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+                int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
+
+                if (soundResourceId != 0) {
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+                    mp.start();
+                }
 
 
                 switch (currentPage) {
@@ -1673,7 +1742,7 @@ public class JourneyActivity extends AppCompatActivity {
         saveButtonDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                System.out.println("Removed event"+eventList.get(id_).event_ID);
                 String detailCategory = eventList.get(id_).category.toString();
                 ViewGroup layout = (ViewGroup) findViewById(R.id.relativeLayout_eventlayer);
                 View imageButton = layout.findViewById(id_);
@@ -1699,12 +1768,10 @@ public class JourneyActivity extends AppCompatActivity {
 
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                     String thisEvent = df.format(date);
-                    String indexEvent = df.format(eventList.get(i).date);
+                    String indexEvent = (eventList.get(i).date);
 
                     if (thisEvent.equals(indexEvent)) {
                         eventsSameDate = eventsSameDate + 1;
-                        System.out.println(eventsSameDate);
-
                     }
                 }
                 if (eventsSameDate < 3) {
@@ -1833,6 +1900,7 @@ public class JourneyActivity extends AppCompatActivity {
                 View imageButton = layout.findViewById(id_);
                 layout.removeView(imageButton);
                 connectHandler.deleteEvent(eventList.get(id_).event_ID);
+                System.out.println("try to remove event"+eventList.get(id_).event_ID);
                 eventList.remove(id_);
                 reArrangeBtnId(id_);
                 popupWindow.dismiss();
@@ -2145,7 +2213,7 @@ public class JourneyActivity extends AppCompatActivity {
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsCar2.setMargins((carIntPosition * 2)-800, 0, 0, 50);
-        System.out.println("CARPOSITION"+carIntPosition * 2);
+
 
         TranslateAnimation transAnimation1 = new TranslateAnimation(0, 2000, 0, 0);
         transAnimation1.setDuration(3500);
@@ -2192,9 +2260,8 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void lionMessage(){
 
-
-
-
+        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.lion);
+        mp.start();
         CountDownTimer lionTimer = new CountDownTimer(6000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -2226,6 +2293,7 @@ public class JourneyActivity extends AppCompatActivity {
         final PopupWindow popupWindow = new PopupWindow(
                 popupView, (int) (width * 0.40), (int) (height * 0.60));
         relativeLayout = (RelativeLayout) findViewById(R.id.layerCoantainerJourney);
+
 
         ImageButton cancel = (ImageButton)popupView.findViewById(R.id.img_journey_cancellion);
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
@@ -2381,6 +2449,9 @@ public class JourneyActivity extends AppCompatActivity {
 
         return convertedDate;
     }
+
+
+
 
     private void ExampleJourney() {
         /*
