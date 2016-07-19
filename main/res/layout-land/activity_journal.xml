@@ -474,8 +474,6 @@
 
                                 </RelativeLayout>
 
-
-
                             </RelativeLayout>
 
                             <RelativeLayout
@@ -535,13 +533,14 @@
                 android:id="@+id/journal_right_side">
 
                 <CalendarView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/cal_journal_calendar"
-                    android:touchscreenBlocksFocus="false"
-                    android:theme="@style/AppTheme.NoActionBar" />
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:theme="@style/AppTheme.NoActionBar"
+                    android:id="@+id/cal_journal_calendar" />
 
                 <RelativeLayout
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -566,6 +565,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true" />
+
                 </RelativeLayout>
 
                 <ListView
