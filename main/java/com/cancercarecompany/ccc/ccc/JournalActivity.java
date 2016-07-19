@@ -212,7 +212,6 @@ public class JournalActivity extends AppCompatActivity {
         statusAdapter = new JournalStatusAdapter(this, statusList);
         statusGridView.setAdapter(statusAdapter);
 
-        settingsButton = (ImageButton) findViewById(R.id.btn_journal_settings);
         wholeScreen = (LinearLayout) findViewById(R.id.layout_journal_screen);
 
         emotionText =  (TextView) findViewById(R.id.txt_journal_emotions);
@@ -472,7 +471,7 @@ public class JournalActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        loggedIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Settings settingsClass = new Settings();

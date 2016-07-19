@@ -58,7 +58,7 @@
             android:background="@null"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="false"
-            android:layout_toLeftOf="@+id/btn_careteam_settings" />
+            android:layout_toLeftOf="@+id/txt_loggedIn" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -77,32 +77,17 @@
             android:layout_toStartOf="@+id/btn_journey_button" />
 
         <TextView
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/txt_loggedIn"
             android:text="name"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/btn_careteam_button"
             android:textColor="@color/white"
-            android:textAlignment="textEnd" />
-
-        <ImageView
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_width="30dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="30dp"
-            android:padding="3dp"
-            android:id="@+id/img_loggedin_avatar"
-            android:gravity="center"
-            android:src="@drawable/family_avatar_1"
-            android:scaleType="fitCenter"
-            android:background="@color/white"
-            android:cropToPadding="false"
+            android:textAlignment="textEnd"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/txt_loggedIn" />
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -113,21 +98,8 @@
             android:layout_marginRight="20dp"
             android:textColor="#ffffff"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/logoButton" />
-
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:id="@+id/btn_careteam_settings"
-            android:src="@drawable/settingswhite"
-            android:scaleType="fitCenter"
-            android:gravity="center"
-            android:background="@null"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_toEndOf="@+id/logoButton"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
