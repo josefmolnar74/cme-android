@@ -486,6 +486,7 @@ public class JournalActivity extends AppCompatActivity {
                 String chosenDate = year + "-" +String.format("%02d",month) +"-" +String.format("%02d",date);
                 journalHeaderText.setText((journalHeaderText.getText()) + chosenDate);
                 statusList.clear();
+                eventList.clear();
                 showJournalData(chosenDate);
 
             }
@@ -555,6 +556,7 @@ public class JournalActivity extends AppCompatActivity {
 
             for (int i = 0; i < connectHandler.journal.event_data.size(); i++) {
                 eventList.add(connectHandler.journal.event_data.get(i));
+                eventList.get(eventList.size()-1).sub_category = getResources().getString(getResources().getIdentifier("event_"+connectHandler.journal.event_data.get(i).sub_category, "string", getPackageName()));
             }
 
             if (eventAdapter != null){
