@@ -20,6 +20,7 @@ import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -45,7 +46,6 @@ import android.os.Handler;
 public class JournalActivity extends AppCompatActivity {
 
     ConnectionHandler connectHandler;
-    ArrayList<Events> eventList;
 
     ArrayList<Status> statusList = new ArrayList<>();
     GridView statusGridView;
@@ -55,6 +55,9 @@ public class JournalActivity extends AppCompatActivity {
     GridView beverageGridView;
     JournalBeverageAdapter beverageAdapter;
 
+    ArrayList<Event> eventList = new ArrayList<>();
+    ListView eventListView;
+    JournalEventAdapter eventAdapter;
 
     String lbl_datum;
     TextView header;
@@ -209,6 +212,10 @@ public class JournalActivity extends AppCompatActivity {
         statusGridView = (GridView) findViewById(R.id.gridview_journal_status);
         statusAdapter = new JournalStatusAdapter(this, statusList);
         statusGridView.setAdapter(statusAdapter);
+
+        eventListView = (ListView) findViewById(R.id.listview_journal_events);
+        eventAdapter = new JournalEventAdapter(this, eventList);
+        eventListView.setAdapter(eventAdapter);
 
         wholeScreen = (LinearLayout) findViewById(R.id.layout_journal_screen);
 
@@ -545,39 +552,48 @@ public class JournalActivity extends AppCompatActivity {
             if (statusAdapter != null){
                 statusAdapter.notifyDataSetChanged();
             }
-        }
 
-        // Find if there are any sideeffects for today
-        findSideeffectsForToday(date);
-
-        int savedBeverageAmount = 0;
-        beverageIdForToday = -1; //init
-        if (connectHandler.journal.beverage_data.size() > 0) {
-            // Check if beverage has already been saved today
-            // Get last saved beverage and check for date
-            int lastIndex = connectHandler.journal.beverage_data.size() - 1;
-            boolean dateIsToday = false;
-            try {
-                dateIsToday = matchDate(date, connectHandler.journal.beverage_data.get(lastIndex).date);
-            } catch (ParseException e) {
+            for (int i = 0; i < connectHandler.journal.event_data.size(); i++) {
+                eventList.add(connectHandler.journal.event_data.get(i));
             }
 
-            if (dateIsToday) {
-                // yep, beverage has been saved today
-                beverageIdForToday = lastIndex;
-                savedBeverageAmount = connectHandler.journal.beverage_data.get(beverageIdForToday).amount;
+            if (eventAdapter != null){
+                eventAdapter.notifyDataSetChanged();
             }
-        }
 
-        for (int i = 0; i < 8; i++) {
-            if (i < savedBeverageAmount) {
-                beverageList.add("full");
-            } else {
-                beverageList.add("empty");
+            // Find if there are any sideeffects for today
+            findSideeffectsForToday(date);
+
+            int savedBeverageAmount = 0;
+            beverageIdForToday = -1; //init
+            if (connectHandler.journal.beverage_data.size() > 0) {
+                // Check if beverage has already been saved today
+                // Get last saved beverage and check for date
+                int lastIndex = connectHandler.journal.beverage_data.size() - 1;
+                boolean dateIsToday = false;
+                try {
+                    dateIsToday = matchDate(date, connectHandler.journal.beverage_data.get(lastIndex).date);
+                } catch (ParseException e) {
+                }
+
+                if (dateIsToday) {
+                    // yep, beverage has been saved today
+                    beverageIdForToday = lastIndex;
+                    savedBeverageAmount = connectHandler.journal.beverage_data.get(beverageIdForToday).amount;
+                }
             }
-        }
-        if (beverageAdapter != null){
-            beverageAdapter.notifyDataSetChanged();
+
+            for (int i = 0; i < 8; i++) {
+                if (i < savedBeverageAmount) {
+                    beverageList.add("full");
+                } else {
+                    beverageList.add("empty");
+                }
+            }
+            if (beverageAdapter != null){
+                beverageAdapter.notifyDataSetChanged();
+            }
+
         }
     }
 

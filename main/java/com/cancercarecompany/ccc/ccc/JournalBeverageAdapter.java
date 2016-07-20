@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -27,7 +26,7 @@ public class JournalBeverageAdapter extends ArrayAdapter<String> {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View customGridview = inflater.inflate(R.layout.journal_beverage_gridview, parent, false);
-        ImageView glassImageView = (ImageView) customGridview.findViewById(R.id.img_journal_gridview_beverage);
+        ImageView glassImageView = (ImageView) customGridview.findViewById(R.id.img_journal_listview_event);
 
         if (beverageList.get(position) == "empty"){
             // set empty glass image
