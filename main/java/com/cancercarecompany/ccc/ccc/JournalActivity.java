@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -47,7 +46,6 @@ public class JournalActivity extends AppCompatActivity {
 
     ConnectionHandler connectHandler;
     ArrayList<Events> eventList;
-    ArrayList<Patient> patientList = new ArrayList<>();
 
     ArrayList<Status> statusList = new ArrayList<>();
     GridView statusGridView;
@@ -237,6 +235,26 @@ public class JournalActivity extends AppCompatActivity {
         if (connectHandler.person != null) {
             loggedIn.setText(connectHandler.person.first_name);
         }
+
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(date)));
+
+        connectHandler = ConnectionHandler.getInstance();
+        //Get journal data
+        connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
+
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+                         @Override
+                         public void run() {
+                             if (!connectHandler.socketBusy) {
+                                showJournalData( (String) new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                             } else {
+                                 handler.postDelayed(this,1000);
+                             }
+                         }
+                     });
+
 
         journeyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -456,16 +474,15 @@ public class JournalActivity extends AppCompatActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int date) {
-                Toast.makeText(getApplicationContext(), date + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
-                //     getString(R.string.txt_journal_headline, year,month, date);
                 journalHeaderText.setText(R.string.txt_journal_headline);
-                journalHeaderText.setText((journalHeaderText.getText()) + " " + year + "-" + month + "-" + date);
+                month += 1;
+                String chosenDate = year + "-" +String.format("%02d",month) +"-" +String.format("%02d",date);
+                journalHeaderText.setText((journalHeaderText.getText()) + chosenDate);
+                statusList.clear();
+                showJournalData(chosenDate);
+
             }
         });
-
-        connectHandler = ConnectionHandler.getInstance();
-        // Get and setup journal data
-        getJournalData();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -512,71 +529,56 @@ public class JournalActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    private void getJournalData() {
-
-        //Get journal data
-        connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
-
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (!connectHandler.socketBusy){
-                    if (connectHandler.journal != null) {
-                        for (int i = 0; i < connectHandler.journal.status_data.size(); i++) {
-                            //TODO Check if there is status for today
-                            boolean dateIsToday = false;
-                            try {
-                                dateIsToday = checkIfDateIsToday(connectHandler.journal.status_data.get(i).date);
-                            } catch (ParseException e) {
-                            }
-                            if (dateIsToday) {
-                                statusList.add(connectHandler.journal.status_data.get(i));
-                            }
-                        }
-                        if (statusAdapter != null){
-                            statusAdapter.notifyDataSetChanged();
-                        }
-                    }
-
-                    // Find if there are any sideeffects for today
-                    findSideeffectsForToday();
-
-                    int savedBeverageAmount = 0;
-                    beverageIdForToday = -1; //init
-                    if (connectHandler.journal.beverage_data.size() > 0) {
-                        // Check if beverage has already been saved today
-                        // Get last saved beverage and check for date
-                        int lastIndex = connectHandler.journal.beverage_data.size() - 1;
-                        boolean dateIsToday = false;
-                        try {
-                            dateIsToday = checkIfDateIsToday(connectHandler.journal.beverage_data.get(lastIndex).date);
-                        } catch (ParseException e) {
-                        }
-
-                        if (dateIsToday) {
-                            // yep, beverage has been saved today
-                            beverageIdForToday = lastIndex;
-                            savedBeverageAmount = connectHandler.journal.beverage_data.get(beverageIdForToday).amount;
-                        }
-                    }
-
-                    for (int i = 0; i < 8; i++) {
-                        if (i < savedBeverageAmount) {
-                            beverageList.add("full");
-                        } else {
-                            beverageList.add("empty");
-                        }
-                    }
-                    if (beverageAdapter != null){
-                        beverageAdapter.notifyDataSetChanged();
-                    }
-
-                }else{
-                    handler.postDelayed(this,1000);
+    private void showJournalData(String date) {
+        if (connectHandler.journal != null) {
+            for (int i = 0; i < connectHandler.journal.status_data.size(); i++) {
+                //TODO Check if there is status for today
+                boolean dateIsToday = false;
+                try {
+                    dateIsToday = matchDate(date, connectHandler.journal.status_data.get(i).date);
+                } catch (ParseException e) {
+                }
+                if (dateIsToday) {
+                    statusList.add(connectHandler.journal.status_data.get(i));
                 }
             }
-        });
+            if (statusAdapter != null){
+                statusAdapter.notifyDataSetChanged();
+            }
+        }
+
+        // Find if there are any sideeffects for today
+        findSideeffectsForToday(date);
+
+        int savedBeverageAmount = 0;
+        beverageIdForToday = -1; //init
+        if (connectHandler.journal.beverage_data.size() > 0) {
+            // Check if beverage has already been saved today
+            // Get last saved beverage and check for date
+            int lastIndex = connectHandler.journal.beverage_data.size() - 1;
+            boolean dateIsToday = false;
+            try {
+                dateIsToday = matchDate(date, connectHandler.journal.beverage_data.get(lastIndex).date);
+            } catch (ParseException e) {
+            }
+
+            if (dateIsToday) {
+                // yep, beverage has been saved today
+                beverageIdForToday = lastIndex;
+                savedBeverageAmount = connectHandler.journal.beverage_data.get(beverageIdForToday).amount;
+            }
+        }
+
+        for (int i = 0; i < 8; i++) {
+            if (i < savedBeverageAmount) {
+                beverageList.add("full");
+            } else {
+                beverageList.add("empty");
+            }
+        }
+        if (beverageAdapter != null){
+            beverageAdapter.notifyDataSetChanged();
+        }
     }
 
     public void showStatus(final int position) {
@@ -1450,22 +1452,31 @@ public class JournalActivity extends AppCompatActivity {
 
     }
 
-    private boolean checkIfDateIsToday(String dateString) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss.SSS'Z'");
+    private boolean matchDate(String targetDateString , String dateString) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date targetDate = null;
         Date date = null;
         long milliseconds = 0;
+        dateString = dateString.split("T")[0];
+
+        try {
+            targetDate = format.parse(targetDateString);
+        } catch (ParseException e) {
+            System.out.println("Failure when parsing the targetDateString");
+        }
         try {
             date = format.parse(dateString);
         } catch (ParseException e) {
             System.out.println("Failure when parsing the dateString");
         }
-        if (date != null) {
-            milliseconds = date.getTime();
+        if ((date != null) && (targetDate != null)) {
+            return (targetDate.getTime() == date.getTime());
+        } else {
+            return false;
         }
-        return DateUtils.isToday(milliseconds);
     }
 
-    private void findSideeffectsForToday() {
+    private void findSideeffectsForToday(String date) {
 
         // Initialise values if changes has happened to the list
         fatigueIdForToday = -1;
@@ -1503,7 +1514,7 @@ public class JournalActivity extends AppCompatActivity {
             for (int position = 0; position < connectHandler.journal.sideeffect_data.size(); position++) {
                 boolean dateIsToday = false;
                 try {
-                    dateIsToday = checkIfDateIsToday(connectHandler.journal.sideeffect_data.get(position).date);
+                    dateIsToday = matchDate(date, connectHandler.journal.sideeffect_data.get(position).date);
                 } catch (ParseException e) {
                 }
                 if (dateIsToday) {
@@ -1608,7 +1619,7 @@ public class JournalActivity extends AppCompatActivity {
         connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy) {
         }
-        findSideeffectsForToday();
+        findSideeffectsForToday(date);
         // and voila :)
 
     }
