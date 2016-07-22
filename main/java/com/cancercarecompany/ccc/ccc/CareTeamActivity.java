@@ -49,6 +49,11 @@ public class CareTeamActivity extends AppCompatActivity {
     ImageButton healthcareAvatar;
     ImageButton settingsButton;
     ConnectionHandler connectHandler;
+    CmeDataManager cmeDataManager;
+    Person person;
+    Patient patient;
+    InviteData invites;
+    HealthCareData healthcare;
 
     String languageString;
     /**
@@ -63,6 +68,12 @@ public class CareTeamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_careteam);
 
+        cmeDataManager = CmeDataManager.getInstance();
+        person = cmeDataManager.getPerson();
+        patient = cmeDataManager.getPatient();
+        invites = cmeDataManager.getInvites(patient.patient_ID);
+        healthcare = cmeDataManager.getHealthcare(patient.patient_ID);
+        connectHandler = ConnectionHandler.getInstance();
 
         wholeScreen = (LinearLayout) findViewById(R.id.careTeamScreen);
 
@@ -81,17 +92,15 @@ public class CareTeamActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(this.getResources().getColor(R.color.black));
 
-        connectHandler = ConnectionHandler.getInstance();
-
         // Display patient name on topbar
         TextView patientNameText = (TextView) findViewById(R.id.txt_patientName);
-        if (connectHandler.patient != null){
-            patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
+        if (patient != null){
+            patientNameText.setText(patient.patient_name.concat(patientNameText.getText().toString()));
         }
 
         TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
-        if (connectHandler.person != null){
-            loggedIn.setText(connectHandler.person.first_name);
+        if (person != null){
+            loggedIn.setText(person.first_name);
         }
 
         familyGridView = (GridView) findViewById(R.id.gridview_careteam_family);
@@ -118,29 +127,25 @@ public class CareTeamActivity extends AppCompatActivity {
         });
 
         // Generate family and friends care team members
-        if (connectHandler.patient != null){
-            if (connectHandler.patient.care_team != null){
-                for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
-                    familyList.add(connectHandler.patient.care_team.get(i));
+        if (patient != null){
+            if (patient.care_team != null){
+                for (int i = 0; i < patient.care_team.size(); i++) {
+                    familyList.add(patient.care_team.get(i));
                 }
             }
         }
 
-        connectHandler.getInvitedCareTeamMembers(connectHandler.patient.patient_ID);
-
-        while (connectHandler.socketBusy){}
-
-        if (connectHandler.invites != null)
+        if (invites != null)
         {
-            for (int i = 0; i < connectHandler.invites.invite_data.size();i++){
+            for (int i = 0; i < invites.invite_data.size();i++){
                 CareTeamMember invitedCareTeamMember = new CareTeamMember(
-                        connectHandler.invites.invite_data.get(i).person_ID,
-                        connectHandler.invites.invite_data.get(i).invited_first_name,
-                        connectHandler.invites.invite_data.get(i).invited_last_name,
-                        connectHandler.invites.invite_data.get(i).invited_email,
-                        connectHandler.invites.invite_data.get(i).invited_relationship,
-                        connectHandler.invites.invite_data.get(i).invited_avatar,
-                        connectHandler.invites.invite_data.get(i).invited_admin);
+                        invites.invite_data.get(i).person_ID,
+                        invites.invite_data.get(i).invited_first_name,
+                        invites.invite_data.get(i).invited_last_name,
+                        invites.invite_data.get(i).invited_email,
+                        invites.invite_data.get(i).invited_relationship,
+                        invites.invite_data.get(i).invited_avatar,
+                        invites.invite_data.get(i).invited_admin);
                 familyList.add(invitedCareTeamMember);
             }
         }
@@ -149,12 +154,12 @@ public class CareTeamActivity extends AppCompatActivity {
         familyGridView.setAdapter(familyAdapter);
 
         // Generate health care members
-        connectHandler.getHealthcareForPatient(connectHandler.patient.patient_ID);
+        connectHandler.getHealthcareForPatient(patient.patient_ID);
         while (connectHandler.socketBusy){}
 
-        if (connectHandler.healthcare != null){
-            for (int i = 0; i < connectHandler.healthcare.healthcare_data.size(); i++) {
-                healthcareList.add(connectHandler.healthcare.healthcare_data.get(i));
+        if (healthcare != null){
+            for (int i = 0; i < healthcare.healthcare_data.size(); i++) {
+                healthcareList.add(healthcare.healthcare_data.get(i));
             }
         }
 
@@ -276,7 +281,7 @@ public class CareTeamActivity extends AppCompatActivity {
                     alertText.setVisibility(View.INVISIBLE);
                     HealthCare newHealthcare = new HealthCare(
                             0,
-                            connectHandler.patient.patient_ID,
+                            patient.patient_ID,
                             titleString,
                             editName.getText().toString(),
                             editDepartment.getText().toString(),
@@ -371,9 +376,9 @@ public class CareTeamActivity extends AppCompatActivity {
                         admin = 0;
                     }
                     Invite newInvite = new Invite(  0,
-                                                    connectHandler.person.first_name,
-                                                    connectHandler.patient.patient_ID,
-                                                    connectHandler.patient.patient_name,
+                                                    person.first_name,
+                                                    patient.patient_ID,
+                                                    patient.patient_name,
                                                     firstNameString,
                                                     editLastName.getText().toString(),
                                                     emailString,
@@ -716,7 +721,7 @@ public class CareTeamActivity extends AppCompatActivity {
 
                 HealthCare newHealthCare = new HealthCare(
                         healthcareList.get(gridPosition).healthcare_ID,
-                        connectHandler.patient.patient_ID,
+                        patient.patient_ID,
                         editTitle.getText().toString(),
                         editName.getText().toString(),
                         editDepartment.getText().toString(),

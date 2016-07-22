@@ -12,6 +12,7 @@ import io.socket.emitter.Emitter;
  */
 public class ConnectionHandler {
     private static ConnectionHandler ourInstance = new ConnectionHandler();
+    CmeDataManager cmeDataManager;
 
     public io.socket.client.Socket socket;
 
@@ -20,7 +21,7 @@ public class ConnectionHandler {
     Boolean socketBusy = false;
 
     // To be moved to data management Singleton class TBD
-    public Lcl_work_area lcl;
+    public LoginData loginData;
     public Person person;
     public Patient patient;
     public InviteData invites;
@@ -54,6 +55,7 @@ public class ConnectionHandler {
 
     private ConnectionHandler() {
         // Constructor
+        cmeDataManager = CmeDataManager.getInstance();
         initializeSocket();
     }
 
@@ -97,10 +99,13 @@ public class ConnectionHandler {
                         switch (header.function){
                             case MESSAGE_LOGIN:
                                 person = gson.fromJson(resultData, Person.class);
+                                cmeDataManager.savePersonData(resultData);
                                 if (person.patient != null){
                                     patient = person.patient.get(0);
+                                    cmeDataManager.savePatientData(gson.toJson(patient));
                                 }
-                                lcl = gson.fromJson(resultData, Lcl_work_area.class);
+                                loginData = gson.fromJson(resultData, LoginData.class);
+                                cmeDataManager.saveLoginData(resultData);
                                 break;
 
                             case MESSAGE_CREATE:
@@ -127,17 +132,22 @@ public class ConnectionHandler {
                                 switch (header.content){
                                     case CONTENT_PERSON:
                                         person = gson.fromJson(resultData, Person.class);
+                                        cmeDataManager.savePersonData(resultData);
                                         break;
                                     case CONTENT_PATIENT:
                                         patient = gson.fromJson(resultData, Patient.class);
+                                        cmeDataManager.savePatientData(resultData);
                                         break;
                                     case CONTENT_INVITE:
                                         invites = gson.fromJson(resultData, InviteData.class);
+                                        cmeDataManager.saveInviteData(resultData);
                                         break;
                                     case CONTENT_HEALTHCARE:
                                         healthcare = gson.fromJson(resultData, HealthCareData.class);
+                                        cmeDataManager.saveHealthCareData(resultData);
                                         break;
                                     case CONTENT_EVENT:
+                                        cmeDataManager.saveEventData(resultData);
                                         events = gson.fromJson(resultData, EventData.class);
                                         break;
                                     case CONTENT_STATUS:
@@ -152,6 +162,7 @@ public class ConnectionHandler {
 
                                     case CONTENT_JOURNAL:
                                         journal = gson.fromJson(resultData, JournalData.class);
+                                        cmeDataManager.saveJournalData(resultData);
                                         break;
                                 }
                                 break;

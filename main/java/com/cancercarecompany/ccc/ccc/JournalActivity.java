@@ -34,7 +34,10 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,6 +49,10 @@ import android.os.Handler;
 public class JournalActivity extends AppCompatActivity {
 
     ConnectionHandler connectHandler;
+    CmeDataManager cmeDataManager;
+    JournalData journal;
+    Person person;
+    Patient patient;
 
     ArrayList<Status> statusList = new ArrayList<>();
     GridView statusGridView;
@@ -105,6 +112,8 @@ public class JournalActivity extends AppCompatActivity {
 
     public static final String TIME_SIMPLE_FORMAT   = "yyyy-MM-dd";
     public static final String DATE_SIMPLE_FORMAT   = "kk:mm:ss";
+
+    public static final String FILENAME_JOURNAL_DATA ="cme_journal_data";
 
     public static final String EMOTION_HAPPY        = "Happy";
     public static final String EMOTION_SAD          = "Sad";
@@ -173,6 +182,14 @@ public class JournalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
         connectHandler = ConnectionHandler.getInstance();
+        cmeDataManager = CmeDataManager.getInstance();
+
+        // get person
+        person = cmeDataManager.getPerson();
+        // get patient
+        patient = cmeDataManager.getPatient();
+        // get journal
+        journal = cmeDataManager.getJournal(patient.patient_ID);
 
         // Check language settings
         SharedPreferences prefs = this.getSharedPreferences(
@@ -232,23 +249,19 @@ public class JournalActivity extends AppCompatActivity {
         }
 
         // Display patient name on topbar
-        if (connectHandler.patient != null) {
-            //            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
-            patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
+        if (patient != null) {
+            //            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(patient.patient_name)));
+            patientNameText.setText(patient.patient_name.concat(patientNameText.getText().toString()));
         }
 
         // Display logged in name
         TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
-        if (connectHandler.person != null) {
-            loggedIn.setText(connectHandler.person.first_name);
+        if (person != null) {
+            loggedIn.setText(person.first_name);
         }
 
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(date)));
-
-        connectHandler = ConnectionHandler.getInstance();
-        //Get journal data
-        connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
 
         final Handler handler = new Handler();
         handler.post(new Runnable() {
@@ -293,8 +306,8 @@ public class JournalActivity extends AppCompatActivity {
                     // Create new status
                     Status newStatus = new Status(
                             0,
-                            connectHandler.patient.patient_ID,
-                            connectHandler.person.person_ID,
+                            patient.patient_ID,
+                            person.person_ID,
                             date,
                             time,
                             statusTextEditText.getText().toString(),
@@ -519,15 +532,15 @@ public class JournalActivity extends AppCompatActivity {
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
         Beverage beverage = new Beverage(0,
-                connectHandler.patient.patient_ID,
-                connectHandler.person.person_ID,
+                patient.patient_ID,
+                person.person_ID,
                 date,
                 time,
                 amount);
         if (beverageIdForToday >= 0) {
             // update already existing beverage for today
-            if (connectHandler.journal != null){
-                beverage.beverage_ID = connectHandler.journal.beverage_data.get(beverageIdForToday).beverage_ID;
+            if (journal != null){
+                beverage.beverage_ID = journal.beverage_data.get(beverageIdForToday).beverage_ID;
                 connectHandler.updateBeverage(beverage);
             }
         } else {
@@ -538,25 +551,25 @@ public class JournalActivity extends AppCompatActivity {
     }
 
     private void showJournalData(String date) {
-        if (connectHandler.journal != null) {
-            for (int i = 0; i < connectHandler.journal.status_data.size(); i++) {
+        if (journal != null) {
+            for (int i = 0; i < journal.status_data.size(); i++) {
                 //TODO Check if there is status for today
                 boolean dateIsToday = false;
                 try {
-                    dateIsToday = matchDate(date, connectHandler.journal.status_data.get(i).date);
+                    dateIsToday = matchDate(date, journal.status_data.get(i).date);
                 } catch (ParseException e) {
                 }
                 if (dateIsToday) {
-                    statusList.add(connectHandler.journal.status_data.get(i));
+                    statusList.add(journal.status_data.get(i));
                 }
             }
             if (statusAdapter != null){
                 statusAdapter.notifyDataSetChanged();
             }
 
-            for (int i = 0; i < connectHandler.journal.event_data.size(); i++) {
-                eventList.add(connectHandler.journal.event_data.get(i));
-                eventList.get(eventList.size()-1).sub_category = getResources().getString(getResources().getIdentifier("event_"+connectHandler.journal.event_data.get(i).sub_category, "string", getPackageName()));
+            for (int i = 0; i < journal.event_data.size(); i++) {
+                eventList.add(journal.event_data.get(i));
+                eventList.get(eventList.size()-1).sub_category = getResources().getString(getResources().getIdentifier("event_"+journal.event_data.get(i).sub_category, "string", getPackageName()));
             }
 
             if (eventAdapter != null){
@@ -568,20 +581,20 @@ public class JournalActivity extends AppCompatActivity {
 
             int savedBeverageAmount = 0;
             beverageIdForToday = -1; //init
-            if (connectHandler.journal.beverage_data.size() > 0) {
+            if (journal.beverage_data.size() > 0) {
                 // Check if beverage has already been saved today
                 // Get last saved beverage and check for date
-                int lastIndex = connectHandler.journal.beverage_data.size() - 1;
+                int lastIndex = journal.beverage_data.size() - 1;
                 boolean dateIsToday = false;
                 try {
-                    dateIsToday = matchDate(date, connectHandler.journal.beverage_data.get(lastIndex).date);
+                    dateIsToday = matchDate(date, journal.beverage_data.get(lastIndex).date);
                 } catch (ParseException e) {
                 }
 
                 if (dateIsToday) {
                     // yep, beverage has been saved today
                     beverageIdForToday = lastIndex;
-                    savedBeverageAmount = connectHandler.journal.beverage_data.get(beverageIdForToday).amount;
+                    savedBeverageAmount = journal.beverage_data.get(beverageIdForToday).amount;
                 }
             }
 
@@ -907,14 +920,14 @@ public class JournalActivity extends AppCompatActivity {
                 break;
         }
         // Replace X with patient name
-        textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
+        textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", patient.patient_name));
 
         // if sideeffect exist, initalise the saved checkbox values
         String sideeffectValueString = null;
         if ((painIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_PAIN)) {
-            sideeffectValueString = connectHandler.journal.sideeffect_data.get(painIdForToday).value;
+            sideeffectValueString = journal.sideeffect_data.get(painIdForToday).value;
         } else if ((tinglingIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_TINGLING)) {
-            sideeffectValueString = connectHandler.journal.sideeffect_data.get(tinglingIdForToday).value;
+            sideeffectValueString = journal.sideeffect_data.get(tinglingIdForToday).value;
         }
 
         if (sideeffectValueString != null) {
@@ -1202,14 +1215,14 @@ public class JournalActivity extends AppCompatActivity {
         }
 
         // Replace X with patient name
-        textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
+        textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", patient.patient_name));
 
         // Get position for todays sideeffect
         String sideeffectValueString = null;
         switch (sideeffectType) {
             case SIDEEFFECT_TYPE_APPETITE:
                 if (appetiteIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(appetiteIdForToday).value;
+                    sideeffectValueString = journal.sideeffect_data.get(appetiteIdForToday).value;
                     // Populate the seekbar values for the existing side effect
                     //Separate Breakfast, lunch, dinner and convert string values to integer and set progress default
                     String[] parts = sideeffectValueString.split(",");
@@ -1226,7 +1239,7 @@ public class JournalActivity extends AppCompatActivity {
                 break;
             case SIDEEFFECT_TYPE_FATIGUE:
                 if (fatigueIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(fatigueIdForToday).value;
+                    sideeffectValueString = journal.sideeffect_data.get(fatigueIdForToday).value;
                     seekBar1.setProgress(Integer.parseInt(sideeffectValueString));
                     textSeekBarResult1.setText(sideeffectValueString);
                 }
@@ -1380,7 +1393,7 @@ public class JournalActivity extends AppCompatActivity {
         }
 
         // Replace X with patient name
-        textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
+        textSideeffectQuestion.setText(textSideeffectQuestion.getText().toString().replace("*", patient.patient_name));
 
         // if sideeffect exist, initalise the saved checkbox values
         String sideeffectValueString = null;
@@ -1389,22 +1402,22 @@ public class JournalActivity extends AppCompatActivity {
         switch (sideeffectType) {
             case SIDEEFFECT_TYPE_DIARRHEA:
                 if (diarrheaIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(diarrheaIdForToday).value;
+                    sideeffectValueString = journal.sideeffect_data.get(diarrheaIdForToday).value;
                 }
                 break;
             case SIDEEFFECT_TYPE_MOUTH:
                 if (mouthIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(mouthIdForToday).value;
+                    sideeffectValueString = journal.sideeffect_data.get(mouthIdForToday).value;
                 }
                 break;
             case SIDEEFFECT_TYPE_VOMIT:
                 if (vomitIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(vomitIdForToday).value;
+                    sideeffectValueString = journal.sideeffect_data.get(vomitIdForToday).value;
                 }
                 break;
             case SIDEEFFECT_TYPE_DIZZINESS:
                 if (dizzinessIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(dizzinessIdForToday).value;
+                    sideeffectValueString = journal.sideeffect_data.get(dizzinessIdForToday).value;
                 }
                 break;
         }
@@ -1528,15 +1541,15 @@ public class JournalActivity extends AppCompatActivity {
             otherButton.getBackground().setColorFilter(getResources().getColor(R.color.button_material_light), PorterDuff.Mode.SRC);
         }
 
-        if (connectHandler.journal.sideeffect_data != null) {
-            for (int position = 0; position < connectHandler.journal.sideeffect_data.size(); position++) {
+        if (journal.sideeffect_data != null) {
+            for (int position = 0; position < journal.sideeffect_data.size(); position++) {
                 boolean dateIsToday = false;
                 try {
-                    dateIsToday = matchDate(date, connectHandler.journal.sideeffect_data.get(position).date);
+                    dateIsToday = matchDate(date, journal.sideeffect_data.get(position).date);
                 } catch (ParseException e) {
                 }
                 if (dateIsToday) {
-                    switch (connectHandler.journal.sideeffect_data.get(position).type) {
+                    switch (journal.sideeffect_data.get(position).type) {
                         case SIDEEFFECT_TYPE_FATIGUE:
                             fatigueIdForToday = position;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -1622,8 +1635,8 @@ public class JournalActivity extends AppCompatActivity {
 
         Sideeffect newSideeffect = new Sideeffect(
                 0,
-                connectHandler.patient.patient_ID,
-                connectHandler.person.person_ID,
+                patient.patient_ID,
+                person.person_ID,
                 date,
                 time,
                 sideeffectType,
@@ -1634,7 +1647,7 @@ public class JournalActivity extends AppCompatActivity {
         }
 
         // update existing sideeffects, better solution, where only todays sideeffects are read TBD
-        connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
+        connectHandler.getJournalForPatient(patient.patient_ID);
         while (connectHandler.socketBusy) {
         }
         findSideeffectsForToday(date);
@@ -1677,7 +1690,7 @@ public class JournalActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-
+//        saveJournalDataLocally(journal);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
@@ -1692,5 +1705,19 @@ public class JournalActivity extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    private void saveJournalDataLocally (JournalData journalData){
+        Gson gson = new Gson();
+        String stringData = gson.toJson(journalData);
+
+        File file = new File(this.getFilesDir(), FILENAME_JOURNAL_DATA);
+        try{
+            FileOutputStream fos = openFileOutput(FILENAME_JOURNAL_DATA, Context.MODE_PRIVATE);
+            fos.write(stringData.getBytes());
+            fos.close();
+        } catch (Exception e){
+            System.out.println("Failed to save to internal storage");
+        }
     }
 }

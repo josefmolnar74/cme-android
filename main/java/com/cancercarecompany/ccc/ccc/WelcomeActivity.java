@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 public class WelcomeActivity extends AppCompatActivity {
 
     ConnectionHandler connectHandler;
+    CmeDataManager cmeDataManager;
     EditText loginEmail;
     EditText loginPassword;
     CheckBox loginSave;
