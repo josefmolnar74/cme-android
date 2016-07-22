@@ -321,16 +321,16 @@ public class OfflineDataManager {
         return patient;
     }
 
+    public InviteData getInvites(){
+        return invites;
+    }
+
     public JournalData getJournal(int content_ID){
         return journal;
     }
 
     public EventData getEvents(int content_ID){
         return events;
-    }
-
-    public InviteData getInvites(int content_ID){
-        return invites;
     }
 
     public HealthCareData getHealthcare(int content_ID){

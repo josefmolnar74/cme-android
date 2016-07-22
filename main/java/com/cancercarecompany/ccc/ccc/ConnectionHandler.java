@@ -16,7 +16,7 @@ import io.socket.emitter.Emitter;
  */
 public class ConnectionHandler {
     private static ConnectionHandler ourInstance = new ConnectionHandler();
-    OfflineDataManager cmeDataManager;
+    OfflineDataManager offlineDataManager;
 
     public io.socket.client.Socket socket;
 
@@ -25,16 +25,16 @@ public class ConnectionHandler {
     Boolean socketBusy = false;
 
     // To be moved to data management Singleton class TBD
-    public LoginData loginData;
-    public Person person;
-    public Patient patient;
-    public InviteData invites;
-    public HealthCareData healthcare;
-    public EventData events;
-    public StatusData status;
-    public SideeffectData sideeffects;
-    public BeverageData beverages;
-    public JournalData journal;
+    LoginData loginData;
+    Person person;
+    Patient patient;
+    InviteData invites;
+    HealthCareData healthcare;
+    EventData events;
+    StatusData status;
+    SideeffectData sideeffects;
+    BeverageData beverages;
+    JournalData journal;
 
     public static final String MESSAGE_LOGIN = "login";
     public static final String MESSAGE_CREATE = "create";
@@ -59,7 +59,7 @@ public class ConnectionHandler {
 
     private ConnectionHandler() {
         // Constructor
-        cmeDataManager = OfflineDataManager.getInstance();
+        offlineDataManager = OfflineDataManager.getInstance();
         initializeSocket();
     }
 
@@ -103,13 +103,13 @@ public class ConnectionHandler {
                         switch (header.function){
                             case MESSAGE_LOGIN:
                                 person = gson.fromJson(resultData, Person.class);
-                                cmeDataManager.savePersonData(resultData);
+                                offlineDataManager.savePersonData(resultData);
                                 if (person.patient != null){
                                     patient = person.patient.get(0);
-                                    cmeDataManager.savePatientData(gson.toJson(patient));
+                                    offlineDataManager.savePatientData(gson.toJson(patient));
                                 }
                                 loginData = gson.fromJson(resultData, LoginData.class);
-                                cmeDataManager.saveLoginData(resultData);
+                                offlineDataManager.saveLoginData(resultData);
                                 break;
 
                             case MESSAGE_CREATE:
@@ -136,22 +136,22 @@ public class ConnectionHandler {
                                 switch (header.content){
                                     case CONTENT_PERSON:
                                         person = gson.fromJson(resultData, Person.class);
-                                        cmeDataManager.savePersonData(resultData);
+                                        offlineDataManager.savePersonData(resultData);
                                         break;
                                     case CONTENT_PATIENT:
                                         patient = gson.fromJson(resultData, Patient.class);
-                                        cmeDataManager.savePatientData(resultData);
+                                        offlineDataManager.savePatientData(resultData);
                                         break;
                                     case CONTENT_INVITE:
                                         invites = gson.fromJson(resultData, InviteData.class);
-                                        cmeDataManager.saveInviteData(resultData);
+                                        offlineDataManager.saveInviteData(resultData);
                                         break;
                                     case CONTENT_HEALTHCARE:
                                         healthcare = gson.fromJson(resultData, HealthCareData.class);
-                                        cmeDataManager.saveHealthCareData(resultData);
+                                        offlineDataManager.saveHealthCareData(resultData);
                                         break;
                                     case CONTENT_EVENT:
-                                        cmeDataManager.saveEventData(resultData);
+                                        offlineDataManager.saveEventData(resultData);
                                         events = gson.fromJson(resultData, EventData.class);
                                         break;
                                     case CONTENT_STATUS:
@@ -166,7 +166,7 @@ public class ConnectionHandler {
 
                                     case CONTENT_JOURNAL:
                                         journal = gson.fromJson(resultData, JournalData.class);
-                                        cmeDataManager.saveJournalData(resultData);
+                                        offlineDataManager.saveJournalData(resultData);
                                         break;
                                 }
                                 break;
@@ -224,9 +224,9 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_LOGIN, CONTENT_PERSON, newUserString);
         } else {
             //offline mode, get data from internal file
-            cmeDataManager.getLoginData();
-            cmeDataManager.getPerson();
-            cmeDataManager.getPatient();
+            loginData = offlineDataManager.getLoginData();
+            person = offlineDataManager.getPerson();
+            patient = offlineDataManager.getPatient();
         }
     }
 
@@ -306,6 +306,8 @@ public class ConnectionHandler {
         if (checkConnectivity()){
             String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
             sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
+        } else {
+            invites = offlineDataManager.getInvites();
         }
     }
 
@@ -334,7 +336,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_HEALTHCARE, msgData);
         } else {
             //offline mode, get data from internal file
-            cmeDataManager.getHealthcare(patientID);
+            healthcare = offlineDataManager.getHealthcare(patientID);
         }
     }
 
@@ -374,7 +376,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_EVENT, msgData);
         } else {
             //offline mode, get data from internal file
-            cmeDataManager.getEvents(patientID);
+           events = offlineDataManager.getEvents(patientID);
         }
     }
 
@@ -407,7 +409,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_STATUS, msgData);
         } else {
             //offline mode, get data from internal file
-//            cmeDataManager.getStatus(patientID);
+//            offlineDataManager.getStatus(patientID);
         }
     }
 
@@ -440,7 +442,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_SIDEEFFECT, msgData);
         } else {
             //offline mode, get data from internal file
-//            cmeDataManager.getSideeffects(patientID);
+//            offlineDataManager.getSideeffects(patientID);
         }
     }
 
@@ -473,7 +475,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_BEVERAGE, msgData);
         } else {
             //offline mode, get data from internal file
-//            cmeDataManager.getBeverage(patientID);
+//            offlineDataManager.getBeverage(patientID);
         }
     }
 
@@ -498,7 +500,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_JOURNAL, msgData);
         } else {
             //offline mode, get data from internal file
-            cmeDataManager.getJournal(patientID);
+            journal =  offlineDataManager.getJournal(patientID);
         }
     }
 
