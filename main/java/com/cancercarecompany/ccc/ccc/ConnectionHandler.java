@@ -151,7 +151,7 @@ public class ConnectionHandler {
                                         offlineDataManager.saveHealthCareData(resultData);
                                         break;
                                     case CONTENT_EVENT:
-                                        offlineDataManager.saveEventData(resultData);
+                                        offlineDataManager.saveEventsData(resultData);
                                         events = gson.fromJson(resultData, EventData.class);
                                         break;
                                     case CONTENT_STATUS:
@@ -336,7 +336,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_HEALTHCARE, msgData);
         } else {
             //offline mode, get data from internal file
-            healthcare = offlineDataManager.getHealthcare(patientID);
+            healthcare = offlineDataManager.getHealthcare();
         }
     }
 
@@ -376,7 +376,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_EVENT, msgData);
         } else {
             //offline mode, get data from internal file
-           events = offlineDataManager.getEvents(patientID);
+           events = offlineDataManager.getEvents();
         }
     }
 
@@ -409,7 +409,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_STATUS, msgData);
         } else {
             //offline mode, get data from internal file
-//            offlineDataManager.getStatus(patientID);
+            offlineDataManager.getStatus();
         }
     }
 
@@ -442,7 +442,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_SIDEEFFECT, msgData);
         } else {
             //offline mode, get data from internal file
-//            offlineDataManager.getSideeffects(patientID);
+            offlineDataManager.getSideeffects();
         }
     }
 
@@ -475,7 +475,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_BEVERAGE, msgData);
         } else {
             //offline mode, get data from internal file
-//            offlineDataManager.getBeverage(patientID);
+            offlineDataManager.getBeverages();
         }
     }
 
@@ -500,7 +500,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_JOURNAL, msgData);
         } else {
             //offline mode, get data from internal file
-            journal =  offlineDataManager.getJournal(patientID);
+            journal =  offlineDataManager.getJournal();
         }
     }
 

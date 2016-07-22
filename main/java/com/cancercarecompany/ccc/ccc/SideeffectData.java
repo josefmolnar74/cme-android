@@ -11,7 +11,7 @@ public class SideeffectData implements Serializable {
 
     public ArrayList<Sideeffect> sideeffect_data;
 
-    public SideeffectData(ArrayList<Sideeffect> status_data) {
+    public SideeffectData(ArrayList<Sideeffect> sideeffect_data) {
         this.sideeffect_data = sideeffect_data; //default value, does not matter because updated during read from database
     }
 }

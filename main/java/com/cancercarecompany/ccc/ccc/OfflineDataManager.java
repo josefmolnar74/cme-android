@@ -24,11 +24,17 @@ public class OfflineDataManager {
     private InviteData invites;
     private HealthCareData healthcare;
     private EventData events;
+    private BeverageData beverages;
+    private SideeffectData sideeffects;
+    private StatusData status;
+
     private JournalData journal;
 
     public static final String FILENAME_LOGIN_DATA = "cme_login_data";
-    public static final String FILENAME_JOURNAL_DATA = "cme_journal_data";
     public static final String FILENAME_EVENTS_DATA = "cme_events_data";
+    public static final String FILENAME_STATUS_DATA = "cme_status_data";
+    public static final String FILENAME_SIDEEFFECTS_DATA = "cme_sideeffects_data";
+    public static final String FILENAME_BEVERAGES_DATA = "cme_beverages_data";
     public static final String FILENAME_PERSON_DATA = "cme_person_data";
     public static final String FILENAME_PATIENT_DATA = "cme_patient_data";
     public static final String FILENAME_INVITES_DATA = "cme_invites_data";
@@ -45,7 +51,9 @@ public class OfflineDataManager {
 
     public void readLocalData (){
         readLoginLocalData();
-        readJournalLocalData();
+        readStatusLocalData();
+        readSideeffectsLocalData();
+        readBeveragesLocalData();
         readEventsLocalData();
         readPersonLocalData();
         readPatientLocalData();
@@ -67,30 +75,6 @@ public class OfflineDataManager {
 
             Gson gson = new Gson();
             loginData =  gson.fromJson(sb.toString(), LoginData.class);
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (UnsupportedEncodingException e) {
-//            return "";
-        } catch (IOException e) {
-//            return "";
-        }
-    }
-
-    public void readJournalLocalData(){
-        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_JOURNAL_DATA);
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-
-            Gson gson = new Gson();
-            journal =  gson.fromJson(sb.toString(), JournalData.class);
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -125,6 +109,77 @@ public class OfflineDataManager {
         }
     }
 
+    public void readStatusLocalData(){
+        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_STATUS_DATA);
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+
+            Gson gson = new Gson();
+            status =  gson.fromJson(sb.toString(), StatusData.class);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (UnsupportedEncodingException e) {
+//            return "";
+        } catch (IOException e) {
+//            return "";
+        }
+    }
+
+    public void readBeveragesLocalData(){
+        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_BEVERAGES_DATA);
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+
+            Gson gson = new Gson();
+            beverages =  gson.fromJson(sb.toString(), BeverageData.class);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (UnsupportedEncodingException e) {
+//            return "";
+        } catch (IOException e) {
+//            return "";
+        }
+    }
+
+    public void readSideeffectsLocalData(){
+        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_SIDEEFFECTS_DATA);
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+
+            Gson gson = new Gson();
+            sideeffects =  gson.fromJson(sb.toString(), SideeffectData.class);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (UnsupportedEncodingException e) {
+//            return "";
+        } catch (IOException e) {
+//            return "";
+        }
+    }
     public void readPersonLocalData(){
         File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_PERSON_DATA);
         try {
@@ -285,7 +340,7 @@ public class OfflineDataManager {
         }
     }
 
-    public void saveEventData (String eventData){
+    public void saveEventsData (String eventData){
         File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_EVENTS_DATA);
         try {
             FileOutputStream fos = new FileOutputStream(file);
@@ -297,16 +352,53 @@ public class OfflineDataManager {
         }
     }
 
-    public void saveJournalData (String journalData){
-        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_JOURNAL_DATA);
+    public void saveStatusData (String statusData){
+        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_STATUS_DATA);
         try {
             FileOutputStream fos = new FileOutputStream(file);
-            fos.write(journalData.getBytes());
+            fos.write(statusData.getBytes());
             fos.close();
         } catch (Exception e){
             // file write failed
-            System.out.println("SaveJournal data failed");
+            System.out.println("SaveStatus data failed");
         }
+    }
+
+    public void saveSideeffectsData (String sideeffectsData){
+        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_SIDEEFFECTS_DATA);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(sideeffectsData.getBytes());
+            fos.close();
+        } catch (Exception e){
+            // file write failed
+            System.out.println("SaveSideeffects data failed");
+        }
+    }
+
+    public void saveBeveragesData (String beveragesData){
+        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_BEVERAGES_DATA);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(beveragesData.getBytes());
+            fos.close();
+        } catch (Exception e){
+            // file write failed
+            System.out.println("SaveBeverages data failed");
+        }
+    }
+
+    public void saveJournalData (String journalData){
+        Gson gson = new Gson();
+        journal = gson.fromJson(journalData, JournalData.class);
+        EventData events = new EventData(journal.event_data);
+        saveEventsData(gson.toJson(events));
+        StatusData status = new StatusData(journal.status_data);
+        saveStatusData(gson.toJson(status));
+        SideeffectData sideeffects = new SideeffectData(journal.sideeffect_data);
+        saveSideeffectsData(gson.toJson(sideeffects));
+        BeverageData beverages = new BeverageData(journal.beverage_data);
+        saveBeveragesData(gson.toJson(beverages));
     }
 
     public LoginData getLoginData(){
@@ -325,15 +417,28 @@ public class OfflineDataManager {
         return invites;
     }
 
-    public JournalData getJournal(int content_ID){
+    public JournalData getJournal(){
+        journal = new JournalData(events.event_data, status.status_data, sideeffects.sideeffect_data, beverages.beverage_data);
         return journal;
     }
 
-    public EventData getEvents(int content_ID){
+    public EventData getEvents(){
         return events;
     }
 
-    public HealthCareData getHealthcare(int content_ID){
+    public HealthCareData getHealthcare(){
         return healthcare;
+    }
+
+    public BeverageData getBeverages(){
+        return beverages;
+    }
+
+    public SideeffectData getSideeffects(){
+        return sideeffects;
+    }
+
+    public StatusData getStatus(){
+        return status;
     }
 }
