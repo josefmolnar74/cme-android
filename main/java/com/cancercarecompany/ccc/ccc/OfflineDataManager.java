@@ -14,8 +14,10 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by Josef on 2016-07-22.
  */
-public class CmeDataManager {
-    private static CmeDataManager ourInstance = new CmeDataManager();
+public class OfflineDataManager {
+    private static OfflineDataManager ourInstance = new OfflineDataManager();
+    private static ConnectionHandler connectHandler = ConnectionHandler.getInstance();
+
     private LoginData loginData;
     private Person person;
     private Patient patient;
@@ -32,11 +34,11 @@ public class CmeDataManager {
     public static final String FILENAME_INVITES_DATA = "cme_invites_data";
     public static final String FILENAME_HEALTHCARE_DATA = "cme_healthcare_data";
 
-    public static CmeDataManager getInstance() {
+    public static OfflineDataManager getInstance() {
         return ourInstance;
     }
 
-    private CmeDataManager() {
+    private OfflineDataManager() {
         //constructor
         readLocalData();
     }
