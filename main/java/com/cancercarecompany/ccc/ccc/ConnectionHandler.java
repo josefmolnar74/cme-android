@@ -1,5 +1,9 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.google.gson.Gson;
 
 import java.net.URISyntaxException;
@@ -12,6 +16,7 @@ import io.socket.emitter.Emitter;
  */
 public class ConnectionHandler {
     private static ConnectionHandler ourInstance = new ConnectionHandler();
+    OfflineDataManager offlineDataManager;
 
     public io.socket.client.Socket socket;
 
@@ -20,16 +25,16 @@ public class ConnectionHandler {
     Boolean socketBusy = false;
 
     // To be moved to data management Singleton class TBD
-    public Lcl_work_area lcl;
-    public Person person;
-    public Patient patient;
-    public InviteData invites;
-    public HealthCareData healthcare;
-    public EventData events;
-    public StatusData status;
-    public SideeffectData sideeffects;
-    public BeverageData beverages;
-    public JournalData journal;
+    LoginData loginData;
+    Person person;
+    Patient patient;
+    InviteData invites;
+    HealthCareData healthcare;
+    EventData events;
+    StatusData status;
+    SideeffectData sideeffects;
+    BeverageData beverages;
+    JournalData journal;
 
     public static final String MESSAGE_LOGIN = "login";
     public static final String MESSAGE_CREATE = "create";
@@ -54,6 +59,7 @@ public class ConnectionHandler {
 
     private ConnectionHandler() {
         // Constructor
+        offlineDataManager = OfflineDataManager.getInstance();
         initializeSocket();
     }
 
@@ -97,10 +103,13 @@ public class ConnectionHandler {
                         switch (header.function){
                             case MESSAGE_LOGIN:
                                 person = gson.fromJson(resultData, Person.class);
+                                offlineDataManager.savePersonData(resultData);
                                 if (person.patient != null){
                                     patient = person.patient.get(0);
+                                    offlineDataManager.savePatientData(gson.toJson(patient));
                                 }
-                                lcl = gson.fromJson(resultData, Lcl_work_area.class);
+                                loginData = gson.fromJson(resultData, LoginData.class);
+                                offlineDataManager.saveLoginData(resultData);
                                 break;
 
                             case MESSAGE_CREATE:
@@ -127,21 +136,26 @@ public class ConnectionHandler {
                                 switch (header.content){
                                     case CONTENT_PERSON:
                                         person = gson.fromJson(resultData, Person.class);
+                                        offlineDataManager.savePersonData(resultData);
                                         break;
                                     case CONTENT_PATIENT:
                                         patient = gson.fromJson(resultData, Patient.class);
+                                        offlineDataManager.savePatientData(resultData);
                                         break;
                                     case CONTENT_INVITE:
                                         invites = gson.fromJson(resultData, InviteData.class);
+                                        offlineDataManager.saveInviteData(resultData);
                                         break;
                                     case CONTENT_HEALTHCARE:
                                         healthcare = gson.fromJson(resultData, HealthCareData.class);
+                                        offlineDataManager.saveHealthCareData(resultData);
                                         break;
                                     case CONTENT_EVENT:
+                                        offlineDataManager.saveEventsData(resultData);
                                         events = gson.fromJson(resultData, EventData.class);
                                         break;
                                     case CONTENT_STATUS:
-                                        status = gson.fromJson(resultData, StatusData.class);
+                                          status = gson.fromJson(resultData, StatusData.class);
                                         break;
                                     case CONTENT_SIDEEFFECT:
                                         sideeffects = gson.fromJson(resultData, SideeffectData.class);
@@ -152,6 +166,7 @@ public class ConnectionHandler {
 
                                     case CONTENT_JOURNAL:
                                         journal = gson.fromJson(resultData, JournalData.class);
+                                          offlineDataManager.saveJournalData(resultData);
                                         break;
                                 }
                                 break;
@@ -202,198 +217,329 @@ public class ConnectionHandler {
     }
 
     public void login (Person newUser){
-        function = "login";
-        Gson gson = new Gson();
-        String newUserString = gson.toJson(newUser);
-        sendMessage(MESSAGE_LOGIN, CONTENT_PERSON, newUserString);
+        if (checkConnection()){
+            function = "login";
+            Gson gson = new Gson();
+            String newUserString = gson.toJson(newUser);
+            sendMessage(MESSAGE_LOGIN, CONTENT_PERSON, newUserString);
+        } else {
+            //offline mode, get data from internal file
+            loginData = offlineDataManager.getLoginData();
+            person = offlineDataManager.getPerson();
+            patient = offlineDataManager.getPatient();
+        }
     }
 
     public void createUser(Person newUser) {
-        Gson gson = new Gson();
-        if (person == null) {
-            person = new Person(newUser.person_ID, newUser.first_name, newUser.last_name, newUser.email,newUser.password,newUser.avatar, null);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            if (person == null) {
+                person = new Person(newUser.person_ID, newUser.first_name, newUser.last_name, newUser.email,newUser.password,newUser.avatar, null);
+            }
+            String messageData = gson.toJson(person);
+            sendMessage(MESSAGE_CREATE, CONTENT_PERSON, messageData);
         }
-        String messageData = gson.toJson(person);
-        sendMessage(MESSAGE_CREATE, CONTENT_PERSON, messageData);
     }
 
     public void updateUser(Person newUser) {
-        Gson gson = new Gson();
-        String messageData = gson.toJson(person);
-        sendMessage(MESSAGE_UPDATE, CONTENT_PERSON, messageData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String messageData = gson.toJson(person);
+            sendMessage(MESSAGE_UPDATE, CONTENT_PERSON, messageData);
+        }
     }
 
     public void deleteUser(Person newUser) {
-        Gson gson = new Gson();
-        String msgData = gson.toJson(newUser);
-        sendMessage(MESSAGE_DELETE, CONTENT_PERSON, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(newUser);
+            sendMessage(MESSAGE_DELETE, CONTENT_PERSON, msgData);
+        }
     }
 
     public void createPatient(Patient newPatient, String relationship) {
-        patient = newPatient;
-        Gson gson = new Gson();
-        String msgData = gson.toJson(newPatient);
-        String msgRelationshipData = String.format("\"person_ID\":\"%d\",\"relationship\":\"%s\",\"admin\":%d,", person.person_ID, relationship, 1);
-        msgData = new StringBuilder(msgData).insert(1, msgRelationshipData).toString();
-        sendMessage(MESSAGE_CREATE, CONTENT_PATIENT, msgData);
+        if (checkConnection()){
+            patient = newPatient;
+            Gson gson = new Gson();
+            String msgData = gson.toJson(newPatient);
+            String msgRelationshipData = String.format("\"person_ID\":\"%d\",\"relationship\":\"%s\",\"admin\":%d,", person.person_ID, relationship, 1);
+            msgData = new StringBuilder(msgData).insert(1, msgRelationshipData).toString();
+            sendMessage(MESSAGE_CREATE, CONTENT_PATIENT, msgData);
+        }
     }
 
     public void getPatient(int patientID){
-        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
-        sendMessage(MESSAGE_READ, CONTENT_PATIENT, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+            sendMessage(MESSAGE_READ, CONTENT_PATIENT, msgData);
+        } else {
+            //offline mode, get data from internal file
+        }
     }
 
     public void createCareTeamMember(CareTeamMember newCareTeamMember, int patientID) {
-        Gson gson = new Gson();
-        String msgData = gson.toJson(newCareTeamMember);
-        //Create patient with existing patient_ID only creates new care team junction
-        sendMessage(MESSAGE_CREATE, CONTENT_PATIENT, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(newCareTeamMember);
+            //Create patient with existing patient_ID only creates new care team junction
+            sendMessage(MESSAGE_CREATE, CONTENT_PATIENT, msgData);
+        }
     }
 
     public void inviteCareTeamMember(Invite newInvite) {
-        Gson gson = new Gson();
-        String msgData = gson.toJson(newInvite);
-        sendMessage(MESSAGE_CREATE, CONTENT_INVITE, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(newInvite);
+            sendMessage(MESSAGE_CREATE, CONTENT_INVITE, msgData);
+        }
     }
 
     public void findCareTeamInvite(String invitedEmail) {
-        invites = null; // reset any previous invite querys
-        String msgData = String.format("{\"invited_email\":\"%s\"}", invitedEmail);
-        sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
+        if (checkConnection()){
+            invites = null; // reset any previous invite querys
+            String msgData = String.format("{\"invited_email\":\"%s\"}", invitedEmail);
+            sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
+        }
     }
 
     public void getInvitedCareTeamMembers(int patientID){
-        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
-        sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+            sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
+        } else {
+            invites = offlineDataManager.getInvites();
+        }
     }
 
     public void acceptCareTeamInvite() {
-        Invite invite = invites.invite_data.get(0); // Always accept first found invite
-        invite.invite_accepted = 1;
-        invite.person_ID = person.person_ID;
-        Gson gson = new Gson();
-        String msgData = gson.toJson(invite);
-        sendMessage(MESSAGE_UPDATE, CONTENT_INVITE, msgData);
+        if (checkConnection()){
+            Invite invite = invites.invite_data.get(0); // Always accept first found invite
+            invite.invite_accepted = 1;
+            invite.person_ID = person.person_ID;
+            Gson gson = new Gson();
+            String msgData = gson.toJson(invite);
+            sendMessage(MESSAGE_UPDATE, CONTENT_INVITE, msgData);
+        }
     }
 
     public void createHealthcare(HealthCare healthcare){
-        Gson gson = new Gson();
-        String msgData = gson.toJson(healthcare);
-        sendMessage(MESSAGE_CREATE, CONTENT_HEALTHCARE, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(healthcare);
+            sendMessage(MESSAGE_CREATE, CONTENT_HEALTHCARE, msgData);
+        } else {
+            offlineDataManager.createHealthcare(healthcare);
+        }
     }
 
     public void getHealthcareForPatient(int patientID){
-        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
-        sendMessage(MESSAGE_READ, CONTENT_HEALTHCARE, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+            sendMessage(MESSAGE_READ, CONTENT_HEALTHCARE, msgData);
+        } else {
+            //offline mode, get data from internal file
+            healthcare = offlineDataManager.getHealthcares();
+        }
     }
 
     public void getHealthcare(int healthcareID){
-        String msgData = String.format("{\"healthcare_ID\":\"%d\"}", healthcareID);
-        sendMessage(MESSAGE_READ, CONTENT_HEALTHCARE, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"healthcare_ID\":\"%d\"}", healthcareID);
+            sendMessage(MESSAGE_READ, CONTENT_HEALTHCARE, msgData);
+        }
     }
 
     public void updateHealthcare(HealthCare healthcare){
-        Gson gson = new Gson();
-        String msgData = gson.toJson(healthcare);
-        sendMessage(MESSAGE_UPDATE, CONTENT_HEALTHCARE, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(healthcare);
+            sendMessage(MESSAGE_UPDATE, CONTENT_HEALTHCARE, msgData);
+        } else {
+            offlineDataManager.updateHealthcare(healthcare);
+        }
     }
 
     public void deleteHealthcare(int healthcareID){
-        String msgData = String.format("{\"healthcare_ID\":\"%d\"}", healthcareID);
-        sendMessage(MESSAGE_DELETE, CONTENT_HEALTHCARE, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"healthcare_ID\":\"%d\"}", healthcareID);
+            sendMessage(MESSAGE_DELETE, CONTENT_HEALTHCARE, msgData);
+        } else {
+            offlineDataManager.deleteHealthcare(healthcareID);
+        }
     }
 
     public void createEvent(Event event){
-        Gson gson = new Gson();
-        String msgData = gson.toJson(event);
-        sendMessage(MESSAGE_CREATE, CONTENT_EVENT, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(event);
+            sendMessage(MESSAGE_CREATE, CONTENT_EVENT, msgData);
+        } else {
+            offlineDataManager.createEvents(event);
+        }
     }
 
     public void getEventsForPatient(int patientID){
-        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
-        sendMessage(MESSAGE_READ, CONTENT_EVENT, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+            sendMessage(MESSAGE_READ, CONTENT_EVENT, msgData);
+        } else {
+            //offline mode, get data from internal file
+           events = offlineDataManager.getEvents();
+        }
     }
 
     public void updateEvent(Event event){
-        Gson gson = new Gson();
-        String msgData = gson.toJson(event);
-        sendMessage(MESSAGE_UPDATE, CONTENT_EVENT, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(event);
+            sendMessage(MESSAGE_UPDATE, CONTENT_EVENT, msgData);
+        } else {
+            offlineDataManager.updateEvent(event);
+        }
     }
 
     public void deleteEvent(int eventID){
-        String msgData = String.format("{\"event_ID\":\"%d\"}", eventID);
-        sendMessage(MESSAGE_DELETE, CONTENT_EVENT, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"event_ID\":\"%d\"}", eventID);
+            sendMessage(MESSAGE_DELETE, CONTENT_EVENT, msgData);
+        } else {
+            offlineDataManager.deleteEvent(eventID);
+        }
     }
 
     public void createStatus(Status status){
-        Gson gson = new Gson();
-        String msgData = gson.toJson(status);
-        sendMessage(MESSAGE_CREATE, CONTENT_STATUS, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(status);
+            sendMessage(MESSAGE_CREATE, CONTENT_STATUS, msgData);
+        } else {
+            offlineDataManager.createStatus(status);
+        }
     }
 
     public void getStatusForPatient(int patientID){
-        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
-        sendMessage(MESSAGE_READ, CONTENT_STATUS, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+            sendMessage(MESSAGE_READ, CONTENT_STATUS, msgData);
+        } else {
+            //offline mode, get data from internal file
+            offlineDataManager.getStatus();
+        }
     }
 
     public void updateStatus(Status status){
-        Gson gson = new Gson();
-        String msgData = gson.toJson(status);
-        sendMessage(MESSAGE_UPDATE, CONTENT_STATUS, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(status);
+            sendMessage(MESSAGE_UPDATE, CONTENT_STATUS, msgData);
+        } else {
+            offlineDataManager.updateStatus(status);
+        }
     }
 
     public void deleteStatus(int statusID){
-        String msgData = String.format("{\"status_ID\":\"%d\"}", statusID);
-        sendMessage(MESSAGE_DELETE, CONTENT_STATUS, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"status_ID\":\"%d\"}", statusID);
+            sendMessage(MESSAGE_DELETE, CONTENT_STATUS, msgData);
+        } else {
+            offlineDataManager.deleteStatus(statusID);
+        }
     }
 
     public void createSideeffect(Sideeffect sideeffect){
-        Gson gson = new Gson();
-        String msgData = gson.toJson(sideeffect);
-        sendMessage(MESSAGE_CREATE, CONTENT_SIDEEFFECT, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(sideeffect);
+            sendMessage(MESSAGE_CREATE, CONTENT_SIDEEFFECT, msgData);
+        } else {
+            offlineDataManager.createSideeffects(sideeffect);
+        }
     }
 
     public void getSideeffectForPatient(int patientID){
-        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
-        sendMessage(MESSAGE_READ, CONTENT_SIDEEFFECT, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+            sendMessage(MESSAGE_READ, CONTENT_SIDEEFFECT, msgData);
+        } else {
+            //offline mode, get data from internal file
+            offlineDataManager.getSideeffects();
+        }
     }
 
     public void updateSideeffect(Sideeffect sideeffect){
-        Gson gson = new Gson();
-        String msgData = gson.toJson(status);
-        sendMessage(MESSAGE_UPDATE, CONTENT_SIDEEFFECT, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(sideeffect);
+            sendMessage(MESSAGE_UPDATE, CONTENT_SIDEEFFECT, msgData);
+        } else {
+            offlineDataManager.updateSideeffect(sideeffect);
+        }
     }
 
     public void deleteSideeffect(int sideeffectID){
-        String msgData = String.format("{\"sideeffect_ID\":\"%d\"}", sideeffectID);
-        sendMessage(MESSAGE_DELETE, CONTENT_SIDEEFFECT, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"sideeffect_ID\":\"%d\"}", sideeffectID);
+            sendMessage(MESSAGE_DELETE, CONTENT_SIDEEFFECT, msgData);
+        } else {
+            offlineDataManager.deleteSideeffect(sideeffectID);
+        }
     }
 
     public void createBeverage(Beverage beverage){
-        Gson gson = new Gson();
-        String msgData = gson.toJson(beverage);
-        sendMessage(MESSAGE_CREATE, CONTENT_BEVERAGE, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(beverage);
+            sendMessage(MESSAGE_CREATE, CONTENT_BEVERAGE, msgData);
+        } else {
+            offlineDataManager.createBeverages(beverage);
+        }
     }
 
     public void getBeveragesForPatient(int patientID){
-        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
-        sendMessage(MESSAGE_READ, CONTENT_BEVERAGE, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+            sendMessage(MESSAGE_READ, CONTENT_BEVERAGE, msgData);
+        } else {
+            //offline mode, get data from internal file
+            offlineDataManager.getBeverages();
+        }
     }
 
     public void updateBeverage(Beverage beverage){
-        Gson gson = new Gson();
-        String msgData = gson.toJson(beverage );
-        sendMessage(MESSAGE_UPDATE, CONTENT_BEVERAGE, msgData);
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(beverage );
+            sendMessage(MESSAGE_UPDATE, CONTENT_BEVERAGE, msgData);
+        } else {
+            offlineDataManager.updateBeverage(beverage);
+        }
     }
 
     public void deleteBeverage(int beverageID){
-        String msgData = String.format("{\"beverage_ID\":\"%d\"}", beverageID);
-        sendMessage(MESSAGE_DELETE, CONTENT_BEVERAGE, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"beverage_ID\":\"%d\"}", beverageID);
+            sendMessage(MESSAGE_DELETE, CONTENT_BEVERAGE, msgData);
+        } else {
+            offlineDataManager.deleteBeverage(beverageID);
+        }
     }
 
     public void getJournalForPatient(int patientID){
-        String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
-        sendMessage(MESSAGE_READ, CONTENT_JOURNAL, msgData);
+        if (checkConnection()){
+            String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+            sendMessage(MESSAGE_READ, CONTENT_JOURNAL, msgData);
+        } else {
+            //offline mode, get data from internal file
+            journal =  offlineDataManager.getJournal();
+        }
+    }
+
+    private boolean checkConnection(){
+        boolean isConnected = false;
+        ConnectivityManager cm = (ConnectivityManager) MyApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected =  activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
     }
 
 }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,8 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
-import com.google.gson.Gson;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -63,15 +61,24 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void onClickLogin(View view){
-        login();
-    }
-
-    private void login(){
         Person newUser = new Person(0, null, null, loginEmail.getText().toString(), loginPassword.getText().toString(), 0, null);
         connectHandler.login(newUser);
 
-        while (connectHandler.socketBusy){}
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!connectHandler.socketBusy) {
+                    login();
+                }
+                else {
+                    handler.postDelayed(this,1000);
+                }
+            }
+        });
+    }
 
+    private void login(){
         if (connectHandler.person == null){
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             String alertText = String.format("Login failed");
@@ -89,20 +96,17 @@ public class WelcomeActivity extends AppCompatActivity {
             alertDialog.show();
         } else {
             //Login success
+            SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(getString(R.string.login_saved_email),loginEmail.getText().toString());
+            editor.putString(getString(R.string.login_saved_password),loginPassword.getText().toString());
+            if (loginSave.isChecked()) {
+                editor.putBoolean(getString(R.string.login_auto_login), true);
+            } else{
+                editor.putBoolean(getString(R.string.login_auto_login), false);
+            }
 
-            while (connectHandler.socketBusy){}
-
-
-                SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString(getString(R.string.login_saved_email),loginEmail.getText().toString());
-                editor.putString(getString(R.string.login_saved_password),loginPassword.getText().toString());
-                if (loginSave.isChecked()) {
-                    editor.putBoolean(getString(R.string.login_auto_login), true);
-                } else{
-                    editor.putBoolean(getString(R.string.login_auto_login), false);
-                }
-                editor.commit();
+            editor.commit();
 
             Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);

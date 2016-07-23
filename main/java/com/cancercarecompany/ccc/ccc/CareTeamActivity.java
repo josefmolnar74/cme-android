@@ -65,7 +65,6 @@ public class CareTeamActivity extends AppCompatActivity {
 
 
         wholeScreen = (LinearLayout) findViewById(R.id.careTeamScreen);
-        settingsButton = (ImageButton) findViewById(R.id.btn_careteam_settings);
 
         // Check language settings
         SharedPreferences prefs = this.getSharedPreferences(
@@ -93,65 +92,6 @@ public class CareTeamActivity extends AppCompatActivity {
         TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
         if (connectHandler.person != null){
             loggedIn.setText(connectHandler.person.first_name);
-        }
-
-        //Set right avatar image
-        ImageView loggedInAvatarImage = (ImageView) findViewById(R.id.img_loggedin_avatar);
-        switch(connectHandler.person.avatar){
-            case 1:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_1);
-                break;
-            case 2:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_2);
-                break;
-            case 3:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_3);
-                break;
-            case 4:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_4);
-                break;
-            case 5:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_5);
-                break;
-            case 6:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_6);
-                break;
-            case 7:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_7);
-                break;
-            case 8:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_8);
-                break;
-            case 9:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_9);
-                break;
-            case 10:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_10);
-                break;
-            case 11:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_11);
-                break;
-            case 12:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_12);
-                break;
-            case 13:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_13);
-                break;
-            case 14:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_14);
-                break;
-            case 15:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_15);
-                break;
-            case 16:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_16);
-                break;
-            case 17:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_17);
-                break;
-            case 18:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_18);
-                break;
         }
 
         familyGridView = (GridView) findViewById(R.id.gridview_careteam_family);
@@ -255,7 +195,7 @@ public class CareTeamActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        loggedIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Settings settingsClass = new Settings();
@@ -319,7 +259,7 @@ public class CareTeamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 alertText.setVisibility(View.INVISIBLE);
-                 popupWindow.dismiss();
+                popupWindow.dismiss();
             }
         });
 
@@ -431,17 +371,17 @@ public class CareTeamActivity extends AppCompatActivity {
                         admin = 0;
                     }
                     Invite newInvite = new Invite(  0,
-                                                    connectHandler.person.first_name,
-                                                    connectHandler.patient.patient_ID,
-                                                    connectHandler.patient.patient_name,
-                                                    firstNameString,
-                                                    editLastName.getText().toString(),
-                                                    emailString,
-                                                    editRelation.getText().toString(),
-                                                    selectedFamilyAvatar,
-                                                    admin,
-                                                    0,
-                                                    0);
+                            connectHandler.person.first_name,
+                            connectHandler.patient.patient_ID,
+                            connectHandler.patient.patient_name,
+                            firstNameString,
+                            editLastName.getText().toString(),
+                            emailString,
+                            editRelation.getText().toString(),
+                            selectedFamilyAvatar,
+                            admin,
+                            0,
+                            0);
 
                     connectHandler.inviteCareTeamMember(newInvite);
 
@@ -594,12 +534,12 @@ public class CareTeamActivity extends AppCompatActivity {
             private void saveContact(int listPosition) {
 
                 Person updatePerson = new Person(familyList.get(listPosition).person_ID,
-                                                    editFirstName.getText().toString(),
-                                                    editLastName.getText().toString(),
-                                                    editEmail.getText().toString(),
-                                                    editPhoneNumber.getText().toString(),
-                                                    selectedFamilyAvatar,
-                                                    null);
+                        editFirstName.getText().toString(),
+                        editLastName.getText().toString(),
+                        editEmail.getText().toString(),
+                        editPhoneNumber.getText().toString(),
+                        selectedFamilyAvatar,
+                        null);
 
                 connectHandler.updateUser(updatePerson);
             }

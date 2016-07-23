@@ -25,7 +25,6 @@ public class RegisterActivity extends AppCompatActivity {
     RelativeLayout registerLayout;
     Button cancelButton;
     TextView registerButton;
-    Lcl_work_area lcl;
 
     private String patientName;
     private String yearOfBirth;

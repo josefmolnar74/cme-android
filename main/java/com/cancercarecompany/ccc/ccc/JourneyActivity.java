@@ -199,73 +199,14 @@ public class JourneyActivity extends AppCompatActivity {
             loggedIn.setText(connectHandler.person.first_name);
         }
 
-        //Set right avatar image
-        ImageView loggedInAvatarImage = (ImageView) findViewById(R.id.img_loggedin_avatar);
-        switch(connectHandler.person.avatar){
-            case 1:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_1);
-                break;
-            case 2:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_2);
-                break;
-            case 3:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_3);
-                break;
-            case 4:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_4);
-                break;
-            case 5:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_5);
-                break;
-            case 6:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_6);
-                break;
-            case 7:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_7);
-                break;
-            case 8:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_8);
-                break;
-            case 9:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_9);
-                break;
-            case 10:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_10);
-                break;
-            case 11:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_11);
-                break;
-            case 12:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_12);
-                break;
-            case 13:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_13);
-                break;
-            case 14:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_14);
-                break;
-            case 15:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_15);
-                break;
-            case 16:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_16);
-                break;
-            case 17:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_17);
-                break;
-            case 18:
-                loggedInAvatarImage.setImageResource(R.drawable.family_avatar_18);
-                break;
-        }
-
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy) {}
 
-        for (int i = 0; i < connectHandler.events.event_data.size(); i++) {
-            eventList.add(connectHandler.events.event_data.get(i));
-
+        if (connectHandler.events.event_data != null){
+            for (int i = 0; i < connectHandler.events.event_data.size(); i++) {
+                eventList.add(connectHandler.events.event_data.get(i));
+            }
         }
-
 
         Scroll_background = (HorizontalScrollView) findViewById(R.id.Scroll_background);
         Scroll_background2 = (HorizontalScrollView) findViewById(R.id.Scroll_background2);
@@ -302,7 +243,6 @@ public class JourneyActivity extends AppCompatActivity {
         careTeamButton = (ImageButton) findViewById(R.id.btn_careteam_button);
         journalButton = (ImageButton) findViewById(R.id.btn_journal_button);
         logoButton = (ImageButton) findViewById(R.id.logoButton);
-        settingsButton = (ImageButton) findViewById(R.id.btn_journey_settings);
         sun = (ImageButton) findViewById(R.id.btn_sun_journey);
 
         sign1 = (ImageView) findViewById(R.id.sign1);
@@ -400,7 +340,7 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        loggedIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Settings settingsClass = new Settings();
