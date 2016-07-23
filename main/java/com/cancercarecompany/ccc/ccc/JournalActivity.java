@@ -487,6 +487,7 @@ public class JournalActivity extends AppCompatActivity {
                 journalHeaderText.setText((journalHeaderText.getText()) + chosenDate);
                 statusList.clear();
                 eventList.clear();
+                beverageList.clear();
                 showJournalData(chosenDate);
 
             }
@@ -531,7 +532,7 @@ public class JournalActivity extends AppCompatActivity {
                 connectHandler.updateBeverage(beverage);
             }
         } else {
-            // Beverage exist for today, create a new one
+            // Beverage does not exist for today, create a new one
             connectHandler.createBeverage(beverage);
         }
         super.onPause();
