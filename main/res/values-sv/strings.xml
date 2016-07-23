@@ -178,9 +178,6 @@
     <string name="settings_btn_save">Spara</string>
     <string name="question_headline_unanswered">Obesvarad fråga</string>
     <string name="question_headline_answered">Besvarad fråga</string>
-    <string name="question_question_label">Fråga:</string>
-    <string name="question_answer_label">Svar:</string>
-    <string name="question_answer">Vi kommer att svara så fort vi kan!</string>
 
 
 
@@ -254,6 +251,7 @@
     <string name="event_hospital_txt1">För det mesta måste du åka in till sjukhuset när det är dags för cellgifter. Det kan vara för några dagar eller lite längre. </string>
     <string name="event_hospital_txt2">Efter cellgifterna kan du ibland må jättedåligt och därför måste du in till sjukhuset igen, men det är bara för att få dig att må bättre och för att läkarna och sjuksköterskor ska bättre kunna ta hand om dig.</string>
     <string name="event_hospital_txt3">Mamma och pappa kommer att vara där för det mesta och du kommer att träffa andra barn som också är på sjukhuset. Om ni vill och orka så finns det många leksaker där man kan leka med! </string>
+
 
 </resources>
 

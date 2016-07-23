@@ -29,16 +29,17 @@
         android:layout_marginLeft="40dp" />
 
     <EditText
-        android:background="@drawable/borderpopup"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:background="@drawable/sun_popup"
+        android:layout_width="450dp"
+        android:layout_height="300dp"
         android:id="@+id/et_journey_question"
         android:inputType="textMultiLine"
+        android:gravity="center_vertical|center_horizontal"
+        android:hint="@string/journey_question_hint"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txt_journey_question"
-        android:layout_marginTop="50dp"
-        android:gravity="top"
-        android:hint="@string/journey_question_hint" />
+        android:textStyle="bold"
+        android:textSize="30dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -60,23 +61,4 @@
         android:textSize="30dp"
         android:layout_marginTop="15dp" />
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:id="@+id/et_journey_questionemail"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/borderpopup"
-        android:layout_below="@+id/et_journey_question"
-        android:layout_marginTop="80dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/journey_questionemail"
-        android:id="@+id/txt_journey_writeemail"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/et_journey_question"
-        android:layout_marginTop="60dp" />
 </RelativeLayout>

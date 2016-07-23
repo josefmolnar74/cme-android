@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,13 +56,16 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class JourneyActivity extends AppCompatActivity {
 
     String languageString;
 
-
     ArrayList<Event> eventList;
+    ArrayList<Question> questionList;
+
+
     int patientID = 0;
     int personID = 0;
 
@@ -79,6 +83,7 @@ public class JourneyActivity extends AppCompatActivity {
     ImageView page3;
     ImageView eventInfoImage;
     ImageView lion;
+    ImageButton question_sign;
     ImageView sign1;
     ImageView sign2;
     ImageView sign3;
@@ -158,7 +163,17 @@ public class JourneyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey);
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.get(getApplicationContext()).clearDiskCache();
+            }
+        }).start();
+
+        Glide.get(getApplicationContext()).clearMemory();
+
         eventList = new ArrayList<Event>();
+        questionList = new ArrayList<Question>();
         connectHandler = ConnectionHandler.getInstance();
 
         // Check language settings
@@ -411,6 +426,14 @@ public class JourneyActivity extends AppCompatActivity {
                     if (hitBoxLion.contains((int) event.getRawX(), (int) event.getRawY())) {
                         lionPopup();
                     }
+
+                    Rect hitBoxQuestion = new Rect();
+                    question_sign.getGlobalVisibleRect(hitBoxQuestion);
+                    if (hitBoxQuestion.contains((int) event.getRawX(), (int) event.getRawY())) {
+                        questionPopup();
+                    }
+
+
 
                 }
                 return false;
@@ -707,8 +730,10 @@ public class JourneyActivity extends AppCompatActivity {
                 System.out.println(currentPage);
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
+
+                Glide.clear(eventInfoImage);
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+                Glide.with(getApplicationContext()).load(resourceId).diskCacheStrategy(DiskCacheStrategy.NONE).fitCenter().into(eventInfoImage);
                 int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
 
                 if (soundResourceId != 0) {
@@ -765,9 +790,9 @@ public class JourneyActivity extends AppCompatActivity {
                 System.out.println(currentPage);
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
-
+                Glide.clear(eventInfoImage);
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+                Glide.with(getApplicationContext()).load(resourceId).diskCacheStrategy(DiskCacheStrategy.NONE).fitCenter().into(eventInfoImage);
                 int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
 
                 if (soundResourceId != 0) {
@@ -1270,6 +1295,7 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     private void eventInfoText(String subCategoryClicked){
+        Glide.clear(eventInfoImage);
         currentPage = 1;
         pages = 0;
         eventPage1 = "";
@@ -1286,20 +1312,8 @@ public class JourneyActivity extends AppCompatActivity {
             MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
             mp.start();
         }
-        Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+        Glide.with(getApplicationContext()).load(resourceId).diskCacheStrategy(DiskCacheStrategy.NONE).fitCenter().into(eventInfoImage);
 
-
-
-
-
-
-        /////--------------------------------------------------------------------------------------
-       // videoView.setMediaController(mediaController);
-        videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.event_bloodtest4));
-        videoView.requestFocus();
-        videoView.start();
-        System.out.println(videoView.isPlaying());
-        /////--------------------------------------------------------------------------------------
 
         int resource1 = getResources().getIdentifier("event_"+subCategoryClicked+"_txt1", "string", getPackageName());
         int resource2 = getResources().getIdentifier("event_"+subCategoryClicked+"_txt2", "string", getPackageName());
@@ -1347,6 +1361,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         }
 
+        
     }
     private void createEventButton() {
 
@@ -2328,10 +2343,9 @@ public class JourneyActivity extends AppCompatActivity {
         popupWindow.setFocusable(true);
         popupWindow.update();
 
-        EditText userEmail = (EditText) popupView.findViewById(R.id.et_journey_questionemail);
         ImageButton cancel = (ImageButton) popupView.findViewById(R.id.img_journey_cancelquestion);
-
-        userEmail.setText(connectHandler.person.email);
+        ImageButton saveButton = (ImageButton) popupView.findViewById(R.id.img_journey_savequestion);
+        final EditText journeyQuestion = (EditText) popupView.findViewById(R.id.et_journey_question);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2339,6 +2353,70 @@ public class JourneyActivity extends AppCompatActivity {
                 popupWindow.dismiss();
             }
         });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String dateString = new SimpleDateFormat("yyyy-MM-dd").format(currentDate);
+
+                Question newQuestion = new Question(0, patientID, personID, journeyQuestion.getText().toString(), null, dateString, null, "unanswered");
+                questionList.add(newQuestion);
+
+                 question_sign= new ImageButton(JourneyActivity.this);
+                question_sign.setTag("question_sign"+ (questionList.size() - 1));
+
+                question_sign.setBackgroundResource(R.drawable.question_sign);
+                lion_layer.addView(question_sign);
+                final RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+                params.setMargins(carIntPosition / 2 + width / 5,0,0,0);
+                question_sign.setLayoutParams(params);
+                RelativeLayout.LayoutParams layoutParams =
+                        (RelativeLayout.LayoutParams)question_sign.getLayoutParams();
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+                question_sign.setLayoutParams(layoutParams);
+                popupWindow.dismiss();
+                eventScroll.smoothScrollTo(carIntPosition - width/3, 0);
+
+            }
+        });
+
+
+
+    }
+
+    private void questionPopup() {
+
+        LayoutInflater layoutInflater
+                = (LayoutInflater) getBaseContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.question_popup, null);
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView, (int) (width * 0.50), (int) (height * 0.55));
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
+
+
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+        popupView.bringToFront();
+        popupWindow.setFocusable(true);
+        popupWindow.update();
+
+        ImageButton cancel = (ImageButton) popupView.findViewById(R.id.img_journey_cancel_question);
+        TextView question = (TextView) popupView.findViewById(R.id.txt_journey_question);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        question.setText(questionList.get(questionList.size() - 1).question.toString());
+
+
 
     }
 
@@ -2449,9 +2527,6 @@ public class JourneyActivity extends AppCompatActivity {
 
         return convertedDate;
     }
-
-
-
 
     private void ExampleJourney() {
         /*

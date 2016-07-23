@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="600dp"
+    android:layout_height="500dp"
+    android:background="@drawable/borderpopup">
+
+    <ImageButton
+        android:background="@drawable/close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/img_journey_cancel_question"
+        android:layout_marginRight="10dp"
+        android:layout_alignEnd="@+id/txt_journey_lion"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentStart="true"
+        android:background="#000000"
+        android:layout_below="@+id/img_journey_cancelquestion"
+        android:layout_marginTop="60dp"
+        android:id="@+id/frameLayout2"></FrameLayout>
+
+    <TextView
+        android:layout_width="500dp"
+        android:layout_height="150dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/txt_journey_question"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:layout_below="@+id/txt_journey_question_questionlabel"
+        android:layout_alignEnd="@+id/txt_journey_question_answer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/question_headline_unanswered"
+        android:id="@+id/txt_journey_question_head"
+        android:layout_alignBottom="@+id/frameLayout2"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/question_question_label"
+        android:id="@+id/txt_journey_question_questionlabel"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txt_journey_question_head"
+        android:textStyle="bold"
+        android:textSize="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/question_answer_label"
+        android:id="@+id/txt_journey_question_answerlabel"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_below="@+id/txt_journey_question"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/question_answer"
+        android:id="@+id/txt_journey_question_answer"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txt_journey_question_answerlabel"
+        android:layout_marginTop="20dp" />
+</RelativeLayout>

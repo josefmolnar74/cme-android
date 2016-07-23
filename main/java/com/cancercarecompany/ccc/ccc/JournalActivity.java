@@ -70,7 +70,7 @@ public class JournalActivity extends AppCompatActivity {
     ImageButton settingsButton;
     TextView emotionText;
 
-    Button fatigueButton;
+    ImageButton fatigueButton;
     Button painButton;
     Button mouthButton;
     Button tinglingButton;
@@ -170,7 +170,7 @@ public class JournalActivity extends AppCompatActivity {
         System.out.println("LANGUAGE SETTINGS: "+languageString);
         //////////////////////////
 
-        fatigueButton = (Button) findViewById(R.id.btn_journal_sideeffect_fatigue);
+        fatigueButton = (ImageButton) findViewById(R.id.btn_journal_sideeffect_fatigue);
         painButton = (Button) findViewById(R.id.btn_journal_sideeffect_pain);
         mouthButton = (Button) findViewById(R.id.btn_journal_sideeffect_mouth);
         tinglingButton = (Button) findViewById(R.id.btn_journal_sideeffect_tingling);
@@ -1475,6 +1475,7 @@ public class JournalActivity extends AppCompatActivity {
             otherButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
         }else {
             fatigueButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
+
             painButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
             mouthButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
             tinglingButton.getBackground().setTint(getResources().getColor(R.color.button_material_light));
