@@ -54,7 +54,7 @@ public class Settings extends AppCompatActivity {
         ImageButton saveButton = (ImageButton) popupView.findViewById(R.id.btn_settings_save);
 
         buttonEN.setChecked(true);
-        languageRadioButtonString = "EN";
+        languageRadioButtonString = "en";
 
         buttonEN.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -62,7 +62,7 @@ public class Settings extends AppCompatActivity {
 
                 if (isChecked == true){
                     buttonSV.setChecked(false);
-                    languageRadioButtonString = "EN";
+                    languageRadioButtonString = "en";
                 }
 
             }
@@ -74,7 +74,7 @@ public class Settings extends AppCompatActivity {
 
                 if (isChecked == true){
                     buttonEN.setChecked(false);
-                    languageRadioButtonString = "SV";
+                    languageRadioButtonString = "sv";
                 }
             }
         });

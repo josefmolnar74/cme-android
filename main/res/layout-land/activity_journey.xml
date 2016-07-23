@@ -175,6 +175,7 @@
                 android:id="@+id/Scroll_lion" >
 
                 <RelativeLayout
+                    android:animateLayoutChanges="true"
                     android:id="@+id/lion_layer"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
