@@ -155,7 +155,7 @@ public class ConnectionHandler {
                                         events = gson.fromJson(resultData, EventData.class);
                                         break;
                                     case CONTENT_STATUS:
-                                        status = gson.fromJson(resultData, StatusData.class);
+                                          status = gson.fromJson(resultData, StatusData.class);
                                         break;
                                     case CONTENT_SIDEEFFECT:
                                         sideeffects = gson.fromJson(resultData, SideeffectData.class);
@@ -166,7 +166,7 @@ public class ConnectionHandler {
 
                                     case CONTENT_JOURNAL:
                                         journal = gson.fromJson(resultData, JournalData.class);
-                                        offlineDataManager.saveJournalData(resultData);
+                                          offlineDataManager.saveJournalData(resultData);
                                         break;
                                 }
                                 break;
@@ -217,7 +217,7 @@ public class ConnectionHandler {
     }
 
     public void login (Person newUser){
-        if (checkConnectivity()){
+        if (checkConnection()){
             function = "login";
             Gson gson = new Gson();
             String newUserString = gson.toJson(newUser);
@@ -231,7 +231,7 @@ public class ConnectionHandler {
     }
 
     public void createUser(Person newUser) {
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             if (person == null) {
                 person = new Person(newUser.person_ID, newUser.first_name, newUser.last_name, newUser.email,newUser.password,newUser.avatar, null);
@@ -242,7 +242,7 @@ public class ConnectionHandler {
     }
 
     public void updateUser(Person newUser) {
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String messageData = gson.toJson(person);
             sendMessage(MESSAGE_UPDATE, CONTENT_PERSON, messageData);
@@ -250,7 +250,7 @@ public class ConnectionHandler {
     }
 
     public void deleteUser(Person newUser) {
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(newUser);
             sendMessage(MESSAGE_DELETE, CONTENT_PERSON, msgData);
@@ -258,7 +258,7 @@ public class ConnectionHandler {
     }
 
     public void createPatient(Patient newPatient, String relationship) {
-        if (checkConnectivity()){
+        if (checkConnection()){
             patient = newPatient;
             Gson gson = new Gson();
             String msgData = gson.toJson(newPatient);
@@ -269,7 +269,7 @@ public class ConnectionHandler {
     }
 
     public void getPatient(int patientID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
             sendMessage(MESSAGE_READ, CONTENT_PATIENT, msgData);
         } else {
@@ -278,7 +278,7 @@ public class ConnectionHandler {
     }
 
     public void createCareTeamMember(CareTeamMember newCareTeamMember, int patientID) {
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(newCareTeamMember);
             //Create patient with existing patient_ID only creates new care team junction
@@ -287,7 +287,7 @@ public class ConnectionHandler {
     }
 
     public void inviteCareTeamMember(Invite newInvite) {
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(newInvite);
             sendMessage(MESSAGE_CREATE, CONTENT_INVITE, msgData);
@@ -295,7 +295,7 @@ public class ConnectionHandler {
     }
 
     public void findCareTeamInvite(String invitedEmail) {
-        if (checkConnectivity()){
+        if (checkConnection()){
             invites = null; // reset any previous invite querys
             String msgData = String.format("{\"invited_email\":\"%s\"}", invitedEmail);
             sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
@@ -303,7 +303,7 @@ public class ConnectionHandler {
     }
 
     public void getInvitedCareTeamMembers(int patientID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
             sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
         } else {
@@ -312,7 +312,7 @@ public class ConnectionHandler {
     }
 
     public void acceptCareTeamInvite() {
-        if (checkConnectivity()){
+        if (checkConnection()){
             Invite invite = invites.invite_data.get(0); // Always accept first found invite
             invite.invite_accepted = 1;
             invite.person_ID = person.person_ID;
@@ -323,7 +323,7 @@ public class ConnectionHandler {
     }
 
     public void createHealthcare(HealthCare healthcare){
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(healthcare);
             sendMessage(MESSAGE_CREATE, CONTENT_HEALTHCARE, msgData);
@@ -331,7 +331,7 @@ public class ConnectionHandler {
     }
 
     public void getHealthcareForPatient(int patientID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
             sendMessage(MESSAGE_READ, CONTENT_HEALTHCARE, msgData);
         } else {
@@ -341,14 +341,14 @@ public class ConnectionHandler {
     }
 
     public void getHealthcare(int healthcareID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"healthcare_ID\":\"%d\"}", healthcareID);
             sendMessage(MESSAGE_READ, CONTENT_HEALTHCARE, msgData);
         }
     }
 
     public void updateHealthcare(HealthCare healthcare){
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(healthcare);
             sendMessage(MESSAGE_UPDATE, CONTENT_HEALTHCARE, msgData);
@@ -356,14 +356,14 @@ public class ConnectionHandler {
     }
 
     public void deleteHealthcare(int healthcareID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"healthcare_ID\":\"%d\"}", healthcareID);
             sendMessage(MESSAGE_DELETE, CONTENT_HEALTHCARE, msgData);
         }
     }
 
     public void createEvent(Event event){
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(event);
             sendMessage(MESSAGE_CREATE, CONTENT_EVENT, msgData);
@@ -371,7 +371,7 @@ public class ConnectionHandler {
     }
 
     public void getEventsForPatient(int patientID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
             sendMessage(MESSAGE_READ, CONTENT_EVENT, msgData);
         } else {
@@ -381,7 +381,7 @@ public class ConnectionHandler {
     }
 
     public void updateEvent(Event event){
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(event);
             sendMessage(MESSAGE_UPDATE, CONTENT_EVENT, msgData);
@@ -389,14 +389,14 @@ public class ConnectionHandler {
     }
 
     public void deleteEvent(int eventID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"event_ID\":\"%d\"}", eventID);
             sendMessage(MESSAGE_DELETE, CONTENT_EVENT, msgData);
         }
     }
 
     public void createStatus(Status status){
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(status);
             sendMessage(MESSAGE_CREATE, CONTENT_STATUS, msgData);
@@ -404,7 +404,7 @@ public class ConnectionHandler {
     }
 
     public void getStatusForPatient(int patientID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
             sendMessage(MESSAGE_READ, CONTENT_STATUS, msgData);
         } else {
@@ -414,7 +414,7 @@ public class ConnectionHandler {
     }
 
     public void updateStatus(Status status){
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(status);
             sendMessage(MESSAGE_UPDATE, CONTENT_STATUS, msgData);
@@ -422,14 +422,14 @@ public class ConnectionHandler {
     }
 
     public void deleteStatus(int statusID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"status_ID\":\"%d\"}", statusID);
             sendMessage(MESSAGE_DELETE, CONTENT_STATUS, msgData);
         }
     }
 
     public void createSideeffect(Sideeffect sideeffect){
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(sideeffect);
             sendMessage(MESSAGE_CREATE, CONTENT_SIDEEFFECT, msgData);
@@ -437,7 +437,7 @@ public class ConnectionHandler {
     }
 
     public void getSideeffectForPatient(int patientID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
             sendMessage(MESSAGE_READ, CONTENT_SIDEEFFECT, msgData);
         } else {
@@ -447,22 +447,22 @@ public class ConnectionHandler {
     }
 
     public void updateSideeffect(Sideeffect sideeffect){
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
-            String msgData = gson.toJson(status);
+            String msgData = gson.toJson(sideeffect);
             sendMessage(MESSAGE_UPDATE, CONTENT_SIDEEFFECT, msgData);
         }
     }
 
     public void deleteSideeffect(int sideeffectID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"sideeffect_ID\":\"%d\"}", sideeffectID);
             sendMessage(MESSAGE_DELETE, CONTENT_SIDEEFFECT, msgData);
         }
     }
 
     public void createBeverage(Beverage beverage){
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(beverage);
             sendMessage(MESSAGE_CREATE, CONTENT_BEVERAGE, msgData);
@@ -470,7 +470,7 @@ public class ConnectionHandler {
     }
 
     public void getBeveragesForPatient(int patientID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
             sendMessage(MESSAGE_READ, CONTENT_BEVERAGE, msgData);
         } else {
@@ -480,7 +480,7 @@ public class ConnectionHandler {
     }
 
     public void updateBeverage(Beverage beverage){
-        if (checkConnectivity()){
+        if (checkConnection()){
             Gson gson = new Gson();
             String msgData = gson.toJson(beverage );
             sendMessage(MESSAGE_UPDATE, CONTENT_BEVERAGE, msgData);
@@ -488,14 +488,14 @@ public class ConnectionHandler {
     }
 
     public void deleteBeverage(int beverageID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"beverage_ID\":\"%d\"}", beverageID);
             sendMessage(MESSAGE_DELETE, CONTENT_BEVERAGE, msgData);
         }
     }
 
     public void getJournalForPatient(int patientID){
-        if (checkConnectivity()){
+        if (checkConnection()){
             String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
             sendMessage(MESSAGE_READ, CONTENT_JOURNAL, msgData);
         } else {
@@ -504,10 +504,12 @@ public class ConnectionHandler {
         }
     }
 
-    private boolean checkConnectivity(){
+    private boolean checkConnection(){
+        boolean isConnected = false;
         ConnectivityManager cm = (ConnectivityManager) MyApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        isConnected =  activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
     }
 
 }

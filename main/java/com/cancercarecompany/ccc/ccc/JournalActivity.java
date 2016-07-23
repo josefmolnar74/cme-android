@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,6 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -39,6 +37,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
+
 import android.os.Handler;
 
 //import android.widget.Spinner;
@@ -88,15 +88,15 @@ public class JournalActivity extends AppCompatActivity {
     Button vomitButton;
     Button otherButton;
 
-    int fatigueIdForToday;
-    int painIdForToday;
-    int mouthIdForToday;
-    int tinglingIdForToday;
-    int diarrheaIdForToday;
-    int appetiteIdForToday;
-    int dizzinessIdForToday;
-    int vomitIdForToday;
-    int otherIdForToday;
+    int fatigueSideeffectPositionForToday;
+    int painSideeffectPositionForToday;
+    int mouthSideeffectPositionForToday;
+    int tinglingSideeffectPositionForToday;
+    int diarrheaSideeffectPositionForToday;
+    int appetiteSideeffectPositionForToday;
+    int dizzinessSideeffectPositionForToday;
+    int vomitSideeffectPositionForToday;
+    int otherSideeffectPositionForToday;
     int beverageIdForToday;
 
     String emotion = "";
@@ -911,10 +911,10 @@ public class JournalActivity extends AppCompatActivity {
 
         // if sideeffect exist, initalise the saved checkbox values
         String sideeffectValueString = null;
-        if ((painIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_PAIN)) {
-            sideeffectValueString = connectHandler.journal.sideeffect_data.get(painIdForToday).value;
-        } else if ((tinglingIdForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_TINGLING)) {
-            sideeffectValueString = connectHandler.journal.sideeffect_data.get(tinglingIdForToday).value;
+        if ((painSideeffectPositionForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_PAIN)) {
+            sideeffectValueString = connectHandler.journal.sideeffect_data.get(painSideeffectPositionForToday).value;
+        } else if ((tinglingSideeffectPositionForToday >= 0) && (sideeffectType == SIDEEFFECT_TYPE_TINGLING)) {
+            sideeffectValueString = connectHandler.journal.sideeffect_data.get(tinglingSideeffectPositionForToday).value;
         }
 
         if (sideeffectValueString != null) {
@@ -1208,8 +1208,8 @@ public class JournalActivity extends AppCompatActivity {
         String sideeffectValueString = null;
         switch (sideeffectType) {
             case SIDEEFFECT_TYPE_APPETITE:
-                if (appetiteIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(appetiteIdForToday).value;
+                if (appetiteSideeffectPositionForToday >= 0) {
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(appetiteSideeffectPositionForToday).value;
                     // Populate the seekbar values for the existing side effect
                     //Separate Breakfast, lunch, dinner and convert string values to integer and set progress default
                     String[] parts = sideeffectValueString.split(",");
@@ -1225,8 +1225,8 @@ public class JournalActivity extends AppCompatActivity {
                 }
                 break;
             case SIDEEFFECT_TYPE_FATIGUE:
-                if (fatigueIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(fatigueIdForToday).value;
+                if (fatigueSideeffectPositionForToday >= 0) {
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(fatigueSideeffectPositionForToday).value;
                     seekBar1.setProgress(Integer.parseInt(sideeffectValueString));
                     textSeekBarResult1.setText(sideeffectValueString);
                 }
@@ -1388,23 +1388,23 @@ public class JournalActivity extends AppCompatActivity {
         // Get position for todays sideeffect
         switch (sideeffectType) {
             case SIDEEFFECT_TYPE_DIARRHEA:
-                if (diarrheaIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(diarrheaIdForToday).value;
+                if (diarrheaSideeffectPositionForToday >= 0) {
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(diarrheaSideeffectPositionForToday).value;
                 }
                 break;
             case SIDEEFFECT_TYPE_MOUTH:
-                if (mouthIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(mouthIdForToday).value;
+                if (mouthSideeffectPositionForToday >= 0) {
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(mouthSideeffectPositionForToday).value;
                 }
                 break;
             case SIDEEFFECT_TYPE_VOMIT:
-                if (vomitIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(vomitIdForToday).value;
+                if (vomitSideeffectPositionForToday >= 0) {
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(vomitSideeffectPositionForToday).value;
                 }
                 break;
             case SIDEEFFECT_TYPE_DIZZINESS:
-                if (dizzinessIdForToday >= 0) {
-                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(dizzinessIdForToday).value;
+                if (dizzinessSideeffectPositionForToday >= 0) {
+                    sideeffectValueString = connectHandler.journal.sideeffect_data.get(dizzinessSideeffectPositionForToday).value;
                 }
                 break;
         }
@@ -1497,15 +1497,15 @@ public class JournalActivity extends AppCompatActivity {
     private void findSideeffectsForToday(String date) {
 
         // Initialise values if changes has happened to the list
-        fatigueIdForToday = -1;
-        painIdForToday = -1;
-        mouthIdForToday = -1;
-        tinglingIdForToday = -1;
-        diarrheaIdForToday = -1;
-        appetiteIdForToday = -1;
-        dizzinessIdForToday = -1;
-        vomitIdForToday = -1;
-        otherIdForToday = -1;
+        fatigueSideeffectPositionForToday = -1;
+        painSideeffectPositionForToday = -1;
+        mouthSideeffectPositionForToday = -1;
+        tinglingSideeffectPositionForToday = -1;
+        diarrheaSideeffectPositionForToday = -1;
+        appetiteSideeffectPositionForToday = -1;
+        dizzinessSideeffectPositionForToday = -1;
+        vomitSideeffectPositionForToday = -1;
+        otherSideeffectPositionForToday = -1;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             fatigueButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
             painButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
@@ -1538,7 +1538,7 @@ public class JournalActivity extends AppCompatActivity {
                 if (dateIsToday) {
                     switch (connectHandler.journal.sideeffect_data.get(position).type) {
                         case SIDEEFFECT_TYPE_FATIGUE:
-                            fatigueIdForToday = position;
+                            fatigueSideeffectPositionForToday = position;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 fatigueButton.getBackground().setTint(getResources().getColor(R.color.cme_light, getApplication().getTheme()));
                             } else {
@@ -1546,7 +1546,7 @@ public class JournalActivity extends AppCompatActivity {
                             }
                             break;
                         case SIDEEFFECT_TYPE_PAIN:
-                            painIdForToday = position;
+                            painSideeffectPositionForToday = position;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 painButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
                             } else {
@@ -1554,7 +1554,7 @@ public class JournalActivity extends AppCompatActivity {
                             }
                             break;
                         case SIDEEFFECT_TYPE_MOUTH:
-                            mouthIdForToday = position;
+                            mouthSideeffectPositionForToday = position;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 mouthButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
                             } else {
@@ -1562,7 +1562,7 @@ public class JournalActivity extends AppCompatActivity {
                             }
                             break;
                         case SIDEEFFECT_TYPE_TINGLING:
-                            tinglingIdForToday = position;
+                            tinglingSideeffectPositionForToday = position;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 tinglingButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
                             } else {
@@ -1570,7 +1570,7 @@ public class JournalActivity extends AppCompatActivity {
                             }
                             break;
                         case SIDEEFFECT_TYPE_DIARRHEA:
-                            diarrheaIdForToday = position;
+                            diarrheaSideeffectPositionForToday = position;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 diarrheaButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
                             } else {
@@ -1578,7 +1578,7 @@ public class JournalActivity extends AppCompatActivity {
                             }
                             break;
                         case SIDEEFFECT_TYPE_APPETITE:
-                            appetiteIdForToday = position;
+                            appetiteSideeffectPositionForToday = position;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 appetiteButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
                             } else {
@@ -1586,7 +1586,7 @@ public class JournalActivity extends AppCompatActivity {
                             }
                             break;
                         case SIDEEFFECT_TYPE_DIZZINESS:
-                            dizzinessIdForToday = position;
+                            dizzinessSideeffectPositionForToday = position;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 dizzinessButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
                             } else {
@@ -1594,7 +1594,7 @@ public class JournalActivity extends AppCompatActivity {
                             }
                             break;
                         case SIDEEFFECT_TYPE_VOMIT:
-                            vomitIdForToday = position;
+                            vomitSideeffectPositionForToday = position;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 vomitButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
                             } else {
@@ -1602,7 +1602,7 @@ public class JournalActivity extends AppCompatActivity {
                             }
                             break;
                         case SIDEEFFECT_TYPE_OTHER:
-                            otherIdForToday = position;
+                            otherSideeffectPositionForToday = position;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 otherButton.getBackground().setTint(getResources().getColor(R.color.cme_light, null));
                             } else {
@@ -1620,8 +1620,58 @@ public class JournalActivity extends AppCompatActivity {
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
 
+        Random rand = new Random();
+        int sideeffectID = -rand.nextInt(Integer.MAX_VALUE);
+        switch (sideeffectType) {
+            case SIDEEFFECT_TYPE_FATIGUE:
+                if (fatigueSideeffectPositionForToday >=0){
+                    sideeffectID = connectHandler.journal.sideeffect_data.get(fatigueSideeffectPositionForToday).sideeffect_ID;
+                }
+                break;
+            case SIDEEFFECT_TYPE_PAIN:
+                if (painSideeffectPositionForToday >=0){
+                    sideeffectID = connectHandler.journal.sideeffect_data.get(painSideeffectPositionForToday).sideeffect_ID;
+                }
+                break;
+            case SIDEEFFECT_TYPE_MOUTH:
+                if (mouthSideeffectPositionForToday >=0){
+                    sideeffectID = connectHandler.journal.sideeffect_data.get(mouthSideeffectPositionForToday).sideeffect_ID;
+                }
+                break;
+            case SIDEEFFECT_TYPE_TINGLING:
+                if (tinglingSideeffectPositionForToday >=0){
+                    sideeffectID = connectHandler.journal.sideeffect_data.get(tinglingSideeffectPositionForToday).sideeffect_ID;
+                }
+                break;
+            case SIDEEFFECT_TYPE_DIARRHEA:
+                if (diarrheaSideeffectPositionForToday >=0){
+                    sideeffectID = connectHandler.journal.sideeffect_data.get(diarrheaSideeffectPositionForToday).sideeffect_ID;
+                }
+                break;
+            case SIDEEFFECT_TYPE_APPETITE:
+                if (appetiteSideeffectPositionForToday >=0){
+                    sideeffectID = connectHandler.journal.sideeffect_data.get(appetiteSideeffectPositionForToday).sideeffect_ID;
+                }
+                break;
+            case SIDEEFFECT_TYPE_DIZZINESS:
+                if (dizzinessSideeffectPositionForToday >=0){
+                    sideeffectID = connectHandler.journal.sideeffect_data.get(dizzinessSideeffectPositionForToday).sideeffect_ID;
+                }
+                break;
+            case SIDEEFFECT_TYPE_VOMIT:
+                if (vomitSideeffectPositionForToday >=0){
+                    sideeffectID = connectHandler.journal.sideeffect_data.get(vomitSideeffectPositionForToday).sideeffect_ID;
+                }
+                break;
+            case SIDEEFFECT_TYPE_OTHER:
+                if (otherSideeffectPositionForToday >=0){
+                    sideeffectID = connectHandler.journal.sideeffect_data.get(otherSideeffectPositionForToday).sideeffect_ID;
+                }
+                break;
+        }
+
         Sideeffect newSideeffect = new Sideeffect(
-                0,
+                sideeffectID,
                 connectHandler.patient.patient_ID,
                 connectHandler.person.person_ID,
                 date,
@@ -1629,7 +1679,14 @@ public class JournalActivity extends AppCompatActivity {
                 sideeffectType,
                 sideeffectValue);
 
-        connectHandler.createSideeffect(newSideeffect);
+        if (sideeffectID >= 0){
+            // sideeffect already exist, just update
+            connectHandler.updateSideeffect(newSideeffect);
+        } else {
+            // new sideeffect
+            connectHandler.createSideeffect(newSideeffect);
+        }
+
         while (connectHandler.socketBusy) {
         }
 
