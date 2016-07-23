@@ -401,6 +401,11 @@ public class OfflineDataManager {
         saveBeveragesData(gson.toJson(beverages));
     }
 
+    public JournalData getJournal(){
+        journal = new JournalData(events.event_data, status.status_data, sideeffects.sideeffect_data, beverages.beverage_data);
+        return journal;
+    }
+
     public LoginData getLoginData(){
         return loginData;
     }
@@ -415,11 +420,6 @@ public class OfflineDataManager {
 
     public InviteData getInvites(){
         return invites;
-    }
-
-    public JournalData getJournal(){
-        journal = new JournalData(events.event_data, status.status_data, sideeffects.sideeffect_data, beverages.beverage_data);
-        return journal;
     }
 
     public EventData getEvents(){
@@ -441,4 +441,51 @@ public class OfflineDataManager {
     public StatusData getStatus(){
         return status;
     }
+
+
+    public void createInvite(){
+
+    }
+
+    public void createEvents(){
+
+    }
+
+    public void createHealthcare(){
+
+    }
+
+    public void createBeverages(){
+
+    }
+
+    public void createSideeffects(){
+
+    }
+
+    public void createStatus(){
+
+    }
+
+
+    public void updateEvents(){
+
+    }
+
+    public void updateHealthcare(){
+
+    }
+
+    public void updateBeverages(){
+
+    }
+
+    public void updateSideeffects(){
+
+    }
+
+    public void updateStatus(){
+
+    }
+
 }
