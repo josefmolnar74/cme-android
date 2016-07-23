@@ -327,6 +327,8 @@ public class ConnectionHandler {
             Gson gson = new Gson();
             String msgData = gson.toJson(healthcare);
             sendMessage(MESSAGE_CREATE, CONTENT_HEALTHCARE, msgData);
+        } else {
+            offlineDataManager.createHealthcare(healthcare);
         }
     }
 
@@ -336,7 +338,7 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_HEALTHCARE, msgData);
         } else {
             //offline mode, get data from internal file
-            healthcare = offlineDataManager.getHealthcare();
+            healthcare = offlineDataManager.getHealthcares();
         }
     }
 
@@ -352,6 +354,8 @@ public class ConnectionHandler {
             Gson gson = new Gson();
             String msgData = gson.toJson(healthcare);
             sendMessage(MESSAGE_UPDATE, CONTENT_HEALTHCARE, msgData);
+        } else {
+            offlineDataManager.updateHealthcare(healthcare);
         }
     }
 
@@ -359,6 +363,8 @@ public class ConnectionHandler {
         if (checkConnection()){
             String msgData = String.format("{\"healthcare_ID\":\"%d\"}", healthcareID);
             sendMessage(MESSAGE_DELETE, CONTENT_HEALTHCARE, msgData);
+        } else {
+            offlineDataManager.deleteHealthcare(healthcareID);
         }
     }
 
@@ -367,6 +373,8 @@ public class ConnectionHandler {
             Gson gson = new Gson();
             String msgData = gson.toJson(event);
             sendMessage(MESSAGE_CREATE, CONTENT_EVENT, msgData);
+        } else {
+            offlineDataManager.createEvents(event);
         }
     }
 
@@ -385,6 +393,8 @@ public class ConnectionHandler {
             Gson gson = new Gson();
             String msgData = gson.toJson(event);
             sendMessage(MESSAGE_UPDATE, CONTENT_EVENT, msgData);
+        } else {
+            offlineDataManager.updateEvent(event);
         }
     }
 
@@ -392,6 +402,8 @@ public class ConnectionHandler {
         if (checkConnection()){
             String msgData = String.format("{\"event_ID\":\"%d\"}", eventID);
             sendMessage(MESSAGE_DELETE, CONTENT_EVENT, msgData);
+        } else {
+            offlineDataManager.deleteEvent(eventID);
         }
     }
 
@@ -400,6 +412,8 @@ public class ConnectionHandler {
             Gson gson = new Gson();
             String msgData = gson.toJson(status);
             sendMessage(MESSAGE_CREATE, CONTENT_STATUS, msgData);
+        } else {
+            offlineDataManager.createStatus(status);
         }
     }
 
@@ -418,6 +432,8 @@ public class ConnectionHandler {
             Gson gson = new Gson();
             String msgData = gson.toJson(status);
             sendMessage(MESSAGE_UPDATE, CONTENT_STATUS, msgData);
+        } else {
+            offlineDataManager.updateStatus(status);
         }
     }
 
@@ -425,6 +441,8 @@ public class ConnectionHandler {
         if (checkConnection()){
             String msgData = String.format("{\"status_ID\":\"%d\"}", statusID);
             sendMessage(MESSAGE_DELETE, CONTENT_STATUS, msgData);
+        } else {
+            offlineDataManager.deleteStatus(statusID);
         }
     }
 
@@ -433,6 +451,8 @@ public class ConnectionHandler {
             Gson gson = new Gson();
             String msgData = gson.toJson(sideeffect);
             sendMessage(MESSAGE_CREATE, CONTENT_SIDEEFFECT, msgData);
+        } else {
+            offlineDataManager.createSideeffects(sideeffect);
         }
     }
 
@@ -451,6 +471,8 @@ public class ConnectionHandler {
             Gson gson = new Gson();
             String msgData = gson.toJson(sideeffect);
             sendMessage(MESSAGE_UPDATE, CONTENT_SIDEEFFECT, msgData);
+        } else {
+            offlineDataManager.updateSideeffect(sideeffect);
         }
     }
 
@@ -458,6 +480,8 @@ public class ConnectionHandler {
         if (checkConnection()){
             String msgData = String.format("{\"sideeffect_ID\":\"%d\"}", sideeffectID);
             sendMessage(MESSAGE_DELETE, CONTENT_SIDEEFFECT, msgData);
+        } else {
+            offlineDataManager.deleteSideeffect(sideeffectID);
         }
     }
 
@@ -466,6 +490,8 @@ public class ConnectionHandler {
             Gson gson = new Gson();
             String msgData = gson.toJson(beverage);
             sendMessage(MESSAGE_CREATE, CONTENT_BEVERAGE, msgData);
+        } else {
+            offlineDataManager.createBeverages(beverage);
         }
     }
 
@@ -484,6 +510,8 @@ public class ConnectionHandler {
             Gson gson = new Gson();
             String msgData = gson.toJson(beverage );
             sendMessage(MESSAGE_UPDATE, CONTENT_BEVERAGE, msgData);
+        } else {
+            offlineDataManager.updateBeverage(beverage);
         }
     }
 
@@ -491,6 +519,8 @@ public class ConnectionHandler {
         if (checkConnection()){
             String msgData = String.format("{\"beverage_ID\":\"%d\"}", beverageID);
             sendMessage(MESSAGE_DELETE, CONTENT_BEVERAGE, msgData);
+        } else {
+            offlineDataManager.deleteBeverage(beverageID);
         }
     }
 

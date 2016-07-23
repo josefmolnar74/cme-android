@@ -22,7 +22,7 @@ public class OfflineDataManager {
     private Person person;
     private Patient patient;
     private InviteData invites;
-    private HealthCareData healthcare;
+    private HealthCareData healthcares;
     private EventData events;
     private BeverageData beverages;
     private SideeffectData sideeffects;
@@ -265,7 +265,7 @@ public class OfflineDataManager {
             }
 
             Gson gson = new Gson();
-            healthcare =  gson.fromJson(sb.toString(), HealthCareData.class);
+            healthcares =  gson.fromJson(sb.toString(), HealthCareData.class);
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -426,8 +426,8 @@ public class OfflineDataManager {
         return events;
     }
 
-    public HealthCareData getHealthcare(){
-        return healthcare;
+    public HealthCareData getHealthcares(){
+        return healthcares;
     }
 
     public BeverageData getBeverages(){
@@ -443,49 +443,110 @@ public class OfflineDataManager {
     }
 
 
-    public void createInvite(){
-
+    public void createInvite(Invite newInvite){
+        invites.invite_data.add(newInvite);
     }
 
-    public void createEvents(){
-
+    public void createEvents(Event newEvent){
+        events.event_data.add(newEvent);
     }
 
-    public void createHealthcare(){
-
+    public void createHealthcare(HealthCare newHealthcare){
+        healthcares.healthcare_data.add(newHealthcare);
     }
 
-    public void createBeverages(){
-
+    public void createBeverages(Beverage newBeverage){
+        beverages.beverage_data.add(newBeverage);
     }
 
-    public void createSideeffects(){
-
+    public void createSideeffects(Sideeffect newSideeffect){
+        sideeffects.sideeffect_data.add(newSideeffect);
     }
 
-    public void createStatus(){
-
+    public void createStatus(Status newStatus){
+        status.status_data.add(newStatus);
     }
 
 
-    public void updateEvents(){
-
+    public void deleteEvent(int index){
+        for (int i = 0; i < events.event_data.size(); i++){
+            if (index == events.event_data.get(i).event_ID){
+                events.event_data.remove(i);
+            }
+        }
     }
 
-    public void updateHealthcare(){
-
+    public void deleteHealthcare(int index){
+        for (int i = 0; i < healthcares.healthcare_data.size(); i++){
+            if (index == healthcares.healthcare_data.get(i).healthcare_ID){
+                healthcares.healthcare_data.remove(i);
+            }
+        }
     }
 
-    public void updateBeverages(){
-
+    public void deleteBeverage(int index){
+        for (int i = 0; i < beverages.beverage_data.size(); i++) {
+            if (index == beverages.beverage_data.get(i).beverage_ID) {
+                beverages.beverage_data.remove(i);
+            }
+        }
     }
 
-    public void updateSideeffects(){
-
+    public void deleteSideeffect(int index){
+        for (int i = 0; i < sideeffects.sideeffect_data.size(); i++) {
+            if (index == sideeffects.sideeffect_data.get(i).sideeffect_ID) {
+                sideeffects.sideeffect_data.remove(i);
+            }
+        }
     }
 
-    public void updateStatus(){
+    public void deleteStatus(int index){
+        for (int i = 0; i < status.status_data.size(); i++) {
+            if (index == status.status_data.get(i).status_ID) {
+                status.status_data.remove(i);
+            }
+        }
+    }
 
+
+    public void updateEvent(Event updateEvent){
+        for (int i = 0; i < events.event_data.size(); i++){
+            if (updateEvent.event_ID == events.event_data.get(i).event_ID){
+                events.event_data.set(i, updateEvent);
+            }
+        }
+    }
+
+    public void updateHealthcare(HealthCare updateHealthcare){
+        for (int i = 0; i < healthcares.healthcare_data.size(); i++){
+            if (updateHealthcare.healthcare_ID == healthcares.healthcare_data.get(i).healthcare_ID){
+                healthcares.healthcare_data.set(i, updateHealthcare);
+            }
+        }
+    }
+
+    public void updateBeverage(Beverage updateBeverage){
+        for (int i = 0; i < beverages.beverage_data.size(); i++) {
+            if (updateBeverage.beverage_ID == beverages.beverage_data.get(i).beverage_ID) {
+                beverages.beverage_data.set(i, updateBeverage);
+            }
+        }
+    }
+
+    public void updateSideeffect(Sideeffect updateSideeffect){
+        for (int i = 0; i < sideeffects.sideeffect_data.size(); i++) {
+            if (updateSideeffect.sideeffect_ID == sideeffects.sideeffect_data.get(i).sideeffect_ID) {
+                sideeffects.sideeffect_data.set(i, updateSideeffect);
+            }
+        }
+    }
+
+    public void updateStatus(Status updateStatus){
+        for (int i = 0; i < status.status_data.size(); i++) {
+            if (updateStatus.status_ID == status.status_data.get(i).status_ID) {
+                status.status_data.set(i, updateStatus);
+            }
+        }
     }
 
 }
