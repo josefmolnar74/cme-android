@@ -90,6 +90,7 @@ public class JourneyActivity extends AppCompatActivity {
 
     ImageButton sun;
     Boolean sunSwitch = true;
+    Boolean questionCreated = false;
     int pages = 0;
     int currentPage = 1;
 
@@ -367,10 +368,12 @@ public class JourneyActivity extends AppCompatActivity {
                         lionPopup();
                     }
 
-                    Rect hitBoxQuestion = new Rect();
-                    question_sign.getGlobalVisibleRect(hitBoxQuestion);
-                    if (hitBoxQuestion.contains((int) event.getRawX(), (int) event.getRawY())) {
-                        questionPopup();
+                    if (questionCreated == true) {
+                        Rect hitBoxQuestion = new Rect();
+                        question_sign.getGlobalVisibleRect(hitBoxQuestion);
+                        if (hitBoxQuestion.contains((int) event.getRawX(), (int) event.getRawY())) {
+                            questionPopup();
+                        }
                     }
 
 
@@ -2320,6 +2323,7 @@ public class JourneyActivity extends AppCompatActivity {
                 question_sign.setLayoutParams(layoutParams);
                 popupWindow.dismiss();
                 eventScroll.smoothScrollTo(carIntPosition - width/3, 0);
+                questionCreated = true;
 
             }
         });
