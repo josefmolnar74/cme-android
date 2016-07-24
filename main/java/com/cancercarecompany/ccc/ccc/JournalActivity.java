@@ -556,8 +556,9 @@ public class JournalActivity extends AppCompatActivity {
             }
 
             for (int i = 0; i < connectHandler.journal.event_data.size(); i++) {
-                eventList.add(connectHandler.journal.event_data.get(i));
-//                eventList.get(eventList.size()-1).sub_category = getResources().getString(getResources().getIdentifier("event_"+connectHandler.journal.event_data.get(i).sub_category, "string", getPackageName()));
+                if (!connectHandler.journal.event_data.get(i).sub_category.matches("start")){
+                    eventList.add(connectHandler.journal.event_data.get(i));
+                }
             }
 
             if (eventAdapter != null){
