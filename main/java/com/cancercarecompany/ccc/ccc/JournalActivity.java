@@ -77,8 +77,9 @@ public class JournalActivity extends AppCompatActivity {
     ImageButton emotionsButton;
     ImageButton settingsButton;
     TextView emotionText;
+    String journalDate;
 
-    ImageButton fatigueButton;
+    Button fatigueButton;
     Button painButton;
     Button mouthButton;
     Button tinglingButton;
@@ -97,7 +98,7 @@ public class JournalActivity extends AppCompatActivity {
     int dizzinessSideeffectPositionForToday;
     int vomitSideeffectPositionForToday;
     int otherSideeffectPositionForToday;
-    int beverageIdForToday;
+    int beveragePositionForToday;
 
     String emotion = "";
     String languageString;
@@ -182,7 +183,7 @@ public class JournalActivity extends AppCompatActivity {
         System.out.println("LANGUAGE SETTINGS: "+languageString);
         //////////////////////////
 
-        fatigueButton = (ImageButton) findViewById(R.id.btn_journal_sideeffect_fatigue);
+        fatigueButton = (Button) findViewById(R.id.btn_journal_sideeffect_fatigue);
         painButton = (Button) findViewById(R.id.btn_journal_sideeffect_pain);
         mouthButton = (Button) findViewById(R.id.btn_journal_sideeffect_mouth);
         tinglingButton = (Button) findViewById(R.id.btn_journal_sideeffect_tingling);
@@ -243,8 +244,8 @@ public class JournalActivity extends AppCompatActivity {
             loggedIn.setText(connectHandler.person.first_name);
         }
 
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(date)));
+        journalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
 
         connectHandler = ConnectionHandler.getInstance();
         //Get journal data
@@ -255,7 +256,7 @@ public class JournalActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (!connectHandler.socketBusy) {
-                    showJournalData( (String) new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                    showJournalData(journalDate);
                 } else {
                     handler.postDelayed(this,1000);
                 }
@@ -288,20 +289,19 @@ public class JournalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!statusTextEditText.getText().toString().isEmpty()) {
-                    String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//                    String journalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                     String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
                     // Create new status
                     Status newStatus = new Status(
                             0,
                             connectHandler.patient.patient_ID,
                             connectHandler.person.person_ID,
-                            date,
+                            journalDate,
                             time,
                             statusTextEditText.getText().toString(),
                             emotion,
                             1);
                     connectHandler.createStatus(newStatus);
-
                     statusList.add(newStatus);
                     statusAdapter.notifyDataSetChanged();
                     statusTextEditText.setText("");
@@ -483,11 +483,12 @@ public class JournalActivity extends AppCompatActivity {
             public void onSelectedDayChange(CalendarView view, int year, int month, int date) {
                  journalHeaderText.setText(R.string.txt_journal_headline);
                 month += 1;
-                String chosenDate = year + "-" +String.format("%02d",month) +"-" +String.format("%02d",date);
-                journalHeaderText.setText((journalHeaderText.getText()) + chosenDate);
+                journalDate = year + "-" +String.format("%02d",month) +"-" +String.format("%02d",date);
+                journalHeaderText.setText((journalHeaderText.getText()) + " ".concat(journalDate));
                 statusList.clear();
                 eventList.clear();
-                showJournalData(chosenDate);
+                beverageList.clear();
+                showJournalData(journalDate);
 
             }
         });
@@ -516,22 +517,22 @@ public class JournalActivity extends AppCompatActivity {
                 amount += 1;
             }
         }
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
         Beverage beverage = new Beverage(0,
                 connectHandler.patient.patient_ID,
                 connectHandler.person.person_ID,
-                date,
+                journalDate,
                 time,
                 amount);
-        if (beverageIdForToday >= 0) {
+        if (beveragePositionForToday >= 0) {
             // update already existing beverage for today
             if (connectHandler.journal != null){
-                beverage.beverage_ID = connectHandler.journal.beverage_data.get(beverageIdForToday).beverage_ID;
+                beverage.beverage_ID = connectHandler.journal.beverage_data.get(beveragePositionForToday).beverage_ID;
                 connectHandler.updateBeverage(beverage);
             }
         } else {
-            // Beverage exist for today, create a new one
+            // Beverage does not exist for today, create a new one
             connectHandler.createBeverage(beverage);
         }
         super.onPause();
@@ -555,8 +556,9 @@ public class JournalActivity extends AppCompatActivity {
             }
 
             for (int i = 0; i < connectHandler.journal.event_data.size(); i++) {
-                eventList.add(connectHandler.journal.event_data.get(i));
-//                eventList.get(eventList.size()-1).sub_category = getResources().getString(getResources().getIdentifier("event_"+connectHandler.journal.event_data.get(i).sub_category, "string", getPackageName()));
+                if (!connectHandler.journal.event_data.get(i).sub_category.matches("start")){
+                    eventList.add(connectHandler.journal.event_data.get(i));
+                }
             }
 
             if (eventAdapter != null){
@@ -567,7 +569,7 @@ public class JournalActivity extends AppCompatActivity {
             findSideeffectsForToday(date);
 
             int savedBeverageAmount = 0;
-            beverageIdForToday = -1; //init
+            beveragePositionForToday = -1; //init
             if (connectHandler.journal.beverage_data.size() > 0) {
                 // Check if beverage has already been saved today
                 // Get last saved beverage and check for date
@@ -580,8 +582,8 @@ public class JournalActivity extends AppCompatActivity {
 
                 if (dateIsToday) {
                     // yep, beverage has been saved today
-                    beverageIdForToday = lastIndex;
-                    savedBeverageAmount = connectHandler.journal.beverage_data.get(beverageIdForToday).amount;
+                    beveragePositionForToday = lastIndex;
+                    savedBeverageAmount = connectHandler.journal.beverage_data.get(beveragePositionForToday).amount;
                 }
             }
 
@@ -1619,7 +1621,7 @@ public class JournalActivity extends AppCompatActivity {
     }
 
     private void saveSideeffect(String sideeffectType, String sideeffectValue) {
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
 
         Random rand = new Random();
@@ -1676,7 +1678,7 @@ public class JournalActivity extends AppCompatActivity {
                 sideeffectID,
                 connectHandler.patient.patient_ID,
                 connectHandler.person.person_ID,
-                date,
+                journalDate,
                 time,
                 sideeffectType,
                 sideeffectValue);
@@ -1696,7 +1698,7 @@ public class JournalActivity extends AppCompatActivity {
         connectHandler.getJournalForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy) {
         }
-        findSideeffectsForToday(date);
+        findSideeffectsForToday(journalDate);
         // and voila :)
 
     }
