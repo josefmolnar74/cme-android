@@ -1509,26 +1509,26 @@ public class JournalActivity extends AppCompatActivity {
         vomitSideeffectPositionForToday = -1;
         otherSideeffectPositionForToday = -1;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            fatigueButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
-            painButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
-            mouthButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
-            tinglingButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
-            diarrheaButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
-            appetiteButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
-            dizzinessButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
-            vomitButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
-            otherButton.getBackground().setTint(getResources().getColor(R.color.button_material_light, null));
+            fatigueButton.getBackground().setTint(getResources().getColor(R.color.material_grey_50, null));
+            painButton.getBackground().setTint(getResources().getColor(R.color.material_grey_50, null));
+            mouthButton.getBackground().setTint(getResources().getColor(R.color.material_grey_50, null));
+            tinglingButton.getBackground().setTint(getResources().getColor(R.color.material_grey_50, null));
+            diarrheaButton.getBackground().setTint(getResources().getColor(R.color.material_grey_50, null));
+            appetiteButton.getBackground().setTint(getResources().getColor(R.color.material_grey_50, null));
+            dizzinessButton.getBackground().setTint(getResources().getColor(R.color.material_grey_50, null));
+            vomitButton.getBackground().setTint(getResources().getColor(R.color.material_grey_50, null));
+            otherButton.getBackground().setTint(getResources().getColor(R.color.material_grey_50, null));
 
         } else {
-            fatigueButton.getBackground().setColorFilter(getResources().getColor(R.color.button_material_light), PorterDuff.Mode.SRC);
-            painButton.getBackground().setColorFilter(getResources().getColor(R.color.button_material_light), PorterDuff.Mode.SRC);
-            mouthButton.getBackground().setColorFilter(getResources().getColor(R.color.button_material_light), PorterDuff.Mode.SRC);
-            tinglingButton.getBackground().setColorFilter(getResources().getColor(R.color.button_material_light), PorterDuff.Mode.SRC);
-            diarrheaButton.getBackground().setColorFilter(getResources().getColor(R.color.button_material_light), PorterDuff.Mode.SRC);
-            appetiteButton.getBackground().setColorFilter(getResources().getColor(R.color.button_material_light), PorterDuff.Mode.SRC);
-            dizzinessButton.getBackground().setColorFilter(getResources().getColor(R.color.button_material_light), PorterDuff.Mode.SRC);
-            vomitButton.getBackground().setColorFilter(getResources().getColor(R.color.button_material_light), PorterDuff.Mode.SRC);
-            otherButton.getBackground().setColorFilter(getResources().getColor(R.color.button_material_light), PorterDuff.Mode.SRC);
+            fatigueButton.getBackground().setColorFilter(getResources().getColor(R.color.material_grey_50), PorterDuff.Mode.SRC);
+            painButton.getBackground().setColorFilter(getResources().getColor(R.color.material_grey_50), PorterDuff.Mode.SRC);
+            mouthButton.getBackground().setColorFilter(getResources().getColor(R.color.material_grey_50), PorterDuff.Mode.SRC);
+            tinglingButton.getBackground().setColorFilter(getResources().getColor(R.color.material_grey_50), PorterDuff.Mode.SRC);
+            diarrheaButton.getBackground().setColorFilter(getResources().getColor(R.color.material_grey_50), PorterDuff.Mode.SRC);
+            appetiteButton.getBackground().setColorFilter(getResources().getColor(R.color.material_grey_50), PorterDuff.Mode.SRC);
+            dizzinessButton.getBackground().setColorFilter(getResources().getColor(R.color.material_grey_50), PorterDuff.Mode.SRC);
+            vomitButton.getBackground().setColorFilter(getResources().getColor(R.color.material_grey_50), PorterDuff.Mode.SRC);
+            otherButton.getBackground().setColorFilter(getResources().getColor(R.color.material_grey_50), PorterDuff.Mode.SRC);
 
         }
 
