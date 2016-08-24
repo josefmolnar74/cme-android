@@ -196,7 +196,7 @@
     <string name="event_nurse_txt1">Jag tar hand om dig när du är på sjukhuset så att du har det bra och berättar om allt som kommer att hända.</string>
     <string name="event_dentist">Tandläkare</string>
     <string name="event_dentist_txt1">Jag är läkaren somo kan allt om tänder. Jag hjälper dig se till så att inte dina tänder tar skada när du tar din medicin.</string>
-    <string name="event_surgeon">Kirurgen</string>
+    <string name="event_surgeon">Kirurg</string>
     <string name="event_surgeon_txt1">Jag är läkaren som opererar när det finns något i kroppen som behöver tas bort som en tumör. Det kallas för operation.</string>
     <string name="event_anestetisten">Anestetisten</string>
     <string name="event_anestetisten_txt1">Jag är en Nakosläkare och jag kan allt om mediciner som hjälper dig koppla av och sova gott under en operation eller en undersökning. Jag ser till så att du inte kommer att se, höra eller känna något under tiden du sover hos mig. Efteråt tar jag bort medicinen så att du vaknar och blir pigg igen. </string>
