@@ -50,7 +50,7 @@
     <string name="journal_sideeffects_appetite_seekbar_max1">Åt upp allt</string>
     <string name="journal_sideeffects_appetite_seekbar_max2">Åt upp allt</string>
     <string name="journal_sideeffects_appetite_seekbar_max3">Åt upp allt</string>
-    <string name="journal_sideeffects_fatigue_header">Fatigue</string>
+    <string name="journal_sideeffects_fatigue_header">Trötthet</string>
     <string name="journal_sideeffects_fatigue_question">Hur känner sig * just nu </string>
     <string name="journal_sideeffects_fatigue_seekbar_headline1"></string>
     <string name="journal_sideeffects_fatigue_seekbar_min1">Lite trött</string>
@@ -90,15 +90,14 @@
     <string name="careteam_healthcare">Hälsovård</string>
     <string name="careteam_family">Familj - vänner</string>
 
-    <string name="welcome">Welcome to play, explore and document your cancer journey. \n It is free for patients and will always be.</string>
-    <string name="button_create_care_team">Create care team</string>
-    <string name="button_join_care_team">Join care team</string>
-    <string name="login_saved_password">saved password</string>
-    <string name="login_saved_email">saved email</string>
+    <string name="welcome">Välkommen att utforska och dokumentera din cancerresa.</string>
+    <string name="button_create_care_team">Skapa ett nytt team</string>
+    <string name="button_join_care_team">Gå med team</string>
+    <string name="login_saved_password">sparat lösenord</string>
+    <string name="login_saved_email">sparat email</string>
     <string name="login_auto_login"></string>
     <string name="title_activity_journal">JournalActivity</string>
     <string name="button_login">Login</string>
-    <string name="robin">Robin</string>
 
     <string name="firstname">Förnamn</string>
     <string name="lastname">Efternamn</string>
@@ -178,6 +177,9 @@
     <string name="settings_btn_save">Spara</string>
     <string name="question_headline_unanswered">Obesvarad fråga</string>
     <string name="question_headline_answered">Besvarad fråga</string>
+    <string name="question_question_label">Fråga:</string>
+    <string name="question_answer_label">Svar:</string>
+    <string name="question_answer">Vi kommer att svara så fort vi kan!</string>
 
 
 
@@ -217,36 +219,39 @@
     <string name="event_hearing_tests">Hörseltest</string>
     <string name="event_hearing_tests_txt1">Medicinen du får kan påverka din hörsel. Därför testar vi regelbundet i din hörselskärpa.</string>
     <string name="event_bone_marrow_samples">Benmärgsprov</string>
+    <string name="event_bone_marrow_samples_txt1">Benmärg finns innuti ben och ser ut som tjock blod. Oftast tar vi benmärg från ditt höftben för att undersöka den. Den kommer att ge oss viktig information som vi använder för att planera din behandling. </string>
     <string name="event_eeg">EEG</string>
     <string name="event_eeg_txt1">Med hjälp av små censorer som man fäster på din hud kan vi registrera aktivitet i din hjärna. Häftigt!</string>
     <string name="event_ekg">EKG</string>
-    <string name="event_ekg_txt1">EKG</string>
-    <string name="event_ekg_txt2">EKG</string>
+    <string name="event_ekg_txt1">Med hjälp av små censorer som man fäster på din hud kan vi registrera aktivitet i din hjärna. Häftigt, eller hur?! Detta hjälper oss förstå hur din hjärna utvecklas och påverkas av din behandling.</string>
     <string name="event_kidney_investigation">Njurundersökning</string>
+    <string name="event_kidney_investigation_txt1">Njurarnas jobb är att rensa kroppen. Denna undersökning hjälper oss förstå hur bra njurarna gör sitt jobb. En radioaktiv vätska sprutas in i ditt blod och sedan tar vi blodprover med jämna mellanrum för att kolla hur bra njurarna jobbar. Det kan ta flera timmar att göra denna test (4-5 timmar ibland) så det gäller att ha tålamod. Men du kan leka under tiden.</string>
     <string name="event_ultrasound">Ultraljud</string>
+    <string name="event_ultrasound_txt">En ultraljud apparat är en maskin som visar bilder på mjuka delar på insidan av din kropp. Man använder bilderna för att förstå vad cancer cellerna i din kropp gör. Man kommer att lägga på en kall gele på det stället där man vill ha bilder från och använda en rollerkamera som man kör runt med på huden som visar bilderna. Bilderna skickas sedan till en datorn så att din läkaren kan titta på dem. Gelen är kall men det gör inte ont alls. Och du kan få se bilderna!!!  </string>
     <string name="event_cytostatika">Cytostatika</string>
     <string name="event_cytostatika_txt1">Cytostatika, eller cellgifter som det ibland kallas, är den vanligaste typen av medicin som man får när man får cancer. Det är en grupp av mycket starka mediciner som saktar ner eller dödar elaka cancer celler. </string>
     <string name="event_cytostatika_txt2">Det finns flera biverkningar man kan få när man tar cellgifter. Man kan till exempel tappa håret eller så kan mat börja smaka konstigt. Men alla dessa biverkningar slutar när du slutar med cellgifterna.</string>
-    <string name="event_cytostatika_txt3">I början får du oftast cellgifter i flyttande form. Längre fram i behandlingen kanske du får det i tablet form istället. Fråga din Läkare vad du kommer att få!  Dotorn bestämmer också hur ofta och hur många gånger du behöver ha cellgifter.  Alla cancer är ju olika!</string>
+    <string name="event_cytostatika_txt3">I början får du oftast cellgifter i flyttande form. Längre fram i behandlingen kanske du får det i tablet form istället. Fråga din Läkare vad du kommer att få!  Doktorn bestämmer också hur ofta och hur många gånger du behöver ha cellgifter.  Alla cancer är ju olika!</string>
     <string name="event_surgery">Operation</string>
     <string name="event_surgery_txt1">Kirurgi är samma sak som att ha en operation. En operation gör man för att kunna ta bort en tumör till exempel. Det är Kirurgen som gör detta jobbet tillsammans med ett helt team av människor som hjälper till. </string>
     <string name="event_surgery_txt2">Under operationen kommer kirurgen att ta bort tumören och kanske lite till runt om tumören för att vara säker på att man fick med allt det dåliga.</string>
     <string name="event_surgery_txt3">Innan operationen kommer du att sövas. Det betyder att du får en medicin som gör att inte känner ont. Du kommer inte att kunna se eller höra något under operationen. Det är precis som att sova. Det är anestetisten som hjälper dig sövas och tar hand om dig medan du sover.</string>
     <string name="event_stem_cell_transplantation">Stamcellstransplantation</string>
+    <string name="event_stem_cell_transplantation_txt1">Cancer medicin kan ibland förstöra friska celler i kroppen, inclusive de som kallas stamceller. Stamceller är en viktig del av vårt blod och våra ben. de skapar nytt blod som håller oss friska.</string>
     <string name="event_radiation">Strålning</string>
-    <string name="event_radiation_txt1">Strålning</string>
-    <string name="event_radiation_txt2">Strålning</string>
+    <string name="event_radiation_txt1">Strålning är en typ av medicin som tar bort cancer celler genom starka energistrålar i en strålningsmaskin. Strålarna är osynliga för oss.</string>
+    <string name="event_radiation_txt2">Strålningsmaskinen kommer att blippa, klicka och röra sig upp och ner. En strålningsläkare är den som bestämmer när och var du ska strålas. </string>
     <string name="event_dialysis">Dialys</string>
+    <string name="event_dialysis_txt1">Dialys är en maskin som tar ut blodet från din kropp, rensar den och sätter tillbaks den igen. Att rensa vårt blood är njurarnas jobb, men om din medicin är för mycket för njurarna att hantera kan vi hjälpa dina njurar med hjälp av dialys. Det är därför vi håller bra koll på dina njurar under don behandling. För att se om de behöver hjälp! </string>
     <string name="event_biological_therapy">Biologisk terapi</string>
+    <string name="event_biological_therapy_txt1">Immunterapi använder kraften i ditt eget imunförsvar för attackera cancern. Detta kan uppnås genom ett antal olika sätt</string>
     <string name="event_targeted_therapy">Riktad terapi</string>
-    <string name="event_targeted_therapy_txt1">Riktad terapi</string>
-    <string name="event_targeted_therapy_txt2">Riktad terapi</string>
+    <string name="event_targeted_therapy_txt1">Riktad terapi sker genom medicin som stoppar cancer cellerna från att växa. Ibland är detta en bra komplement till cellgifter om dina cancer celler växer väldigt fort. </string>
     <string name="event_portacat">Portakat</string>
     <string name="event_portacat_txt1">En Portacat är en liten slang man sätter in ovanför bröstet.  Den gör det lättare att ge dig cellgifter när du kommer till sjukhuset. </string>
-    <string name="event_portacat_txt2">Portakat</string>
+    <string name="event_portacat_txt2">Ofta behöver man operera en Picc line eller Portacath första gången. Det hjälper kirurgen och anestetisten med.</string>
     <string name="event_bloodtest">Blodprov</string>
-    <string name="event_bloodtest_txt1">Blodprov</string>
-    <string name="event_bloodtest_txt2">Blodprov</string>
+    <string name="event_bloodtest_txt1">Läkare behöver undersöka ditt blod ofta för att se hur de bäst ska ta hand om dig. När du lämnar blodprov kommer en sjuksköterska att sticka dig i armen och samla lite av ditt blod i en tub som sedan skickas för test. Det brukar gå fort och det känns bara lite precis när sjuksköterskan sticker dig, men sedan får du oftast en liten present för att du har varit så modig!</string>
     <string name="event_hospital">Möten på sjukhuset</string>
     <string name="event_hospital_txt1">För det mesta måste du åka in till sjukhuset när det är dags för cellgifter. Det kan vara för några dagar eller lite längre. </string>
     <string name="event_hospital_txt2">Efter cellgifterna kan du ibland må jättedåligt och därför måste du in till sjukhuset igen, men det är bara för att få dig att må bättre och för att läkarna och sjuksköterskor ska bättre kunna ta hand om dig.</string>

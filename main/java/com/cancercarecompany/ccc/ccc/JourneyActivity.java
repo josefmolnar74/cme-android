@@ -690,17 +690,13 @@ public class JourneyActivity extends AppCompatActivity {
                     case 1:
 
                         page1.setBackgroundResource(R.drawable.bluecircle);
-
                         page2.setBackgroundResource(R.drawable.blackcircle);
-
                         page3.setBackgroundResource(R.drawable.blackcircle);
-
                         break;
 
                     case 2:
 
                         page1.setBackgroundResource(R.drawable.blackcircle);
-
                         page2.setBackgroundResource(R.drawable.bluecircle);
                         page3.setBackgroundResource(R.drawable.blackcircle);
 
@@ -709,15 +705,9 @@ public class JourneyActivity extends AppCompatActivity {
                     case 3:
 
                         page1.setBackgroundResource(R.drawable.blackcircle);
-
                         page2.setBackgroundResource(R.drawable.blackcircle);
-
                         page3.setBackgroundResource(R.drawable.bluecircle);
-
                         break;
-
-
-
                 }
 
             }
