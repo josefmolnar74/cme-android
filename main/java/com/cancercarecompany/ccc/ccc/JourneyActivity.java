@@ -1473,11 +1473,13 @@ public class JourneyActivity extends AppCompatActivity {
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.detailpopup, null);
-        final PopupWindow popupWindow = new PopupWindow(
+/*        final PopupWindow popupWindow = new PopupWindow(
                 popupView, (int) (width * 0.90), (int) (height * 0.85));
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
 
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+*/
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         popupView.bringToFront();
         popupWindow.setFocusable(true);
         popupWindow.update();
@@ -1489,17 +1491,17 @@ public class JourneyActivity extends AppCompatActivity {
         page1 = (ImageView) popupView.findViewById(R.id.img_page1);
         page2 = (ImageView) popupView.findViewById(R.id.img_page2);
         page3 = (ImageView) popupView.findViewById(R.id.img_page3);
-        final TextView notesDetail = (TextView) popupView.findViewById(R.id.txt_notes_detail_journey);
+//        final TextView notesDetail = (TextView) popupView.findViewById(R.id.txt_notes_detail_journey);
         final TextView timeDetail = (TextView) popupView.findViewById(R.id.txt_time_detail_journey);
         ImageView categoryImage = (ImageView) popupView.findViewById(R.id.img_subcategory1);
         final EditText editNotes = (EditText) popupView.findViewById(R.id.et_notes_detail_journey);
         final DatePicker editDate = (DatePicker) popupView.findViewById(R.id.datepicker_journey);
         final TimePicker editTime = (TimePicker) popupView.findViewById(R.id.timepicker_journey);
         final ImageButton deleteEvent = (ImageButton) popupView.findViewById(R.id.btn_deleteEvent_journey);
-        ImageButton cancelButtonDetail = (ImageButton) popupView.findViewById(R.id.btn_cancel_addevent);
+        final ImageButton cancelButtonDetail = (ImageButton) popupView.findViewById(R.id.btn_cancel_addevent);
         final ImageButton saveButtonDetail = (ImageButton) popupView.findViewById(R.id.btn_saveEvent_Journey);
         final ImageButton editButtonDetail = (ImageButton) popupView.findViewById(R.id.btn_edit_detail_journey);
-        final ImageButton cancelEditMode = (ImageButton)popupView.findViewById(R.id.btn_cancelEditModer_journey);
+//        final ImageButton cancelEditMode = (ImageButton)popupView.findViewById(R.id.btn_cancelEditModer_journey);
         editTime.setIs24HourView(true);
         swipeLayout = (RelativeLayout) popupView.findViewById(R.id.swipeEventLayout);
 
@@ -1632,7 +1634,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventHeadline.setText(eventList.get(id_).sub_category.toString());
         eventInfoText(subCategoryClicked);
 
-        notesDetail.setText(eventList.get(id_).notes.toString());
+        editNotes.setText(eventList.get(id_).notes.toString());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd-HH:mm");
 
 
@@ -1651,11 +1653,11 @@ public class JourneyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editButtonDetail.setVisibility(View.INVISIBLE);
                 timeDetail.setVisibility(View.INVISIBLE);
-                notesDetail.setVisibility(View.INVISIBLE);
-
+//                notesDetail.setVisibility(View.INVISIBLE);
+                deleteEvent.setVisibility(View.VISIBLE);
 
                 saveButtonDetail.setVisibility(View.VISIBLE);
-                cancelEditMode.setVisibility(View.VISIBLE);
+//                cancelEditMode.setVisibility(View.VISIBLE);
                 editNotes.setVisibility(View.VISIBLE);
                 editDate.setVisibility(View.VISIBLE);
                 editTime.setVisibility(View.VISIBLE);
@@ -1668,7 +1670,7 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
-        cancelEditMode.setOnClickListener(new View.OnClickListener() {
+/*        cancelEditMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -1684,7 +1686,7 @@ public class JourneyActivity extends AppCompatActivity {
                 cancelEditMode.setVisibility(View.INVISIBLE);
 
             }
-        });
+        });*/
 
 
         saveButtonDetail.setOnClickListener(new View.OnClickListener() {
