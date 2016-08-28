@@ -625,11 +625,14 @@ public class JourneyActivity extends AppCompatActivity {
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.addeventpopup, null);
-        final PopupWindow popupWindow = new PopupWindow(
+/*        final PopupWindow popupWindow = new PopupWindow(
                 popupView, (int) (width * 0.90), (int) (height * 0.85));
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
 
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+*/
 
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         popupView.bringToFront();
         popupWindow.setFocusable(true);

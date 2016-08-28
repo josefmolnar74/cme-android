@@ -97,6 +97,7 @@
             android:baselineAligned="false">
 
             <RelativeLayout
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_width="0dp"
@@ -138,7 +139,7 @@
                 <ImageView
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_width="300dp"
-                    android:layout_height="400dp"
+                    android:layout_height="350dp"
                     android:scaleType="fitCenter"
                     android:id="@+id/img_subcategory_detail"
                     android:layout_alignTop="@+id/vid_subcategory_addevent"
@@ -147,7 +148,7 @@
                 <VideoView
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_width="300dp"
-                    android:layout_height="400dp"
+                    android:layout_height="350dp"
                     android:id="@+id/vid_subcategory_addevent"
                     android:visibility="invisible"
                     android:layout_alignTop="@+id/txt_subcategory_main"
@@ -159,8 +160,8 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_width="300dp"
-                    android:layout_height="400dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_height="350dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/txt_subcategory_main"
                     android:text="Kirurgi är samma sak som att ha en operation. En operation gör man för att kunna ta bort en tumör till exempel. Det är Kirurgen som gör detta jobbet tillsammans med ett helt team av människor som hjälper till.  Under operationen kommer kirurgen att ta bort tumören och kanske lite till runt om tumören för att vara säker på att man fick med allt det dåliga. "
                     android:layout_alignParentStart="true"
@@ -201,7 +202,7 @@
                     android:layout_marginTop="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_width="300dp"
-                    android:layout_height="220dp"
+                    android:layout_height="200dp"
                     android:id="@+id/et_notes_detail_journey"
                     android:hint="Write important event description here!"
                     android:inputType="textMultiLine"
