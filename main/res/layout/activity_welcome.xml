@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editText"
-                android:text="@string/welcome"
+                android:text="@string/welcome1"
                 android:textSize="20sp"/>
 
             <LinearLayout
@@ -42,9 +42,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="If you are a new user"
-                    android:textSize="20sp"
-                    android:id="@+id/text_new_user" />
+                    android:text="@string/welcome4"
+                    android:textSize="20sp" />
 
                 <Button
                     android:layout_width="wrap_content"
@@ -52,6 +51,12 @@
                     android:text="@string/button_create_care_team"
                     android:id="@+id/create"
                     android:onClick="onClickCreateCareTeam" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/welcome5"
+                    android:textSize="20sp"/>
 
                 <Button
                     android:layout_width="wrap_content"
