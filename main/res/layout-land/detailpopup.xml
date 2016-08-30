@@ -112,7 +112,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_subcategory_main"
-                    android:layout_centerHorizontal="true">
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/linearLayout2">
 
                     <ImageView
                         android:layout_width="25dp"
@@ -177,6 +178,14 @@
                     android:textSize="40dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_journey_event_sound"
+                    android:background="@drawable/speaker"
+                    android:layout_alignBottom="@+id/linearLayout2"
+                    android:layout_alignStart="@+id/txt_subcategory_main" />
 
             </RelativeLayout>
 

@@ -223,7 +223,7 @@
     <string name="event_eeg">EEG</string>
     <string name="event_eeg_txt1">Med hjälp av små censorer som man fäster på din hud kan vi registrera aktivitet i din hjärna. Häftigt!</string>
     <string name="event_ekg">EKG</string>
-    <string name="event_ekg_txt1">Med hjälp av små censorer som man fäster på din hud kan vi registrera aktivitet i din hjärna. Häftigt, eller hur?! Detta hjälper oss förstå hur din hjärna utvecklas och påverkas av din behandling.</string>
+    <string name="event_ekg_txt1">Med hjälp av små censorer som man fäster på ditt bröst så kan vi registrera aktiviten i ditt hjärta. Detta hjälper oss att förstå hur ditt hjärta påverkas av din behandling..</string>
     <string name="event_kidney_investigation">Njurundersökning</string>
     <string name="event_kidney_investigation_txt1">Njurarnas jobb är att rensa kroppen. Denna undersökning hjälper oss förstå hur bra njurarna gör sitt jobb. En radioaktiv vätska sprutas in i ditt blod och sedan tar vi blodprover med jämna mellanrum för att kolla hur bra njurarna jobbar. Det kan ta flera timmar att göra denna test (4-5 timmar ibland) så det gäller att ha tålamod. Men du kan leka under tiden.</string>
     <string name="event_ultrasound">Ultraljud</string>
