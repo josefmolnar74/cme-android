@@ -90,7 +90,12 @@
     <string name="careteam_healthcare">Hälsovård</string>
     <string name="careteam_family">Familj - vänner</string>
 
-    <string name="welcome">Välkommen att utforska och dokumentera din cancerresa.</string>
+    <string name="welcome1">Välkommen till C-me kids!</string>
+    <string name="welcome2">Här kan du leka, utforska och dokumentera ditt barns cancerresa.\nSkapa ditt team och dela med familj och vänner.</string>
+    <string name="welcome3">Testa det gratis!!</string>
+    <string name="welcome4">Föräldrar!! </string>
+    <string name="welcome5">Har du fått en inbjudan?</string>
+
     <string name="button_create_care_team">Skapa ett nytt team</string>
     <string name="button_join_care_team">Gå med team</string>
     <string name="login_saved_password">sparat lösenord</string>
