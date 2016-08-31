@@ -1,50 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="600dp"
-    android:layout_height="450dp"
-    android:background="@drawable/borderpopup">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_journal_status_popup"
+    android:background="#a0000000"
+    android:gravity="center">
 
-    <ImageButton
-        android:background="@drawable/close"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/img_journey_cancellion"
-        android:layout_marginRight="10dp"
-        android:layout_alignEnd="@+id/txt_journey_lion"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="5dp" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentStart="true"
-        android:background="#000000"
-        android:layout_below="@+id/img_journey_cancelquestion"
-        android:layout_marginTop="60dp"
-        android:id="@+id/frameLayout2"></FrameLayout>
-
-    <TextView
-        android:layout_width="500dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/txt_lion"
-        android:id="@+id/txt_journey_lion"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp" />
-
-    <TextView
+    <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/txt_lion_head"
-        android:id="@+id/txt_journey_lion_head"
-        android:layout_alignBottom="@+id/frameLayout2"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:textSize="30dp"
-        android:layout_marginBottom="10dp" />
+        android:background="@color/cme_light"
+        android:weightSum="1"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_lion_head"
+            android:id="@+id/txt_journey_lion_head"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/LARGE"
+            android:textStyle="bold"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_gravity="center"
+            android:textAlignment="gravity" />
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:id="@+id/img_journey_cancellion"
+            android:visibility="visible"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:background="@drawable/delete"></ImageButton>
+
+        <ImageButton
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_journey_sign_sound"
+            android:background="@drawable/speaker"
+            android:layout_row="2"
+            android:layout_column="1" />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:id="@+id/btn_journal_status_save"
+            android:visibility="invisible"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:background="@drawable/mark"></Button>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:id="@+id/btn_journal_status_delete"
+            android:visibility="invisible"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:background="@drawable/garbage"></Button>
+
+        <RelativeLayout
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/txt_lion"
+                android:id="@+id/txt_journey_lion"
+                android:textSize="25dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+    </GridLayout>
 
 </RelativeLayout>

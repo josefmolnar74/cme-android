@@ -1,17 +1,13 @@
 
 package com.cancercarecompany.ccc.ccc;
 
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.media.Image;
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +24,6 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -38,7 +33,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.PopupWindow;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -155,6 +149,7 @@ public class JourneyActivity extends AppCompatActivity {
 
     ConnectionHandler connectHandler;
 
+    int soundResourceId;
 
     View vID;
 
@@ -278,7 +273,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         if (eventList.size() == 0) {
 
-            Event startEvent = new Event(0, patientID, personID, 0, "", "start", "start", dateString, timeString, "My journey starts here!", "", "");
+            Event startEvent = new Event(0, patientID, personID, 0, "", "start", "start", dateString, timeString, "Min resa startar här!", "", "");
             eventList.add(startEvent);
             connectHandler.createEvent(startEvent);
         }
@@ -362,11 +357,24 @@ public class JourneyActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
 
-                    Rect hitBoxLion = new Rect();
-                    lion.getGlobalVisibleRect(hitBoxLion);
-                    if (hitBoxLion.contains((int) event.getRawX(), (int) event.getRawY())) {
-                        lionPopup();
+                    Rect hitBox = new Rect();
+                    lion.getGlobalVisibleRect(hitBox);
+                    if (hitBox.contains((int) event.getRawX(), (int) event.getRawY())) {
+                        lionPopup("lion");
                     }
+                    sign1.getGlobalVisibleRect(hitBox);
+                    if (hitBox.contains((int) event.getRawX(), (int) event.getRawY())) {
+                        lionPopup("sign1");
+                    }
+                    sign2.getGlobalVisibleRect(hitBox);
+                    if (hitBox.contains((int) event.getRawX(), (int) event.getRawY())) {
+                        lionPopup("sign2");
+                    }
+                    sign3.getGlobalVisibleRect(hitBox);
+                    if (hitBox.contains((int) event.getRawX(), (int) event.getRawY())) {
+                        lionPopup("sign3");
+                    }
+
 
                     if (questionCreated == true) {
                         Rect hitBoxQuestion = new Rect();
@@ -2233,23 +2241,59 @@ public class JourneyActivity extends AppCompatActivity {
 
     }
 
-    private void lionPopup(){
+    private void lionPopup(String clickedImage){
 
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.lion_popup, null);
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, (int) (width * 0.40), (int) (height * 0.60));
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         relativeLayout = (RelativeLayout) findViewById(R.id.layerCoantainerJourney);
 
 
         ImageButton cancel = (ImageButton)popupView.findViewById(R.id.img_journey_cancellion);
+        TextView lionText = (TextView)popupView.findViewById(R.id.txt_journey_lion);
+        TextView lionHeadText = (TextView)popupView.findViewById(R.id.txt_journey_lion_head);
+        ImageButton soundButton = (ImageButton)popupView.findViewById(R.id.btn_journey_sign_sound);
+
+        switch(clickedImage){
+            case "lion":
+                lionText.setText(getResources().getString(getResources().getIdentifier("txt_lion", "string", getPackageName())));
+                lionHeadText.setText(getResources().getString(getResources().getIdentifier("txt_lion_head", "string", getPackageName())));
+                soundResourceId = getApplicationContext().getResources().getIdentifier("journey_lion", "raw", getPackageName());
+                break;
+            case "sign1":
+                lionText.setText(getResources().getString(getResources().getIdentifier("txt_sign1", "string", getPackageName())));
+                lionHeadText.setText(getResources().getString(getResources().getIdentifier("txt_sign1_head", "string", getPackageName())));
+                soundResourceId = getApplicationContext().getResources().getIdentifier("journey_sign1", "raw", getPackageName());
+                break;
+            case "sign2":
+                lionText.setText(getResources().getString(getResources().getIdentifier("txt_sign2", "string", getPackageName())));
+                lionHeadText.setText(getResources().getString(getResources().getIdentifier("txt_sign2_head", "string", getPackageName())));
+                soundResourceId = getApplicationContext().getResources().getIdentifier("journey_sign2", "raw", getPackageName());
+                break;
+            case "sign3":
+                lionText.setText(getResources().getString(getResources().getIdentifier("txt_sign3", "string", getPackageName())));
+                lionHeadText.setText(getResources().getString(getResources().getIdentifier("txt_sign3_head", "string", getPackageName())));
+                soundResourceId = getApplicationContext().getResources().getIdentifier("journey_sign3", "raw", getPackageName());
+                break;
+
+        }
+
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         popupView.bringToFront();
         popupWindow.setFocusable(true);
         popupWindow.update();
 
+        soundButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if (soundResourceId != 0) {
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+                    mp.start();
+                }
+            }
+        });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
