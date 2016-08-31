@@ -195,12 +195,14 @@
 
 
     ////////Events////////////
-    <string name="event_start">My journy starts here!</string>
+    <string name="event_start">Här startar min resa!</string>
+    <string name="event_start_txt1">Våra kroppar är uppbyggda av miljontals små celler som alla har olika jobb. De växer och delar sig hela tiden för att göra nya celler som ser till att hålla oss friska. Men ibland kan några av dessa celler växa okontrollerat och uppföra sig konstigt. Dessa kallas cancerceller och kan göra en person mycket sjuk. Mer än 185000 barn varje år diagnostiseras med cancer i hela världen. Det finns mer än 100 typer olika cancerformer. Vi brukar kalla dem vid namn för den del av kroppen där cancercellerna började. Vilken typ av cancer har du?</string>
     <string name="event_appointments">Möten</string>
     <string name="event_tests">Undersökningar</string>
     <string name="event_treatments">Behandlingar</string>
     <string name="event_stay_at_the_hospital">Vistelse på sjukhuset</string>
     <string name="event_picture_memory">Fotominne</string>
+    <string name="event_picture_memory_txt1"> </string>
     <string name="event_medical_oncologist">Onkolog Läkare</string>
     <string name="event_medical_oncologist_txt1">Jag är läkaren som kan allt om mediciner som tar bort cancer!</string>
     <string name="event_hematologist_doctor">Hematolog läkare</string>
