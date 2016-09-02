@@ -59,6 +59,8 @@ public class JournalActivity extends AppCompatActivity {
     ListView eventListView;
     JournalEventAdapter eventAdapter;
 
+    RelativeLayout statusLayout;
+
     String lbl_datum;
     TextView header;
     TextView fr_medicin;
@@ -182,7 +184,6 @@ public class JournalActivity extends AppCompatActivity {
         languageString = prefs.getString("language_settings", "");
         System.out.println("LANGUAGE SETTINGS: "+languageString);
         //////////////////////////
-
         fatigueButton = (Button) findViewById(R.id.btn_journal_sideeffect_fatigue);
         painButton = (Button) findViewById(R.id.btn_journal_sideeffect_pain);
         mouthButton = (Button) findViewById(R.id.btn_journal_sideeffect_mouth);
@@ -205,7 +206,7 @@ public class JournalActivity extends AppCompatActivity {
         final ImageButton journeyButton = (ImageButton) findViewById(R.id.btn_journey_button);
         final ImageButton careTeamButton = (ImageButton) findViewById(R.id.btn_careteam_button);
         final CalendarView calendar = (CalendarView) findViewById(R.id.cal_journal_calendar);
-
+        final TextView statusHeaderText = (TextView) findViewById(R.id.txt_journal_status_header);
         beverageGridView = (GridView) findViewById(R.id.gridview_journal_beverage);
         beverageAdapter = new JournalBeverageAdapter(this, beverageList);
         beverageGridView.setAdapter(beverageAdapter);
@@ -1713,45 +1714,5 @@ public class JournalActivity extends AppCompatActivity {
         Intent myIntent = new Intent(this, JourneyActivity.class);
         startActivity(myIntent);
         finish();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Journal Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.cancercarecompany.ccc.ccc/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Journal Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.cancercarecompany.ccc.ccc/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
     }
 }
