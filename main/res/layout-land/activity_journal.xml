@@ -521,7 +521,8 @@
                             android:layout_marginRight="@dimen/activity_horizontal_margin"
                             android:layout_width="200dp"
                             android:layout_height="80dp"
-                            android:text="Generate report"
+                            android:drawableLeft="@drawable/report_icon"
+                            android:text="Skapa rapport"
                             android:padding="16dp"
                             android:backgroundTint="@color/cme_light" />
 

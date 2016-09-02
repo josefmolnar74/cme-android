@@ -202,7 +202,7 @@
     <string name="event_treatments">Behandlingar</string>
     <string name="event_stay_at_the_hospital">Vistelse på sjukhuset</string>
     <string name="event_picture_memory">Fotominne</string>
-    <string name="event_picture_memory_txt1">ADD A PICTURE \n\nTAKE A PICTURE</string>
+    <string name="event_picture_memory_txt1"> </string>
     <string name="event_medical_oncologist">Onkolog Läkare</string>
     <string name="event_medical_oncologist_txt1">Jag är läkaren som kan allt om mediciner som tar bort cancer!</string>
     <string name="event_hematologist_doctor">Hematolog läkare</string>
