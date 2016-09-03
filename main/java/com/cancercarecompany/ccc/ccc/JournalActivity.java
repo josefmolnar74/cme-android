@@ -2,8 +2,8 @@ package com.cancercarecompany.ccc.ccc;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -29,13 +31,13 @@ import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -60,6 +62,11 @@ public class JournalActivity extends AppCompatActivity {
     JournalEventAdapter eventAdapter;
 
     RelativeLayout statusLayout;
+    GridLayout sideeffectsLayout;
+    RelativeLayout medicationLayout;
+    RelativeLayout beverageLayout;
+    RelativeLayout calendarLayout;
+    RelativeLayout eventsLayout;
 
     String lbl_datum;
     TextView header;
@@ -105,6 +112,8 @@ public class JournalActivity extends AppCompatActivity {
     String emotion = "";
     String languageString;
     LinearLayout wholeScreen;
+
+    int calendarDays;
 
     public static final String TIME_SIMPLE_FORMAT   = "yyyy-MM-dd";
     public static final String DATE_SIMPLE_FORMAT   = "kk:mm:ss";
@@ -207,7 +216,34 @@ public class JournalActivity extends AppCompatActivity {
         final ImageButton careTeamButton = (ImageButton) findViewById(R.id.btn_careteam_button);
         final CalendarView calendar = (CalendarView) findViewById(R.id.cal_journal_calendar);
         final TextView statusHeaderText = (TextView) findViewById(R.id.txt_journal_status_header);
-        beverageGridView = (GridView) findViewById(R.id.gridview_journal_beverage);
+        final TextView sideeffectsHeaderText = (TextView) findViewById(R.id.journal_sideeffects_header);
+        final TextView medicationHeaderText = (TextView) findViewById(R.id.txt_journal_medication_header);
+        final TextView beverageHeaderText = (TextView) findViewById(R.id.txt_journal_beverage_header);
+        final TextView eventsHeaderText = (TextView) findViewById(R.id.txt_journal_events_header);
+        final ImageView statusExpandImage = (ImageView) findViewById(R.id.img_journal_status_expand);
+        final ImageView sideeffectsExpandImage = (ImageView) findViewById(R.id.img_journal_sideeffects_expand);
+        final ImageView medicationExpandImage = (ImageView) findViewById(R.id.img_journal_medication_expand);
+        final ImageView beverageExpandImage = (ImageView) findViewById(R.id.img_journal_beverage_expand);
+        final ImageView eventsExpandImage = (ImageView) findViewById(R.id.img_journal_events_expand);
+        final ImageButton dateBackButton = (ImageButton) findViewById(R.id.img_journal_navigate_back);
+        final ImageButton dateForwardButton = (ImageButton) findViewById(R.id.img_journal_navigate_forward);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+
+            statusExpandImage.setImageResource(R.drawable.expand);
+            sideeffectsExpandImage.setImageResource(R.drawable.expand);
+            medicationExpandImage.setImageResource(R.drawable.expand);
+            beverageExpandImage.setImageResource(R.drawable.expand);
+            eventsExpandImage.setImageResource(R.drawable.expand);
+
+            statusLayout = (RelativeLayout) findViewById(R.id.layout_journal_status);
+            sideeffectsLayout = (GridLayout) findViewById(R.id.layout_journal_sideeffects);
+            medicationLayout = (RelativeLayout) findViewById(R.id.layout_journal_medication);
+            beverageLayout = (RelativeLayout) findViewById(R.id.layout_journal_beverage);
+            calendarLayout = (RelativeLayout) findViewById(R.id.layout_journal_calendar);
+            eventsLayout = (RelativeLayout) findViewById(R.id.layout_journal_events);
+        }
+
+        beverageGridView = (GridView) findViewById(R.id.grd_journal_beverage);
         beverageAdapter = new JournalBeverageAdapter(this, beverageList);
         beverageGridView.setAdapter(beverageAdapter);
 
@@ -246,7 +282,11 @@ public class JournalActivity extends AppCompatActivity {
         }
 
         journalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            journalHeaderText.setText(journalDate);
+        } else{
+            journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
+        }
 
         connectHandler = ConnectionHandler.getInstance();
         //Get journal data
@@ -285,6 +325,120 @@ public class JournalActivity extends AppCompatActivity {
                 showEmotions();
             }
         });
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+
+            journalHeaderText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (calendarLayout.getVisibility() == View.VISIBLE){
+                        calendarLayout.setVisibility(View.GONE);
+                    } else{
+                        calendarLayout.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+
+            dateBackButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    calendarDays -= 1;
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.DAY_OF_MONTH, calendarDays);
+                    calendar.setDate (cal.getTimeInMillis(), true, true);
+                    journalDate = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+                    if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        journalHeaderText.setText(journalDate);
+                    } else{
+                        journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
+                    }
+                }
+            });
+
+            dateForwardButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    calendarDays += 1;
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.DAY_OF_MONTH, calendarDays);
+                    calendar.setDate (cal.getTimeInMillis(), true, true);
+                    journalDate = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+                    if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        journalHeaderText.setText(journalDate);
+                    } else{
+                        journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
+                    }
+                }
+            });
+
+            statusHeaderText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (statusLayout.getVisibility() == View.VISIBLE){
+                        statusLayout.setVisibility(View.GONE);
+                        statusExpandImage.setImageResource(R.drawable.expand);
+                    } else{
+                        statusLayout.setVisibility(View.VISIBLE);
+                        statusExpandImage.setImageResource(R.drawable.collapse);
+                    }
+                }
+            });
+
+            sideeffectsHeaderText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (sideeffectsLayout.getVisibility() == View.VISIBLE){
+                        sideeffectsLayout.setVisibility(View.GONE);
+                        sideeffectsExpandImage.setImageResource(R.drawable.expand);
+                    } else{
+                        sideeffectsLayout.setVisibility(View.VISIBLE);
+                        sideeffectsExpandImage.setImageResource(R.drawable.collapse);
+                    }
+                }
+            });
+
+            medicationHeaderText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (medicationLayout.getVisibility() == View.VISIBLE){
+                        medicationLayout.setVisibility(View.GONE);
+                        medicationExpandImage.setImageResource(R.drawable.expand);
+                    } else{
+                        medicationLayout.setVisibility(View.VISIBLE);
+                        medicationExpandImage.setImageResource(R.drawable.collapse);
+                    }
+                }
+            });
+
+            beverageHeaderText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (beverageLayout.getVisibility() == View.VISIBLE){
+                        beverageLayout.setVisibility(View.GONE);
+                        beverageExpandImage.setImageResource(R.drawable.expand);
+                    } else{
+                        beverageLayout.setVisibility(View.VISIBLE);
+                        beverageExpandImage.setImageResource(R.drawable.collapse);
+                    }
+                }
+            });
+
+            eventsHeaderText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (eventsLayout.getVisibility() == View.VISIBLE){
+                        eventsLayout.setVisibility(View.GONE);
+                        eventsExpandImage.setImageResource(R.drawable.expand);
+                    } else{
+                        eventsLayout.setVisibility(View.VISIBLE);
+                        eventsExpandImage.setImageResource(R.drawable.collapse);
+                    }
+                }
+            });
+
+        }
+
+
 
         saveStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -380,11 +534,20 @@ public class JournalActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if ((beverageList.get(position) == "empty") && ((position == 0) || ((position > 0) && (beverageList.get(position - 1) == "full")))) {
+/*                if ((beverageList.get(position) == "empty") && ((position == 0) || ((position > 0) && (beverageList.get(position - 1) == "full")))) {
                     beverageList.set(position, "full");
                 } else if ((beverageList.get(position) == "full") && ((position == 7) || ((position < 7) && (beverageList.get(position + 1) == "empty")))) {
                     beverageList.set(position, "empty");
+                }*/
+
+                if (beverageList.get(position) == "empty") {
+                    for (int i=0; i<=position;i++){
+                        beverageList.set(i, "full");
+                    }
+                } else if ((beverageList.get(position) == "full") && ((position == 7) || ((position < 7) && (beverageList.get(position + 1) == "empty")))) {
+                    beverageList.set(position, "empty");
                 }
+
                 beverageAdapter.notifyDataSetChanged();
             }
         });
@@ -482,10 +645,14 @@ public class JournalActivity extends AppCompatActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int date) {
-                 journalHeaderText.setText(R.string.txt_journal_headline);
+                journalHeaderText.setText(R.string.txt_journal_headline);
                 month += 1;
                 journalDate = year + "-" +String.format("%02d",month) +"-" +String.format("%02d",date);
-                journalHeaderText.setText((journalHeaderText.getText()) + " ".concat(journalDate));
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    journalHeaderText.setText(journalDate);
+                } else{
+                    journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
+                }
                 statusList.clear();
                 eventList.clear();
                 beverageList.clear();
