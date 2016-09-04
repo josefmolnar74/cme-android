@@ -21,14 +21,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CareTeamActivity" />
+        <activity
+            android:name=".CareTeamActivity"
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".JourneyActivity" />
         <activity
             android:name=".RegisterActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".JournalActivity"
-        android:windowSoftInputMode="stateHidden" />
+        android:windowSoftInputMode="adjustNothing" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://gS.co/AppIndexing/AndroidStudio for more information.

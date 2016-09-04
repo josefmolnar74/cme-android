@@ -86,7 +86,7 @@
             android:layout_row="1"
             android:layout_column="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -110,182 +110,190 @@
 
             </LinearLayout>
 
-            <GridLayout
+            <ScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:columnCount="2">
+                android:fadeScrollbars="false"
+                android:layout_height="match_parent"
+                android:id="@+id/scrollView3">
 
-                <TextView
+                <GridLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:text="Förnamn:"
-                    android:id="@+id/lbl_firstName_careteam"
-                    android:textSize="20dp"
-                    android:layout_row="0"
-                    android:layout_column="0" />
+                    android:columnCount="2">
 
-                <EditText
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:id="@+id/txt_firstName_careteam"
-                    android:inputType="textPersonName"
-                    android:textSize="20dp"
-                    android:layout_row="0"
-                    android:layout_column="1"
-                    android:background="@android:drawable/edit_text" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:text="@string/careteam_family_firstname"
+                        android:id="@+id/lbl_firstName_careteam"
+                        android:textSize="20dp"
+                        android:layout_row="0"
+                        android:layout_column="0" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:text="Efternamn:"
-                    android:id="@+id/lbl_lastName_careteam"
-                    android:textSize="20dp"
-                    android:layout_row="1"
-                    android:layout_column="0" />
+                    <EditText
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:id="@+id/txt_firstName_careteam"
+                        android:inputType="textPersonName"
+                        android:textSize="20dp"
+                        android:layout_row="0"
+                        android:layout_column="1"
+                        android:background="@android:drawable/edit_text" />
 
-                <EditText
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:id="@+id/txt_lastName_careteam"
-                    android:text=""
-                    android:inputType="textPersonName"
-                    android:textSize="20dp"
-                    android:layout_row="1"
-                    android:layout_column="1"
-                    android:background="@android:drawable/edit_text" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:text="@string/careteam_family_lastname"
+                        android:id="@+id/lbl_lastName_careteam"
+                        android:textSize="20dp"
+                        android:layout_row="1"
+                        android:layout_column="0" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:text="Epost:"
-                    android:id="@+id/lbl_email_careteam"
-                    android:textSize="20dp"
-                    android:layout_row="2"
-                    android:layout_column="0" />
+                    <EditText
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:id="@+id/txt_lastName_careteam"
+                        android:text=""
+                        android:inputType="textPersonName"
+                        android:textSize="20dp"
+                        android:layout_row="1"
+                        android:layout_column="1"
+                        android:background="@android:drawable/edit_text" />
 
-                <EditText
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:id="@+id/txt_email_careteam"
-                    android:inputType="textEmailAddress"
-                    android:textSize="20dp"
-                    android:layout_row="2"
-                    android:layout_column="1"
-                    android:background="@android:drawable/edit_text" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:text="@string/careteam_family_email"
+                        android:id="@+id/lbl_email_careteam"
+                        android:textSize="20dp"
+                        android:layout_row="2"
+                        android:layout_column="0" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:text="Telefon:"
-                    android:id="@+id/lbl_phone_careteam"
-                    android:textSize="20dp"
-                    android:layout_row="3"
-                    android:layout_column="0" />
+                    <EditText
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:id="@+id/txt_email_careteam"
+                        android:inputType="textEmailAddress"
+                        android:textSize="20dp"
+                        android:layout_row="2"
+                        android:layout_column="1"
+                        android:background="@android:drawable/edit_text" />
 
-                <EditText
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:text=""
-                    android:id="@+id/txt_phone_careteam"
-                    android:textSize="20dp"
-                    android:layout_row="3"
-                    android:layout_column="1"
-                    android:background="@android:drawable/edit_text" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:text="@string/careteam_family_phone"
+                        android:id="@+id/lbl_phone_careteam"
+                        android:textSize="20dp"
+                        android:layout_row="3"
+                        android:layout_column="0" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:text="Relation:"
-                    android:id="@+id/lbl_relation_careteam"
-                    android:textSize="20dp"
-                    android:layout_row="4"
-                    android:layout_column="0" />
+                    <EditText
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:text=""
+                        android:id="@+id/txt_phone_careteam"
+                        android:textSize="20dp"
+                        android:layout_row="3"
+                        android:layout_column="1"
+                        android:background="@android:drawable/edit_text" />
 
-                <EditText
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:id="@+id/txt_careteam_relation"
-                    android:textSize="20dp"
-                    android:layout_row="4"
-                    android:layout_column="1"
-                    android:background="@android:drawable/edit_text" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:text="@string/careteam_family_relationship"
+                        android:id="@+id/lbl_relation_careteam"
+                        android:textSize="20dp"
+                        android:layout_row="4"
+                        android:layout_column="0" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:text="Admin:"
-                    android:id="@+id/lbl_admin_careteam"
-                    android:textSize="20dp"
-                    android:layout_row="5"
-                    android:layout_column="0" />
+                    <EditText
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:id="@+id/txt_careteam_relation"
+                        android:textSize="20dp"
+                        android:layout_row="4"
+                        android:layout_column="1"
+                        android:background="@android:drawable/edit_text" />
 
-                <Spinner
-                    android:layout_width="300dp"
-                    android:layout_height="45dp"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:id="@+id/spinner_admin_careteam"
-                    android:background="@android:drawable/btn_dropdown"
-                    android:spinnerMode="dialog"
-                    android:layout_row="5"
-                    android:layout_column="1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:text="@string/careteam_family_admin"
+                        android:id="@+id/lbl_admin_careteam"
+                        android:textSize="20dp"
+                        android:layout_row="5"
+                        android:layout_column="0" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:text="First name and email must be specified"
-                    android:id="@+id/txt_careteam_invite_alert"
-                    android:textSize="20dp"
-                    android:layout_row="6"
-                    android:layout_columnSpan="2"
-                    android:layout_column="0"
-                    android:textColor="#ff0000"
-                    android:visibility="invisible" />
+                    <Spinner
+                        android:layout_width="300dp"
+                        android:layout_height="45dp"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:id="@+id/spinner_admin_careteam"
+                        android:background="@android:drawable/btn_dropdown"
+                        android:spinnerMode="dialog"
+                        android:layout_row="5"
+                        android:layout_column="1" />
 
-            </GridLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:text="@string/careteam_error_message"
+                        android:id="@+id/txt_careteam_invite_alert"
+                        android:textSize="20dp"
+                        android:layout_row="6"
+                        android:layout_columnSpan="2"
+                        android:layout_column="0"
+                        android:textColor="#ff0000"
+                        android:visibility="invisible" />
+
+                </GridLayout>
+
+            </ScrollView>
 
         </LinearLayout>
 

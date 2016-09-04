@@ -191,7 +191,30 @@
     <string name="question_question_label">Fråga:</string>
     <string name="question_answer_label">Svar:</string>
     <string name="question_answer">Vi kommer att svara så fort vi kan!</string>
-
+    <string name="create_careteam_header">Skapa nytt team</string>
+    <string name="create_careteam_patient_name">Patientnamn</string>
+    <string name="create_careteam_year_of_birth">Födelseår</string>
+    <string name="create_careteam_diagnose">Diagnos</string>
+    <string name="create_careteam_relationship">Förhållande till patient</string>
+    <string name="create_careteam_create">Skapa</string>
+    <string name="join_careteam_header">Vänligen ange din email</string>
+    <string name="join_careteam_email">Email</string>
+    <string name="join_careteam_find">Sök</string>
+    <string name="careteam_family_firstname">Tilltalsnamn</string>
+    <string name="careteam_family_lastname">Efternamn</string>
+    <string name="careteam_family_email">Email</string>
+    <string name="careteam_family_phone">Phone</string>
+    <string name="careteam_family_relationship">Förhållande</string>
+    <string name="careteam_family_admin">Admin</string>
+    <string name="careteam_error_message">Tilltalsnamn och email måste anges!</string>
+    <string name="careteam_hint_message">Vänligen ange</string>
+    <string name="careteam_healthcare_title">Titel</string>
+    <string name="careteam_healthcare_name">Namn</string>
+    <string name="careteam_healthcare_department">Avdelning</string>
+    <string name="careteam_healthcare_phone1">Telefon 1</string>
+    <string name="careteam_healthcare_phone2">Telefon 2</string>
+    <string name="careteam_healthcare_phone3">Telefon 3</string>
+    <string name="careteam_healthcare_email">Email</string>
 
 
     ////////Events////////////
@@ -269,7 +292,6 @@
     <string name="event_hospital_txt1">För det mesta måste du åka in till sjukhuset när det är dags för cellgifter. Det kan vara för några dagar eller lite längre. </string>
     <string name="event_hospital_txt2">Efter cellgifterna kan du ibland må jättedåligt och därför måste du in till sjukhuset igen, men det är bara för att få dig att må bättre och för att läkarna och sjuksköterskor ska bättre kunna ta hand om dig.</string>
     <string name="event_hospital_txt3">Mamma och pappa kommer att vara där för det mesta och du kommer att träffa andra barn som också är på sjukhuset. Om ni vill och orka så finns det många leksaker där man kan leka med! </string>
-
 
 </resources>
 
