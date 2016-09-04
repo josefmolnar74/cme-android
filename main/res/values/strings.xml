@@ -217,6 +217,8 @@
     <string name="careteam_healthcare_email">Email</string>
 
     ////////Events////////////
+    <string name="journey_event_details">Händelsedetaljer</string>
+    <string name="journey_event_details_hint">Skriv viktiga händelsedetaljer här</string>
     <string name="event_start">Här startar min resa!</string>
     <string name="event_start_txt1">Våra kroppar är uppbyggda av miljontals små celler som alla har olika jobb. De växer och delar sig hela tiden för att göra nya celler som ser till att hålla oss friska. Men ibland kan några av dessa celler växa okontrollerat och uppföra sig konstigt. Dessa kallas cancerceller och kan göra en person mycket sjuk. Mer än 185000 barn varje år diagnostiseras med cancer i hela världen. Det finns mer än 100 typer olika cancerformer. Vi brukar kalla dem vid namn för den del av kroppen där cancercellerna började. Vilken typ av cancer har du?</string>
     <string name="event_appointments">Möten</string>
