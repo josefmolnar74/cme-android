@@ -823,8 +823,8 @@ public class JournalActivity extends AppCompatActivity {
         buttonDelete.setVisibility(View.INVISIBLE);
         buttonSave.setVisibility(View.INVISIBLE);
 
-        RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_journal_status_popup);
-        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+        LinearLayout linearLayout = (LinearLayout) popupView.findViewById(R.id.layout_journal_status_popup);
+        popupWindow.showAtLocation(linearLayout, Gravity.CENTER, 0, 0);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1063,10 +1063,10 @@ public class JournalActivity extends AppCompatActivity {
         final CheckBox leftAbdomenCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_left_abdomen);
         final CheckBox tailboneCheckbox = (CheckBox) popupView.findViewById(R.id.checkBox_journal_sideeffect_tailbone);
 
-        final TextView sideeffectsHeaderTextView = (TextView) popupView.findViewById(R.id.txt_journal_sideeffect_popup_pain_headline);
+        final TextView sideeffectsHeaderTextView = (TextView) popupView.findViewById(R.id.journal_sideeffects_pain_header);
         final TextView textSideeffectQuestion = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_popup_pain_question);
-        final Button buttonSave = (Button) popupView.findViewById(R.id.btn_journal_status_save);
-        final Button buttonCancel = (Button) popupView.findViewById(R.id.btn_journal_status_cancel);
+        final Button buttonSave = (Button) popupView.findViewById(R.id.btn_journal_sideeffects_pain_save);
+        final Button buttonCancel = (Button) popupView.findViewById(R.id.btn_journal_sideeffects_pain_cancel);
 
         switch (sideeffectType) {
             case SIDEEFFECT_TYPE_PAIN:
@@ -1178,8 +1178,8 @@ public class JournalActivity extends AppCompatActivity {
         buttonCancel.setVisibility(View.VISIBLE);
         buttonSave.setVisibility(View.VISIBLE);
 
-        RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_journal_sideeffects_popup);
-        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+        LinearLayout linearLayout = (LinearLayout) popupView.findViewById(R.id.layout_journal_sideeffects_popup);
+        popupWindow.showAtLocation(linearLayout, Gravity.CENTER, 0, 0);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1405,8 +1405,8 @@ public class JournalActivity extends AppCompatActivity {
 
         popupWindow.setFocusable(true);
         popupWindow.update();
-        RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_journal_sideeffect_appetite_popup);
-        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+        LinearLayout linearLayout = (LinearLayout) popupView.findViewById(R.id.layout_journal_sideeffect_appetite_popup);
+        popupWindow.showAtLocation(linearLayout, Gravity.CENTER, 0, 0);
 
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -1502,7 +1502,7 @@ public class JournalActivity extends AppCompatActivity {
         final Button buttonCancel = (Button) popupView.findViewById(R.id.btn_journal_sideeffects_diarrhea_cancel);
         final TextView textSideeffectsHeader = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_diarrhea_popup_headline);
         final TextView textSideeffectQuestion = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_diarrhea_popup_question);
-        final RadioGroup radioGroup = (RadioGroup) popupView.findViewById(R.id.rg_journal_sideeffects_dirrhea_popup);
+        final RadioGroup radioGroup = (RadioGroup) popupView.findViewById(R.id.rg_journal_sideeffects_diarrhea_popup);
         final RadioButton radioButton1 = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection1);
         final RadioButton radioButton2 = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection2);
         final RadioButton radioButton3 = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection3);
@@ -1600,8 +1600,8 @@ public class JournalActivity extends AppCompatActivity {
         }
         popupWindow.setFocusable(true);
         popupWindow.update();
-        RelativeLayout relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_journal_sideeffect_diarrhea_popup);
-        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+        LinearLayout linearLayout = (LinearLayout) popupView.findViewById(R.id.layout_journal_sideeffect_diarrhea_popup);
+        popupWindow.showAtLocation(linearLayout, Gravity.CENTER, 0, 0);
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override

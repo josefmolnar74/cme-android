@@ -13,6 +13,7 @@
     <string name="journal_sideeffects_dizziness">Yrsel</string>
     <string name="journal_sideeffects_vomit">Kräkning</string>
     <string name="journal_sideeffects_other">Annan biverkning</string>
+    <string name="journal_sideeffects_pain_header">Smärta</string>
     <string name="journal_sideeffects_pain_right_hand">Höger hand</string>
     <string name="journal_sideeffects_pain_right_shoulder">Höger axel</string>
     <string name="journal_sideeffects_pain_right_chest">Höger bröst</string>

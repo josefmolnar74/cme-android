@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_journal_sideeffect_appetite_popup"
+    android:background="#b4000000"
+    android:gravity="center"
+    android:layout_gravity="fill"
+    android:contextClickable="true">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/cme_light"
+        android:weightSum="1"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SIDE EFFECT: "
+            android:id="@+id/txt_journal_sideeffect_popup_appetite_headline"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/LARGE"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_gravity="center"
+            android:textAlignment="gravity"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:id="@+id/btn_journal_sideeffect_appetite_cancel"
+            android:visibility="visible"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:background="@drawable/delete"></Button>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:id="@+id/btn_journal_sideeffect_appetite_edit"
+            android:visibility="invisible"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:background="@drawable/edit"></Button>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:id="@+id/btn_journal_sideeffect_appetite_save"
+            android:visibility="visible"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:background="@drawable/mark"></Button>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:id="@+id/btn_journal_sideeffect_appetite_delete"
+            android:visibility="invisible"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:background="@drawable/garbage"></Button>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:background="@color/cme_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How much did * eat ?"
+                android:id="@+id/txt_journal_sideeffect_popup_appetite_question"
+                android:textSize="@dimen/LARGE">
+
+            </TextView>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@color/cme_light"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lay_journal_sideeffect_seekbar1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Breakfast"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_headline1"
+                        android:textSize="@dimen/MEDIUM" />
+
+                    <SeekBar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="10"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar1"
+                        android:layout_below="@+id/txt_journal_sideeffect_appetite_seekbar_headline1"
+                        android:layout_alignParentLeft="true"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/txt_journal_sideeffect_appetite_seekbar1"
+                        android:text="Nothing"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_min1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/txt_journal_sideeffect_appetite_seekbar1"
+                        android:text="Everything"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_max1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_result1"
+                        android:layout_alignParentTop="true"
+                        android:textSize="@dimen/LARGE"
+                        android:layout_alignEnd="@+id/txt_journal_sideeffect_appetite_seekbar1" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:id="@+id/lay_journal_sideeffect_seekbar2">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lunch"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_headline2"
+                        android:textSize="@dimen/MEDIUM" />
+
+                    <SeekBar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="10"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar2"
+                        android:layout_below="@+id/txt_journal_sideeffect_appetite_seekbar_headline2"
+                        android:layout_alignParentLeft="true"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/txt_journal_sideeffect_appetite_seekbar2"
+                        android:text="Nothing"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_min2" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/txt_journal_sideeffect_appetite_seekbar2"
+                        android:text="Everything"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_max2" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_result2"
+                        android:layout_alignParentTop="true"
+                        android:textSize="@dimen/LARGE"
+                        android:layout_alignEnd="@+id/txt_journal_sideeffect_appetite_seekbar2" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:id="@+id/lay_journal_sideeffect_seekbar3">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dinner"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_headline3"
+                        android:textSize="@dimen/MEDIUM" />
+
+                    <SeekBar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="10"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar3"
+                        android:layout_below="@+id/txt_journal_sideeffect_appetite_seekbar_headline3"
+                        android:layout_alignParentLeft="true"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/txt_journal_sideeffect_appetite_seekbar3"
+                        android:text="Nothing"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_min3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/txt_journal_sideeffect_appetite_seekbar3"
+                        android:text="Everything"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_max3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt_journal_sideeffect_appetite_seekbar_result3"
+                        android:layout_alignParentTop="true"
+                        android:textSize="@dimen/LARGE"
+                        android:layout_alignEnd="@+id/txt_journal_sideeffect_appetite_seekbar3" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </GridLayout>
+
+</LinearLayout>
