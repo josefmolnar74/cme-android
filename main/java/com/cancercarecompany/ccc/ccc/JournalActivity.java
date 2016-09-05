@@ -352,6 +352,10 @@ public class JournalActivity extends AppCompatActivity {
                     } else{
                         journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
                     }
+                    statusList.clear();
+                    eventList.clear();
+                    beverageList.clear();
+                    showJournalData(journalDate);
                 }
             });
 
@@ -368,6 +372,10 @@ public class JournalActivity extends AppCompatActivity {
                     } else{
                         journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
                     }
+                    statusList.clear();
+                    eventList.clear();
+                    beverageList.clear();
+                    showJournalData(journalDate);
                 }
             });
 
