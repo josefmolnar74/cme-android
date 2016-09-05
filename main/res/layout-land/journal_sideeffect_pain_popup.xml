@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:id="@+id/layout_journal_sideeffects_popup"
     android:background="#b4000000"
+    android:gravity="center"
+    android:layout_gravity="fill"
     android:orientation="vertical"
     android:contextClickable="true">
 
