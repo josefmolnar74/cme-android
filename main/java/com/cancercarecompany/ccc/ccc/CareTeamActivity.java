@@ -119,6 +119,8 @@ public class CareTeamActivity extends AppCompatActivity {
         // Generate health care members
         connectHandler.getHealthcareForPatient(connectHandler.patient.patient_ID);
 
+        while (connectHandler.socketBusy){}
+
         if (connectHandler.patient != null){
             List<CareTeamExpandListItem> familyExpList = new ArrayList<CareTeamExpandListItem>();
             List<CareTeamExpandListItem> healthCareExpList = new ArrayList<CareTeamExpandListItem>();
@@ -185,8 +187,6 @@ public class CareTeamActivity extends AppCompatActivity {
                 }
             }
         }
-
-        while (connectHandler.socketBusy){}
 
         if (connectHandler.invites != null)
         {

@@ -9,19 +9,7 @@
             android:background="@color/white"
             android:weightSum="1">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Listan ska komma under om allt går bra :)" />
-
-    <ExpandableListView
-        android:visibility="gone"
-        android:id="@+id/explv_careteam"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
-
     <LinearLayout
-                android:visibility="visible"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -31,7 +19,6 @@
                 android:weightSum="1">
 
                 <RelativeLayout
-                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.50"
@@ -61,7 +48,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.50"
@@ -110,8 +96,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="visible"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:id="@+id/careTeamMain"
@@ -119,107 +104,116 @@
                 android:layout_weight="0.84"
                 android:baselineAligned="false">
 
-        <RelativeLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:id="@+id/careTeamLeft"
-            android:layout_height="match_parent"
-            android:weightSum="100"
-            android:layout_weight="100"
-            android:background="@drawable/border">
+                <ExpandableListView
+                    android:visibility="visible"
+                    android:id="@+id/explv_careteam"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"/>
 
-            <GridView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:columnWidth="100dp"
-                android:numColumns="auto_fit"
-                android:verticalSpacing="60dp"
-                android:horizontalSpacing="60dp"
-                android:stretchMode="columnWidth"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:id="@+id/gridview_careteam_family"
-                android:layout_below="@+id/text_careTeamFamily"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:id="@+id/careTeamLeft"
+                    android:layout_height="match_parent"
+                    android:weightSum="100"
+                    android:layout_weight="100"
+                    android:background="@drawable/border">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/careteam_family"
-                android:id="@+id/text_careTeamFamily"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:textSize="@dimen/MEDIUM" />
+                    <GridView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="40dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:columnWidth="100dp"
+                        android:numColumns="auto_fit"
+                        android:verticalSpacing="60dp"
+                        android:horizontalSpacing="60dp"
+                        android:stretchMode="columnWidth"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:id="@+id/gridview_careteam_family"
+                        android:layout_below="@+id/text_careTeamFamily"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
 
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/btn_careteam_invite_careteam"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/addcontact" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/careteam_family"
+                        android:id="@+id/text_careTeamFamily"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="@dimen/MEDIUM" />
 
-        </RelativeLayout>
+                    <Button
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/btn_careteam_invite_careteam"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/addcontact" />
 
-        <RelativeLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:id="@+id/careTeamRight"
-            android:layout_height="match_parent"
-            android:weightSum="100"
-            android:background="@drawable/border"
-            android:layout_weight="0">
+                </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/text_careTeamHealthCare"
-                android:textSize="@dimen/MEDIUM"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:text="@string/careteam_healthcare" />
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:id="@+id/careTeamRight"
+                    android:layout_height="match_parent"
+                    android:weightSum="100"
+                    android:background="@drawable/border"
+                    android:layout_weight="0">
 
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/btn_careteam_add_healthcare"
-                android:background="@drawable/addcontact"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:id="@+id/text_careTeamHealthCare"
+                        android:textSize="@dimen/MEDIUM"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/careteam_healthcare" />
 
-            <GridView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:columnWidth="150dp"
-                android:numColumns="auto_fit"
-                android:verticalSpacing="40dp"
-                android:horizontalSpacing="20dp"
-                android:stretchMode="columnWidth"
-                android:gravity="center"
-                android:id="@+id/gridview_careteam_healthcare"
-                android:layout_below="@+id/text_careTeamHealthCare"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                    <Button
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/btn_careteam_add_healthcare"
+                        android:background="@drawable/addcontact"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
 
-        </RelativeLayout>
+                    <GridView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="40dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:columnWidth="150dp"
+                        android:numColumns="auto_fit"
+                        android:verticalSpacing="40dp"
+                        android:horizontalSpacing="20dp"
+                        android:stretchMode="columnWidth"
+                        android:gravity="center"
+                        android:id="@+id/gridview_careteam_healthcare"
+                        android:layout_below="@+id/text_careTeamHealthCare"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
 
-    </LinearLayout>
+                </RelativeLayout>
+
+
+            </LinearLayout>
 
 </LinearLayout>
