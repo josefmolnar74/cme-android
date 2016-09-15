@@ -4,184 +4,159 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    tools:context="com.cancercarecompany.ccc.ccc.WelcomeActivity">
-
-    <TextView
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText1"
-        android:text="@string/welcome1"
-        android:textSize="30sp"
-        android:textAlignment="center" />
-
-    <TextView
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText2"
-        android:text="@string/welcome2"
-        android:textSize="20sp"
-        android:textAlignment="center" />
-
-    <TextView
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText3"
-        android:text="@string/welcome3"
-        android:textSize="25sp"
-        android:textAlignment="center"
-        android:textColor="@color/cme_light" />
+    tools:context="com.cancercarecompany.ccc.ccc.WelcomeActivity"
+    android:background="@drawable/cme_background">
 
     <LinearLayout
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100"
+        android:layout_gravity="center"
+        android:background="#c8ffffff"
+        android:layout_margin="80dp">
+
+        <TextView
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:id="@+id/editText1"
+            android:text="@string/welcome1"
+            android:textSize="40sp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/cme_dark" />
 
         <LinearLayout
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_weight="80"
+            android:weightSum="100"
+            android:gravity="center_horizontal"
+            android:baselineAligned="false">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:text="@string/welcome4"
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical" />
 
-            <Button
+            <RelativeLayout
+                android:id="@+id/layout_welcome_left"
+                android:layout_width="0dp"
+                android:layout_weight="60"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="396dp"
+                    android:layout_height="342dp"
+                    android:id="@+id/imageView2"
+                    android:background="@drawable/logohigh"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/layout_welcome_right"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:text="@string/button_create_care_team"
-                android:id="@+id/create"
-                android:onClick="onClickCreateCareTeam" />
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="40"
+                android:gravity="center"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:text="@string/welcome5"
-                android:textSize="20sp"
-                android:layout_gravity="center_vertical"
-                android:textAlignment="center"
-                android:gravity="center_vertical" />
+                <LinearLayout
+                    android:id="@+id/layout_welcome_login"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            <Button
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:text="@string/button_join_care_team"
-                android:id="@+id/join"
-                android:onClick="onClickJoinCareTeam" />
+                    <EditText
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/text_login_email"
+                        android:inputType="textPersonName"
+                        android:hint="Email"
+                        android:background="@android:drawable/edit_text" />
 
-        </LinearLayout>
+                    <EditText
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:id="@+id/text_login_password"
+                        android:background="@android:drawable/edit_text" />
 
-        <FrameLayout
-            android:layout_width="150sp"
-            android:layout_height="match_parent"></FrameLayout>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkBox_save_login"
+                        android:hint="save login on this device" />
 
-        <LinearLayout
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_login"
+                        android:id="@+id/login"
+                        android:onClick="onClickLogin" />
 
-            <EditText
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_login_email"
-                android:inputType="textPersonName"
-                android:hint="Email"
-                android:background="@android:drawable/edit_text" />
+                </LinearLayout>
 
-            <EditText
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:id="@+id/text_login_password"
-                android:background="@android:drawable/edit_text" />
+                <LinearLayout
+                    android:paddingTop="30dp"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_save_login"
-                android:hint="save login on this device" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="34dp"
+                        android:text="@string/welcome4"
+                        android:textSize="20sp"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical" />
 
-            <Button
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:text="@string/button_login"
-                android:id="@+id/login"
-                android:onClick="onClickLogin"/>
+                    <Button
+                        android:paddingTop="@dimen/activity_vertical_margin"
+                        android:paddingBottom="@dimen/activity_vertical_margin"
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_create_care_team"
+                        android:id="@+id/create"
+                        android:onClick="onClickCreateCareTeam" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="34dp"
+                        android:text="@string/welcome5"
+                        android:textSize="20sp"
+                        android:layout_gravity="center_vertical"
+                        android:textAlignment="center"
+                        android:gravity="center_vertical" />
+
+                    <Button
+                        android:paddingTop="@dimen/activity_vertical_margin"
+                        android:paddingBottom="@dimen/activity_vertical_margin"
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_join_care_team"
+                        android:id="@+id/join"
+                        android:onClick="onClickJoinCareTeam" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:paddingTop="30dp"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="center_horizontal">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageView2"
-            android:background="@drawable/careteam_start_icon"/>
-
-        <FrameLayout
-            android:layout_width="50dp"
-            android:layout_height="match_parent"></FrameLayout>
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageView3"
-            android:background="@drawable/journal_start_icon"/>
-
-        <FrameLayout
-            android:layout_width="50dp"
-            android:layout_height="match_parent"></FrameLayout>
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageView4"
-            android:background="@drawable/journey_start_icon"/>
-
-    </LinearLayout>
-
 
 </LinearLayout>
