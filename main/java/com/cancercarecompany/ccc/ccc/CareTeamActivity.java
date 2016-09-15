@@ -3,7 +3,6 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -15,9 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -25,6 +25,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -34,6 +36,12 @@ public class CareTeamActivity extends AppCompatActivity {
 
     ArrayList<CareTeamMember> familyList = new ArrayList<>();
     ArrayList<HealthCare> healthcareList = new ArrayList<>();
+
+    ExpandableListAdapter expListAdapter;
+    ExpandableListView expListView;
+
+    List<String> listDataHeader;
+    HashMap<String, List<CareTeamExpandListItem>> listDataChild;
 
     public int selectedFamilyAvatar;
     public int selectedHealthcareAvatar;
@@ -97,6 +105,58 @@ public class CareTeamActivity extends AppCompatActivity {
         familyGridView = (GridView) findViewById(R.id.gridview_careteam_family);
         healthCareGridView = (GridView) findViewById(R.id.gridview_careteam_healthcare);
 
+        expListView = (ExpandableListView) findViewById(R.id.explv_careteam);
+
+        //build list data
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<CareTeamExpandListItem>>();
+
+        listDataHeader.add("Family and friends");
+        listDataHeader.add("Health care");
+
+        connectHandler.getInvitedCareTeamMembers(connectHandler.patient.patient_ID);
+
+        // Generate health care members
+        connectHandler.getHealthcareForPatient(connectHandler.patient.patient_ID);
+
+        if (connectHandler.patient != null){
+            List<CareTeamExpandListItem> familyExpList = new ArrayList<CareTeamExpandListItem>();
+            List<CareTeamExpandListItem> healthCareExpList = new ArrayList<CareTeamExpandListItem>();
+
+            if (connectHandler.patient.care_team != null) {
+                for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
+                    CareTeamExpandListItem listItem = new CareTeamExpandListItem();
+                    listItem.name = connectHandler.patient.care_team.get(i).first_name;
+                    listItem.avatar = connectHandler.patient.care_team.get(i).avatar;
+                    familyExpList.add(listItem);
+                }
+            }
+            if (connectHandler.invites != null){
+                for (int i = 0; i < connectHandler.invites.invite_data.size(); i++) {
+                    CareTeamExpandListItem listItem = new CareTeamExpandListItem();
+                    listItem.name = connectHandler.invites.invite_data.get(i).invited_first_name;
+                    listItem.avatar = connectHandler.invites.invite_data.get(i).invited_avatar;
+                    familyExpList.add(listItem);
+                }
+            }
+            if (connectHandler.healthcare != null){
+                for (int i = 0; i < connectHandler.healthcare.healthcare_data.size(); i++) {
+                    CareTeamExpandListItem listItem = new CareTeamExpandListItem();
+                    listItem.name = connectHandler.healthcare.healthcare_data.get(i).name;
+                    listItem.avatar = connectHandler.healthcare.healthcare_data.get(i).avatar;
+                    healthCareExpList.add(listItem);
+                }
+            }
+
+            listDataChild.put(listDataHeader.get(0), familyExpList); // Header, Child data
+            listDataChild.put(listDataHeader.get(1), healthCareExpList);
+        }
+
+        expListAdapter = new CareTeamExpandListAdapter(this, listDataHeader, listDataChild);
+
+        expListView.setAdapter(expListAdapter);
+
+
         final Button buttonAddHealthCareMember = (Button) findViewById(R.id.btn_careteam_add_healthcare);
         final Button buttonAddFamilyMember   = (Button) findViewById(R.id.btn_careteam_invite_careteam);
 
@@ -126,8 +186,6 @@ public class CareTeamActivity extends AppCompatActivity {
             }
         }
 
-        connectHandler.getInvitedCareTeamMembers(connectHandler.patient.patient_ID);
-
         while (connectHandler.socketBusy){}
 
         if (connectHandler.invites != null)
@@ -148,8 +206,6 @@ public class CareTeamActivity extends AppCompatActivity {
         familyAdapter = new CareTeamFamilyAdapter(this, familyList);
         familyGridView.setAdapter(familyAdapter);
 
-        // Generate health care members
-        connectHandler.getHealthcareForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
 
         if (connectHandler.healthcare != null){
@@ -203,7 +259,6 @@ public class CareTeamActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     public void createHealthCareMember(){

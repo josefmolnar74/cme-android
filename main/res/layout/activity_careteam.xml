@@ -1,108 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/careTeamScreen"
-    tools:context="com.cancercarecompany.ccc.ccc.MainActivity"
-    android:orientation="vertical"
-    android:background="@color/white"
-    android:weightSum="1">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/careTeamScreen"
+            tools:context="com.cancercarecompany.ccc.ccc.MainActivity"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Listan ska komma under om allt går bra :)" />
+
+    <ExpandableListView
+        android:visibility="gone"
+        android:id="@+id/explv_careteam"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.16"
-        android:id="@+id/topbarLinear"
-        android:background="@color/cme_dark"
-        android:weightSum="1">
+                android:visibility="visible"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.16"
+                android:id="@+id/topbarLinear"
+                android:background="@color/cme_dark"
+                android:weightSum="1">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.50"
-            android:background="@color/cme_dark">
+                <RelativeLayout
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.50"
+                    android:background="@color/cme_dark">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/txt_patientName"
-                android:text="@string/journal_patient_name"
-                android:textColor="#ffffff"
-                android:textStyle="bold"
-                android:layout_alignTop="@+id/txt_loggedIn" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:id="@+id/txt_patientName"
+                        android:text="@string/journal_patient_name"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold"
+                        android:layout_alignTop="@+id/txt_loggedIn" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/txt_loggedIn"
-                android:text="name"
-                android:textColor="@color/white"
-                android:textAlignment="textEnd"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:id="@+id/txt_loggedIn"
+                        android:text="name"
+                        android:textColor="@color/white"
+                        android:textAlignment="textEnd"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true" />
 
-        </RelativeLayout>
+                </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.50"
-            android:background="@color/cme_dark">
+                <RelativeLayout
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.50"
+                    android:background="@color/cme_dark">
 
-            <ImageButton
-                android:layout_width="80dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="match_parent"
-                android:id="@+id/btn_careteam_button"
-                android:src="@drawable/careteam_start_icon"
-                android:gravity="center"
-                android:scaleType="fitCenter"
-                android:background="@null"
-                android:layout_alignParentTop="true"
-                android:layout_toStartOf="@+id/btn_journal_button" />
+                    <ImageButton
+                        android:layout_width="80dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_height="match_parent"
+                        android:id="@+id/btn_careteam_button"
+                        android:src="@drawable/careteam_start_icon"
+                        android:gravity="center"
+                        android:scaleType="fitCenter"
+                        android:background="@null"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/btn_journal_button" />
 
-            <ImageButton
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_width="80dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="match_parent"
-                android:id="@+id/btn_journey_button"
-                android:src="@drawable/journey_start_icon"
-                android:scaleType="fitCenter"
-                android:gravity="center"
-                android:background="@null"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/btn_journal_button" />
+                    <ImageButton
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_width="80dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_height="match_parent"
+                        android:id="@+id/btn_journey_button"
+                        android:src="@drawable/journey_start_icon"
+                        android:scaleType="fitCenter"
+                        android:gravity="center"
+                        android:background="@null"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/btn_journal_button" />
 
-            <ImageButton
-                android:layout_width="80dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="match_parent"
-                android:id="@+id/btn_journal_button"
-                android:gravity="center"
-                android:src="@drawable/journal_start_icon"
-                android:scaleType="fitCenter"
-                android:background="@null"
-                android:cropToPadding="false"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                    <ImageButton
+                        android:layout_width="80dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_height="match_parent"
+                        android:id="@+id/btn_journal_button"
+                        android:gravity="center"
+                        android:src="@drawable/journal_start_icon"
+                        android:scaleType="fitCenter"
+                        android:background="@null"
+                        android:cropToPadding="false"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
 
-        </RelativeLayout>
+                </RelativeLayout>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/careTeamMain"
-        android:weightSum="100"
-        android:layout_weight="0.84"
-        android:baselineAligned="false">
+            <LinearLayout
+                android:visibility="visible"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/careTeamMain"
+                android:weightSum="100"
+                android:layout_weight="0.84"
+                android:baselineAligned="false">
 
         <RelativeLayout
             android:orientation="vertical"
