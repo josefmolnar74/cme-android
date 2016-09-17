@@ -25,26 +25,42 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
         connectHandler = ConnectionHandler.getInstance(); //initialize socket and server connection
-        loginEmail = (EditText) findViewById(R.id.text_login_email);
-        loginPassword = (EditText) findViewById(R.id.text_login_password);
-        loginSave = (CheckBox) findViewById(R.id.checkBox_save_login);
-
-        // Statusbar color
-        Window window = this.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.black));
-
-
+        setContentView(R.layout.welcome_splash_screen);
         //Check if username and password has been saved in share preferences
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         autoLogin = sharedPref.getBoolean(getString(R.string.login_auto_login), false);
         if (autoLogin){
-            loginEmail.setText(sharedPref.getString(getString(R.string.login_saved_email), ""));
-            loginPassword.setText(sharedPref.getString(getString(R.string.login_saved_password), ""));
-            loginSave.setChecked(true);
+            Person newUser = new Person(0, null, null,
+                    sharedPref.getString(getString(R.string.login_saved_email), ""),
+                    sharedPref.getString(getString(R.string.login_saved_password), ""),
+                    0, null);
+            connectHandler.login(newUser);
+
+            final Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (!connectHandler.socketBusy) {
+                        login();
+                    }
+                    else {
+                        handler.postDelayed(this,1000);
+                    }
+                }
+            });
+        }
+        else{
+            setContentView(R.layout.activity_welcome);
+            loginEmail = (EditText) findViewById(R.id.text_login_email);
+            loginPassword = (EditText) findViewById(R.id.text_login_password);
+            loginSave = (CheckBox) findViewById(R.id.checkBox_save_login);
+
+            // Statusbar color
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.black));
         }
     }
 
@@ -98,15 +114,18 @@ public class WelcomeActivity extends AppCompatActivity {
             //Login success
             SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(getString(R.string.login_saved_email),loginEmail.getText().toString());
-            editor.putString(getString(R.string.login_saved_password),loginPassword.getText().toString());
-            if (loginSave.isChecked()) {
-                editor.putBoolean(getString(R.string.login_auto_login), true);
-            } else{
-                editor.putBoolean(getString(R.string.login_auto_login), false);
-            }
+            if (!sharedPref.getBoolean(getString(R.string.login_auto_login), false)){
+                // if not auto login
+                editor.putString(getString(R.string.login_saved_email),loginEmail.getText().toString());
+                editor.putString(getString(R.string.login_saved_password),loginPassword.getText().toString());
+                if (loginSave.isChecked()) {
+                    editor.putBoolean(getString(R.string.login_auto_login), true);
+                } else{
+                    editor.putBoolean(getString(R.string.login_auto_login), false);
+                }
 
-            editor.commit();
+                editor.commit();
+            }
 
             Intent myIntent = new Intent(this, CareTeamActivity.class);
             startActivity(myIntent);

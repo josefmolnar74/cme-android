@@ -2,6 +2,12 @@
     <string name="app_name">C-me Kids</string>
     <string name="preference_file_key">com.cancercarecompany.cme.PREFERENCE_FILE_KEY</string>
 
+    <string name="save">Spara</string>
+
+    <string name="patient_careteam">s vårdteam</string>
+    <string name="patient_journal">s dagbok</string>
+    <string name="patient_journey">s resa</string>
+
     <string name="journal_status_header">Status</string>
     <string name="journal_patient_name">s cancerresa</string>
     <string name="journal_sideeffects_fatigue">Trötthet</string>

@@ -13,14 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,7 +27,6 @@ public class CareTeamActivity extends AppCompatActivity {
 
     public int selectedFamilyAvatar;
     public int selectedHealthcareAvatar;
-    CareTeamFamilyAdapter familyAdapter;
     CareTeamHealthCareAdapter healthCareAdapter;
     RelativeLayout relativeLayout;
     LinearLayout wholeScreen;
@@ -75,13 +72,6 @@ public class CareTeamActivity extends AppCompatActivity {
 
         final Button buttonAddMember = (Button) findViewById(R.id.btn_add);
 
-        buttonAddMember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inviteCareTeamMember();
-            }
-        });
-
     }
 
     @Override
@@ -114,103 +104,7 @@ public class CareTeamActivity extends AppCompatActivity {
         }
     }
 
-
-    public void createHealthCareMember(){
-        LayoutInflater layoutInflater
-                = (LayoutInflater) getBaseContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.careteam_healthcare_popup, null);
-
-        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-
-        popupWindow.setFocusable(true);
-        popupWindow.update();
-
-        final EditText editTitle        = (EditText) popupView.findViewById(R.id.edittext_healthcare_title);
-        final EditText editName         = (EditText) popupView.findViewById(R.id.edittext_healthcare_name);
-        final EditText editDepartment   = (EditText) popupView.findViewById(R.id.edittext_healthcare_department);
-        final EditText editPhoneNumber1 = (EditText) popupView.findViewById(R.id.edittext_healthcare_phonenumber1);
-        final EditText editPhoneNumber2 = (EditText) popupView.findViewById(R.id.edittext_healthcare_phonenumber2);
-        final EditText editPhoneNumber3 = (EditText) popupView.findViewById(R.id.edittext_healthcare_phonenumber3);
-        final EditText editEmail        = (EditText) popupView.findViewById(R.id.edittext_healthcare_email);
-        final Button   buttonSave       = (Button) popupView.findViewById(R.id.btn_healthcare_save);
-        final Button   buttonCancel     = (Button) popupView.findViewById(R.id.btn_healthcare_cancel);
-        final Button   buttonEdit       = (Button) popupView.findViewById(R.id.btn_healthcare_edit);
-        final Button   buttonDelete     = (Button) popupView.findViewById(R.id.btn_healthcare_delete);
-        final TextView alertText        = (TextView) popupView.findViewById(R.id.txt_careteaminvite_alerttext);
-        healthcareAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_health_care_avatar);
-
-        buttonSave.setVisibility(View.VISIBLE);
-        buttonCancel.setVisibility(View.VISIBLE);
-        buttonEdit.setVisibility(View.INVISIBLE);
-        buttonDelete.setVisibility(View.INVISIBLE);
-
-        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_healthcare_popup);
-        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
-        popupWindow.isFocusable();
-
-        healthcareAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertText.setVisibility(View.INVISIBLE);
-                popupWindow.dismiss();
-            }
-        });
-
-        healthcareAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showHealthcareAvatars();
-            }
-        });
-
-        buttonCancel.setOnClickListener(new  View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertText.setVisibility(View.INVISIBLE);
-                popupWindow.dismiss();
-            }
-        });
-
-        buttonSave.setOnClickListener(new  View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                String titleString = editTitle.getText().toString();
-                String phoneNumber1String = editPhoneNumber1.getText().toString();
-
-                //FirstName and email must be specified, the others will get emptystring if not specified
-                if ((!titleString.isEmpty()) && (!phoneNumber1String.isEmpty())){
-                    alertText.setVisibility(View.INVISIBLE);
-                    HealthCare newHealthcare = new HealthCare(
-                            0,
-                            connectHandler.patient.patient_ID,
-                            titleString,
-                            editName.getText().toString(),
-                            editDepartment.getText().toString(),
-                            editPhoneNumber1.getText().toString(),
-                            editPhoneNumber2.getText().toString(),
-                            editPhoneNumber3.getText().toString(),
-                            editEmail.getText().toString(),
-                            selectedHealthcareAvatar);
-
-
-                    connectHandler.createHealthcare(newHealthcare);
-
-                    healthcareList.add(newHealthcare);
-
-                    healthCareAdapter.notifyDataSetChanged();
-                    popupWindow.dismiss();
-
-                }else{
-                    // notify user they need to add
-                    alertText.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-    }
-
+    /*
     public void inviteCareTeamMember() {
         LayoutInflater layoutInflater
                 = (LayoutInflater) getBaseContext()
@@ -321,199 +215,7 @@ public class CareTeamActivity extends AppCompatActivity {
         popupWindow.isFocusable();
 
     }
-
-    public void showHealthcare(final int gridPosition) {
-
-        LayoutInflater layoutInflater
-                = (LayoutInflater) getBaseContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.careteam_healthcare_popup, null);
-
-        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-
-        popupWindow.setFocusable(true);
-        popupWindow.update();
-
-        final EditText editTitle        = (EditText) popupView.findViewById(R.id.edittext_healthcare_title);
-        final EditText editName         = (EditText) popupView.findViewById(R.id.edittext_healthcare_name);
-        final EditText editDepartment   = (EditText) popupView.findViewById(R.id.edittext_healthcare_department);
-        final EditText editPhoneNumber1 = (EditText) popupView.findViewById(R.id.edittext_healthcare_phonenumber1);
-        final EditText editPhoneNumber2 = (EditText) popupView.findViewById(R.id.edittext_healthcare_phonenumber2);
-        final EditText editPhoneNumber3 = (EditText) popupView.findViewById(R.id.edittext_healthcare_phonenumber3);
-        final EditText editEmail        = (EditText) popupView.findViewById(R.id.edittext_healthcare_email);
-        final Button   buttonSave       = (Button) popupView.findViewById(R.id.btn_healthcare_save);
-        final Button   buttonCancel     = (Button) popupView.findViewById(R.id.btn_healthcare_cancel);
-        final Button   buttonEdit       = (Button) popupView.findViewById(R.id.btn_healthcare_edit);
-        final Button   buttonDelete     = (Button) popupView.findViewById(R.id.btn_healthcare_delete);
-        final TextView alertText        = (TextView) popupView.findViewById(R.id.txt_careteaminvite_alerttext);
-        healthcareAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_health_care_avatar);
-        switch(healthcareList.get(gridPosition).avatar) {
-            case 1:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_female);
-                break;
-            case 2:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_nurse);
-                break;
-            case 3:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
-                break;
-            case 4:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
-                break;
-            case 5:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
-                break;
-        }
-        buttonSave.setVisibility(View.VISIBLE);
-        buttonCancel.setVisibility(View.VISIBLE);
-        buttonEdit.setVisibility(View.INVISIBLE);
-        buttonDelete.setVisibility(View.VISIBLE);
-
-        editTitle.setText(healthcareList.get(gridPosition).title);
-        editName.setText(healthcareList.get(gridPosition).name);
-        editDepartment.setText(healthcareList.get(gridPosition).department);
-        editPhoneNumber1.setText(healthcareList.get(gridPosition).phone_number1);
-        editPhoneNumber2.setText(healthcareList.get(gridPosition).phone_number2);
-        editPhoneNumber3.setText(healthcareList.get(gridPosition).phone_number3);
-        editEmail.setText(healthcareList.get(gridPosition).email);
-
-        editTitle.setFocusable(false);
-        editName.setFocusable(false);
-        editDepartment.setFocusable(false);
-        editPhoneNumber1.setFocusable(false);
-        editPhoneNumber2.setFocusable(false);
-        editPhoneNumber3.setFocusable(false);
-        editEmail.setFocusable(false);
-
-        buttonEdit.setVisibility(View.VISIBLE);
-        buttonCancel.setVisibility(View.VISIBLE);
-        buttonDelete.setVisibility(View.INVISIBLE);
-        buttonSave.setVisibility(View.INVISIBLE);
-
-        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_healthcare_popup);
-        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
-
-        healthcareAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showHealthcareAvatars();
-            }
-        });
-
-        buttonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonEdit.setVisibility(View.VISIBLE);
-                buttonSave.setVisibility(View.INVISIBLE);
-                buttonCancel.setVisibility(View.VISIBLE);
-                updateHealthCare(gridPosition);
-                popupWindow.dismiss();
-            }
-
-            private void updateHealthCare(int gridPosition) {
-
-                HealthCare newHealthCare = new HealthCare(
-                        healthcareList.get(gridPosition).healthcare_ID,
-                        connectHandler.patient.patient_ID,
-                        editTitle.getText().toString(),
-                        editName.getText().toString(),
-                        editDepartment.getText().toString(),
-                        editPhoneNumber1.getText().toString(),
-                        editPhoneNumber2.getText().toString(),
-                        editPhoneNumber3.getText().toString(),
-                        editEmail.getText().toString(),
-                        selectedHealthcareAvatar);
-
-                connectHandler.updateHealthcare(newHealthCare);
-
-                while (connectHandler.socketBusy){}
-
-                //update healthcareList as well
-
-                healthcareList.get(gridPosition).name = editName.getText().toString();
-                healthcareList.get(gridPosition).title = editTitle.getText().toString();
-                healthcareList.get(gridPosition).department = editDepartment.getText().toString();
-                healthcareList.get(gridPosition).phone_number1 = editPhoneNumber1.getText().toString();
-                healthcareList.get(gridPosition).phone_number2 = editPhoneNumber2.getText().toString();
-                healthcareList.get(gridPosition).phone_number3 = editPhoneNumber3.getText().toString();
-                healthcareList.get(gridPosition).email = editEmail.getText().toString();
-                healthcareList.get(gridPosition).avatar = selectedHealthcareAvatar;
-
-                healthCareAdapter.notifyDataSetChanged();
-            }
-
-        });
-
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonEdit.setVisibility(View.INVISIBLE);
-                buttonDelete.setVisibility(View.VISIBLE);
-                buttonSave.setVisibility(View.VISIBLE);
-                buttonCancel.setVisibility(View.VISIBLE);
-                prepareForEdit(gridPosition);
-            }
-
-            private void prepareForEdit(int gridPosition) {
-
-                editTitle.setFocusable(true);
-                editTitle.setFocusableInTouchMode(true);
-                editTitle.setEnabled(true);
-                editName.setFocusable(true);
-                editName.setFocusableInTouchMode(true);
-                editName.setEnabled(true);
-                editDepartment.setFocusable(true);
-                editDepartment.setFocusableInTouchMode(true);
-                editDepartment.setEnabled(true);
-                editPhoneNumber1.setFocusable(true);
-                editPhoneNumber1.setFocusableInTouchMode(true);
-                editPhoneNumber1.setEnabled(true);
-                editPhoneNumber2.setFocusable(true);
-                editPhoneNumber2.setFocusableInTouchMode(true);
-                editPhoneNumber2.setEnabled(true);
-                editPhoneNumber3.setFocusable(true);
-                editPhoneNumber3.setFocusableInTouchMode(true);
-                editPhoneNumber3.setEnabled(true);
-                editEmail.setFocusable(true);
-                editEmail.setFocusableInTouchMode(true);
-                editEmail.setEnabled(true);
-
-            }
-        });
-
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (buttonEdit.getVisibility() == View.VISIBLE) {
-                    popupWindow.dismiss();
-                }
-                buttonEdit.setVisibility(View.VISIBLE);
-                buttonSave.setVisibility(View.INVISIBLE);
-                buttonCancel.setVisibility(View.INVISIBLE);
-                buttonDelete.setVisibility(View.INVISIBLE);
-                popupWindow.dismiss();
-            }
-
-        });
-
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonEdit.setVisibility(View.VISIBLE);
-                buttonSave.setVisibility(View.INVISIBLE);
-                buttonCancel.setVisibility(View.INVISIBLE);
-                buttonDelete.setVisibility(View.INVISIBLE);
-                deleteHealthcare(gridPosition);
-                healthcareList.remove(gridPosition);
-            }
-            private void deleteHealthcare(int gridPosition) {
-
-                connectHandler.deleteHealthcare(healthcareList.get(gridPosition).healthcare_ID);
-                healthCareAdapter.notifyDataSetChanged();
-                popupWindow.dismiss();
-            }
-        });
-    }
+*/
 
     private void journeyActivity(){
         Intent myIntent = new Intent(this, JourneyActivity.class);

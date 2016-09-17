@@ -116,27 +116,36 @@ public class CareTeamExpListFragment extends Fragment {
 
                 // Begin the transaction
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                CareTeamShowFamilyFragment mycareTeamShowFamily = new CareTeamShowFamilyFragment();
-                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-                    ft.replace(R.id.your_placeholder2, mycareTeamShowFamily);
-                }
-                else{
-                    ft.replace(R.id.your_placeholder1, mycareTeamShowFamily);
-                }
-                ft.addToBackStack(null);
 
                 switch (groupPosition){
-
                     case 0:
                         // Family or invited user
+                        CareTeamShowFamilyFragment mycareTeamShowFamily = new CareTeamShowFamilyFragment();
+                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                            ft.replace(R.id.your_placeholder2, mycareTeamShowFamily);
+                        }
+                        else{
+                            ft.replace(R.id.your_placeholder1, mycareTeamShowFamily);
+                        }
+                        ft.addToBackStack(null);
+                        // send family member data to fragment
                         mycareTeamShowFamily.setItem(familyExpList.get(childPosition));
+
                         break;
+
                     case 1:
-                        // HealthCare
-                        mycareTeamShowFamily.setItem(healthCareExpList.get(childPosition));
+                        CareTeamShowHealthcareFragment mycareTeamShowHealthcare = new CareTeamShowHealthcareFragment();
+                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                            ft.replace(R.id.your_placeholder2, mycareTeamShowHealthcare);
+                        }
+                        else{
+                            ft.replace(R.id.your_placeholder1, mycareTeamShowHealthcare);
+                        }
+                        ft.addToBackStack(null);
+                        // send healthcare item to fragment
+                        mycareTeamShowHealthcare.setItem(healthCareExpList.get(childPosition));
                         break;
                 }
-//                mycareTeamShowFamily.
                 ft.commit();
                 return false;
             }

@@ -2,18 +2,12 @@ package com.cancercarecompany.ccc.ccc;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 public class CareTeamShowFamilyFragment extends Fragment {
@@ -36,10 +30,9 @@ public class CareTeamShowFamilyFragment extends Fragment {
         final EditText editPhoneNumber = (EditText) view.findViewById(R.id.etxt_careteam_phone);
         final EditText editEmail = (EditText) view.findViewById(R.id.etx_careteamt_email);
         final EditText editRelation = (EditText) view.findViewById(R.id.etxt_careteam_relation);
-        final Spinner spinnerAdmin = (Spinner) view.findViewById(R.id.spinner_admin_careteam);
-        final String[] spinnerAdminValues = {"Yes", "No"};
         final ImageButton familyAvatar = (ImageButton) view.findViewById(R.id.img_careteam_family_avatar);
-
+        final ImageButton buttonEdit = (ImageButton) view.findViewById(R.id.btn_edit);
+        final TextView txtSave = (TextView) view.findViewById(R.id.txt_save);
         int familyAvatarId = 0;
         switch(listItem.type) {
 
@@ -72,6 +65,9 @@ public class CareTeamShowFamilyFragment extends Fragment {
             case "healthcare":
                 break;
         }
+
+        txtSave.setVisibility(View.INVISIBLE);
+        buttonEdit.setVisibility(View.VISIBLE);
 
         if ((listItem.type == "family") || (listItem.type == "invite")){
             switch (familyAvatarId) {
@@ -132,19 +128,79 @@ public class CareTeamShowFamilyFragment extends Fragment {
             }
         }
 
-
         editFirstName.setFocusable(false);
         editLastName.setFocusable(false);
         editEmail.setFocusable(false);
         editPhoneNumber.setFocusable(false);
         editRelation.setFocusable(false);
-/*
-            ArrayAdapter<String> adapterAdmin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
-            adapterAdmin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerAdmin.setAdapter(adapterAdmin);
 
-            spinnerAdmin.setEnabled(false);
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtSave.setVisibility(View.VISIBLE);
+                buttonEdit.setVisibility(View.INVISIBLE);
+                editFirstName.setFocusable(true);
+                editFirstName.setFocusableInTouchMode(true);
+                editFirstName.setEnabled(true);
+                editLastName.setFocusable(true);
+                editLastName.setFocusableInTouchMode(true);
+                editLastName.setEnabled(true);
+                editEmail.setFocusable(true);
+                editEmail.setFocusableInTouchMode(true);
+                editEmail.setEnabled(true);
+                editPhoneNumber.setFocusable(true);
+                editPhoneNumber.setFocusableInTouchMode(true);
+                editPhoneNumber.setEnabled(true);
+                editRelation.setFocusable(true);
+                editRelation.setFocusableInTouchMode(true);
+                editRelation.setEnabled(true);
+            }
+
+        });
+
+        txtSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonEdit.setVisibility(View.VISIBLE);
+                txtSave.setVisibility(View.INVISIBLE);
+//                updateHealthCare(gridPosition);
+            }
+
+            private void updateHealthCare(int gridPosition) {
+
+/*                HealthCare newHealthCare = new HealthCare(
+                        connectHandler.patient.get(gridPosition).healthcare_ID,
+                        connectHandler.patient.patient_ID,
+                         editTitle.getText().toString(),
+                        editName.getText().toString(),
+                        editDepartment.getText().toString(),
+                        editPhoneNumber1.getText().toString(),
+                        editPhoneNumber2.getText().toString(),
+                        editPhoneNumber3.getText().toString(),
+                        editEmail.getText().toString(),
+                        selectedHealthcareAvatar);
+
+                connectHandler.updateHealthcare(newHealthCare);
+
+                while (connectHandler.socketBusy){}
+
+                //update healthcareList as well
+/*
+                healthcareList.get(gridPosition).name = editName.getText().toString();
+                healthcareList.get(gridPosition).title = editTitle.getText().toString();
+                healthcareList.get(gridPosition).department = editDepartment.getText().toString();
+                healthcareList.get(gridPosition).phone_number1 = editPhoneNumber1.getText().toString();
+                healthcareList.get(gridPosition).phone_number2 = editPhoneNumber2.getText().toString();
+                healthcareList.get(gridPosition).phone_number3 = editPhoneNumber3.getText().toString();
+                healthcareList.get(gridPosition).email = editEmail.getText().toString();
+                healthcareList.get(gridPosition).avatar = selectedHealthcareAvatar;
+
+                healthCareAdapter.notifyDataSetChanged();
 */
+            }
+
+        });
+
         return view;
 
     }
