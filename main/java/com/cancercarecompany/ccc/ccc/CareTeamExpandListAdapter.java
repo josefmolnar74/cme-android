@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CareTeamExpandListAdapter extends BaseExpandableListAdapter {
@@ -49,13 +50,96 @@ public class CareTeamExpandListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.careteam_list_item, null);
+            convertView = infalInflater.inflate(R.layout.careteam_explist_item, null);
         }
 
         TextView txtListName = (TextView) convertView
-                .findViewById(R.id.txt_careteam_list_item_name);
-
+                .findViewById(R.id.txt_careteam_list_name);
         txtListName.setText(listItem.name);
+
+        TextView txtListRelationship = (TextView) convertView
+                .findViewById(R.id.txt_careteam_list_relationship);
+        txtListRelationship.setText(listItem.relationship);
+
+
+        ImageView avatar = (ImageView) convertView.findViewById(R.id.img_careteam_list_avatar);
+        if (listItem.type == "healthcare") {
+            switch (listItem.avatar) {
+                case 1:
+                    avatar.setImageResource(R.drawable.avatar_healthcare_doctor_female);
+                    break;
+                case 2:
+                    avatar.setImageResource(R.drawable.avatar_healthcare_nurse);
+                    break;
+                case 3:
+                    avatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
+                    break;
+                case 4:
+                    avatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
+                    break;
+                case 5:
+                    avatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
+                    break;
+            }
+        }
+        else if ((listItem.type == "family") || (listItem.type == "invite")){
+            switch (listItem.avatar) {
+                case 1:
+                    avatar.setImageResource(R.drawable.family_avatar_1);
+                    break;
+                case 2:
+                    avatar.setImageResource(R.drawable.family_avatar_2);
+                    break;
+                case 3:
+                    avatar.setImageResource(R.drawable.family_avatar_3);
+                    break;
+                case 4:
+                    avatar.setImageResource(R.drawable.family_avatar_4);
+                    break;
+                case 5:
+                    avatar.setImageResource(R.drawable.family_avatar_5);
+                    break;
+                case 6:
+                    avatar.setImageResource(R.drawable.family_avatar_6);
+                    break;
+                case 7:
+                    avatar.setImageResource(R.drawable.family_avatar_7);
+                    break;
+                case 8:
+                    avatar.setImageResource(R.drawable.family_avatar_8);
+                    break;
+                case 9:
+                    avatar.setImageResource(R.drawable.family_avatar_9);
+                    break;
+                case 10:
+                    avatar.setImageResource(R.drawable.family_avatar_10);
+                    break;
+                case 11:
+                    avatar.setImageResource(R.drawable.family_avatar_11);
+                    break;
+                case 12:
+                    avatar.setImageResource(R.drawable.family_avatar_12);
+                    break;
+                case 13:
+                    avatar.setImageResource(R.drawable.family_avatar_13);
+                    break;
+                case 14:
+                    avatar.setImageResource(R.drawable.family_avatar_14);
+                    break;
+                case 15:
+                    avatar.setImageResource(R.drawable.family_avatar_15);
+                    break;
+                case 16:
+                    avatar.setImageResource(R.drawable.family_avatar_16);
+                    break;
+                case 17:
+                    avatar.setImageResource(R.drawable.family_avatar_17);
+                    break;
+                case 18:
+                    avatar.setImageResource(R.drawable.family_avatar_18);
+                    break;
+            }
+        }
         return convertView;
     }
 
@@ -87,7 +171,7 @@ public class CareTeamExpandListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.careteam_list_group, null);
+            convertView = infalInflater.inflate(R.layout.careteam_explist_group, null);
         }
 
         TextView listHeader = (TextView) convertView

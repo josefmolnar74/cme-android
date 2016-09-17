@@ -3,20 +3,19 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -24,53 +23,40 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-
 
 public class CareTeamActivity extends AppCompatActivity {
 
-    ArrayList<CareTeamMember> familyList = new ArrayList<>();
-    ArrayList<HealthCare> healthcareList = new ArrayList<>();
-
-    ExpandableListAdapter expListAdapter;
-    ExpandableListView expListView;
-
-    List<String> listDataHeader;
-    HashMap<String, List<CareTeamExpandListItem>> listDataChild;
-
     public int selectedFamilyAvatar;
     public int selectedHealthcareAvatar;
-    GridView familyGridView;
-    GridView healthCareGridView;
     CareTeamFamilyAdapter familyAdapter;
     CareTeamHealthCareAdapter healthCareAdapter;
     RelativeLayout relativeLayout;
     LinearLayout wholeScreen;
-    ImageButton journeyButton;
-    ImageButton journalButton;
     ImageButton familyAvatar;
     ImageButton healthcareAvatar;
-    ImageButton settingsButton;
     ConnectionHandler connectHandler;
 
+    List<CareTeamMember> familyList;
+    List<HealthCare> healthcareList;
+
     String languageString;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_careteam);
+        connectHandler = ConnectionHandler.getInstance();
 
+        Toolbar cmeToolbar = (Toolbar) findViewById(R.id.cme_toolbar);
+        setSupportActionBar(cmeToolbar);
+        cmeToolbar.setTitleTextColor(0xFFFFFFFF);
+
+        // Display patient name on topbar
+        if (connectHandler.patient != null) {
+            getSupportActionBar().setTitle(connectHandler.patient.patient_name.concat(getString(R.string.patient_careteam)));
+        }
 
         wholeScreen = (LinearLayout) findViewById(R.id.careTeamScreen);
 
@@ -79,187 +65,55 @@ public class CareTeamActivity extends AppCompatActivity {
                 "language_settings", Context.MODE_PRIVATE);
 
         languageString = prefs.getString("language_settings", "");
-        System.out.println("LANGUAGE SETTINGS: "+languageString);
+        System.out.println("LANGUAGE SETTINGS: " + languageString);
         //////////////////////////
 
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        CareTeamExpListFragment myCareTeamExpList = new CareTeamExpListFragment();
+        ft.replace(R.id.your_placeholder1, myCareTeamExpList);
+        ft.commit();
 
-        // Statusbar color
-        Window window = this.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.black));
+        final Button buttonAddMember = (Button) findViewById(R.id.btn_add);
 
-        connectHandler = ConnectionHandler.getInstance();
-
-        // Display patient name on topbar
-        TextView patientNameText = (TextView) findViewById(R.id.txt_patientName);
-        if (connectHandler.patient != null){
-            patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
-        }
-
-        TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
-        if (connectHandler.person != null){
-            loggedIn.setText(connectHandler.person.first_name);
-        }
-
-        familyGridView = (GridView) findViewById(R.id.gridview_careteam_family);
-        healthCareGridView = (GridView) findViewById(R.id.gridview_careteam_healthcare);
-
-        expListView = (ExpandableListView) findViewById(R.id.explv_careteam);
-
-        //build list data
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<CareTeamExpandListItem>>();
-
-        listDataHeader.add("Family and friends");
-        listDataHeader.add("Health care");
-
-        connectHandler.getInvitedCareTeamMembers(connectHandler.patient.patient_ID);
-
-        // Generate health care members
-        connectHandler.getHealthcareForPatient(connectHandler.patient.patient_ID);
-
-        while (connectHandler.socketBusy){}
-
-        if (connectHandler.patient != null){
-            List<CareTeamExpandListItem> familyExpList = new ArrayList<CareTeamExpandListItem>();
-            List<CareTeamExpandListItem> healthCareExpList = new ArrayList<CareTeamExpandListItem>();
-
-            if (connectHandler.patient.care_team != null) {
-                for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
-                    CareTeamExpandListItem listItem = new CareTeamExpandListItem();
-                    listItem.name = connectHandler.patient.care_team.get(i).first_name;
-                    listItem.avatar = connectHandler.patient.care_team.get(i).avatar;
-                    familyExpList.add(listItem);
-                }
-            }
-            if (connectHandler.invites != null){
-                for (int i = 0; i < connectHandler.invites.invite_data.size(); i++) {
-                    CareTeamExpandListItem listItem = new CareTeamExpandListItem();
-                    listItem.name = connectHandler.invites.invite_data.get(i).invited_first_name;
-                    listItem.avatar = connectHandler.invites.invite_data.get(i).invited_avatar;
-                    familyExpList.add(listItem);
-                }
-            }
-            if (connectHandler.healthcare != null){
-                for (int i = 0; i < connectHandler.healthcare.healthcare_data.size(); i++) {
-                    CareTeamExpandListItem listItem = new CareTeamExpandListItem();
-                    listItem.name = connectHandler.healthcare.healthcare_data.get(i).name;
-                    listItem.avatar = connectHandler.healthcare.healthcare_data.get(i).avatar;
-                    healthCareExpList.add(listItem);
-                }
-            }
-
-            listDataChild.put(listDataHeader.get(0), familyExpList); // Header, Child data
-            listDataChild.put(listDataHeader.get(1), healthCareExpList);
-        }
-
-        expListAdapter = new CareTeamExpandListAdapter(this, listDataHeader, listDataChild);
-
-        expListView.setAdapter(expListAdapter);
-
-
-        final Button buttonAddHealthCareMember = (Button) findViewById(R.id.btn_careteam_add_healthcare);
-        final Button buttonAddFamilyMember   = (Button) findViewById(R.id.btn_careteam_invite_careteam);
-
-        journeyButton = (ImageButton) findViewById(R.id.btn_journey_button);
-        journalButton = (ImageButton) findViewById(R.id.btn_journal_button);
-
-        journeyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                journeyActivity();
-            }
-        });
-
-        journalButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                journalActivity();
-            }
-        });
-
-        // Generate family and friends care team members
-        if (connectHandler.patient != null){
-            if (connectHandler.patient.care_team != null){
-                for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
-                    familyList.add(connectHandler.patient.care_team.get(i));
-                }
-            }
-        }
-
-        if (connectHandler.invites != null)
-        {
-            for (int i = 0; i < connectHandler.invites.invite_data.size();i++){
-                CareTeamMember invitedCareTeamMember = new CareTeamMember(
-                        connectHandler.invites.invite_data.get(i).person_ID,
-                        connectHandler.invites.invite_data.get(i).invited_first_name,
-                        connectHandler.invites.invite_data.get(i).invited_last_name,
-                        connectHandler.invites.invite_data.get(i).invited_email,
-                        connectHandler.invites.invite_data.get(i).invited_relationship,
-                        connectHandler.invites.invite_data.get(i).invited_avatar,
-                        connectHandler.invites.invite_data.get(i).invited_admin);
-                familyList.add(invitedCareTeamMember);
-            }
-        }
-
-        familyAdapter = new CareTeamFamilyAdapter(this, familyList);
-        familyGridView.setAdapter(familyAdapter);
-
-        while (connectHandler.socketBusy){}
-
-        if (connectHandler.healthcare != null){
-            for (int i = 0; i < connectHandler.healthcare.healthcare_data.size(); i++) {
-                healthcareList.add(connectHandler.healthcare.healthcare_data.get(i));
-            }
-        }
-
-        healthCareAdapter = new CareTeamHealthCareAdapter(this, healthcareList);
-        healthCareGridView.setAdapter(healthCareAdapter);
-
-        //Open popup window to show user detail information and edit/delete
-        familyGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int familyListPosition, long id) {
-                showCareTeamMember(familyListPosition);
-            }
-        });
-
-        //Open popup window to show user detail information and edit/delete
-        healthCareGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int healthCareGridPosition, long id) {
-                showHealthcare(healthCareGridPosition);
-            }
-        });
-
-        buttonAddHealthCareMember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createHealthCareMember();
-            }
-        });
-
-        buttonAddFamilyMember.setOnClickListener(new View.OnClickListener() {
+        buttonAddMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 inviteCareTeamMember();
             }
         });
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
-        loggedIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Settings settingsClass = new Settings();
-                settingsClass.settingsPopup(wholeScreen, CareTeamActivity.this);
-
-            }
-        });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_careteam:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+
+            case R.id.action_journey:
+                journeyActivity();
+                return true;
+
+            case R.id.action_journal:
+                journalActivity();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 
     public void createHealthCareMember(){
         LayoutInflater layoutInflater
@@ -368,11 +222,11 @@ public class CareTeamActivity extends AppCompatActivity {
         popupWindow.setFocusable(true);
         popupWindow.update();
 
-        final EditText editFirstName        = (EditText) popupView.findViewById(R.id.txt_firstName_careteam);
-        final EditText editLastName         = (EditText) popupView.findViewById(R.id.txt_lastName_careteam);
-        final EditText editPhoneNumber      = (EditText) popupView.findViewById(R.id.txt_phone_careteam);
-        final EditText editEmail            = (EditText) popupView.findViewById(R.id.txt_email_careteam);
-        final EditText editRelation         = (EditText) popupView.findViewById(R.id.txt_careteam_relation);
+        final EditText editFirstName        = (EditText) popupView.findViewById(R.id.etxt_careteam_firstName);
+        final EditText editLastName         = (EditText) popupView.findViewById(R.id.etxt_careteam_lastname);
+        final EditText editPhoneNumber      = (EditText) popupView.findViewById(R.id.etxt_careteam_phone);
+        final EditText editEmail            = (EditText) popupView.findViewById(R.id.etx_careteamt_email);
+        final EditText editRelation         = (EditText) popupView.findViewById(R.id.etxt_careteam_relation);
         final Spinner  editAdmin            = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
         final String[] spinnerAdminValues   = {"Yes", "No"};
         final Button   buttonSave           = (Button) popupView.findViewById(R.id.btn_careteam_save);
@@ -396,7 +250,6 @@ public class CareTeamActivity extends AppCompatActivity {
                 showFamilyAvatars();
             }
         });
-
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -467,216 +320,6 @@ public class CareTeamActivity extends AppCompatActivity {
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         popupWindow.isFocusable();
 
-    }
-
-    public void showCareTeamMember(final int listPosition) {
-
-        LayoutInflater layoutInflater
-                = (LayoutInflater) getBaseContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.careteam_member_popup, null);
-
-        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-
-        popupWindow.setFocusable(true);
-        popupWindow.update();
-
-        final EditText editFirstName        = (EditText) popupView.findViewById(R.id.txt_firstName_careteam);
-        final EditText editLastName         = (EditText) popupView.findViewById(R.id.txt_lastName_careteam);
-        final EditText editPhoneNumber      = (EditText) popupView.findViewById(R.id.txt_phone_careteam);
-        final EditText editEmail            = (EditText) popupView.findViewById(R.id.txt_email_careteam);
-        final EditText editRelation         = (EditText) popupView.findViewById(R.id.txt_careteam_relation);
-        final Spinner  spinnerAdmin         = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-        final String[] spinnerAdminValues   = {"Yes", "No"};
-        final TextView alertText            = (TextView) popupView.findViewById(R.id.txt_careteam_invite_alert);
-        final Button   buttonSave           = (Button) popupView.findViewById(R.id.btn_careteam_save);
-        final Button   buttonCancel         = (Button) popupView.findViewById(R.id.btn_careteam_cancel);
-        final Button   buttonEdit           = (Button) popupView.findViewById(R.id.btn_careteam_edit);
-        final Button   buttonDelete         = (Button) popupView.findViewById(R.id.btn_careteam_delete);
-        familyAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_family_avatar);
-        switch(familyList.get(listPosition).avatar){
-            case 1:
-                familyAvatar.setImageResource(R.drawable.family_avatar_1);
-                break;
-            case 2:
-                familyAvatar.setImageResource(R.drawable.family_avatar_2);
-                break;
-            case 3:
-                familyAvatar.setImageResource(R.drawable.family_avatar_3);
-                break;
-            case 4:
-                familyAvatar.setImageResource(R.drawable.family_avatar_4);
-                break;
-            case 5:
-                familyAvatar.setImageResource(R.drawable.family_avatar_5);
-                break;
-            case 6:
-                familyAvatar.setImageResource(R.drawable.family_avatar_6);
-                break;
-            case 7:
-                familyAvatar.setImageResource(R.drawable.family_avatar_7);
-                break;
-            case 8:
-                familyAvatar.setImageResource(R.drawable.family_avatar_8);
-                break;
-            case 9:
-                familyAvatar.setImageResource(R.drawable.family_avatar_9);
-                break;
-            case 10:
-                familyAvatar.setImageResource(R.drawable.family_avatar_10);
-                break;
-            case 11:
-                familyAvatar.setImageResource(R.drawable.family_avatar_11);
-                break;
-            case 12:
-                familyAvatar.setImageResource(R.drawable.family_avatar_12);
-                break;
-            case 13:
-                familyAvatar.setImageResource(R.drawable.family_avatar_13);
-                break;
-            case 14:
-                familyAvatar.setImageResource(R.drawable.family_avatar_14);
-                break;
-            case 15:
-                familyAvatar.setImageResource(R.drawable.family_avatar_15);
-                break;
-            case 16:
-                familyAvatar.setImageResource(R.drawable.family_avatar_16);
-                break;
-            case 17:
-                familyAvatar.setImageResource(R.drawable.family_avatar_17);
-                break;
-            case 18:
-                familyAvatar.setImageResource(R.drawable.family_avatar_18);
-                break;
-        }
-
-        editFirstName.setText(familyList.get(listPosition).first_name);
-        editLastName.setText(familyList.get(listPosition).last_name);
-        editEmail.setText(familyList.get(listPosition).email);
-        editRelation.setText(familyList.get(listPosition).relationship);
-
-        editFirstName.setFocusable(false);
-        editLastName.setFocusable(false);
-        editEmail.setFocusable(false);
-        editPhoneNumber.setFocusable(false);
-        editRelation.setFocusable(false);
-
-        ArrayAdapter<String> adapterAdmin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
-        adapterAdmin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAdmin.setAdapter(adapterAdmin);
-
-        spinnerAdmin.setEnabled(false);
-
-        buttonEdit.setVisibility(View.INVISIBLE);
-        buttonCancel.setVisibility(View.VISIBLE);
-        buttonDelete.setVisibility(View.INVISIBLE);
-        buttonSave.setVisibility(View.INVISIBLE);
-
-        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_member_popup);
-        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
-
-        buttonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonEdit.setVisibility(View.VISIBLE);
-                buttonSave.setVisibility(View.INVISIBLE);
-                buttonCancel.setVisibility(View.VISIBLE);
-                saveContact(listPosition);
-                popupWindow.dismiss();
-            }
-
-            private void saveContact(int listPosition) {
-
-                Person updatePerson = new Person(familyList.get(listPosition).person_ID,
-                        editFirstName.getText().toString(),
-                        editLastName.getText().toString(),
-                        editEmail.getText().toString(),
-                        editPhoneNumber.getText().toString(),
-                        selectedFamilyAvatar,
-                        null);
-
-                connectHandler.updateUser(updatePerson);
-            }
-
-        });
-
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonEdit.setVisibility(View.INVISIBLE);
-                buttonDelete.setVisibility(View.VISIBLE);
-                buttonSave.setVisibility(View.VISIBLE);
-                buttonCancel.setVisibility(View.VISIBLE);
-                prepareForEdit(listPosition);
-            }
-
-            private void prepareForEdit(int MLp) {
-
-                editFirstName.setFocusable(true);
-                editFirstName.setFocusableInTouchMode(true);
-                editFirstName.setEnabled(true);
-                editLastName.setFocusable(true);
-                editLastName.setFocusableInTouchMode(true);
-                editLastName.setEnabled(true);
-                editEmail.setFocusable(true);
-                editEmail.setFocusableInTouchMode(true);
-                editEmail.setEnabled(true);
-                editPhoneNumber.setFocusable(true);
-                editPhoneNumber.setFocusableInTouchMode(true);
-                editPhoneNumber.setEnabled(true);
-
-                ArrayAdapter<String> adapterAdmin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
-                adapterAdmin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerAdmin.setAdapter(adapterAdmin);
-
-            }
-        });
-
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (buttonEdit.getVisibility() == View.VISIBLE) {
-                    popupWindow.dismiss();
-                }
-                buttonEdit.setVisibility(View.VISIBLE);
-                buttonSave.setVisibility(View.INVISIBLE);
-                buttonCancel.setVisibility(View.INVISIBLE);
-                buttonDelete.setVisibility(View.INVISIBLE);
-                popupWindow.dismiss();
-                cancelEdit(listPosition);
-            }
-
-            private void cancelEdit(int MLp) {
-                Spinner spinner_admin = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-                ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
-                adapter_admin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner_admin.setAdapter(adapter_admin);
-            }
-        });
-
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonEdit.setVisibility(View.VISIBLE);
-                buttonSave.setVisibility(View.INVISIBLE);
-                buttonCancel.setVisibility(View.INVISIBLE);
-                buttonDelete.setVisibility(View.INVISIBLE);
-                deleteCareTeamMembers(listPosition);
-            }
-            private void deleteCareTeamMembers(int index) {
-
-                healthCareAdapter.notifyDataSetChanged();
-                popupWindow.dismiss();
-            }
-        });
-
-        familyAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showFamilyAvatars();
-            }
-        });
     }
 
     public void showHealthcare(final int gridPosition) {
