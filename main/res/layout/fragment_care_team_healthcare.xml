@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="com.cancercarecompany.ccc.ccc.CareTeamShowFamilyFragment">
+    tools:context=".CareTeamFamilyFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                         android:layout_marginBottom="5dp"
                         android:id="@+id/etxt_careteam_healthcare_title"
                         android:hint="@string/careteam_healthcare_title"
-                        android:inputType="textPersonName"
+                        android:inputType="textCapSentences"
                         android:textSize="20sp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignStart="@+id/txt_careteam_healthcare_title" />
@@ -147,6 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/careteam_healthcare_department"
+                        android:inputType="textCapSentences"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/etxt_careteam_healthcare_department"
                         android:textSize="20sp"
@@ -185,6 +186,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/careteam_healthcare_name"
                         android:layout_marginBottom="5dp"
+                        android:inputType="textCapWords"
                         android:id="@+id/etxt_careteam_healthcare_name"
                         android:textSize="20sp"
                         android:layout_alignParentBottom="true"
@@ -221,6 +223,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
+                        android:inputType="textEmailAddress"
                         android:hint="@string/careteam_healthcare_email"
                         android:id="@+id/etxt_careteam_healthcare_email"
                         android:textSize="20sp"
@@ -258,6 +261,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
+                        android:inputType="phone"
                         android:hint="@string/careteam_healthcare_phone1"
                         android:id="@+id/etxt_careteam_healthcare_phone1"
                         android:textSize="20sp"
@@ -284,6 +288,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="20dp"
+                        android:inputType="phone"
                         android:text="@string/careteam_healthcare_phone2"
                         android:id="@+id/txt_careteam_healthcare_phone2"
                         android:textColor="@color/cme_dark"
@@ -321,7 +326,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="20dp"
-                        android:text="@string/careteam_healthcare_phone3"
+                        android:inputType="phone"
+                         android:text="@string/careteam_healthcare_phone3"
                         android:id="@+id/txt_careteam_healthcare_phone3"
                         android:textColor="@color/cme_dark"
                         android:textSize="20sp"

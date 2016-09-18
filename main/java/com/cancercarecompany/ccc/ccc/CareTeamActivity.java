@@ -103,55 +103,7 @@ public class CareTeamActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    public void inviteCareTeamMember() {
-        LayoutInflater layoutInflater
-                = (LayoutInflater) getBaseContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.careteam_member_popup, null);
-
-        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-
-        popupWindow.setFocusable(true);
-        popupWindow.update();
-
-        final EditText editFirstName        = (EditText) popupView.findViewById(R.id.etxt_careteam_firstName);
-        final EditText editLastName         = (EditText) popupView.findViewById(R.id.etxt_careteam_lastname);
-        final EditText editPhoneNumber      = (EditText) popupView.findViewById(R.id.etxt_careteam_phone);
-        final EditText editEmail            = (EditText) popupView.findViewById(R.id.etx_careteamt_email);
-        final EditText editRelation         = (EditText) popupView.findViewById(R.id.etxt_careteam_relation);
-        final Spinner  editAdmin            = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-        final String[] spinnerAdminValues   = {"Yes", "No"};
-        final Button   buttonSave           = (Button) popupView.findViewById(R.id.btn_careteam_save);
-        final Button   buttonCancel         = (Button) popupView.findViewById(R.id.btn_careteam_cancel);
-        final Button   buttonEdit           = (Button) popupView.findViewById(R.id.btn_careteam_edit);
-        final TextView alertText            = (TextView) popupView.findViewById(R.id.txt_careteam_invite_alert);
-
-        buttonSave.setVisibility(View.VISIBLE);
-        buttonCancel.setVisibility(View.VISIBLE);
-        buttonEdit.setVisibility(View.INVISIBLE);
-
-        Spinner spinner_admin = (Spinner) popupView.findViewById(R.id.spinner_admin_careteam);
-        ArrayAdapter<String> adapter_admin = new ArrayAdapter<String>(CareTeamActivity.this, android.R.layout.simple_spinner_item, spinnerAdminValues);
-        adapter_admin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_admin.setAdapter(adapter_admin);
-
-        familyAvatar = (ImageButton) popupView.findViewById(R.id.img_careteam_family_avatar);
-        familyAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showFamilyAvatars();
-            }
-        });
-
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertText.setVisibility(View.INVISIBLE);
-                popupWindow.dismiss();
-            }
-        });
-
+/*
         buttonSave.setOnClickListener(new  View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,13 +159,6 @@ public class CareTeamActivity extends AppCompatActivity {
             }
         });
 
-        relativeLayout = (RelativeLayout) popupView.findViewById(R.id.layout_careteam_member_popup);
-        //  LinearLayout layout = (LinearLayout) findViewById(R.id.careTeamScreen);
-//        popupWindow.showAsDropDown(gridLayout, 500, 20);
-        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
-        popupWindow.isFocusable();
-
-    }
 */
 
     private void journeyActivity(){

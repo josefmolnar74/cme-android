@@ -6,15 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class CareTeamShowFamilyFragment extends Fragment {
+public class CareTeamFamilyFragment extends Fragment {
 
     private CareTeamExpandListItem listItem;
     private ConnectionHandler connectHandler;
     private int position;
+    private boolean admin = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,7 +26,7 @@ public class CareTeamShowFamilyFragment extends Fragment {
 
         connectHandler = ConnectionHandler.getInstance();
 
-        View view = inflater.inflate(R.layout.fragment_care_team_show_family, container, false);
+        View view = inflater.inflate(R.layout.fragment_care_team_family, container, false);
         final TextView txtName = (TextView) view.findViewById(R.id.txt_careteam_name);
         final TextView txtPhoneNumber = (TextView) view.findViewById(R.id.txt_careteam_family_phone);
         final TextView txtEmail = (TextView) view.findViewById(R.id.txt_careteam_family_email);
@@ -36,7 +38,21 @@ public class CareTeamShowFamilyFragment extends Fragment {
         final ImageButton familyAvatar = (ImageButton) view.findViewById(R.id.img_careteam_family_avatar);
         final ImageButton buttonEdit = (ImageButton) view.findViewById(R.id.btn_edit);
         final TextView txtSave = (TextView) view.findViewById(R.id.txt_save);
+        final TextView alertText1 = (TextView) view.findViewById(R.id.txt_careteam_invite_alert);
+        final TextView alertText2 = (TextView) view.findViewById(R.id.txt_careteam_edit_alert);
+        final CheckBox chkAdmin = (CheckBox) view.findViewById(R.id.chkbx_careteam);
+        alertText1.setVisibility(View.INVISIBLE);
+        alertText2.setVisibility(View.INVISIBLE);
         int familyAvatarId = 0;
+
+        // check admin
+        for (int i=0; i < connectHandler.patient.care_team.size(); i++){
+            if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
+                (connectHandler.patient.care_team.get(i).admin == 1)){
+                    admin = true;
+            }
+        }
+
         switch(listItem.type) {
 
             case "family":
@@ -47,6 +63,22 @@ public class CareTeamShowFamilyFragment extends Fragment {
                         editName.setText(connectHandler.patient.care_team.get(position).name);
                         editEmail.setText(connectHandler.patient.care_team.get(position).email);
                         editRelation.setText(connectHandler.patient.care_team.get(position).relationship);
+                        if(editName.getText().toString().isEmpty()){
+                            editName.setVisibility(View.INVISIBLE);
+                        }
+                        if(editEmail.getText().toString().isEmpty()){
+                            editEmail.setVisibility(View.INVISIBLE);
+                        }
+                        if(editPhoneNumber.getText().toString().isEmpty()){
+                            editPhoneNumber.setVisibility(View.INVISIBLE);
+                        }
+                        if(editRelation.getText().toString().isEmpty()){
+                            editRelation.setVisibility(View.INVISIBLE);
+                        }
+                        if (connectHandler.patient.care_team.get(position).admin == 1){
+                            chkAdmin.setChecked(true);
+                        }
+
                         break;
                     }
                 }
@@ -59,6 +91,9 @@ public class CareTeamShowFamilyFragment extends Fragment {
                         editName.setText(connectHandler.invites.invite_data.get(position).invited_name);
                         editEmail.setText(connectHandler.invites.invite_data.get(position).invited_email);
                         editRelation.setText(connectHandler.invites.invite_data.get(position).invited_relationship);
+                        if (connectHandler.invites.invite_data.get(position).invited_admin == 1){
+                            chkAdmin.setChecked(true);
+                        }
                         break;
                     }
                 }
@@ -68,7 +103,7 @@ public class CareTeamShowFamilyFragment extends Fragment {
         }
 
         switch (familyAvatarId) {
-            case 255:
+            case 0:
                 familyAvatar.setImageResource(R.drawable.addcontact);
                 break;
             case 1:
@@ -129,6 +164,7 @@ public class CareTeamShowFamilyFragment extends Fragment {
         if (listItem.type == "new"){
             txtSave.setVisibility(View.VISIBLE);
             buttonEdit.setVisibility(View.INVISIBLE);
+            editName.requestFocus();
             txtName.setVisibility(View.INVISIBLE);
             txtEmail.setVisibility(View.INVISIBLE);
             txtPhoneNumber.setVisibility(View.INVISIBLE);
@@ -140,29 +176,50 @@ public class CareTeamShowFamilyFragment extends Fragment {
             editEmail.setFocusable(false);
             editPhoneNumber.setFocusable(false);
             editRelation.setFocusable(false);
+            chkAdmin.setFocusable(false);
+            chkAdmin.setEnabled(false);
         }
 
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txtName.setVisibility(View.VISIBLE);
-                txtEmail.setVisibility(View.VISIBLE);
-                txtPhoneNumber.setVisibility(View.VISIBLE);
-                txtRelation.setVisibility(View.VISIBLE);
-                txtSave.setVisibility(View.VISIBLE);
-                buttonEdit.setVisibility(View.INVISIBLE);
-                editName.setFocusable(true);
-                editName.setFocusableInTouchMode(true);
-                editName.setEnabled(true);
-                editEmail.setFocusable(true);
-                editEmail.setFocusableInTouchMode(true);
-                editEmail.setEnabled(true);
-                editPhoneNumber.setFocusable(true);
-                editPhoneNumber.setFocusableInTouchMode(true);
-                editPhoneNumber.setEnabled(true);
-                editRelation.setFocusable(true);
-                editRelation.setFocusableInTouchMode(true);
-                editRelation.setEnabled(true);
+                if (connectHandler.person.person_ID == connectHandler.patient.care_team.get(position).person_ID){
+                    // Only possible to edit your own content
+                    editName.setVisibility(View.VISIBLE);
+                    editEmail.setVisibility(View.VISIBLE);
+                    editPhoneNumber.setVisibility(View.VISIBLE);
+                    editRelation.setVisibility(View.VISIBLE);
+                    txtName.setVisibility(View.VISIBLE);
+                    txtEmail.setVisibility(View.VISIBLE);
+                    txtPhoneNumber.setVisibility(View.VISIBLE);
+                    txtRelation.setVisibility(View.VISIBLE);
+                    txtSave.setVisibility(View.VISIBLE);
+                    buttonEdit.setVisibility(View.INVISIBLE);
+                    editName.setFocusable(true);
+                    editName.setFocusableInTouchMode(true);
+                    editName.setEnabled(true);
+                    editName.requestFocus();
+                    editEmail.setFocusable(true);
+                    editEmail.setFocusableInTouchMode(true);
+                    editEmail.setEnabled(true);
+                    editPhoneNumber.setFocusable(true);
+                    editPhoneNumber.setFocusableInTouchMode(true);
+                    editPhoneNumber.setEnabled(true);
+                    editRelation.setFocusable(true);
+                    editRelation.setFocusableInTouchMode(true);
+                    editRelation.setEnabled(true);
+                    chkAdmin.setFocusable(true);
+                    chkAdmin.setFocusableInTouchMode(true);
+                    chkAdmin.setEnabled(true);
+                }
+                else if (admin == true){
+                    txtSave.setVisibility(View.VISIBLE);
+                    buttonEdit.setVisibility(View.INVISIBLE);
+                    chkAdmin.setFocusable(true);
+                    chkAdmin.setFocusableInTouchMode(true);
+                    chkAdmin.setEnabled(true);
+                    alertText2.setVisibility(View.VISIBLE);
+                }
             }
 
         });
@@ -172,41 +229,54 @@ public class CareTeamShowFamilyFragment extends Fragment {
             public void onClick(View v) {
                 buttonEdit.setVisibility(View.VISIBLE);
                 txtSave.setVisibility(View.INVISIBLE);
-//                updateHealthCare(gridPosition);
-            }
+                String invitedNameString = editName.getText().toString();
+                String invitedEmailString = editEmail.getText().toString();
 
-            private void updateHealthCare(int gridPosition) {
+                //FirstName and email must be specified, the others will get emptystring if not specified
+                if ((!invitedNameString.isEmpty()) && (!invitedEmailString.isEmpty())){
+                    alertText1.setVisibility(View.INVISIBLE);
+                    // invite new care team member
+                    int admin;
+                    if(chkAdmin.isChecked()) {
+                        admin = 1;
+                    }
+                    else {
+                        admin = 0;
+                    }
+                    Invite newInvite = new Invite(  0,
+                            connectHandler.person.name,
+                            connectHandler.patient.patient_ID,
+                            connectHandler.patient.patient_name,
+                            invitedNameString,
+                            invitedEmailString,
+                            editRelation.getText().toString(),
+                            0,
+                            admin,
+                            0,
+                            0);
 
-/*                HealthCare newHealthCare = new HealthCare(
-                        connectHandler.patient.get(gridPosition).healthcare_ID,
-                        connectHandler.patient.patient_ID,
-                         editTitle.getText().toString(),
-                        txtName.getText().toString(),
-                        editDepartment.getText().toString(),
-                        editPhoneNumber1.getText().toString(),
-                        editPhoneNumber2.getText().toString(),
-                        editPhoneNumber3.getText().toString(),
-                        editEmail.getText().toString(),
-                        selectedHealthcareAvatar);
+                    connectHandler.inviteCareTeamMember(newInvite);
 
-                connectHandler.updateHealthcare(newHealthCare);
+                    getActivity().onBackPressed();
 
-                while (connectHandler.socketBusy){}
+                }
+                else{
+                    alertText1.setVisibility(View.INVISIBLE);
 
-                //update healthcareList as well
+                }
 /*
-                healthcareList.get(gridPosition).name = txtName.getText().toString();
-                healthcareList.get(gridPosition).title = editTitle.getText().toString();
-                healthcareList.get(gridPosition).department = editDepartment.getText().toString();
-                healthcareList.get(gridPosition).phone_number1 = editPhoneNumber1.getText().toString();
-                healthcareList.get(gridPosition).phone_number2 = editPhoneNumber2.getText().toString();
-                healthcareList.get(gridPosition).phone_number3 = editPhoneNumber3.getText().toString();
-                healthcareList.get(gridPosition).email = editEmail.getText().toString();
-                healthcareList.get(gridPosition).avatar = selectedHealthcareAvatar;
+                    CareTeamMember invitedCareTeamMember = new CareTeamMember(
+                            newInvite.person_ID,
+                            newInvite.invited_name,
+                            newInvite.invited_email,
+                            newInvite.invited_relationship,
+                            newInvite.invited_avatar,
+                            newInvite.invited_admin);
 
-                healthCareAdapter.notifyDataSetChanged();
+                    familyList.add(invitedCareTeamMember);
+                    familyAdapter.notifyDataSetChanged();
 */
-            }
+           }
 
         });
 

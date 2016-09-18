@@ -31,6 +31,7 @@ public class CareTeamExpListFragment extends Fragment {
     List<String> listDataHeader;
     HashMap<String, List<CareTeamExpandListItem>> listDataChild;
     ConnectionHandler connectHandler;
+    private boolean admin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,13 +52,24 @@ public class CareTeamExpListFragment extends Fragment {
         listDataHeader.add(getResources().getString(R.string.careteam_family));
         listDataHeader.add(getResources().getString(R.string.careteam_healthcare));
 
+        // check admin
+        for (int i=0; i < connectHandler.patient.care_team.size(); i++){
+            if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
+                    (connectHandler.patient.care_team.get(i).admin == 1)){
+                admin = true;
+            }
+        }
+
         if (connectHandler.patient != null) {
             if (connectHandler.patient.care_team != null) {
-                CareTeamExpandListItem dummyListItem = new CareTeamExpandListItem();
-                dummyListItem.name = getResources().getString(R.string.careteam_invite_new_member);
-                dummyListItem.type = "new";
-                dummyListItem.avatar = 255;
-                familyExpList.add(dummyListItem);
+                if (admin){
+                    // add position to invite new member
+                    CareTeamExpandListItem dummyListItem = new CareTeamExpandListItem();
+                    dummyListItem.name = getResources().getString(R.string.careteam_invite_new_member);
+                    dummyListItem.type = "new";
+                    dummyListItem.avatar = 0;
+                    familyExpList.add(dummyListItem);
+                }
                 for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
                     CareTeamExpandListItem listItem = new CareTeamExpandListItem();
                     listItem.id = connectHandler.patient.care_team.get(i).person_ID;
@@ -90,11 +102,14 @@ public class CareTeamExpListFragment extends Fragment {
             }
 
             if (connectHandler.healthcare != null) {
-                CareTeamExpandListItem dummyListItem = new CareTeamExpandListItem();
-                dummyListItem.name = getResources().getString(R.string.careteam_create_new_healthcare);
-                dummyListItem.type = "new";
-                dummyListItem.avatar = 255;
-                healthCareExpList.add(dummyListItem);
+                if (admin) {
+                    // add position to create new healthcare member
+                    CareTeamExpandListItem dummyListItem = new CareTeamExpandListItem();
+                    dummyListItem.name = getResources().getString(R.string.careteam_create_new_healthcare);
+                    dummyListItem.type = "new";
+                    dummyListItem.avatar = 0;
+                    healthCareExpList.add(dummyListItem);
+                }
                 for (int i = 0; i < connectHandler.healthcare.healthcare_data.size(); i++) {
                     CareTeamExpandListItem listItem = new CareTeamExpandListItem();
                     listItem.id = connectHandler.healthcare.healthcare_data.get(i).healthcare_ID;
@@ -130,7 +145,7 @@ public class CareTeamExpListFragment extends Fragment {
                 switch (groupPosition){
                     case 0:
                         // Family or invited user
-                        CareTeamShowFamilyFragment mycareTeamShowFamily = new CareTeamShowFamilyFragment();
+                        CareTeamFamilyFragment mycareTeamShowFamily = new CareTeamFamilyFragment();
                         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                             ft.replace(R.id.your_placeholder2, mycareTeamShowFamily);
                         }
@@ -144,7 +159,7 @@ public class CareTeamExpListFragment extends Fragment {
                         break;
 
                     case 1:
-                        CareTeamShowHealthcareFragment mycareTeamShowHealthcare = new CareTeamShowHealthcareFragment();
+                        CareTeamHealthcareFragment mycareTeamShowHealthcare = new CareTeamHealthcareFragment();
                         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                             ft.replace(R.id.your_placeholder2, mycareTeamShowHealthcare);
                         }

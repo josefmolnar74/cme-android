@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class CareTeamShowHealthcareFragment extends Fragment {
+public class CareTeamHealthcareFragment extends Fragment {
 
     private CareTeamExpandListItem listItem;
     private ConnectionHandler connectHandler;
@@ -24,7 +24,7 @@ public class CareTeamShowHealthcareFragment extends Fragment {
 
         connectHandler = ConnectionHandler.getInstance();
 
-        View view = inflater.inflate(R.layout.fragment_care_team_show_healthcare, container, false);
+        View view = inflater.inflate(R.layout.fragment_care_team_healthcare, container, false);
         final TextView txtTitle = (TextView) view.findViewById(R.id.txt_careteam_healthcare_title);
         final TextView txtDepartment = (TextView) view.findViewById(R.id.txt_careteam_healthcare_department);
         final TextView txtName = (TextView) view.findViewById(R.id.txt_careteam_healthcare_name);
@@ -52,15 +52,37 @@ public class CareTeamShowHealthcareFragment extends Fragment {
                 editTitle.setText(connectHandler.healthcare.healthcare_data.get(position).title);
                 editDepartment.setText(connectHandler.healthcare.healthcare_data.get(position).department);
                 editName.setText(connectHandler.healthcare.healthcare_data.get(position).name);
+                editEmail.setText(connectHandler.healthcare.healthcare_data.get(position).email);
                 editPhone1.setText(connectHandler.healthcare.healthcare_data.get(position).phone_number1);
                 editPhone2.setText(connectHandler.healthcare.healthcare_data.get(position).phone_number2);
                 editPhone3.setText(connectHandler.healthcare.healthcare_data.get(position).phone_number3);
+                if(editTitle.getText().toString().isEmpty()){
+                    editTitle.setVisibility(View.INVISIBLE);
+                }
+                if(editDepartment.getText().toString().isEmpty()){
+                    editDepartment.setVisibility(View.INVISIBLE);
+                }
+                if(editName.getText().toString().isEmpty()){
+                    editName.setVisibility(View.INVISIBLE);
+                }
+                if(editEmail.getText().toString().isEmpty()){
+                    editEmail.setVisibility(View.INVISIBLE);
+                }
+                if(editPhone1.getText().toString().isEmpty()){
+                    editPhone1.setVisibility(View.INVISIBLE);
+                }
+                if(editPhone2.getText().toString().isEmpty()){
+                    editPhone2.setVisibility(View.INVISIBLE);
+                }
+                if(editPhone3.getText().toString().isEmpty()){
+                    editPhone3.setVisibility(View.INVISIBLE);
+                }
                 break;
             }
         }
 
         switch (healthcareAvatarId) {
-            case 255:
+            case 0:
                 healthcareAvatar.setImageResource(R.drawable.addcontact);
                 break;
             case 1:
@@ -83,12 +105,8 @@ public class CareTeamShowHealthcareFragment extends Fragment {
         if (listItem.type == "new") {
             txtSave.setVisibility(View.VISIBLE);
             buttonEdit.setVisibility(View.INVISIBLE);
-            editTitle.setVisibility(View.INVISIBLE);
-            editDepartment.setVisibility(View.INVISIBLE);
-            editName.setVisibility(View.INVISIBLE);
-            editPhone1.setVisibility(View.INVISIBLE);
-            editPhone2.setVisibility(View.INVISIBLE);
-            editPhone3.setVisibility(View.INVISIBLE);
+            editTitle.requestFocus();
+            txtTitle.setVisibility(View.INVISIBLE);
 
         }else{
             txtSave.setVisibility(View.INVISIBLE);
@@ -99,6 +117,7 @@ public class CareTeamShowHealthcareFragment extends Fragment {
         editTitle.setFocusable(false);
         editDepartment.setFocusable(false);
         editName.setFocusable(false);
+        editEmail.setFocusable(false);
         editPhone1.setFocusable(false);
         editPhone2.setFocusable(false);
         editPhone3.setFocusable(false);
@@ -106,6 +125,13 @@ public class CareTeamShowHealthcareFragment extends Fragment {
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editTitle.setVisibility(View.VISIBLE);
+                editDepartment.setVisibility(View.VISIBLE);
+                editName.setVisibility(View.VISIBLE);
+                editEmail.setVisibility(View.VISIBLE);
+                editPhone1.setVisibility(View.VISIBLE);
+                editPhone2.setVisibility(View.VISIBLE);
+                editPhone3.setVisibility(View.VISIBLE);
                 txtSave.setVisibility(View.VISIBLE);
                 buttonEdit.setVisibility(View.INVISIBLE);
                 editTitle.setFocusable(true);
@@ -139,21 +165,36 @@ public class CareTeamShowHealthcareFragment extends Fragment {
                 buttonEdit.setVisibility(View.VISIBLE);
                 txtSave.setVisibility(View.INVISIBLE);
 
-                HealthCare updateHealthCare = new HealthCare(
-                        connectHandler.healthcare.healthcare_data.get(position).healthcare_ID,
-                        connectHandler.patient.patient_ID,
-                        editTitle.getText().toString(),
-                        editName.getText().toString(),
-                        editDepartment.getText().toString(),
-                        editPhone1.getText().toString(),
-                        editPhone2.getText().toString(),
-                        editPhone3.getText().toString(),
-                        editEmail.getText().toString(),
-                        connectHandler.healthcare.healthcare_data.get(position).avatar);
+                if (listItem.type == "new"){
+                    HealthCare newHealthCare = new HealthCare(
+                            0,
+                            connectHandler.patient.patient_ID,
+                            editTitle.getText().toString(),
+                            editName.getText().toString(),
+                            editDepartment.getText().toString(),
+                            editPhone1.getText().toString(),
+                            editPhone2.getText().toString(),
+                            editPhone3.getText().toString(),
+                            editEmail.getText().toString(),
+                            0); // must fix avatar
 
-                connectHandler.updateHealthcare(updateHealthCare);
+                    connectHandler.createHealthcare(newHealthCare);
+                }else{
+                    //update existing healthcare member
+                    HealthCare updateHealthCare = new HealthCare(
+                            connectHandler.healthcare.healthcare_data.get(position).healthcare_ID,
+                            connectHandler.patient.patient_ID,
+                            editTitle.getText().toString(),
+                            editName.getText().toString(),
+                            editDepartment.getText().toString(),
+                            editPhone1.getText().toString(),
+                            editPhone2.getText().toString(),
+                            editPhone3.getText().toString(),
+                            editEmail.getText().toString(),
+                            connectHandler.healthcare.healthcare_data.get(position).avatar);
 
-                while (connectHandler.socketBusy){}
+                    connectHandler.updateHealthcare(updateHealthCare);
+                }
 
                 //update healthcareList as well
 /*
