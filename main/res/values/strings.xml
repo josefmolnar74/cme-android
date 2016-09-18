@@ -213,7 +213,7 @@
     <string name="join_careteam_find">Sök</string>
     <string name="careteam_family_name">Namn</string>
     <string name="careteam_family_email">Email</string>
-    <string name="careteam_family_phone">Phone</string>
+    <string name="careteam_family_phone">Telefon</string>
     <string name="careteam_family_relationship">Förhållande</string>
     <string name="careteam_family_admin">Admin</string>
     <string name="careteam_error_message">Tilltalsnamn och email måste anges!</string>

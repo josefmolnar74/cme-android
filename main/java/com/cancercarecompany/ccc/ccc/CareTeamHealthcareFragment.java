@@ -14,7 +14,8 @@ public class CareTeamHealthcareFragment extends Fragment {
 
     private CareTeamExpandListItem listItem;
     private ConnectionHandler connectHandler;
-    private int position;
+    private int position = 0;
+    private boolean admin = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,41 +44,54 @@ public class CareTeamHealthcareFragment extends Fragment {
         final ImageButton healthcareAvatar = (ImageButton) view.findViewById(R.id.img_careteam_healthcare_avatar);
         final ImageButton buttonEdit = (ImageButton) view.findViewById(R.id.btn_edit);
         final TextView txtSave = (TextView) view.findViewById(R.id.txt_save);
+        buttonEdit.setVisibility(View.INVISIBLE);
+        txtSave.setVisibility(View.INVISIBLE);
         int healthcareAvatarId = 0;
 
-        for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
-            if (connectHandler.healthcare.healthcare_data.get(i).healthcare_ID == listItem.id) {
-                position = i;
-                healthcareAvatarId = connectHandler.healthcare.healthcare_data.get(position).avatar;
-                editTitle.setText(connectHandler.healthcare.healthcare_data.get(position).title);
-                editDepartment.setText(connectHandler.healthcare.healthcare_data.get(position).department);
-                editName.setText(connectHandler.healthcare.healthcare_data.get(position).name);
-                editEmail.setText(connectHandler.healthcare.healthcare_data.get(position).email);
-                editPhone1.setText(connectHandler.healthcare.healthcare_data.get(position).phone_number1);
-                editPhone2.setText(connectHandler.healthcare.healthcare_data.get(position).phone_number2);
-                editPhone3.setText(connectHandler.healthcare.healthcare_data.get(position).phone_number3);
-                if(editTitle.getText().toString().isEmpty()){
-                    editTitle.setVisibility(View.INVISIBLE);
+        // check admin
+        for (int i=0; i < connectHandler.patient.care_team.size(); i++){
+            if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
+                    (connectHandler.patient.care_team.get(i).admin == 1)){
+                admin = true;
+                buttonEdit.setVisibility(View.VISIBLE);
+            }
+        }
+
+        if (listItem.type == "healthcare"){
+            for (int i = 0; i < connectHandler.healthcare.healthcare_data.size(); i++) {
+                if (connectHandler.healthcare.healthcare_data.get(i).healthcare_ID == listItem.id) {
+                    position = i;
+                    healthcareAvatarId = connectHandler.healthcare.healthcare_data.get(i).avatar;
+                    editTitle.setText(connectHandler.healthcare.healthcare_data.get(i).title);
+                    editDepartment.setText(connectHandler.healthcare.healthcare_data.get(i).department);
+                    editName.setText(connectHandler.healthcare.healthcare_data.get(i).name);
+                    editEmail.setText(connectHandler.healthcare.healthcare_data.get(i).email);
+                    editPhone1.setText(connectHandler.healthcare.healthcare_data.get(i).phone_number1);
+                    editPhone2.setText(connectHandler.healthcare.healthcare_data.get(i).phone_number2);
+                    editPhone3.setText(connectHandler.healthcare.healthcare_data.get(i).phone_number3);
+                    if(editTitle.getText().toString().isEmpty()){
+                        editTitle.setVisibility(View.INVISIBLE);
+                    }
+                    if(editDepartment.getText().toString().isEmpty()){
+                        editDepartment.setVisibility(View.INVISIBLE);
+                    }
+                    if(editName.getText().toString().isEmpty()){
+                        editName.setVisibility(View.INVISIBLE);
+                    }
+                    if(editEmail.getText().toString().isEmpty()){
+                        editEmail.setVisibility(View.INVISIBLE);
+                    }
+                    if(editPhone1.getText().toString().isEmpty()){
+                        editPhone1.setVisibility(View.INVISIBLE);
+                    }
+                    if(editPhone2.getText().toString().isEmpty()){
+                        editPhone2.setVisibility(View.INVISIBLE);
+                    }
+                    if(editPhone3.getText().toString().isEmpty()){
+                        editPhone3.setVisibility(View.INVISIBLE);
+                    }
+                    break;
                 }
-                if(editDepartment.getText().toString().isEmpty()){
-                    editDepartment.setVisibility(View.INVISIBLE);
-                }
-                if(editName.getText().toString().isEmpty()){
-                    editName.setVisibility(View.INVISIBLE);
-                }
-                if(editEmail.getText().toString().isEmpty()){
-                    editEmail.setVisibility(View.INVISIBLE);
-                }
-                if(editPhone1.getText().toString().isEmpty()){
-                    editPhone1.setVisibility(View.INVISIBLE);
-                }
-                if(editPhone2.getText().toString().isEmpty()){
-                    editPhone2.setVisibility(View.INVISIBLE);
-                }
-                if(editPhone3.getText().toString().isEmpty()){
-                    editPhone3.setVisibility(View.INVISIBLE);
-                }
-                break;
             }
         }
 
@@ -86,19 +100,19 @@ public class CareTeamHealthcareFragment extends Fragment {
                 healthcareAvatar.setImageResource(R.drawable.addcontact);
                 break;
             case 1:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
-                break;
-            case 2:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
-                break;
-            case 3:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
-                break;
-            case 4:
                 healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_female);
                 break;
-            case 5:
+            case 2:
                 healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_nurse);
+                break;
+            case 3:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
+                break;
+            case 4:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
+                break;
+            case 5:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
                 break;
         }
 
@@ -107,10 +121,6 @@ public class CareTeamHealthcareFragment extends Fragment {
             buttonEdit.setVisibility(View.INVISIBLE);
             editTitle.requestFocus();
             txtTitle.setVisibility(View.INVISIBLE);
-
-        }else{
-            txtSave.setVisibility(View.INVISIBLE);
-            buttonEdit.setVisibility(View.VISIBLE);
 
         }
 
@@ -125,36 +135,39 @@ public class CareTeamHealthcareFragment extends Fragment {
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editTitle.setVisibility(View.VISIBLE);
-                editDepartment.setVisibility(View.VISIBLE);
-                editName.setVisibility(View.VISIBLE);
-                editEmail.setVisibility(View.VISIBLE);
-                editPhone1.setVisibility(View.VISIBLE);
-                editPhone2.setVisibility(View.VISIBLE);
-                editPhone3.setVisibility(View.VISIBLE);
-                txtSave.setVisibility(View.VISIBLE);
-                buttonEdit.setVisibility(View.INVISIBLE);
-                editTitle.setFocusable(true);
-                editTitle.setFocusableInTouchMode(true);
-                editTitle.setEnabled(true);
-                editDepartment.setFocusable(true);
-                editDepartment.setFocusableInTouchMode(true);
-                editDepartment.setEnabled(true);
-                editName.setFocusable(true);
-                editName.setFocusableInTouchMode(true);
-                editName.setEnabled(true);
-                editEmail.setFocusable(true);
-                editEmail.setFocusableInTouchMode(true);
-                editEmail.setEnabled(true);
-                editPhone1.setFocusable(true);
-                editPhone1.setFocusableInTouchMode(true);
-                editPhone1.setEnabled(true);
-                editPhone2.setFocusable(true);
-                editPhone2.setFocusableInTouchMode(true);
-                editPhone2.setEnabled(true);
-                editPhone3.setFocusable(true);
-                editPhone3.setFocusableInTouchMode(true);
-                editPhone3.setEnabled(true);
+                if (admin){
+                    editTitle.setVisibility(View.VISIBLE);
+                    editDepartment.setVisibility(View.VISIBLE);
+                    editName.setVisibility(View.VISIBLE);
+                    editEmail.setVisibility(View.VISIBLE);
+                    editPhone1.setVisibility(View.VISIBLE);
+                    editPhone2.setVisibility(View.VISIBLE);
+                    editPhone3.setVisibility(View.VISIBLE);
+                    txtSave.setVisibility(View.VISIBLE);
+                    buttonEdit.setVisibility(View.INVISIBLE);
+                    editTitle.setFocusable(true);
+                    editTitle.setFocusableInTouchMode(true);
+                    editTitle.setEnabled(true);
+                    editTitle.requestFocus();
+                    editDepartment.setFocusable(true);
+                    editDepartment.setFocusableInTouchMode(true);
+                    editDepartment.setEnabled(true);
+                    editName.setFocusable(true);
+                    editName.setFocusableInTouchMode(true);
+                    editName.setEnabled(true);
+                    editEmail.setFocusable(true);
+                    editEmail.setFocusableInTouchMode(true);
+                    editEmail.setEnabled(true);
+                    editPhone1.setFocusable(true);
+                    editPhone1.setFocusableInTouchMode(true);
+                    editPhone1.setEnabled(true);
+                    editPhone2.setFocusable(true);
+                    editPhone2.setFocusableInTouchMode(true);
+                    editPhone2.setEnabled(true);
+                    editPhone3.setFocusable(true);
+                    editPhone3.setFocusableInTouchMode(true);
+                    editPhone3.setEnabled(true);
+                }
             }
 
         });
@@ -195,22 +208,7 @@ public class CareTeamHealthcareFragment extends Fragment {
 
                     connectHandler.updateHealthcare(updateHealthCare);
                 }
-
-                //update healthcareList as well
-/*
-                healthcareList.get(gridPosition).name = editName.getText().toString();
-                healthcareList.get(gridPosition).title = editTitle.getText().toString();
-                healthcareList.get(gridPosition).department = editDepartment.getText().toString();
-                healthcareList.get(gridPosition).phone_number1 = editPhoneNumber1.getText().toString();
-                healthcareList.get(gridPosition).phone_number2 = editPhoneNumber2.getText().toString();
-                healthcareList.get(gridPosition).phone_number3 = editPhoneNumber3.getText().toString();
-                healthcareList.get(gridPosition).email = editEmail.getText().toString();
-                healthcareList.get(gridPosition).avatar = selectedHealthcareAvatar;
-
-                healthCareAdapter.notifyDataSetChanged();
-*/
             }
-
         });
 
         return view;

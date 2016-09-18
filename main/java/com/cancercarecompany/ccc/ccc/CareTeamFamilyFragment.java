@@ -17,6 +17,7 @@ public class CareTeamFamilyFragment extends Fragment {
     private ConnectionHandler connectHandler;
     private int position;
     private boolean admin = false;
+    private boolean myUser = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,15 +44,9 @@ public class CareTeamFamilyFragment extends Fragment {
         final CheckBox chkAdmin = (CheckBox) view.findViewById(R.id.chkbx_careteam);
         alertText1.setVisibility(View.INVISIBLE);
         alertText2.setVisibility(View.INVISIBLE);
+        txtSave.setVisibility(View.INVISIBLE);
+        buttonEdit.setVisibility(View.INVISIBLE);
         int familyAvatarId = 0;
-
-        // check admin
-        for (int i=0; i < connectHandler.patient.care_team.size(); i++){
-            if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
-                (connectHandler.patient.care_team.get(i).admin == 1)){
-                    admin = true;
-            }
-        }
 
         switch(listItem.type) {
 
@@ -78,9 +73,11 @@ public class CareTeamFamilyFragment extends Fragment {
                         if (connectHandler.patient.care_team.get(position).admin == 1){
                             chkAdmin.setChecked(true);
                         }
-
                         break;
                     }
+                }
+                if (connectHandler.person.person_ID == connectHandler.patient.care_team.get(position).person_ID){
+                    myUser = true;
                 }
                 break;
             case "invite":
@@ -100,6 +97,18 @@ public class CareTeamFamilyFragment extends Fragment {
                 break;
             case "healthcare":
                 break;
+        }
+
+            // check admin
+        for (int i=0; i < connectHandler.patient.care_team.size(); i++){
+            if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
+                (connectHandler.patient.care_team.get(i).admin == 1)){
+                    admin = true;
+            }
+        }
+
+        if (myUser || admin){
+            buttonEdit.setVisibility(View.VISIBLE);
         }
 
         switch (familyAvatarId) {
@@ -163,15 +172,12 @@ public class CareTeamFamilyFragment extends Fragment {
         }
         if (listItem.type == "new"){
             txtSave.setVisibility(View.VISIBLE);
-            buttonEdit.setVisibility(View.INVISIBLE);
             editName.requestFocus();
             txtName.setVisibility(View.INVISIBLE);
             txtEmail.setVisibility(View.INVISIBLE);
             txtPhoneNumber.setVisibility(View.INVISIBLE);
             txtRelation.setVisibility(View.INVISIBLE);
         }else{
-            txtSave.setVisibility(View.INVISIBLE);
-            buttonEdit.setVisibility(View.VISIBLE);
             editName.setFocusable(false);
             editEmail.setFocusable(false);
             editPhoneNumber.setFocusable(false);
@@ -183,8 +189,10 @@ public class CareTeamFamilyFragment extends Fragment {
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (connectHandler.person.person_ID == connectHandler.patient.care_team.get(position).person_ID){
-                    // Only possible to edit your own content
+                buttonEdit.setVisibility(View.INVISIBLE);
+                txtSave.setVisibility(View.VISIBLE);
+                if (myUser){
+                    // Only possible to edit your own content if you are not
                     editName.setVisibility(View.VISIBLE);
                     editEmail.setVisibility(View.VISIBLE);
                     editPhoneNumber.setVisibility(View.VISIBLE);
@@ -193,8 +201,6 @@ public class CareTeamFamilyFragment extends Fragment {
                     txtEmail.setVisibility(View.VISIBLE);
                     txtPhoneNumber.setVisibility(View.VISIBLE);
                     txtRelation.setVisibility(View.VISIBLE);
-                    txtSave.setVisibility(View.VISIBLE);
-                    buttonEdit.setVisibility(View.INVISIBLE);
                     editName.setFocusable(true);
                     editName.setFocusableInTouchMode(true);
                     editName.setEnabled(true);
@@ -212,16 +218,13 @@ public class CareTeamFamilyFragment extends Fragment {
                     chkAdmin.setFocusableInTouchMode(true);
                     chkAdmin.setEnabled(true);
                 }
-                else if (admin == true){
-                    txtSave.setVisibility(View.VISIBLE);
-                    buttonEdit.setVisibility(View.INVISIBLE);
+                else if (admin){
                     chkAdmin.setFocusable(true);
                     chkAdmin.setFocusableInTouchMode(true);
                     chkAdmin.setEnabled(true);
                     alertText2.setVisibility(View.VISIBLE);
                 }
             }
-
         });
 
         txtSave.setOnClickListener(new View.OnClickListener() {
