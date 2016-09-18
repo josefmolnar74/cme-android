@@ -10,18 +10,16 @@ import java.util.Arrays;
 public class LoginData implements Serializable {
 
     public int person_ID;
-    public String first_name;
-    public String last_name;
+    public String name;
     public String email;
     public String password;
     public ArrayList<Patient> patient;
 
 
-    public LoginData(int person_ID, String first_name, String last_name, String email, String password, Patient[] patient){
+    public LoginData(int person_ID, String name, String email, String password, Patient[] patient){
 
         this.person_ID = person_ID;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.name = name;
         this.email = email;
         this.password = password;
         this.patient = new ArrayList<>(Arrays.asList(patient));

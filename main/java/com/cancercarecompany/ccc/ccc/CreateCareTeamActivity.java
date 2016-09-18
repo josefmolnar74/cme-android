@@ -13,7 +13,6 @@ public class CreateCareTeamActivity extends AppCompatActivity {
     EditText patientName;
     EditText yearOfBirth;
     EditText diagnose;
-    EditText relationship;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +21,6 @@ public class CreateCareTeamActivity extends AppCompatActivity {
         patientName = (EditText) findViewById(R.id.text_create_careteam_patientname);
         yearOfBirth = (EditText) findViewById(R.id.text_create_careteam_year_of_birth);
         diagnose = (EditText) findViewById(R.id.text_create_careteam_diagnose);
-        relationship = (EditText) findViewById(R.id.text_create_careteam_relationship);
 
         // Statusbar color
         Window window = this.getWindow();
@@ -37,13 +35,11 @@ public class CreateCareTeamActivity extends AppCompatActivity {
         String patientNameString = (String) patientName.getText().toString();
         String yearOfBirthString = (String)yearOfBirth.getText().toString();
         String diagnoseString = (String) diagnose.getText().toString();
-        String relationshipString = (String) relationship.getText().toString();
 
         if (!patientNameString.isEmpty() && !yearOfBirthString.isEmpty() && !diagnoseString.isEmpty()){
             intent.putExtra(RegisterActivity.PATIENT_NAME, patientNameString);
             intent.putExtra(RegisterActivity.YEAR_OF_BIRTH, yearOfBirthString);
             intent.putExtra(RegisterActivity.DIAGNOSE, diagnoseString);
-            intent.putExtra(RegisterActivity.RELATIONSHIP, relationshipString);
             startActivity(intent);
             finish();
         }

@@ -234,7 +234,7 @@ public class ConnectionHandler {
         if (checkConnection()){
             Gson gson = new Gson();
             if (person == null) {
-                person = new Person(newUser.person_ID, newUser.first_name, newUser.last_name, newUser.email,newUser.password,newUser.avatar, null);
+                person = new Person(newUser.person_ID, newUser.name, newUser.email,newUser.password,newUser.avatar, null);
             }
             String messageData = gson.toJson(person);
             sendMessage(MESSAGE_CREATE, CONTENT_PERSON, messageData);

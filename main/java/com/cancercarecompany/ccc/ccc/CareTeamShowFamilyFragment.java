@@ -25,13 +25,11 @@ public class CareTeamShowFamilyFragment extends Fragment {
         connectHandler = ConnectionHandler.getInstance();
 
         View view = inflater.inflate(R.layout.fragment_care_team_show_family, container, false);
-        final TextView txtFirstName = (TextView) view.findViewById(R.id.txt_careteam_firstname);
-        final TextView txtLastName = (TextView) view.findViewById(R.id.txt_careteam_family_lastname);
+        final TextView txtName = (TextView) view.findViewById(R.id.txt_careteam_name);
         final TextView txtPhoneNumber = (TextView) view.findViewById(R.id.txt_careteam_family_phone);
         final TextView txtEmail = (TextView) view.findViewById(R.id.txt_careteam_family_email);
         final TextView txtRelation = (TextView) view.findViewById(R.id.txt_careteam_family_relation);
-        final EditText editFirstName = (EditText) view.findViewById(R.id.etxt_careteam_firstName);
-        final EditText editLastName = (EditText) view.findViewById(R.id.etxt_careteam_lastname);
+        final EditText editName = (EditText) view.findViewById(R.id.etxt_careteam_name);
         final EditText editPhoneNumber = (EditText) view.findViewById(R.id.etxt_careteam_phone);
         final EditText editEmail = (EditText) view.findViewById(R.id.etx_careteamt_email);
         final EditText editRelation = (EditText) view.findViewById(R.id.etxt_careteam_relation);
@@ -46,8 +44,7 @@ public class CareTeamShowFamilyFragment extends Fragment {
                     if (connectHandler.patient.care_team.get(i).person_ID == listItem.id) {
                         position = i;
                         familyAvatarId = connectHandler.patient.care_team.get(position).avatar;
-                        editFirstName.setText(connectHandler.patient.care_team.get(position).first_name);
-                        editLastName.setText(connectHandler.patient.care_team.get(position).last_name);
+                        editName.setText(connectHandler.patient.care_team.get(position).name);
                         editEmail.setText(connectHandler.patient.care_team.get(position).email);
                         editRelation.setText(connectHandler.patient.care_team.get(position).relationship);
                         break;
@@ -59,8 +56,7 @@ public class CareTeamShowFamilyFragment extends Fragment {
                     if (connectHandler.invites.invite_data.get(i).invite_ID == listItem.id) {
                         position = i;
                         familyAvatarId = connectHandler.invites.invite_data.get(position).invited_avatar;
-                        editFirstName.setText(connectHandler.invites.invite_data.get(position).invited_first_name);
-                        editLastName.setText(connectHandler.invites.invite_data.get(position).invited_last_name);
+                        editName.setText(connectHandler.invites.invite_data.get(position).invited_name);
                         editEmail.setText(connectHandler.invites.invite_data.get(position).invited_email);
                         editRelation.setText(connectHandler.invites.invite_data.get(position).invited_relationship);
                         break;
@@ -133,16 +129,14 @@ public class CareTeamShowFamilyFragment extends Fragment {
         if (listItem.type == "new"){
             txtSave.setVisibility(View.VISIBLE);
             buttonEdit.setVisibility(View.INVISIBLE);
-            txtFirstName.setVisibility(View.INVISIBLE);
-            txtLastName.setVisibility(View.INVISIBLE);
+            txtName.setVisibility(View.INVISIBLE);
             txtEmail.setVisibility(View.INVISIBLE);
             txtPhoneNumber.setVisibility(View.INVISIBLE);
             txtRelation.setVisibility(View.INVISIBLE);
         }else{
             txtSave.setVisibility(View.INVISIBLE);
             buttonEdit.setVisibility(View.VISIBLE);
-            editFirstName.setFocusable(false);
-            editLastName.setFocusable(false);
+            editName.setFocusable(false);
             editEmail.setFocusable(false);
             editPhoneNumber.setFocusable(false);
             editRelation.setFocusable(false);
@@ -151,19 +145,15 @@ public class CareTeamShowFamilyFragment extends Fragment {
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txtFirstName.setVisibility(View.VISIBLE);
-                txtLastName.setVisibility(View.VISIBLE);
+                txtName.setVisibility(View.VISIBLE);
                 txtEmail.setVisibility(View.VISIBLE);
                 txtPhoneNumber.setVisibility(View.VISIBLE);
                 txtRelation.setVisibility(View.VISIBLE);
                 txtSave.setVisibility(View.VISIBLE);
                 buttonEdit.setVisibility(View.INVISIBLE);
-                editFirstName.setFocusable(true);
-                editFirstName.setFocusableInTouchMode(true);
-                editFirstName.setEnabled(true);
-                editLastName.setFocusable(true);
-                editLastName.setFocusableInTouchMode(true);
-                editLastName.setEnabled(true);
+                editName.setFocusable(true);
+                editName.setFocusableInTouchMode(true);
+                editName.setEnabled(true);
                 editEmail.setFocusable(true);
                 editEmail.setFocusableInTouchMode(true);
                 editEmail.setEnabled(true);
@@ -191,7 +181,7 @@ public class CareTeamShowFamilyFragment extends Fragment {
                         connectHandler.patient.get(gridPosition).healthcare_ID,
                         connectHandler.patient.patient_ID,
                          editTitle.getText().toString(),
-                        editName.getText().toString(),
+                        txtName.getText().toString(),
                         editDepartment.getText().toString(),
                         editPhoneNumber1.getText().toString(),
                         editPhoneNumber2.getText().toString(),
@@ -205,7 +195,7 @@ public class CareTeamShowFamilyFragment extends Fragment {
 
                 //update healthcareList as well
 /*
-                healthcareList.get(gridPosition).name = editName.getText().toString();
+                healthcareList.get(gridPosition).name = txtName.getText().toString();
                 healthcareList.get(gridPosition).title = editTitle.getText().toString();
                 healthcareList.get(gridPosition).department = editDepartment.getText().toString();
                 healthcareList.get(gridPosition).phone_number1 = editPhoneNumber1.getText().toString();

@@ -192,7 +192,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
         if (connectHandler.person != null){
-            loggedIn.setText(connectHandler.person.first_name);
+            loggedIn.setText(connectHandler.person.name);
         }
 
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);

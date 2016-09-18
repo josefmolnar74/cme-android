@@ -16,26 +16,20 @@ import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText registerFirstName;
-    EditText registerLastName;
-    EditText emailLogin;
+    EditText registerName;
     EditText registerPassword;
-    EditText passwordLogin;
     EditText registerEmail;
-    RelativeLayout registerLayout;
-    Button cancelButton;
+    EditText registerRelationship;
     TextView registerButton;
 
     private String patientName;
     private String yearOfBirth;
     private String diagnose;
-    private String relationship;
     private String invitedEmail;
 
     public static final String PATIENT_NAME = "patient name"; //From create care team
     public static final String YEAR_OF_BIRTH = "year of birth"; //From create care team
     public static final String DIAGNOSE = "diagnose"; //From create care team
-    public static final String RELATIONSHIP = "relationship"; //From create care team
     public static final String INVITED_EMAIL   = "invited email"; //From join care team
 
     private ConnectionHandler connectHandler;
@@ -47,17 +41,17 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         connectHandler = ConnectionHandler.getInstance();
 
-        registerFirstName = (EditText) findViewById(R.id.text_register_firstname);
-        registerLastName = (EditText) findViewById(R.id.text_register_lastname);
+        registerName = (EditText) findViewById(R.id.text_register_name);
         registerPassword = (EditText) findViewById(R.id.text_register_password);
         registerEmail = (EditText) findViewById(R.id.text_register_email);
+        registerRelationship = (EditText) findViewById(R.id.text_create_careteam_relationship);
+
 
         // Get values sent from Create team and join activity
         Intent intent = getIntent();
         patientName = intent.getStringExtra(PATIENT_NAME);
         yearOfBirth = intent.getStringExtra(YEAR_OF_BIRTH);
         diagnose = intent.getStringExtra(DIAGNOSE);
-        relationship = intent.getStringExtra(RELATIONSHIP);
         invitedEmail = intent.getStringExtra(INVITED_EMAIL);
         registerEmail.setText(invitedEmail);
 
@@ -78,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register(){
-        Person newUser = new Person(0 , registerFirstName.getText().toString(), registerLastName.getText().toString(), registerEmail.getText().toString(), registerPassword.getText().toString(), 0, null);
+        Person newUser = new Person(0 , registerName.getText().toString(), registerEmail.getText().toString(), registerPassword.getText().toString(), 0, null);
         connectHandler.createUser(newUser);
         while (connectHandler.socketBusy){}
 
@@ -106,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
             if (patientName != null){
                 // User tries to create new patient
                 Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
-                connectHandler.createPatient(newPatient, relationship);
+                connectHandler.createPatient(newPatient, registerRelationship.getText().toString());
             }
             else if (invitedEmail != null){//replace with invite object
                 connectHandler.acceptCareTeamInvite();

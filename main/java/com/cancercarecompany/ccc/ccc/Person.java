@@ -9,18 +9,16 @@ import java.util.ArrayList;
 public class Person implements Serializable {
 
     public int person_ID;
-    public String first_name;
-    public String last_name;
+    public String name;
     public String email;
     public String password;
     public int avatar;
     public ArrayList<Patient> patient;
 
 
-    public Person (int person_ID, String firstname, String lastname, String email, String password, int avatar, ArrayList<Patient> patient){
+    public Person (int person_ID, String name, String email, String password, int avatar, ArrayList<Patient> patient){
         this.person_ID = person_ID;
-        this.first_name = firstname;
-        this.last_name = lastname;
+        this.name = name;
         this.email = email;
         this.password = password;
         this.patient = patient;

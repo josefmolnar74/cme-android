@@ -102,7 +102,7 @@
                 <Button
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/button_login"
+                    android:text="@string/login"
                     android:id="@+id/login"
                     android:onClick="onClickLogin"/>
 

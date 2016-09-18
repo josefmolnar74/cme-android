@@ -31,7 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         autoLogin = sharedPref.getBoolean(getString(R.string.login_auto_login), false);
         if (autoLogin){
-            Person newUser = new Person(0, null, null,
+            Person newUser = new Person(0, null,
                     sharedPref.getString(getString(R.string.login_saved_email), ""),
                     sharedPref.getString(getString(R.string.login_saved_password), ""),
                     0, null);
@@ -77,7 +77,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void onClickLogin(View view){
-        Person newUser = new Person(0, null, null, loginEmail.getText().toString(), loginPassword.getText().toString(), 0, null);
+        Person newUser = new Person(0, null, loginEmail.getText().toString(), loginPassword.getText().toString(), 0, null);
         connectHandler.login(newUser);
 
         final Handler handler = new Handler();

@@ -62,7 +62,7 @@ public class CareTeamExpListFragment extends Fragment {
                     CareTeamExpandListItem listItem = new CareTeamExpandListItem();
                     listItem.id = connectHandler.patient.care_team.get(i).person_ID;
                     listItem.type = "family";
-                    listItem.name = connectHandler.patient.care_team.get(i).first_name;
+                    listItem.name = connectHandler.patient.care_team.get(i).name;
                     listItem.avatar = connectHandler.patient.care_team.get(i).avatar;
                     listItem.relationship = connectHandler.patient.care_team.get(i).relationship;
                     familyExpList.add(listItem);
@@ -78,7 +78,7 @@ public class CareTeamExpListFragment extends Fragment {
                     CareTeamExpandListItem listItem = new CareTeamExpandListItem();
                     listItem.id = connectHandler.invites.invite_data.get(i).invite_ID;
                     listItem.type = "invite";
-                    listItem.name = connectHandler.invites.invite_data.get(i).invited_first_name;
+                    listItem.name = connectHandler.invites.invite_data.get(i).invited_name;
                     listItem.avatar = connectHandler.invites.invite_data.get(i).invited_avatar;
                     listItem.relationship = connectHandler.invites.invite_data.get(i).invited_relationship;
                     familyExpList.add(listItem);

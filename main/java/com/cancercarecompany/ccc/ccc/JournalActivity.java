@@ -278,7 +278,7 @@ public class JournalActivity extends AppCompatActivity {
         // Display logged in name
         TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
         if (connectHandler.person != null) {
-            loggedIn.setText(connectHandler.person.first_name);
+            loggedIn.setText(connectHandler.person.name);
         }
 
         journalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
