@@ -48,11 +48,16 @@ public class CareTeamExpListFragment extends Fragment {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<CareTeamExpandListItem>>();
 
-        listDataHeader.add("Family and friends");
-        listDataHeader.add("Health care");
+        listDataHeader.add(getResources().getString(R.string.careteam_family));
+        listDataHeader.add(getResources().getString(R.string.careteam_healthcare));
 
         if (connectHandler.patient != null) {
             if (connectHandler.patient.care_team != null) {
+                CareTeamExpandListItem dummyListItem = new CareTeamExpandListItem();
+                dummyListItem.name = getResources().getString(R.string.careteam_invite_new_member);
+                dummyListItem.type = "new";
+                dummyListItem.avatar = 255;
+                familyExpList.add(dummyListItem);
                 for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
                     CareTeamExpandListItem listItem = new CareTeamExpandListItem();
                     listItem.id = connectHandler.patient.care_team.get(i).person_ID;
@@ -85,6 +90,11 @@ public class CareTeamExpListFragment extends Fragment {
             }
 
             if (connectHandler.healthcare != null) {
+                CareTeamExpandListItem dummyListItem = new CareTeamExpandListItem();
+                dummyListItem.name = getResources().getString(R.string.careteam_create_new_healthcare);
+                dummyListItem.type = "new";
+                dummyListItem.avatar = 255;
+                healthCareExpList.add(dummyListItem);
                 for (int i = 0; i < connectHandler.healthcare.healthcare_data.size(); i++) {
                     CareTeamExpandListItem listItem = new CareTeamExpandListItem();
                     listItem.id = connectHandler.healthcare.healthcare_data.get(i).healthcare_ID;

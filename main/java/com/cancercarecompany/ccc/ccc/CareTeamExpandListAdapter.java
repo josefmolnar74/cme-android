@@ -82,7 +82,7 @@ public class CareTeamExpandListAdapter extends BaseExpandableListAdapter {
                     break;
             }
         }
-        else if ((listItem.type == "family") || (listItem.type == "invite")){
+        else if ((listItem.type == "family") || (listItem.type == "invite")) {
             switch (listItem.avatar) {
                 case 1:
                     avatar.setImageResource(R.drawable.family_avatar_1);
@@ -139,6 +139,9 @@ public class CareTeamExpandListAdapter extends BaseExpandableListAdapter {
                     avatar.setImageResource(R.drawable.family_avatar_18);
                     break;
             }
+        }
+        else{
+            avatar.setImageResource(R.drawable.addcontact);
         }
         return convertView;
     }

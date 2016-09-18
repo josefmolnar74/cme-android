@@ -25,6 +25,14 @@ public class CareTeamShowHealthcareFragment extends Fragment {
         connectHandler = ConnectionHandler.getInstance();
 
         View view = inflater.inflate(R.layout.fragment_care_team_show_healthcare, container, false);
+        final TextView txtTitle = (TextView) view.findViewById(R.id.txt_careteam_healthcare_title);
+        final TextView txtDepartment = (TextView) view.findViewById(R.id.txt_careteam_healthcare_department);
+        final TextView txtName = (TextView) view.findViewById(R.id.txt_careteam_healthcare_name);
+        final TextView txtEmail = (TextView) view.findViewById(R.id.txt_careteam_healthcare_email);
+        final TextView txtPhone1 = (TextView) view.findViewById(R.id.txt_careteam_healthcare_phone1);
+        final TextView txtPhone2 = (TextView) view.findViewById(R.id.txt_careteam_healthcare_phone2);
+        final TextView txtPhone3 = (TextView) view.findViewById(R.id.txt_careteam_healthcare_phone3);
+
         final EditText editTitle = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_title);
         final EditText editDepartment = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_department);
         final EditText editName = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_name);
@@ -51,10 +59,10 @@ public class CareTeamShowHealthcareFragment extends Fragment {
             }
         }
 
-        txtSave.setVisibility(View.INVISIBLE);
-        buttonEdit.setVisibility(View.VISIBLE);
-
         switch (healthcareAvatarId) {
+            case 255:
+                healthcareAvatar.setImageResource(R.drawable.addcontact);
+                break;
             case 1:
                 healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
                 break;
@@ -72,8 +80,22 @@ public class CareTeamShowHealthcareFragment extends Fragment {
                 break;
         }
 
+        if (listItem.type == "new") {
+            txtSave.setVisibility(View.VISIBLE);
+            buttonEdit.setVisibility(View.INVISIBLE);
+            editTitle.setVisibility(View.INVISIBLE);
+            editDepartment.setVisibility(View.INVISIBLE);
+            editName.setVisibility(View.INVISIBLE);
+            editPhone1.setVisibility(View.INVISIBLE);
+            editPhone2.setVisibility(View.INVISIBLE);
+            editPhone3.setVisibility(View.INVISIBLE);
 
-//        healthcareAvatarId.setFocusable(false);
+        }else{
+            txtSave.setVisibility(View.INVISIBLE);
+            buttonEdit.setVisibility(View.VISIBLE);
+
+        }
+
         editTitle.setFocusable(false);
         editDepartment.setFocusable(false);
         editName.setFocusable(false);

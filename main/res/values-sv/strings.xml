@@ -96,6 +96,8 @@
 
     <string name="careteam_healthcare">Hälsovård</string>
     <string name="careteam_family">Familj - vänner</string>
+    <string name="careteam_invite_new_member">Bjud in en ny medlem</string>
+    <string name="careteam_create_new_healthcare">Skapa ny vårdperson</string>
 
     <string name="welcome1">Välkommen till C-me kids!</string>
     <string name="welcome2">Här kan du leka, utforska och dokumentera ditt barns cancerresa.\nSkapa ditt team och dela med familj och vänner.</string>

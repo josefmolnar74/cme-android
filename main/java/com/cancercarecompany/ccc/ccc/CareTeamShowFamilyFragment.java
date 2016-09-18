@@ -25,6 +25,11 @@ public class CareTeamShowFamilyFragment extends Fragment {
         connectHandler = ConnectionHandler.getInstance();
 
         View view = inflater.inflate(R.layout.fragment_care_team_show_family, container, false);
+        final TextView txtFirstName = (TextView) view.findViewById(R.id.txt_careteam_firstname);
+        final TextView txtLastName = (TextView) view.findViewById(R.id.txt_careteam_family_lastname);
+        final TextView txtPhoneNumber = (TextView) view.findViewById(R.id.txt_careteam_family_phone);
+        final TextView txtEmail = (TextView) view.findViewById(R.id.txt_careteam_family_email);
+        final TextView txtRelation = (TextView) view.findViewById(R.id.txt_careteam_family_relation);
         final EditText editFirstName = (EditText) view.findViewById(R.id.etxt_careteam_firstName);
         final EditText editLastName = (EditText) view.findViewById(R.id.etxt_careteam_lastname);
         final EditText editPhoneNumber = (EditText) view.findViewById(R.id.etxt_careteam_phone);
@@ -66,77 +71,91 @@ public class CareTeamShowFamilyFragment extends Fragment {
                 break;
         }
 
-        txtSave.setVisibility(View.INVISIBLE);
-        buttonEdit.setVisibility(View.VISIBLE);
-
-        if ((listItem.type == "family") || (listItem.type == "invite")){
-            switch (familyAvatarId) {
-                case 1:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_1);
-                    break;
-                case 2:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_2);
-                    break;
-                case 3:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_3);
-                    break;
-                case 4:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_4);
-                    break;
-                case 5:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_5);
-                    break;
-                case 6:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_6);
-                    break;
-                case 7:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_7);
-                    break;
-                case 8:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_8);
-                    break;
-                case 9:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_9);
-                    break;
-                case 10:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_10);
-                    break;
-                case 11:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_11);
-                    break;
-                case 12:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_12);
-                    break;
-                case 13:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_13);
-                    break;
-                case 14:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_14);
-                    break;
-                case 15:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_15);
-                    break;
-                case 16:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_16);
-                    break;
-                case 17:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_17);
-                    break;
-                case 18:
-                    familyAvatar.setImageResource(R.drawable.family_avatar_18);
-                    break;
-            }
+        switch (familyAvatarId) {
+            case 255:
+                familyAvatar.setImageResource(R.drawable.addcontact);
+                break;
+            case 1:
+                familyAvatar.setImageResource(R.drawable.family_avatar_1);
+                break;
+            case 2:
+                familyAvatar.setImageResource(R.drawable.family_avatar_2);
+                break;
+            case 3:
+                familyAvatar.setImageResource(R.drawable.family_avatar_3);
+                break;
+            case 4:
+                familyAvatar.setImageResource(R.drawable.family_avatar_4);
+                break;
+            case 5:
+                familyAvatar.setImageResource(R.drawable.family_avatar_5);
+                break;
+            case 6:
+                familyAvatar.setImageResource(R.drawable.family_avatar_6);
+                break;
+            case 7:
+                familyAvatar.setImageResource(R.drawable.family_avatar_7);
+                break;
+            case 8:
+                familyAvatar.setImageResource(R.drawable.family_avatar_8);
+                break;
+            case 9:
+                familyAvatar.setImageResource(R.drawable.family_avatar_9);
+                break;
+            case 10:
+                familyAvatar.setImageResource(R.drawable.family_avatar_10);
+                break;
+            case 11:
+                familyAvatar.setImageResource(R.drawable.family_avatar_11);
+                break;
+            case 12:
+                familyAvatar.setImageResource(R.drawable.family_avatar_12);
+                break;
+            case 13:
+                familyAvatar.setImageResource(R.drawable.family_avatar_13);
+                break;
+            case 14:
+                familyAvatar.setImageResource(R.drawable.family_avatar_14);
+                break;
+            case 15:
+                familyAvatar.setImageResource(R.drawable.family_avatar_15);
+                break;
+            case 16:
+                familyAvatar.setImageResource(R.drawable.family_avatar_16);
+                break;
+            case 17:
+                familyAvatar.setImageResource(R.drawable.family_avatar_17);
+                break;
+            case 18:
+                familyAvatar.setImageResource(R.drawable.family_avatar_18);
+                break;
         }
-
-        editFirstName.setFocusable(false);
-        editLastName.setFocusable(false);
-        editEmail.setFocusable(false);
-        editPhoneNumber.setFocusable(false);
-        editRelation.setFocusable(false);
+        if (listItem.type == "new"){
+            txtSave.setVisibility(View.VISIBLE);
+            buttonEdit.setVisibility(View.INVISIBLE);
+            txtFirstName.setVisibility(View.INVISIBLE);
+            txtLastName.setVisibility(View.INVISIBLE);
+            txtEmail.setVisibility(View.INVISIBLE);
+            txtPhoneNumber.setVisibility(View.INVISIBLE);
+            txtRelation.setVisibility(View.INVISIBLE);
+        }else{
+            txtSave.setVisibility(View.INVISIBLE);
+            buttonEdit.setVisibility(View.VISIBLE);
+            editFirstName.setFocusable(false);
+            editLastName.setFocusable(false);
+            editEmail.setFocusable(false);
+            editPhoneNumber.setFocusable(false);
+            editRelation.setFocusable(false);
+        }
 
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                txtFirstName.setVisibility(View.VISIBLE);
+                txtLastName.setVisibility(View.VISIBLE);
+                txtEmail.setVisibility(View.VISIBLE);
+                txtPhoneNumber.setVisibility(View.VISIBLE);
+                txtRelation.setVisibility(View.VISIBLE);
                 txtSave.setVisibility(View.VISIBLE);
                 buttonEdit.setVisibility(View.INVISIBLE);
                 editFirstName.setFocusable(true);

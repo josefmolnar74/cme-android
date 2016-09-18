@@ -27,7 +27,6 @@ public class CareTeamActivity extends AppCompatActivity {
 
     public int selectedFamilyAvatar;
     public int selectedHealthcareAvatar;
-    CareTeamHealthCareAdapter healthCareAdapter;
     RelativeLayout relativeLayout;
     LinearLayout wholeScreen;
     ImageButton familyAvatar;

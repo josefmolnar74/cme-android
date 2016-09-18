@@ -68,15 +68,14 @@
                     android:layout_height="80dp">
 
                     <ImageButton
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
                         android:scaleType="centerInside"
                         android:adjustViewBounds="true"
                         android:id="@+id/img_careteam_family_avatar"
                         android:layout_gravity="left|top"
                         android:layout_marginRight="20dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp" />
 
                 </RelativeLayout>
@@ -100,7 +99,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="20dp"
                         android:text="@string/careteam_family_firstname"
-                        android:id="@+id/txt_careteam_title"
+                        android:id="@+id/txt_careteam_firstname"
                         android:textColor="@color/cme_dark"
                         android:textSize="20sp"
                         android:layout_alignParentTop="true" />
@@ -110,12 +109,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="Person first name"
+                        android:hint="@string/careteam_family_firstname"
                         android:id="@+id/etxt_careteam_firstName"
                         android:inputType="textPersonName"
                         android:textSize="20sp"
                         android:layout_alignParentBottom="true"
-                        android:layout_alignStart="@+id/txt_careteam_title" />
+                        android:layout_alignStart="@+id/txt_careteam_firstname" />
 
                 </RelativeLayout>
 
@@ -138,7 +137,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="20dp"
                         android:text="@string/careteam_family_lastname"
-                        android:id="@+id/txt_careteam_healthcare_department"
+                        android:id="@+id/txt_careteam_family_lastname"
                         android:textColor="@color/cme_dark"
                         android:textSize="20sp"
                         android:layout_alignParentTop="true" />
@@ -148,11 +147,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="Person last name"
+                        android:hint="@string/careteam_family_lastname"
                         android:id="@+id/etxt_careteam_lastname"
                         android:textSize="20sp"
                         android:layout_alignParentBottom="true"
-                        android:layout_alignStart="@+id/txt_careteam_healthcare_department" />
+                        android:layout_alignStart="@+id/txt_careteam_family_lastname" />
 
                 </RelativeLayout>
 
@@ -175,7 +174,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="20dp"
                         android:text="@string/careteam_family_email"
-                        android:id="@+id/txt_careteam_healthcare_email"
+                        android:id="@+id/txt_careteam_family_email"
                         android:textColor="@color/cme_dark"
                         android:textSize="20sp"
                         android:layout_alignParentTop="true" />
@@ -185,11 +184,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="Person email"
+                        android:hint="@string/careteam_family_email"
                         android:id="@+id/etx_careteamt_email"
                         android:textSize="20sp"
                         android:layout_alignParentBottom="true"
-                        android:layout_alignStart="@+id/txt_careteam_healthcare_email" />
+                        android:layout_alignStart="@+id/txt_careteam_family_email" />
 
                 </RelativeLayout>
 
@@ -212,7 +211,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="20dp"
                         android:text="@string/careteam_family_phone"
-                        android:id="@+id/txt_careteam_healthcare_phone"
+                        android:id="@+id/txt_careteam_family_phone"
                         android:textColor="@color/cme_dark"
                         android:textSize="20sp"
                         android:layout_alignParentTop="true" />
@@ -222,11 +221,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="Person phone number"
+                        android:hint="@string/careteam_family_phone"
                         android:id="@+id/etxt_careteam_phone"
                         android:textSize="20sp"
                         android:layout_alignParentBottom="true"
-                        android:layout_alignStart="@+id/txt_careteam_healthcare_phone" />
+                        android:layout_alignStart="@+id/txt_careteam_family_phone" />
 
                 </RelativeLayout>
 
@@ -250,7 +249,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="20dp"
                         android:text="@string/careteam_family_relationship"
-                        android:id="@+id/txt_careteam_relation"
+                        android:id="@+id/txt_careteam_family_relation"
                         android:textColor="@color/cme_dark"
                         android:textSize="20sp"
                         android:layout_alignParentTop="true" />
@@ -260,11 +259,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="Person relationship"
+                        android:text="@string/careteam_family_relationship"
                         android:id="@+id/etxt_careteam_relation"
                         android:textSize="20sp"
                         android:layout_alignParentBottom="true"
-                        android:layout_alignStart="@+id/txt_careteam_relation" />
+                        android:layout_alignStart="@+id/txt_careteam_family_relation" />
 
                 </RelativeLayout>
 
