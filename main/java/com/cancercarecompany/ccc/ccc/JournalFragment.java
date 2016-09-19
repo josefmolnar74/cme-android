@@ -38,10 +38,10 @@ public class JournalFragment extends Fragment {
         System.out.println("LANGUAGE SETTINGS: " + languageString);
         //////////////////////////
 
-//        FragmentTransaction ft = getFragmentManager().beginTransaction();
-//        JournalExpandListFragment myJournalExpList = new JournalExpandListFragment();
-//        ft.replace(R.id.journal_placeholder1, myJournalExpList);
-//        ft.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        JournalExpandListFragment myJournalExpList = new JournalExpandListFragment();
+        ft.replace(R.id.journal_placeholder1, myJournalExpList);
+        ft.commit();
         return view;
     }
 

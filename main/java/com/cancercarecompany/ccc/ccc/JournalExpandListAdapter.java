@@ -45,13 +45,17 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final JournalExpandListItem listItem = (JournalExpandListItem) getChild(groupPosition, childPosition);
+        final String listItem = (String) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.journal_expand_list_item, null);
         }
+
+        TextView txtListName = (TextView) convertView
+                .findViewById(R.id.txt_journal_list_name);
+        txtListName.setText(listItem);
 
         return convertView;
     }

@@ -45,7 +45,7 @@ public class CareTeamFragment extends Fragment {
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         CareTeamExpListFragment myCareTeamExpList = new CareTeamExpListFragment();
-        ft.replace(R.id.journal_placeholder1, myCareTeamExpList);
+        ft.replace(R.id.careteam_placeholder1, myCareTeamExpList);
         ft.commit();
         return view;
     }

@@ -14,9 +14,13 @@
         android:id="@+id/careteam_list_header"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
+        android:layout_gravity="center"
         android:text="Family and Friends"
-        android:textSize="@dimen/LARGE"
+        android:textSize="@dimen/MEDIUM"
         android:textColor="@color/white"
-        android:textAlignment="textStart" />
+        android:textAlignment="textStart"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp" />
 
 </LinearLayout>

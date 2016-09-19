@@ -43,10 +43,10 @@ public class JournalExpandListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_journal_exp_list, container, false);
         expandListView = (ExpandableListView) view.findViewById(R.id.explv_journal);
-        List<String> emotionalExpandList = new ArrayList<String>();
-        List<String> physicalExpandList = new ArrayList<String>();
-        List<String> familyExpandList = new ArrayList<String>();
-        List<String> practicalExpandList = new ArrayList<String>();
+        emotionalExpandList = new ArrayList<String>();
+        physicalExpandList = new ArrayList<String>();
+        familyExpandList = new ArrayList<String>();
+        practicalExpandList = new ArrayList<String>();
 
         //build list data
         listDataHeader = new ArrayList<String>();
@@ -55,7 +55,9 @@ public class JournalExpandListFragment extends Fragment {
         listDataHeader.add(getResources().getString(R.string.journal_problem_emotional));
         listDataHeader.add(getResources().getString(R.string.journal_problem_physical));
         listDataHeader.add(getResources().getString(R.string.journal_problem_family));
-        listDataHeader.add(getResources().getString(R.string.journal_problem_family));
+        listDataHeader.add(getResources().getString(R.string.journal_problem_practical));
+
+        prepareExpList();
 
         listDataChild.put(listDataHeader.get(0), emotionalExpandList); // Header, Child data
         listDataChild.put(listDataHeader.get(1), physicalExpandList);
@@ -66,8 +68,8 @@ public class JournalExpandListFragment extends Fragment {
 
         expandListView.setAdapter(expandListAdapter);
 
-        expandListView.expandGroup(0);
-        expandListView.expandGroup(1);
+//        expandListView.expandGroup(0);
+//        expandListView.expandGroup(1);
 
         // Listview on child click listener
         expandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -99,5 +101,49 @@ public class JournalExpandListFragment extends Fragment {
         return view;
     }
 
+    private void prepareExpList(){
+        emotionalExpandList.add(getString(R.string.journal_problem_emotional_depression));
+        emotionalExpandList.add(getString(R.string.journal_problem_emotional_fear));
+        emotionalExpandList.add(getString(R.string.journal_problem_emotional_nervous));
+        emotionalExpandList.add(getString(R.string.journal_problem_emotional_dejection));
+        emotionalExpandList.add(getString(R.string.journal_problem_emotional_worry));
+        emotionalExpandList.add(getString(R.string.journal_problem_emotional_loss));
+
+        physicalExpandList.add(getString(R.string.journal_problem_physical_appearance));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_hygiene));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_breathing));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_urination));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_constipation));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_diarrhea));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_eating));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_fatigue));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_swollen));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_fever));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_mobility));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_digestion));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_memory));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_mouth));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_nausea));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_nose));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_pain));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_sex));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_dermal));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_sleep));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_abuse));
+        physicalExpandList.add(getString(R.string.journal_problem_physical_tingling));
+
+        familyExpandList.add(getString(R.string.journal_problem_family_relation_child));
+        familyExpandList.add(getString(R.string.journal_problem_family_relation_partner));
+        familyExpandList.add(getString(R.string.journal_problem_family_children));
+        familyExpandList.add(getString(R.string.journal_problem_family_health));
+
+        practicalExpandList.add(getString(R.string.journal_problem_practical_childcare));
+        practicalExpandList.add(getString(R.string.journal_problem_practical_home));
+        practicalExpandList.add(getString(R.string.journal_problem_practical_economy));
+        practicalExpandList.add(getString(R.string.journal_problem_practical_transportation));
+        practicalExpandList.add(getString(R.string.journal_problem_practical_work));
+        practicalExpandList.add(getString(R.string.journal_problem_practical_decision));
+
+    }
 }
 

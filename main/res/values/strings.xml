@@ -106,6 +106,7 @@
     <string name="journal_problem_emotional_dejection">Nedstämdhet</string>
     <string name="journal_problem_emotional_worry">Oro</string>
     <string name="journal_problem_emotional_loss">Förlust av intresse för vardagliga aktiviteter</string>
+
     <string name="journal_problem_physical">Fysiska problem</string>
     <string name="journal_problem_physical_appearance">Utseende</string>
     <string name="journal_problem_physical_hygiene">Hygien/påklädning</string>
@@ -131,11 +132,12 @@
     <string name="journal_problem_physical_tingling">Stickningar i händer fötter</string>
 
 
-    <string name="journal_problem_family">Familjerelaterade problem</string>
+    <string name="journal_problem_family">Familjrelaterade problem</string>
     <string name="journal_problem_family_relation_child">Relation till barn</string>
     <string name="journal_problem_family_relation_partner">Relation till partner</string>
     <string name="journal_problem_family_children">Möjligheten att få barn</string>
     <string name="journal_problem_family_health">Hälsoproblem inom familjen</string>
+
     <string name="journal_problem_practical">Praktiska problem</string>
     <string name="journal_problem_practical_childcare">Barnomsorg</string>
     <string name="journal_problem_practical_home">Bostad</string>

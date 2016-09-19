@@ -143,8 +143,6 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     return JournalFragment.newInstance();
                 case 3:
-                    return EventManagerFragment.newInstance();
-                case 4:
                     return JourneyFragment.newInstance();
             }
             return null;
@@ -152,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 5 total pages.
-            return 5;
+            // Show 4 total pages.
+            return 4;
         }
 
         @Override
@@ -166,8 +164,6 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     return "Dagbok";
                 case 3:
-                    return "Kalender";
-                case 4:
                     return "Resa";
             }
             return null;
@@ -179,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.ic_tab_home,
                 R.drawable.ic_tab_careteam,
                 R.drawable.ic_tab_journal,
-                R.drawable.ic_tab_calendar,
                 R.drawable.ic_tab_journey
         };
 
@@ -191,8 +186,5 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setText(null);
         tabLayout.getTabAt(3).setIcon(tabIcons[3]);
         tabLayout.getTabAt(3).setText(null);
-        tabLayout.getTabAt(4).setIcon(tabIcons[4]);
-        tabLayout.getTabAt(4).setText(null);
-
     }
 }

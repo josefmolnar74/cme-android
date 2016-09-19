@@ -22,7 +22,7 @@
             android:weightSum="100">
 
             <FrameLayout
-                android:id="@+id/journal_placeholder1"
+                android:id="@+id/careteam_placeholder1"
                 android:layout_width="0dp"
                 android:layout_weight="50"
                 android:layout_height="match_parent">
@@ -30,7 +30,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/journal_placeholder2"
+                android:id="@+id/careteam_placeholder2"
                 android:layout_width="0dp"
                 android:layout_weight="50"
                 android:layout_height="match_parent">

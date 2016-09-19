@@ -15,8 +15,11 @@
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:text="Psykiska problem"
-        android:textSize="@dimen/LARGE"
+        android:textSize="@dimen/MEDIUM"
         android:textColor="@color/white"
-        android:textAlignment="textStart" />
+        android:textAlignment="textStart"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
