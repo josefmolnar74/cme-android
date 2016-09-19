@@ -4,20 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/careTeamScreen"
-    tools:context="com.cancercarecompany.ccc.ccc.MainActivity"
+    tools:context="com.cancercarecompany.ccc.ccc.CareTeamFragment"
     android:orientation="vertical"
     android:background="@color/white">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/cme_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/cme_dark"
-        android:titleTextColor="@color/white"
-        android:elevation="5dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
-
-    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -48,21 +37,15 @@
 
             </FrameLayout>
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+            </FrameLayout>
 
         </LinearLayout>
-
-
-        <Button
-            android:visibility="gone"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/btn_add"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/addcontact" />
 
     </RelativeLayout>
 

@@ -147,10 +147,10 @@ public class CareTeamExpListFragment extends Fragment {
                         // Family or invited user
                         CareTeamFamilyFragment mycareTeamShowFamily = new CareTeamFamilyFragment();
                         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-                            ft.replace(R.id.your_placeholder2, mycareTeamShowFamily);
+                            ft.replace(R.id.journal_placeholder2, mycareTeamShowFamily);
                         }
                         else{
-                            ft.replace(R.id.your_placeholder1, mycareTeamShowFamily);
+                            ft.replace(R.id.journal_placeholder1, mycareTeamShowFamily);
                         }
                         ft.addToBackStack(null);
                         // send family member data to fragment
@@ -161,10 +161,10 @@ public class CareTeamExpListFragment extends Fragment {
                     case 1:
                         CareTeamHealthcareFragment mycareTeamShowHealthcare = new CareTeamHealthcareFragment();
                         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-                            ft.replace(R.id.your_placeholder2, mycareTeamShowHealthcare);
+                            ft.replace(R.id.journal_placeholder2, mycareTeamShowHealthcare);
                         }
                         else{
-                            ft.replace(R.id.your_placeholder1, mycareTeamShowHealthcare);
+                            ft.replace(R.id.journal_placeholder1, mycareTeamShowHealthcare);
                         }
                         ft.addToBackStack(null);
                         // send healthcare item to fragment

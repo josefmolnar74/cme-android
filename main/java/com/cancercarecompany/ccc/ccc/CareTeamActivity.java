@@ -14,12 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -66,7 +64,7 @@ public class CareTeamActivity extends AppCompatActivity {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         CareTeamExpListFragment myCareTeamExpList = new CareTeamExpListFragment();
-        ft.replace(R.id.your_placeholder1, myCareTeamExpList);
+        ft.replace(R.id.journal_placeholder1, myCareTeamExpList);
         ft.commit();
 
         final Button buttonAddMember = (Button) findViewById(R.id.btn_add);
@@ -83,16 +81,8 @@ public class CareTeamActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_careteam:
+            case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
-                return true;
-
-            case R.id.action_journey:
-                journeyActivity();
-                return true;
-
-            case R.id.action_journal:
-                journalActivity();
                 return true;
 
             default:

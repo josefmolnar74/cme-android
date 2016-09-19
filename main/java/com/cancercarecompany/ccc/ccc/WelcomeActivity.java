@@ -127,7 +127,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 editor.commit();
             }
 
-            Intent myIntent = new Intent(this, CareTeamActivity.class);
+            Intent myIntent = new Intent(this, MainActivity.class);
             startActivity(myIntent);
             finish();
         }
