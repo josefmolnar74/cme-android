@@ -149,6 +149,7 @@
 
     <string name="careteam_healthcare">Hälsovård</string>
     <string name="careteam_family">Familj - vänner</string>
+    <string name="careteam_cancer_friends">Cancervänner</string>
     <string name="careteam_invite_new_member">Bjud in en ny medlem</string>
     <string name="careteam_create_new_healthcare">Skapa ny vårdperson</string>
 
@@ -360,6 +361,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="events_all">Kommande händelser</string>
+    <string name="events_this_week">Kommande veckas händelser</string>
+    <string name="events_this_month">Kommande månadens händelser</string>
+    <string name="events_passed">Passerade händelser</string>
 
 </resources>
 

@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
             // During register user need to either create a new care team or join and existing
             if (patientName != null){
                 // User tries to create new patient
-                Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
+                Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null);
                 connectHandler.createPatient(newPatient, registerRelationship.getText().toString());
             }
             else if (invitedEmail != null){//replace with invite object

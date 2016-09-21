@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_marginTop="10dp"
@@ -12,10 +11,10 @@
 
         <ImageView
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_width="64dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_width="64dp"
             android:layout_height="64dp"
-            android:id="@+id/img_careteam_family_avatar"
+            android:id="@+id/img_event_explist_avatar"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:contextClickable="false" />
@@ -25,34 +24,48 @@
             android:layout_height="wrap_content"
             android:columnCount="2"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/img_careteam_family_avatar">
+            android:layout_toEndOf="@+id/img_event_explist_avatar">
 
             <TextView
                 android:id="@+id/txt_event_explist_category"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:textSize="20sp"
+                android:text="Möte"
                 android:layout_column="0"
                 android:layout_row="0"
                 android:layout_columnSpan="2"
-                android:text="Name"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
+
+
+            <TextView
+                android:id="@+id/txt_event_explist_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text="2016-05-21"
+                android:layout_column="0"
+                android:layout_row="1"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp" />
 
             <TextView
                 android:id="@+id/txt_event_explist_time"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:textSize="20sp"
-                android:layout_column="0"
+                android:text="08:00"
+                android:layout_column="1"
                 android:layout_row="1"
-                android:text="Relationship"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp" />
 
         </GridLayout>
 
-
     </RelativeLayout>
 
-</LinearLayout>
+</FrameLayout>

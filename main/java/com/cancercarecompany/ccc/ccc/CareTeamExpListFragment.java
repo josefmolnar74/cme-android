@@ -27,11 +27,12 @@ public class CareTeamExpListFragment extends Fragment {
 
     List<CareTeamExpandListItem> familyExpList;
     List<CareTeamExpandListItem> healthCareExpList;
-
+    List<CareTeamExpandListItem> cancerFriendsExpList;
     List<String> listDataHeader;
     HashMap<String, List<CareTeamExpandListItem>> listDataChild;
     ConnectionHandler connectHandler;
     private boolean admin;
+    private ArrayList<CancerFriend> cancerFriends = new ArrayList<CancerFriend>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +45,7 @@ public class CareTeamExpListFragment extends Fragment {
         expListView = (ExpandableListView) view.findViewById(R.id.explv_careteam);
         familyExpList = new ArrayList<CareTeamExpandListItem>();
         healthCareExpList = new ArrayList<CareTeamExpandListItem>();
+        cancerFriendsExpList = new ArrayList<CareTeamExpandListItem>();
 
         //build list data
         listDataHeader = new ArrayList<String>();
@@ -51,6 +53,7 @@ public class CareTeamExpListFragment extends Fragment {
 
         listDataHeader.add(getResources().getString(R.string.careteam_family));
         listDataHeader.add(getResources().getString(R.string.careteam_healthcare));
+        listDataHeader.add(getResources().getString(R.string.careteam_cancer_friends));
 
         // check admin
         for (int i=0; i < connectHandler.patient.care_team.size(); i++){
@@ -121,16 +124,28 @@ public class CareTeamExpListFragment extends Fragment {
                 }
             }
 
+            prepareCancerFriends();
+            for (int i = 0; i < cancerFriends.size(); i++) {
+                CareTeamExpandListItem listItem = new CareTeamExpandListItem();
+                listItem.id = i;
+                listItem.type = "cancer_friend";
+                listItem.name = cancerFriends.get(i).name;
+                listItem.avatar = 0;
+                listItem.relationship = cancerFriends.get(i).link + " " +cancerFriends.get(i).phone;
+                cancerFriendsExpList.add(listItem);
+            }
+
             listDataChild.put(listDataHeader.get(0), familyExpList); // Header, Child data
             listDataChild.put(listDataHeader.get(1), healthCareExpList);
+            listDataChild.put(listDataHeader.get(2), cancerFriendsExpList);
         }
 
         expListAdapter = new CareTeamExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
 
         expListView.setAdapter(expListAdapter);
 
-        expListView.expandGroup(0);
-        expListView.expandGroup(1);
+//        expListView.expandGroup(0);
+//        expListView.expandGroup(1);
 
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -179,5 +194,27 @@ public class CareTeamExpListFragment extends Fragment {
         return view;
     }
 
+    private class CancerFriend{
+        String name;
+        String link;
+        String phone;
+
+        public CancerFriend(String name, String link, String phone) {
+
+            this.name = name; //default value, does not matter because updated during read from database
+            this.link = link;
+            this.phone = phone;
+        }
+
+    }
+
+    private void prepareCancerFriends(){
+        CancerFriend myCancerFriend1 = new CancerFriend("Barncancerfonden", "www.barncancerfonden.se", "08-584 209 00");
+        CancerFriend myCancerFriend2 = new CancerFriend("Nätverket mot cancer", "www.natverketmotcancer.se", "");
+        CancerFriend myCancerFriend3 = new CancerFriend("Cancer kompisar", "www.cancerkompisar.se", "");
+        cancerFriends.add(myCancerFriend1);
+        cancerFriends.add(myCancerFriend2);
+        cancerFriends.add(myCancerFriend3);
+    }
 }
 

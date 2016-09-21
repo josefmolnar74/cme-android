@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cme.cancercarecompany.ccc.ccc.HomeFragment">
+    tools:context="com.cancercarecompany.ccc.ccc.CareTeamExpListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
-        android:textSize="50sp"
+    <ExpandableListView
+        android:visibility="visible"
+        android:id="@+id/explv_events"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="HÄNDELSER" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
 
 </FrameLayout>
