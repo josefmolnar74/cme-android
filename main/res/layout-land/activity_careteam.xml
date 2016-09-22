@@ -3,17 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/careTeamScreen"
     tools:context="com.cancercarecompany.ccc.ccc.MainActivity"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:focusableInTouchMode="true"
+    android:weightSum="1">
 
-    <android.support.v7.widget.Toolbar
+<android.support.v7.widget.Toolbar
         android:id="@+id/cme_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/cme_dark"
-        android:titleTextColor="@color/white"
         android:elevation="5dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 

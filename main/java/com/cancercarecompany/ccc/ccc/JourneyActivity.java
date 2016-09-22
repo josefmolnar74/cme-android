@@ -11,10 +11,13 @@ import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,11 +91,6 @@ public class JourneyActivity extends AppCompatActivity {
     int pages = 0;
     int currentPage = 1;
 
-
-    ImageButton careTeamButton;
-    ImageButton journalButton;
-    ImageButton logoButton;
-    ImageButton settingsButton;
     int location = 0;
 
     String eventPage1 = "";
@@ -166,6 +164,10 @@ public class JourneyActivity extends AppCompatActivity {
             }
         }).start();
 
+        Toolbar cmeToolbar = (Toolbar) findViewById(R.id.cme_toolbar);
+        setSupportActionBar(cmeToolbar);
+        cmeToolbar.setTitleTextColor(0xFFFFFFFF);
+
         Glide.get(getApplicationContext()).clearMemory();
 
         eventList = new ArrayList<Event>();
@@ -179,21 +181,6 @@ public class JourneyActivity extends AppCompatActivity {
         languageString = prefs.getString("language_settings", "");
         System.out.println("LANGUAGE SETTINGS: "+languageString);
         //////////////////////////
-
-        // Display patient name on topbar
-        TextView patientNameText = (TextView) findViewById(R.id.txt_patientName);
-        if (connectHandler.patient != null) {
-            patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
-            patientID = connectHandler.patient.patient_ID;
-            personID = connectHandler.person.person_ID;
-
-            System.out.println("PersonID: " + personID + " PatientID: " + patientID);
-        }
-
-        TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
-        if (connectHandler.person != null){
-            loggedIn.setText(connectHandler.person.name);
-        }
 
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy) {}
@@ -236,9 +223,6 @@ public class JourneyActivity extends AppCompatActivity {
         mountains_layer = (RelativeLayout) findViewById(R.id.mountains_layer);
         lion_layer = (RelativeLayout) findViewById(R.id.lion_layer);
         wholeScreen = (LinearLayout) findViewById(R.id.journeyLayout);
-        careTeamButton = (ImageButton) findViewById(R.id.btn_careteam_button);
-        journalButton = (ImageButton) findViewById(R.id.btn_journal_button);
-        logoButton = (ImageButton) findViewById(R.id.logoButton);
         sun = (ImageButton) findViewById(R.id.btn_sun_journey);
 
         sign1 = (ImageView) findViewById(R.id.sign1);
@@ -321,28 +305,6 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
-        careTeamButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                careTeam();
-            }
-        });
-
-        journalButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                journal();
-            }
-        });
-
-        loggedIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Settings settingsClass = new Settings();
-            settingsClass.settingsPopup(wholeScreen, JourneyActivity.this);
-
-            }
-        });
 
         sun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -391,6 +353,36 @@ public class JourneyActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_careteam:
+                // User chose the "Settings" item, show the app settings UI...
+                careTeam();
+                return true;
+
+            case R.id.action_journey:
+                return true;
+
+            case R.id.action_journal:
+                journal();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     private void careTeam() {

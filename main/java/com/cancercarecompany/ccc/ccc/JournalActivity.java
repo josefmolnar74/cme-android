@@ -8,8 +8,11 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -190,6 +193,10 @@ public class JournalActivity extends AppCompatActivity {
         SharedPreferences prefs = this.getSharedPreferences(
                 "language_settings", Context.MODE_PRIVATE);
 
+        Toolbar cmeToolbar = (Toolbar) findViewById(R.id.cme_toolbar);
+        setSupportActionBar(cmeToolbar);
+        cmeToolbar.setTitleTextColor(0xFFFFFFFF);
+
         languageString = prefs.getString("language_settings", "");
         System.out.println("LANGUAGE SETTINGS: "+languageString);
         //////////////////////////
@@ -212,8 +219,6 @@ public class JournalActivity extends AppCompatActivity {
         final Button medicationBreakfastButton = (Button) findViewById(R.id.btn_journal_medication_breakfast);
         final Button medicationLunchButton = (Button) findViewById(R.id.btn_journal_medication_lunch);
         final Button medicationDinnerButton = (Button) findViewById(R.id.btn_journal_medication_dinner);
-        final ImageButton journeyButton = (ImageButton) findViewById(R.id.btn_journey_button);
-        final ImageButton careTeamButton = (ImageButton) findViewById(R.id.btn_careteam_button);
         final CalendarView calendar = (CalendarView) findViewById(R.id.cal_journal_calendar);
         final TextView statusHeaderText = (TextView) findViewById(R.id.txt_journal_status_header);
         final TextView sideeffectsHeaderText = (TextView) findViewById(R.id.journal_sideeffects_header);
@@ -269,18 +274,6 @@ public class JournalActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.black));
         }
 
-        // Display patient name on topbar
-        if (connectHandler.patient != null) {
-            //            patientNameText.setText(patientNameText.getText().toString().concat(" ".concat(connectHandler.patient.patient_name)));
-            patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
-        }
-
-        // Display logged in name
-        TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
-        if (connectHandler.person != null) {
-            loggedIn.setText(connectHandler.person.name);
-        }
-
         journalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             journalHeaderText.setText(journalDate);
@@ -304,20 +297,6 @@ public class JournalActivity extends AppCompatActivity {
             }
         });
 
-
-        journeyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                journeyActivity();
-            }
-        });
-
-        careTeamButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                journeyActivity();
-            }
-        });
 
         emotionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -643,13 +622,6 @@ public class JournalActivity extends AppCompatActivity {
             }
         });
 
-        careTeamButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                careTeam();
-            }
-        });
-
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int date) {
@@ -673,14 +645,36 @@ public class JournalActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        loggedIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Settings settingsClass = new Settings();
-                settingsClass.settingsPopup(wholeScreen, JournalActivity.this);
+    }
 
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_careteam:
+                // User chose the "Settings" item, show the app settings UI...
+                careTeam();
+                return true;
+
+            case R.id.action_journey:
+                journeyActivity();
+                return true;
+
+            case R.id.action_journal:
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     @Override
