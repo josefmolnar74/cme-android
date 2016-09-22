@@ -364,7 +364,7 @@
     <string name="events_all">Kommande händelser</string>
     <string name="events_this_week">Kommande veckas händelser</string>
     <string name="events_this_month">Kommande månadens händelser</string>
-    <string name="events_passed">Passerade händelser</string>
+    <string name="events_passed">Tidigare händelser</string>
 
 </resources>
 
