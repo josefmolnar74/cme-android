@@ -168,19 +168,19 @@ public class EventsExpandListFragment extends Fragment {
 
                 switch (groupPosition){
                     case 0:
-                        break;
-
-                    case 1:
-                        CareTeamHealthcareFragment mycareTeamShowHealthcare = new CareTeamHealthcareFragment();
+                        EventsDetailsFragment myEventsDetails = new EventsDetailsFragment();
                         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-                            ft.replace(R.id.careteam_placeholder2, mycareTeamShowHealthcare);
+//                            ft.replace(R.id.events_placeholder2, myEventsDetails);
                         }
                         else{
-                            ft.replace(R.id.careteam_placeholder1, mycareTeamShowHealthcare);
+                            ft.replace(R.id.events_placeholder1, myEventsDetails);
                         }
                         ft.addToBackStack(null);
                         // send healthcare item to fragment
 //                        mycareTeamShowHealthcare.setItem(healthCareExpList.get(childPosition));
+                        break;
+
+                    case 1:
                         break;
                 }
                 ft.commit();
