@@ -171,6 +171,7 @@ public class CareTeamFamilyFragment extends Fragment {
                 break;
         }
         if (listItem.type == "new"){
+            buttonEdit.setVisibility(View.INVISIBLE);
             txtSave.setVisibility(View.VISIBLE);
             editName.requestFocus();
             txtName.setVisibility(View.INVISIBLE);
@@ -230,57 +231,61 @@ public class CareTeamFamilyFragment extends Fragment {
         txtSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonEdit.setVisibility(View.VISIBLE);
-                txtSave.setVisibility(View.INVISIBLE);
                 String invitedNameString = editName.getText().toString();
                 String invitedEmailString = editEmail.getText().toString();
 
-                //FirstName and email must be specified, the others will get emptystring if not specified
-                if ((!invitedNameString.isEmpty()) && (!invitedEmailString.isEmpty())){
-                    alertText1.setVisibility(View.INVISIBLE);
-                    // invite new care team member
-                    int admin;
-                    if(chkAdmin.isChecked()) {
-                        admin = 1;
-                    }
-                    else {
-                        admin = 0;
-                    }
-                    Invite newInvite = new Invite(  0,
-                            connectHandler.person.name,
-                            connectHandler.patient.patient_ID,
-                            connectHandler.patient.patient_name,
-                            invitedNameString,
-                            invitedEmailString,
-                            editRelation.getText().toString(),
-                            0,
-                            admin,
-                            0,
-                            0);
+                if (listItem.type == "new"){
+                    //FirstName and email must be specified, the others will get emptystring if not specified
+                    boolean wrongInput = false;
 
-                    connectHandler.inviteCareTeamMember(newInvite);
+                    if ((invitedNameString.isEmpty()) || (invitedEmailString.isEmpty())){
+                        wrongInput = true;
+                        alertText1.setText(getString(R.string.careteam_alert_empty_values));
+                        alertText1.setVisibility(View.VISIBLE);
+                    }
 
-                    getActivity().onBackPressed();
+                    // Check email so it is not already part of care team
+                    if (!wrongInput)
+                    for (int i=0; i < connectHandler.patient.care_team.size(); i++){
+                        if (invitedEmailString.matches(connectHandler.patient.care_team.get(i).email)){
+                            alertText1.setText(getString(R.string.careteam_alert_email_exists));
+                            alertText1.setVisibility(View.VISIBLE);
+                            wrongInput = true;
+                        }
+                    }
+
+                    if (!wrongInput){
+                        alertText1.setVisibility(View.INVISIBLE);
+                        // invite new care team member
+                        int admin;
+                        if(chkAdmin.isChecked()) {
+                            admin = 1;
+                        }
+                        else {
+                            admin = 0;
+                        }
+
+                        Invite newInvite = new Invite(  0,
+                                connectHandler.person.name,
+                                connectHandler.patient.patient_ID,
+                                connectHandler.patient.patient_name,
+                                invitedNameString,
+                                invitedEmailString,
+                                editRelation.getText().toString(),
+                                0,
+                                admin,
+                                0,
+                                0);
+
+                        connectHandler.inviteCareTeamMember(newInvite);
+                        buttonEdit.setVisibility(View.VISIBLE);
+                        txtSave.setVisibility(View.INVISIBLE);
+                        getActivity().onBackPressed();
+
+                    }
 
                 }
-                else{
-                    alertText1.setVisibility(View.INVISIBLE);
-
-                }
-/*
-                    CareTeamMember invitedCareTeamMember = new CareTeamMember(
-                            newInvite.person_ID,
-                            newInvite.invited_name,
-                            newInvite.invited_email,
-                            newInvite.invited_relationship,
-                            newInvite.invited_avatar,
-                            newInvite.invited_admin);
-
-                    familyList.add(invitedCareTeamMember);
-                    familyAdapter.notifyDataSetChanged();
-*/
-           }
-
+            }
         });
 
         return view;

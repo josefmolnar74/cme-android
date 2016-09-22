@@ -14,12 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -54,6 +52,7 @@ public class CareTeamActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(connectHandler.patient.patient_name.concat(getString(R.string.patient_careteam)));
         }
 
+        wholeScreen = (LinearLayout) findViewById(R.id.careTeamScreen);
 
         // Check language settings
         SharedPreferences prefs = this.getSharedPreferences(
@@ -65,7 +64,7 @@ public class CareTeamActivity extends AppCompatActivity {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         CareTeamExpListFragment myCareTeamExpList = new CareTeamExpListFragment();
-        ft.replace(R.id.your_placeholder1, myCareTeamExpList);
+        ft.replace(R.id.careteam_placeholder1, myCareTeamExpList);
         ft.commit();
 
         final Button buttonAddMember = (Button) findViewById(R.id.btn_add);
@@ -101,7 +100,65 @@ public class CareTeamActivity extends AppCompatActivity {
 
         }
     }
-    
+
+/*
+        buttonSave.setOnClickListener(new  View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String firstNameString = editFirstName.getText().toString();
+                String emailString = editEmail.getText().toString();
+
+                //FirstName and email must be specified, the others will get emptystring if not specified
+                if ((!firstNameString.isEmpty()) && (!emailString.isEmpty())){
+                    alertText.setVisibility(View.INVISIBLE);
+                    // invite new care team member
+                    int admin;
+                    if(editAdmin.getSelectedItem() == "Yes") {
+                        admin = 1;
+                    }
+                    else {
+                        admin = 0;
+                    }
+                    Invite newInvite = new Invite(  0,
+                            connectHandler.person.first_name,
+                            connectHandler.patient.patient_ID,
+                            connectHandler.patient.patient_name,
+                            firstNameString,
+                            editLastName.getText().toString(),
+                            emailString,
+                            editRelation.getText().toString(),
+                            selectedFamilyAvatar,
+                            admin,
+                            0,
+                            0);
+
+                    connectHandler.inviteCareTeamMember(newInvite);
+
+                    CareTeamMember invitedCareTeamMember = new CareTeamMember(
+                            newInvite.person_ID,
+                            newInvite.invited_first_name,
+                            newInvite.invited_last_name,
+                            newInvite.invited_email,
+                            newInvite.invited_relationship,
+                            newInvite.invited_avatar,
+                            newInvite.invited_admin);
+
+                    familyList.add(invitedCareTeamMember);
+
+                    familyAdapter.notifyDataSetChanged();
+                    popupWindow.dismiss();
+
+                }else{
+                    // notify user they need to add
+                    alertText.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+*/
+
     private void journeyActivity(){
         Intent myIntent = new Intent(this, JourneyActivity.class);
         startActivity(myIntent);
