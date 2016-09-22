@@ -3,6 +3,7 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -26,7 +28,6 @@ public class CareTeamActivity extends AppCompatActivity {
     public int selectedFamilyAvatar;
     public int selectedHealthcareAvatar;
     RelativeLayout relativeLayout;
-    LinearLayout wholeScreen;
     ImageButton familyAvatar;
     ImageButton healthcareAvatar;
     ConnectionHandler connectHandler;
@@ -47,12 +48,21 @@ public class CareTeamActivity extends AppCompatActivity {
         setSupportActionBar(cmeToolbar);
         cmeToolbar.setTitleTextColor(0xFFFFFFFF);
 
+
         // Display patient name on topbar
         if (connectHandler.patient != null) {
             getSupportActionBar().setTitle(connectHandler.patient.patient_name.concat(getString(R.string.patient_careteam)));
         }
 
-        wholeScreen = (LinearLayout) findViewById(R.id.careTeamScreen);
+        // Statusbar color
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.setStatusBarColor(this.getResources().getColor(R.color.black, null));
+        } else {
+            window.setStatusBarColor(this.getResources().getColor(R.color.black));
+        }
 
         // Check language settings
         SharedPreferences prefs = this.getSharedPreferences(

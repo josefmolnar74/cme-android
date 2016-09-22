@@ -197,6 +197,11 @@ public class JournalActivity extends AppCompatActivity {
         setSupportActionBar(cmeToolbar);
         cmeToolbar.setTitleTextColor(0xFFFFFFFF);
 
+        // Display patient name on topbar
+        if (connectHandler.patient != null) {
+            getSupportActionBar().setTitle(connectHandler.patient.patient_name.concat(getString(R.string.patient_journal)));
+        }
+
         languageString = prefs.getString("language_settings", "");
         System.out.println("LANGUAGE SETTINGS: "+languageString);
         //////////////////////////

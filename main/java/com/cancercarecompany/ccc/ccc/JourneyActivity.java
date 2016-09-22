@@ -164,15 +164,21 @@ public class JourneyActivity extends AppCompatActivity {
             }
         }).start();
 
+        connectHandler = ConnectionHandler.getInstance();
+
         Toolbar cmeToolbar = (Toolbar) findViewById(R.id.cme_toolbar);
         setSupportActionBar(cmeToolbar);
         cmeToolbar.setTitleTextColor(0xFFFFFFFF);
+
+        // Display patient name on topbar
+        if (connectHandler.patient != null) {
+            getSupportActionBar().setTitle(connectHandler.patient.patient_name.concat(getString(R.string.patient_journey)));
+        }
 
         Glide.get(getApplicationContext()).clearMemory();
 
         eventList = new ArrayList<Event>();
         questionList = new ArrayList<Question>();
-        connectHandler = ConnectionHandler.getInstance();
 
         // Check language settings
         SharedPreferences prefs = this.getSharedPreferences(
