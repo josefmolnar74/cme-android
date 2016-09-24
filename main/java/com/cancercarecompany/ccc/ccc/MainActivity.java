@@ -1,5 +1,6 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(Color.parseColor("#41969e"));
 //        getSupportActionBar().hide();
 
         // Create the adapter that will return a fragment for each of the three

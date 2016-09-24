@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +46,16 @@ public class EventsExpandListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        View view = inflater.inflate(R.layout.fragment_care_team_exp_list, container, false);
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.VISIBLE);
+            CustomViewPager viewPager = (CustomViewPager) getActivity().findViewById(R.id.container);
+            viewPager.setPagingEnabled(true);
+        }
+
         connectHandler = ConnectionHandler.getInstance();
 
-        View view = inflater.inflate(R.layout.fragment_care_team_exp_list, container, false);
         expListView = (ExpandableListView) view.findViewById(R.id.explv_careteam);
         eventExpList = new ArrayList<Event>();
         passedEventExpList = new ArrayList<Event>();
@@ -151,8 +159,8 @@ public class EventsExpandListFragment extends Fragment {
 
         expListView.setAdapter(eventsExpandListAdapter);
 
-//        expListView.expandGroup(0);
-//        expListView.expandGroup(1);
+        expListView.expandGroup(0);
+        expListView.expandGroup(1);
 
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {

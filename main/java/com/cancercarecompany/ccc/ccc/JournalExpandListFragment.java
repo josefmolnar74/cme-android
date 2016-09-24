@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,10 +39,16 @@ public class JournalExpandListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_journal_exp_list, container, false);
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.VISIBLE);
+            CustomViewPager viewPager = (CustomViewPager) getActivity().findViewById(R.id.container);
+            viewPager.setPagingEnabled(true);
+        }
 
         connectHandler = ConnectionHandler.getInstance();
 
-        View view = inflater.inflate(R.layout.fragment_journal_exp_list, container, false);
         expandListView = (ExpandableListView) view.findViewById(R.id.explv_journal);
         emotionalExpandList = new ArrayList<String>();
         physicalExpandList = new ArrayList<String>();
@@ -52,24 +59,24 @@ public class JournalExpandListFragment extends Fragment {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
-        listDataHeader.add(getResources().getString(R.string.journal_problem_emotional));
         listDataHeader.add(getResources().getString(R.string.journal_problem_physical));
-        listDataHeader.add(getResources().getString(R.string.journal_problem_family));
-        listDataHeader.add(getResources().getString(R.string.journal_problem_practical));
+        listDataHeader.add(getResources().getString(R.string.journal_problem_emotional));
+//        listDataHeader.add(getResources().getString(R.string.journal_problem_family));
+//        listDataHeader.add(getResources().getString(R.string.journal_problem_practical));
 
         prepareExpList();
 
-        listDataChild.put(listDataHeader.get(0), emotionalExpandList); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), physicalExpandList);
-        listDataChild.put(listDataHeader.get(2), familyExpandList);
-        listDataChild.put(listDataHeader.get(3), practicalExpandList);
+        listDataChild.put(listDataHeader.get(0), physicalExpandList); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), emotionalExpandList);
+//        listDataChild.put(listDataHeader.get(2), familyExpandList);
+//        listDataChild.put(listDataHeader.get(3), practicalExpandList);
 
         expandListAdapter = new JournalExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
 
         expandListView.setAdapter(expandListAdapter);
 
-//        expandListView.expandGroup(0);
-//        expandListView.expandGroup(1);
+        expandListView.expandGroup(0);
+         expandListView.expandGroup(1);
 
         // Listview on child click listener
         expandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
