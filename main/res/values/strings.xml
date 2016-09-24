@@ -262,6 +262,8 @@
     <string name="join_careteam_header">Vänligen ange din email</string>
     <string name="join_careteam_email">Email</string>
     <string name="join_careteam_find">Sök</string>
+
+    <string name="careteam_contact">Kontaktinfo</string>
     <string name="careteam_family_name">Namn</string>
     <string name="careteam_family_email">Email</string>
     <string name="careteam_family_phone">Telefon</string>

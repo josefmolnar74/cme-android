@@ -51,6 +51,157 @@
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:columnCount="3">
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_event_selection_appointment"
+                    android:text="@string/event_appointments"
+                    android:layout_row="0"
+                    android:layout_column="0" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_event_selection_treatment"
+                    android:text="@string/event_treatments"
+                    android:layout_row="0"
+                    android:layout_column="1" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_event_selection_test"
+                    android:text="@string/event_tests"
+                    android:layout_row="0"
+                    android:layout_column="2" />
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:columnCount="5">
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/img_subcategory1"
+                    android:background="@drawable/greenbubble"
+                    android:visibility="visible"/>
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/img_subcategory2"
+                    android:background="@drawable/pinkbubble"
+                    android:visibility="visible"/>
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/img_subcategory3"
+                    android:background="@drawable/bluebubble"
+                    android:visibility="visible"/>
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/img_subcategory4"
+                    android:background="@drawable/orangebubblee"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/img_subcategory5"
+                    android:background="@drawable/greenbubble"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/img_subcategory6"
+                    android:background="@drawable/pinkbubble"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/img_subcategory7"
+                    android:background="@drawable/bluebubble"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/img_subcategory8"
+                    android:background="@drawable/orangebubble"
+                    android:visibility="visible"/>
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/img_subcategory9"
+                    android:background="@drawable/orangebubble"
+                    android:visibility="visible" />
+
+            </GridLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <DatePicker
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:datePickerMode="spinner"
+                    android:id="@+id/datepicker_journey"
+                    android:layout_alignParentTop="true"
+                    android:calendarViewShown="false" />
+
+                <TimePicker
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/timepicker_journey"
+                    android:timePickerMode="spinner"
+                    android:layout_toRightOf="@+id/datepicker_journey" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,160 +214,32 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <GridLayout
+                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:columnCount="3">
+                    android:layout_height="300dp"
+                    android:id="@+id/editText3"
+                    android:layout_gravity="center_horizontal"
+                    android:hint="Vem" />
 
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/btn_event_selection_appointment"
-                        android:text="@string/event_appointments"
-                        android:layout_row="0"
-                        android:layout_column="0" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/btn_event_selection_treatment"
-                        android:text="@string/event_treatments"
-                        android:layout_row="0"
-                        android:layout_column="1" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/btn_event_selection_test"
-                        android:text="@string/event_tests"
-                        android:layout_row="0"
-                        android:layout_column="2" />
-
-                </GridLayout>
-
-                <GridLayout
+                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:columnCount="5">
+                    android:layout_height="300dp"
+                    android:id="@+id/editText4"
+                    android:layout_gravity="center_horizontal"
+                    android:hint="Var" />
 
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/img_subcategory1"
-                        android:background="@drawable/greenbubble"
-                        android:visibility="visible"/>
 
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/img_subcategory2"
-                        android:background="@drawable/pinkbubble"
-                        android:visibility="visible"/>
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/img_subcategory3"
-                        android:background="@drawable/bluebubble"
-                        android:visibility="visible"/>
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/img_subcategory4"
-                        android:background="@drawable/orangebubblee"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/img_subcategory5"
-                        android:background="@drawable/greenbubble"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/img_subcategory6"
-                        android:background="@drawable/pinkbubble"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/img_subcategory7"
-                        android:background="@drawable/bluebubble"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/img_subcategory8"
-                        android:background="@drawable/orangebubble"
-                        android:visibility="visible"/>
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/img_subcategory9"
-                        android:background="@drawable/orangebubble"
-                        android:visibility="visible" />
-
-                </GridLayout>
-
-                <RelativeLayout
+                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <DatePicker
-                        android:layout_marginTop="@dimen/activity_horizontal_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:datePickerMode="spinner"
-                        android:id="@+id/datepicker_journey"
-                        android:layout_alignParentTop="true"
-                        android:calendarViewShown="false" />
-
-                    <TimePicker
-                        android:layout_marginTop="@dimen/activity_horizontal_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/timepicker_journey"
-                        android:timePickerMode="spinner"
-                        android:layout_toRightOf="@+id/datepicker_journey" />
-
-                </RelativeLayout>
+                    android:layout_height="200dp"
+                    android:id="@+id/editText2"
+                    android:layout_gravity="center_horizontal"
+                    android:hint="Anteckningar" />
 
             </LinearLayout>
 
-        </ScrollView>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:id="@+id/editText2"
-            android:layout_gravity="center_horizontal"
-            android:text="Notes" />
+        </ScrollView>
 
     </LinearLayout>
 

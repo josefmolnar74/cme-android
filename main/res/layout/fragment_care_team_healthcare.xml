@@ -11,6 +11,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/careteam_healthcare_header"
             android:layout_width="match_parent"
             android:layout_height="60sp"
             android:background="@color/white">

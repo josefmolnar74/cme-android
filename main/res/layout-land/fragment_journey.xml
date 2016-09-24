@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/journalScreen"
-    tools:context="com.cancercarecompany.ccc.ccc.JournalFragment"
+    android:id="@+id/journeyScreen"
+    tools:context="com.cancercarecompany.ccc.ccc.JourneyFragment"
     android:orientation="vertical"
     android:background="@color/white">
 
@@ -12,7 +12,7 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/journalmain"
+        android:id="@+id/journeymain"
         android:baselineAligned="false">
 
         <LinearLayout
@@ -22,7 +22,7 @@
             android:weightSum="100">
 
             <FrameLayout
-                android:id="@+id/journal_placeholder1"
+                android:id="@+id/journey_placeholder1"
                 android:layout_width="0dp"
                 android:layout_weight="50"
                 android:layout_height="match_parent">
@@ -30,7 +30,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/journal_placeholder2"
+                android:id="@+id/journey_placeholder2"
                 android:layout_width="0dp"
                 android:layout_weight="50"
                 android:layout_height="match_parent">

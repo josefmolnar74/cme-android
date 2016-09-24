@@ -1,13 +1,19 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class CareTeamHealthcareFragment extends Fragment {
@@ -22,10 +28,21 @@ public class CareTeamHealthcareFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        setHasOptionsMenu(true);
+        View view = inflater.inflate(R.layout.fragment_care_team_healthcare, container, false);
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            // Disable viewpager scrolling, disable tabs in order to use the action bar for vertical use
+            ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.GONE);
+            CustomViewPager viewPager = (CustomViewPager) getActivity().findViewById(R.id.container);
+            viewPager.setPagingEnabled(false);
+            ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.careteam_contact));
+            RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.careteam_healthcare_header);
+            layout.setVisibility(View.GONE);
+        }
 
         connectHandler = ConnectionHandler.getInstance();
 
-        View view = inflater.inflate(R.layout.fragment_care_team_healthcare, container, false);
         final TextView txtTitle = (TextView) view.findViewById(R.id.txt_careteam_healthcare_title);
         final TextView txtDepartment = (TextView) view.findViewById(R.id.txt_careteam_healthcare_department);
         final TextView txtName = (TextView) view.findViewById(R.id.txt_careteam_healthcare_name);
@@ -213,6 +230,31 @@ public class CareTeamHealthcareFragment extends Fragment {
 
         return view;
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.menu_details, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_delete) {
+            return true;
+        }
+
+        if (id == R.id.action_save) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void setItem(CareTeamExpandListItem selectedListItem){

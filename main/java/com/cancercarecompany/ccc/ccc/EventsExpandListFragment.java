@@ -143,10 +143,8 @@ public class EventsExpandListFragment extends Fragment {
             }
 
             // Sort events in the different lists
-
             listDataChild.put(listDataHeader.get(0), eventExpList); // Header, Child data
             listDataChild.put(listDataHeader.get(1), passedEventExpList);
-//            listDataChild.put(listDataHeader.get(2), cancerFriendsExpList);
         }
 
         eventsExpandListAdapter = new EventsExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
@@ -170,7 +168,7 @@ public class EventsExpandListFragment extends Fragment {
                     case 0:
                         EventsDetailsFragment myEventsDetails = new EventsDetailsFragment();
                         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-//                            ft.replace(R.id.events_placeholder2, myEventsDetails);
+                            ft.replace(R.id.events_placeholder2, myEventsDetails);
                         }
                         else{
                             ft.replace(R.id.events_placeholder1, myEventsDetails);
