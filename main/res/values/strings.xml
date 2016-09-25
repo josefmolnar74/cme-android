@@ -8,6 +8,11 @@
     <string name="next">Nästa</string>
     <string name="delete">Ta bort</string>
     <string name="remove">Ta bort</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nej</string>
+    <string name="ok">Ok</string>
+
+    <string name="remove_question">Är du säker på att du vill ta bort?</string>
 
     <string name="patient_careteam">s vårdteam</string>
     <string name="patient_journal">s dagbok</string>
@@ -373,7 +378,7 @@
     <string name="create_new_event">Skapa nytt event</string>
     <string name="choose_event">Välj ett event</string>
     <string name="choose_category">Välj en kategori</string>
-
+    <string name="all_event_data_not_provided">Du måste ange event, datum och tid.</string>
 
 </resources>
 

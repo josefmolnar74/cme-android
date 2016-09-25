@@ -59,8 +59,8 @@ public class EventsExpandListAdapter extends BaseExpandableListAdapter {
         TextView eventTime = (TextView) convertView.findViewById(R.id.txt_event_explist_time);
         ImageView eventImage = (ImageView) convertView.findViewById(R.id.img_event_explist_avatar);
 
-        if ((groupPosition == 0) && (childPosition == 0)){
-            eventCategory.setText(listItem.sub_category);
+        if (listItem.sub_category.matches("create_new")){
+            eventCategory.setText(context.getString(context.getResources().getIdentifier("create_new_event", "string", context.getPackageName())));
             eventImage.setImageResource(context.getResources().getIdentifier("add_event", "drawable", context.getPackageName()));
             eventTime.setText("");
             eventDate.setText("");

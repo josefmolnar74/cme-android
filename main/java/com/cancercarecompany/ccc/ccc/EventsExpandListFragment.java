@@ -15,6 +15,7 @@ import android.widget.ExpandableListView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -82,6 +83,11 @@ public class EventsExpandListFragment extends Fragment {
                 }
                 if (connectHandler.patient != null) {
                     Date todaysDate = new Date();
+                    // Step one day back so that todays events are not displayed in passed events list
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(todaysDate);
+                    c.add(Calendar.DATE, -1);
+                    todaysDate = c.getTime();
                     for (int i = 0; i < connectHandler.events.event_data.size(); i++) {
                         Date date = null;
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
@@ -173,22 +179,23 @@ public class EventsExpandListFragment extends Fragment {
 
                 // Begin the transaction
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-
+                EventsDetailsFragment myEventsDetails = new EventsDetailsFragment();
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                    ft.replace(R.id.events_placeholder2, myEventsDetails);
+                }
+                else{
+                    ft.replace(R.id.events_placeholder1, myEventsDetails);
+                }
+                ft.addToBackStack(null);
+                // send healthcare item to fragment
                 switch (groupPosition){
+
                     case 0:
-                        EventsDetailsFragment myEventsDetails = new EventsDetailsFragment();
-                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-                            ft.replace(R.id.events_placeholder2, myEventsDetails);
-                        }
-                        else{
-                            ft.replace(R.id.events_placeholder1, myEventsDetails);
-                        }
-                        ft.addToBackStack(null);
-                        // send healthcare item to fragment
                         myEventsDetails.setItem(eventExpList.get(childPosition));
                         break;
 
                     case 1:
+                        myEventsDetails.setItem(passedEventExpList.get(childPosition));
                         break;
                 }
                 ft.commit();
@@ -197,6 +204,16 @@ public class EventsExpandListFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getView() != null) {
+                // your code goes here
+            }
+        }
     }
 }
 

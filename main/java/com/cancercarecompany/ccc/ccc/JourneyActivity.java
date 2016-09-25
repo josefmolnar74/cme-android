@@ -495,13 +495,13 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.event_mr_bubble);
                     break;
                 case "dt":
-                    btn.setBackgroundResource(R.drawable.dt);
+                    btn.setBackgroundResource(R.drawable.event_dt_bubble);
                     break;
                 case "hearing_tests":
-                    btn.setBackgroundResource(R.drawable.event_hearing_test_bubble);
+                    btn.setBackgroundResource(R.drawable.event_hearing_tests_bubble);
                     break;
                 case "bone_marrow_samples":
-                    btn.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
+                    btn.setBackgroundResource(R.drawable.event_bone_marrow_samples_bubble);
                     break;
                 case "eeg":
                     btn.setBackgroundResource(R.drawable.event_eeg_bubble);
@@ -543,7 +543,7 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
                     break;
                 case "portacat":
-                    btn.setBackgroundResource(R.drawable.event_portakat_bubble);
+                    btn.setBackgroundResource(R.drawable.event_portacat_bubble);
                     break;
                 case "hospital":
                     btn.setBackgroundResource(R.drawable.event_hospital_bubble);
@@ -933,7 +933,7 @@ public class JourneyActivity extends AppCompatActivity {
                 subCategory5.setBackgroundResource(R.drawable.event_dialysis_bubble);
                 subCategory6.setBackgroundResource(R.drawable.event_biological_therapy_bubble);
                 subCategory7.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
-                subCategory8.setBackgroundResource(R.drawable.event_portakat_bubble);
+                subCategory8.setBackgroundResource(R.drawable.event_portacat_bubble);
 
                 subCategoryClicked = "cytostatika";
                 eventInfoText(subCategoryClicked);
@@ -1025,9 +1025,9 @@ public class JourneyActivity extends AppCompatActivity {
 
                 subCategory1.setBackgroundResource(R.drawable.event_bloodtest_bubble);
                 subCategory2.setBackgroundResource(R.drawable.event_mr_bubble);
-                subCategory3.setBackgroundResource(R.drawable.dt);
-                subCategory4.setBackgroundResource(R.drawable.event_hearing_test_bubble);
-                subCategory5.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
+                subCategory3.setBackgroundResource(R.drawable.event_dt_bubble);
+                subCategory4.setBackgroundResource(R.drawable.event_hearing_tests_bubble);
+                subCategory5.setBackgroundResource(R.drawable.event_bone_marrow_samples_bubble);
                 subCategory6.setBackgroundResource(R.drawable.event_eeg_bubble);
                 subCategory7.setBackgroundResource(R.drawable.event_ekg_bubble);
                 subCategory8.setBackgroundResource(R.drawable.event_kidney_investigation_bubble);
@@ -1358,13 +1358,13 @@ public class JourneyActivity extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.event_mr_bubble);
                 break;
             case "dt":
-                btn.setBackgroundResource(R.drawable.dt);
+                btn.setBackgroundResource(R.drawable.event_dt_bubble);
                 break;
             case "hearing_tests":
-                btn.setBackgroundResource(R.drawable.event_hearing_test_bubble);
+                btn.setBackgroundResource(R.drawable.event_hearing_tests_bubble);
                 break;
             case "bone_marrow_samples":
-                btn.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
+                btn.setBackgroundResource(R.drawable.event_bone_marrow_samples_bubble);
                 break;
             case "eeg":
                 btn.setBackgroundResource(R.drawable.event_eeg_bubble);
@@ -1406,7 +1406,7 @@ public class JourneyActivity extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
                 break;
             case "portacat":
-                btn.setBackgroundResource(R.drawable.event_portakat_bubble);
+                btn.setBackgroundResource(R.drawable.event_portacat_bubble);
                 break;
             case "picture_memory":
                 btn.setBackgroundResource(R.drawable.photominne);
@@ -1789,13 +1789,13 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.event_mr_bubble);
                 break;
             case "dt":
-                categoryImage.setBackgroundResource(R.drawable.dt);
+                categoryImage.setBackgroundResource(R.drawable.event_dt_bubble);
                 break;
             case "hearing_tests":
-                categoryImage.setBackgroundResource(R.drawable.event_hearing_test_bubble);
+                categoryImage.setBackgroundResource(R.drawable.event_hearing_tests_bubble);
                 break;
             case "bone_marrow_samples":
-                categoryImage.setBackgroundResource(R.drawable.event_bone_marrow_bubble);
+                categoryImage.setBackgroundResource(R.drawable.event_bone_marrow_samples_bubble);
                 break;
             case "eeg":
                 categoryImage.setBackgroundResource(R.drawable.event_eeg_bubble);
@@ -1831,7 +1831,7 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.event_targeted_therapy_bubble);
                 break;
             case "portacat":
-                categoryImage.setBackgroundResource(R.drawable.event_portakat_bubble);
+                categoryImage.setBackgroundResource(R.drawable.event_portacat_bubble);
                 break;
             case "bloodtest":
                 categoryImage.setBackgroundResource(R.drawable.event_bloodtest_bubble);
