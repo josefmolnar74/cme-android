@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    tools:context="com.cancercarecompany.ccc.ccc.WelcomeActivity"
-    android:background="@drawable/cme_background">
+    tools:context="com.cancercarecompany.ccc.ccc.WelcomeActivity">
 
     <LinearLayout
         android:orientation="vertical"

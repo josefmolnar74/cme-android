@@ -73,12 +73,6 @@ public class EventsExpandListFragment extends Fragment {
             connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
             while (connectHandler.socketBusy){}
             if (connectHandler.patient.care_team != null) {
-                if (admin){
-                    // add position to invite new member
-//                    Event saveListItem = new Event();
-//                  eventExpList.add(saveListItem);
-                }
-
                 // check admin
                 for (int i=0; i < connectHandler.patient.care_team.size(); i++){
                     if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
@@ -150,6 +144,14 @@ public class EventsExpandListFragment extends Fragment {
                 }
             }
 
+            if ((admin) && (!eventExpList.isEmpty()) && (eventExpList.get(0).event_ID != 0)){
+                //add position to invite new member
+                Event newListItem = new Event(0, 0, 0, 0, null, "",
+                        "create_new",
+                        "", "", null, null, null);
+                eventExpList.add(0, newListItem);
+            }
+
             // Sort events in the different lists
             listDataChild.put(listDataHeader.get(0), eventExpList); // Header, Child data
             listDataChild.put(listDataHeader.get(1), passedEventExpList);
@@ -183,7 +185,7 @@ public class EventsExpandListFragment extends Fragment {
                         }
                         ft.addToBackStack(null);
                         // send healthcare item to fragment
-//                        mycareTeamShowHealthcare.setItem(healthCareExpList.get(childPosition));
+                        myEventsDetails.setItem(eventExpList.get(childPosition));
                         break;
 
                     case 1:

@@ -78,18 +78,6 @@ public class CareTeamFamilyFragment extends Fragment {
                         editName.setText(connectHandler.patient.care_team.get(position).name);
                         editEmail.setText(connectHandler.patient.care_team.get(position).email);
                         editRelation.setText(connectHandler.patient.care_team.get(position).relationship);
-                        if(editName.getText().toString().isEmpty()){
-                            editName.setVisibility(View.INVISIBLE);
-                        }
-                        if(editEmail.getText().toString().isEmpty()){
-                            editEmail.setVisibility(View.INVISIBLE);
-                        }
-                        if(editPhoneNumber.getText().toString().isEmpty()){
-                            editPhoneNumber.setVisibility(View.INVISIBLE);
-                        }
-                        if(editRelation.getText().toString().isEmpty()){
-                            editRelation.setVisibility(View.INVISIBLE);
-                        }
                         if (connectHandler.patient.care_team.get(position).admin == 1){
                             chkAdmin.setChecked(true);
                         }
@@ -198,7 +186,7 @@ public class CareTeamFamilyFragment extends Fragment {
             txtEmail.setVisibility(View.INVISIBLE);
             txtPhoneNumber.setVisibility(View.INVISIBLE);
             txtRelation.setVisibility(View.INVISIBLE);
-        }else{
+        }else if (!admin){
             editName.setFocusable(false);
             editEmail.setFocusable(false);
             editPhoneNumber.setFocusable(false);

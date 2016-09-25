@@ -140,14 +140,15 @@ public class CareTeamHealthcareFragment extends Fragment {
             txtTitle.setVisibility(View.INVISIBLE);
 
         }
-
-        editTitle.setFocusable(false);
-        editDepartment.setFocusable(false);
-        editName.setFocusable(false);
-        editEmail.setFocusable(false);
-        editPhone1.setFocusable(false);
-        editPhone2.setFocusable(false);
-        editPhone3.setFocusable(false);
+        if (!admin){
+            editTitle.setFocusable(false);
+            editDepartment.setFocusable(false);
+            editName.setFocusable(false);
+            editEmail.setFocusable(false);
+            editPhone1.setFocusable(false);
+            editPhone2.setFocusable(false);
+            editPhone3.setFocusable(false);
+        }
 
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override

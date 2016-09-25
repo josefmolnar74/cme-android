@@ -11,7 +11,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/cme_custom_theme">
 
         <activity
             android:name=".WelcomeActivity"
@@ -30,24 +30,18 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".JournalActivity"
-        android:windowSoftInputMode="adjustNothing" />
-        <!--
- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://gS.co/AppIndexing/AndroidStudio for more information.
-        -->
-        <activity android:name=".MainActivity" />
-        <!--
- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
             android:name=".CreateCareTeamActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".JoinCareTeamActivity"></activity>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

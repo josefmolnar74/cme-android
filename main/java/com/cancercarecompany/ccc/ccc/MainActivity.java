@@ -6,6 +6,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
+    private String JosefTime;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setBackgroundColor(Color.parseColor("#41969e"));
+//        toolbar.setBackgroundColor(Color.parseColor("#41969e"));
 //        getSupportActionBar().hide();
 
         // Create the adapter that will return a fragment for each of the three

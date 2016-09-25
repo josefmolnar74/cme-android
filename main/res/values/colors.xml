@@ -15,4 +15,16 @@
     <color name="cme_light">#7fc9cb</color>
     <color name="cme_dark">#41969e</color>
     <color name="cme_alert_red">#c02929</color>
+
+    <color name="yellow1">#fff600</color>
+    <color name="yellow2">#f8f48c</color>
+
+    <color name="orange4">#ff7e00</color>
+    <color name="orange5">#f2b070</color>
+
+    <color name="blue25">#0078ff</color>
+    <color name="blue2">#8ab2de</color>
+
+    <color name="grey05">#b6b6b6</color>
+
 </resources>
