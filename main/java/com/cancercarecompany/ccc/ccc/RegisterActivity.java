@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
 
-            Intent myIntent = new Intent(this, CareTeamActivity.class);
+            Intent myIntent = new Intent(this, JourneyActivity.class);
             startActivity(myIntent);
             finish();
         }
