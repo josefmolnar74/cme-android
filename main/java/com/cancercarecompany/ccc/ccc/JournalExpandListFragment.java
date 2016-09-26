@@ -11,10 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
+import java.text.Collator;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -23,17 +33,21 @@ import java.util.List;
 public class JournalExpandListFragment extends Fragment {
 
 
+    TextView journalHeaderText;
     ExpandableListAdapter expandListAdapter;
     ExpandableListView expandListView;
 
-    List<String> emotionalExpandList;
-    List<String> physicalExpandList;
+    List<Sideeffect> emotionalExpandList;
+    List<Sideeffect> physicalExpandList;
     List<String> familyExpandList;
     List<String> practicalExpandList;
 
     List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    HashMap<String, List<Sideeffect>> listDataChild;
     ConnectionHandler connectHandler;
+
+    private int calendarDays;
+    private String journalDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,19 +62,23 @@ public class JournalExpandListFragment extends Fragment {
         }
 
         connectHandler = ConnectionHandler.getInstance();
-
+        final ImageButton dateBackButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_back);
+        final ImageButton dateForwardButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_forward);
+        journalHeaderText = (TextView) view.findViewById(R.id.txt_journal_date);
         expandListView = (ExpandableListView) view.findViewById(R.id.explv_journal);
-        emotionalExpandList = new ArrayList<String>();
-        physicalExpandList = new ArrayList<String>();
-        familyExpandList = new ArrayList<String>();
-        practicalExpandList = new ArrayList<String>();
+        emotionalExpandList = new ArrayList<Sideeffect>();
+        physicalExpandList = new ArrayList<Sideeffect>();
+//        familyExpandList = new ArrayList<String>();
+ //       practicalExpandList = new ArrayList<String>();
+        journalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        journalHeaderText.setText(journalDate);
 
         //build list data
         listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+        listDataChild = new HashMap<String, List<Sideeffect>>();
 
-        listDataHeader.add(getResources().getString(R.string.journal_problem_physical));
-        listDataHeader.add(getResources().getString(R.string.journal_problem_emotional));
+        listDataHeader.add(getResources().getString(R.string.sideeffect_physical));
+        listDataHeader.add(getResources().getString(R.string.sideeffect_emotional));
 //        listDataHeader.add(getResources().getString(R.string.journal_problem_family));
 //        listDataHeader.add(getResources().getString(R.string.journal_problem_practical));
 
@@ -78,12 +96,44 @@ public class JournalExpandListFragment extends Fragment {
         expandListView.expandGroup(0);
          expandListView.expandGroup(1);
 
+        dateBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendarDays -= 1;
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DAY_OF_MONTH, calendarDays);
+//                calendar.setDate (cal.getTimeInMillis(), true, true);
+                journalDate = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    journalHeaderText.setText(journalDate);
+                } else{
+                    journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
+                }
+            }
+        });
+
+        dateForwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendarDays += 1;
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DAY_OF_MONTH, calendarDays);
+//                calendar.setDate (cal.getTimeInMillis(), true, true);
+                journalDate = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    journalHeaderText.setText(journalDate);
+                } else{
+                    journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
+                }
+            }
+        });
+
         // Listview on child click listener
         expandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
+                                        int groupi, int childi, long id) {
 
                 // Begin the transaction
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -98,7 +148,14 @@ public class JournalExpandListFragment extends Fragment {
                 }
                 ft.addToBackStack(null);
                 // send family member data to fragment
-//                mycareTeamShowFamily.setItem(expandList.get(childPosition));
+                switch (groupi){
+                    case 0:
+                        myJournalDetails.setItem(physicalExpandList.get(childi));
+                        break;
+                    case 1:
+                        myJournalDetails.setItem(emotionalExpandList.get(childi));
+                        break;
+                }
 
                 ft.commit();
                 return false;
@@ -109,48 +166,152 @@ public class JournalExpandListFragment extends Fragment {
     }
 
     private void prepareExpList(){
-        emotionalExpandList.add(getString(R.string.journal_problem_emotional_depression));
-        emotionalExpandList.add(getString(R.string.journal_problem_emotional_fear));
-        emotionalExpandList.add(getString(R.string.journal_problem_emotional_nervous));
-        emotionalExpandList.add(getString(R.string.journal_problem_emotional_dejection));
-        emotionalExpandList.add(getString(R.string.journal_problem_emotional_worry));
-        emotionalExpandList.add(getString(R.string.journal_problem_emotional_loss));
 
-        physicalExpandList.add(getString(R.string.journal_problem_physical_appearance));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_hygiene));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_breathing));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_urination));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_constipation));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_diarrhea));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_eating));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_fatigue));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_swollen));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_fever));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_mobility));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_digestion));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_memory));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_mouth));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_nausea));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_nose));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_pain));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_sex));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_dermal));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_sleep));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_abuse));
-        physicalExpandList.add(getString(R.string.journal_problem_physical_tingling));
+        List<String> physicalSideEffects = Arrays.asList(
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_APPERANCE, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_BREATHING, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_URINATION, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_EATING, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_FATIGUE, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_BLOATED, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_FEVER, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_NAUSEA, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_NOSE, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_PAIN, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_SEX, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_DERMAL, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_SLEEP, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING, "string", getActivity().getPackageName()))
+        );
 
-        familyExpandList.add(getString(R.string.journal_problem_family_relation_child));
-        familyExpandList.add(getString(R.string.journal_problem_family_relation_partner));
-        familyExpandList.add(getString(R.string.journal_problem_family_children));
-        familyExpandList.add(getString(R.string.journal_problem_family_health));
+        List<String> emotionalSideeffects = Arrays.asList(
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_EMOTIONAL_DEPRESSION, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_EMOTIONAL_FEAR, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_EMOTIONAL_NERVOUS, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_EMOTIONAL_DEJECTION, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_EMOTIONAL_WORRY, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_EMOTIONAL_LOSS, "string", getActivity().getPackageName()))
+        );
 
-        practicalExpandList.add(getString(R.string.journal_problem_practical_childcare));
-        practicalExpandList.add(getString(R.string.journal_problem_practical_home));
-        practicalExpandList.add(getString(R.string.journal_problem_practical_economy));
-        practicalExpandList.add(getString(R.string.journal_problem_practical_transportation));
-        practicalExpandList.add(getString(R.string.journal_problem_practical_work));
-        practicalExpandList.add(getString(R.string.journal_problem_practical_decision));
+
+        // find todays sideeffects
+        connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy){}
+
+        ArrayList<Sideeffect> todaysSideeffects = new ArrayList<Sideeffect>();
+
+        // Hopefully I can remove this when I have a method that gets only this day sideeffects
+        if (connectHandler.sideeffects.sideeffect_data != null) {
+            for (int i = 0; i < connectHandler.sideeffects.sideeffect_data.size(); i++) {
+                boolean dateIsToday = false;
+                try {
+                    dateIsToday = matchDate(journalHeaderText.getText().toString(), connectHandler.sideeffects.sideeffect_data.get(i).date);
+                } catch (ParseException e) {
+                }
+                if (dateIsToday) {
+                    todaysSideeffects.add(connectHandler.sideeffects.sideeffect_data.get(i));
+                }
+            }
+        }
+
+        Collections.sort(physicalSideEffects, Collator.getInstance(new Locale("sv")));
+        Collections.sort(physicalSideEffects, Collator.getInstance(new Locale("sv")));
+
+        int todaysSideffectPosition;
+
+        for (int i=0; i < physicalSideEffects.size() ; i++){
+            todaysSideffectPosition = -1;
+            for (int j=0; j < todaysSideeffects.size(); j++){
+                if (todaysSideeffects.get(j).type.matches(physicalSideEffects.get(i))){
+                    // Sideeffect has already saved value from today
+                    todaysSideffectPosition = j;
+                    break;
+                }
+            }
+            Sideeffect sideeffectItem = null;
+            if (todaysSideffectPosition >=0) {
+                sideeffectItem = new Sideeffect(todaysSideeffects.get(todaysSideffectPosition).sideeffect_ID,
+                                            connectHandler.patient.patient_ID,
+                                            connectHandler.person.person_ID,
+                                            todaysSideeffects.get(todaysSideffectPosition).date,
+                                            todaysSideeffects.get(todaysSideffectPosition).time,
+                                            todaysSideeffects.get(todaysSideffectPosition).type,
+                                            todaysSideeffects.get(todaysSideffectPosition).value);
+            }else{
+                // create empty Sideeffect object
+                sideeffectItem = new Sideeffect(0,
+                                            connectHandler.patient.patient_ID,
+                                            connectHandler.person.person_ID,
+                                            "",
+                                            "",
+                                            physicalSideEffects.get(i),
+                                            "");
+            }
+            physicalExpandList.add(sideeffectItem);
+        }
+
+        for (int i=0; i < emotionalSideeffects.size() ; i++){
+            todaysSideffectPosition = -1;
+            for (int j=0; j < todaysSideeffects.size(); j++){
+                if (todaysSideeffects.get(j).type.matches(emotionalSideeffects.get(i))){
+                    // Sideeffect has already saved value from today
+                    todaysSideffectPosition = j;
+                    break;
+                }
+            }
+            Sideeffect sideeffectItem = null;
+            if (todaysSideffectPosition >=0) {
+                sideeffectItem = new Sideeffect(todaysSideeffects.get(todaysSideffectPosition).sideeffect_ID,
+                        connectHandler.patient.patient_ID,
+                        connectHandler.person.person_ID,
+                        todaysSideeffects.get(todaysSideffectPosition).date,
+                        todaysSideeffects.get(todaysSideffectPosition).time,
+                        todaysSideeffects.get(todaysSideffectPosition).type,
+                        todaysSideeffects.get(todaysSideffectPosition).value);
+            }else{
+                // create empty Sideeffect object
+                sideeffectItem = new Sideeffect(0,
+                        connectHandler.patient.patient_ID,
+                        connectHandler.person.person_ID,
+                        "",
+                        "",
+                        emotionalSideeffects.get(i),
+                        "");
+            }
+            emotionalExpandList.add(sideeffectItem);
+        }
 
     }
-}
 
+    private boolean matchDate(String targetDateString , String dateString) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date targetDate = null;
+        Date date = null;
+        long milliseconds = 0;
+        dateString = dateString.split("T")[0];
+
+        try {
+            targetDate = format.parse(targetDateString);
+        } catch (ParseException e) {
+            System.out.println("Failure when parsing the targetDateString");
+        }
+        try {
+            date = format.parse(dateString);
+        } catch (ParseException e) {
+            System.out.println("Failure when parsing the dateString");
+        }
+        if ((date != null) && (targetDate != null)) {
+            return (targetDate.getTime() == date.getTime());
+        } else {
+            return false;
+        }
+    }
+
+}

@@ -43,6 +43,7 @@ public class EventsDetailsFragment extends Fragment {
     private String category;
     private ImageView eventImage;
     private TextView eventText;
+    private ImageButton informationButton;
     private ImageView subCategory1;
     private ImageView subCategory2;
     private ImageView subCategory3;
@@ -87,10 +88,10 @@ public class EventsDetailsFragment extends Fragment {
 
         mCalendar = Calendar.getInstance();
 
-        final ImageButton buttonEdit = (ImageButton) view.findViewById(R.id.btn_edit);
-        final TextView txtSave = (TextView) view.findViewById(R.id.txt_save);
-        txtSave.setVisibility(View.INVISIBLE);
-        buttonEdit.setVisibility(View.INVISIBLE);
+        final ImageButton deleteButton = (ImageButton) view.findViewById(R.id.btn_delete);
+        final ImageButton saveButton = (ImageButton) view.findViewById(R.id.btn_save);
+        saveButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.VISIBLE);
 
             // check admin
         for (int i=0; i < connectHandler.patient.care_team.size(); i++){
@@ -101,12 +102,13 @@ public class EventsDetailsFragment extends Fragment {
         }
 
         if (admin){
-            buttonEdit.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.VISIBLE);
         }
         Context context = MyApplication.getContext();
 
         eventImage = (ImageView) view.findViewById(R.id.img_event);
         eventText = (TextView) view.findViewById(R.id.txt_event_category);
+        informationButton = (ImageButton) view.findViewById(R.id.btn_event_information);
         final Button appointmentButton = (Button) view.findViewById(R.id.btn_event_selection_appointment);
         final Button treatmentButton = (Button) view.findViewById(R.id.btn_event_selection_treatment);
         final Button testButton = (Button) view.findViewById(R.id.btn_event_selection_test);
@@ -152,15 +154,15 @@ public class EventsDetailsFragment extends Fragment {
                 break;
         }
 
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonEdit.setVisibility(View.INVISIBLE);
-                txtSave.setVisibility(View.VISIBLE);
+                deleteButton.setVisibility(View.VISIBLE);
+                saveButton.setVisibility(View.VISIBLE);
             }
         });
 
-        txtSave.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }
@@ -555,6 +557,8 @@ public class EventsDetailsFragment extends Fragment {
     }
 
     private void setEventCategory(String subCategoryClicked){
+        eventImage.setVisibility(View.VISIBLE);
+        informationButton.setVisibility(View.VISIBLE);
         eventImage.setImageResource(getActivity().getResources().getIdentifier("event_"+subCategoryClicked+"_bubble", "drawable", getActivity().getPackageName()));
         eventText.setText(getActivity().getString(getActivity().getResources().getIdentifier("event_"+subCategoryClicked, "string", getActivity().getPackageName())));
     }

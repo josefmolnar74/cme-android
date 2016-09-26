@@ -206,7 +206,7 @@ public class JournalActivity extends AppCompatActivity {
         emotionText = (TextView) findViewById(R.id.txt_journal_emotions);
 
         final EditText statusTextEditText = (EditText) findViewById(R.id.edtxt_journal_status);
-        final TextView journalHeaderText = (TextView) findViewById(R.id.txt_journal_header);
+        final TextView journalHeaderText = (TextView) findViewById(R.id.txt_journal_date);
         final TextView patientNameText = (TextView) findViewById(R.id.txt_patientName);
         final Button saveStatusButton = (Button) findViewById(R.id.btn_journal_status_save);
         final Button medicationBreakfastButton = (Button) findViewById(R.id.btn_journal_medication_breakfast);

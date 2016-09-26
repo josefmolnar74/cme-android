@@ -16,15 +16,17 @@ import android.widget.TextView;
 
 public class JournalDetailsFragment extends Fragment {
 
-    private CareTeamExpandListItem listItem;
+    private Sideeffect listItem;
     private ConnectionHandler connectHandler;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        View view = inflater.inflate(R.layout.fragment_events_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_journal_details, container, false);
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             setHasOptionsMenu(true);
@@ -32,10 +34,11 @@ public class JournalDetailsFragment extends Fragment {
             ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.GONE);
             CustomViewPager viewPager = (CustomViewPager) getActivity().findViewById(R.id.container);
             viewPager.setPagingEnabled(false);
-//            ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.journal_detail_header));
-//            RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.lay_journal_detail);
-//            layout.setVisibility(View.GONE);
+            ((MainActivity) getActivity()).setActionBarTitle(listItem.type);
+            RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.lay_journal_detail);
+            layout.setVisibility(View.GONE);
         }
+
 
 
         // Insert Detail code here
@@ -45,7 +48,7 @@ public class JournalDetailsFragment extends Fragment {
 
     }
 
-    public void setItem(CareTeamExpandListItem selectedListItem){
+    public void setItem(Sideeffect selectedListItem){
         listItem = selectedListItem;
     }
 }

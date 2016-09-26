@@ -116,7 +116,7 @@
     <string name="journal_problem_physical_diarrhea">Diarré</string>
     <string name="journal_problem_physical_eating">Ätsvårigheter</string>
     <string name="journal_problem_physical_fatigue">Trötthet</string>
-    <string name="journal_problem_physical_swollen">Känner mig svullen</string>
+    <string name="journal_problem_physical_bloated">Känner mig svullen</string>
     <string name="journal_problem_physical_fever">Feber</string>
     <string name="journal_problem_physical_mobility">Rörlighet</string>
     <string name="journal_problem_physical_digestion">Matsmältning</string>

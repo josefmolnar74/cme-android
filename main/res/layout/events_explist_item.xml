@@ -4,8 +4,8 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom ="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom ="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -15,9 +15,9 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:id="@+id/img_event_explist_avatar"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:contextClickable="false" />
+            android:contextClickable="false"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
 
         <GridLayout
             android:layout_width="wrap_content"
@@ -37,7 +37,8 @@
                 android:layout_row="0"
                 android:layout_columnSpan="2"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp"/>
+                android:paddingBottom="5dp"
+                android:textStyle="bold" />
 
 
             <TextView

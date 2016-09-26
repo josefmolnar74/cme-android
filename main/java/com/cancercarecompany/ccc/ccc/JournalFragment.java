@@ -16,6 +16,38 @@ import android.view.ViewGroup;
  */
 public class JournalFragment extends Fragment {
 
+    // CONSTANTS
+    final static public String SIDEEFFECT_PHYSICAL_APPERANCE = "physical_appearance";
+    final static public String SIDEEFFECT_PHYSICAL_HYGIENE = "physical_hygiene";
+    final static public String SIDEEFFECT_PHYSICAL_BREATHING = "physical_breathing";
+    final static public String SIDEEFFECT_PHYSICAL_URINATION = "physical_urination";
+    final static public String SIDEEFFECT_PHYSICAL_CONSTIPATION = "physical_constipation";
+    final static public String SIDEEFFECT_PHYSICAL_DIARRHEA = "physical_diarrhea";
+    final static public String SIDEEFFECT_PHYSICAL_EATING = "physical_eating";
+    final static public String SIDEEFFECT_PHYSICAL_FATIGUE = "physical_fatigue";
+    final static public String SIDEEFFECT_PHYSICAL_BLOATED  = "physical_bloated";
+    final static public String SIDEEFFECT_PHYSICAL_FEVER  = "physical_fever";
+    final static public String SIDEEFFECT_PHYSICAL_MOBILITY  = "physical_mobility";
+    final static public String SIDEEFFECT_PHYSICAL_DIGESTION  ="physical_digestion";
+    final static public String SIDEEFFECT_PHYSICAL_MEMORY  = "physical_memory";
+    final static public String SIDEEFFECT_PHYSICAL_MOUTH  = "physical_mouth";
+    final static public String SIDEEFFECT_PHYSICAL_NAUSEA  = "physical_nausea";
+    final static public String SIDEEFFECT_PHYSICAL_NOSE = "physical_nose";
+    final static public String SIDEEFFECT_PHYSICAL_PAIN = "physical_pain";
+    final static public String SIDEEFFECT_PHYSICAL_SEX = "physical_sex";
+    final static public String SIDEEFFECT_PHYSICAL_DERMAL = "physical_dermal";
+    final static public String SIDEEFFECT_PHYSICAL_SLEEP = "physical_sleep";
+    final static public String SIDEEFFECT_PHYSICAL_ABUSE = "physical_abuse";
+    final static public String SIDEEFFECT_PHYSICAL_TINGLING = "physical_tingling";
+
+    final static public String SIDEEFFECT_EMOTIONAL_DEPRESSION ="emotional_depression";
+    final static public String SIDEEFFECT_EMOTIONAL_FEAR = "emotional_fear";
+    final static public String SIDEEFFECT_EMOTIONAL_NERVOUS = "emotional_nervous";
+    final static public String SIDEEFFECT_EMOTIONAL_DEJECTION = "emotional_dejection";
+    final static public String SIDEEFFECT_EMOTIONAL_WORRY = "emotional_worry";
+    final static public String SIDEEFFECT_EMOTIONAL_LOSS = "emotional_loss";
+
+
     public JournalFragment() {
         // Required empty public constructor
     }

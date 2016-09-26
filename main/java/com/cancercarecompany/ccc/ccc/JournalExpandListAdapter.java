@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -21,10 +22,10 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
     private Context _context;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<String, List<String>> _listDataChild;
+    private HashMap<String, List<Sideeffect>> _listDataChild;
 
     public JournalExpandListAdapter(Context context, List<String> listDataHeader,
-                                    HashMap<String, List<String>> listChildData) {
+                                    HashMap<String, List<Sideeffect>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
@@ -45,7 +46,7 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final String listItem = (String) getChild(groupPosition, childPosition);
+        final Sideeffect listItem = (Sideeffect) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
@@ -53,9 +54,13 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.journal_expand_list_item, null);
         }
 
-        TextView txtListName = (TextView) convertView
-                .findViewById(R.id.txt_journal_list_name);
-        txtListName.setText(listItem);
+        TextView txtListName = (TextView) convertView.findViewById(R.id.txt_journal_list_name);
+        RadioButton sideeffectExists = (RadioButton) convertView.findViewById(R.id.rb_sideeffect_exists);
+        txtListName.setText(listItem.type);
+
+        if (listItem.sideeffect_ID != 0){
+            sideeffectExists.setEnabled(true);
+        }
 
         return convertView;
     }
