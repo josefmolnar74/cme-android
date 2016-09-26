@@ -60,6 +60,7 @@
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:orientation="vertical"
+
             android:focusableInTouchMode="true">
 
             <LinearLayout
@@ -72,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/choose_category"
                     android:id="@+id/event_choose_category"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:textSize="@dimen/MEDIUM"
                     android:textStyle="bold" />
@@ -109,6 +111,9 @@
                 </TableLayout>
 
                 <LinearLayout
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/show_on_selection"
@@ -138,21 +143,31 @@
                             android:layout_alignParentStart="true"
                             android:id="@+id/img_event" />
 
+                        <ImageButton
+                            android:layout_marginRight="5dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:id="@+id/btn_event_information"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/information_button" />
+
                     </RelativeLayout>
 
                     <GridLayout
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:id="@+id/lay_events_selection"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:columnCount="5">
+                        android:gravity="center_horizontal"
+                        android:columnCount="5"
+                        android:layout_gravity="center_horizontal">
 
                         <ImageView
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
                             android:id="@+id/img_subcategory1"
@@ -160,16 +175,16 @@
                             android:visibility="visible"/>
 
                         <ImageView
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
                             android:id="@+id/img_subcategory2"
                             android:background="@drawable/pinkbubble"
                             android:visibility="visible"/>
                         <ImageView
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
                             android:id="@+id/img_subcategory3"
@@ -177,8 +192,8 @@
                             android:visibility="visible"/>
 
                         <ImageView
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
                             android:id="@+id/img_subcategory4"
@@ -186,8 +201,8 @@
                             android:visibility="visible" />
 
                         <ImageView
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
                             android:id="@+id/img_subcategory5"
@@ -195,8 +210,8 @@
                             android:visibility="visible" />
 
                         <ImageView
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
                             android:id="@+id/img_subcategory6"
@@ -204,8 +219,8 @@
                             android:visibility="visible" />
 
                         <ImageView
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
                             android:id="@+id/img_subcategory7"
@@ -213,8 +228,8 @@
                             android:visibility="visible" />
 
                         <ImageView
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
                             android:id="@+id/img_subcategory8"
@@ -222,8 +237,8 @@
                             android:visibility="visible"/>
 
                         <ImageView
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
                             android:id="@+id/img_subcategory9"
@@ -235,10 +250,10 @@
                     <GridLayout
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:gravity="center"
+                        android:gravity="center_horizontal"
                         android:columnCount="2">
 
                         <Button
@@ -259,26 +274,6 @@
                             android:text="@string/event_pick_time"
                             android:background="@drawable/custom_button"
                             android:textColor="@drawable/custom_button_text_color" />
-
-                        <TextView
-                            android:visibility="gone"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/txt_events_date"
-                            android:textSize="@dimen/MEDIUM"
-                            android:text="2016-10-25"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:visibility="gone"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/txt_events_time"
-                            android:textSize="@dimen/MEDIUM"
-                            android:text="17:00"
-                            android:textStyle="bold" />
 
                     </GridLayout>
 

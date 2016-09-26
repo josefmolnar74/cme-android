@@ -104,7 +104,7 @@
     <string name="journal_emotion_sick">Sjuk</string>
     <string name="journal_emotion_nauseous">Illamående</string>
 
-    <string name="journal_problem_emotional">Känslomässiga problem</string>
+    <string name="journal_problem_emotional">Känslomässiga biverkningar</string>
     <string name="journal_problem_emotional_depression">Depression</string>
     <string name="journal_problem_emotional_fear">Rädsla</string>
     <string name="journal_problem_emotional_nervous">Nervösitet</string>
@@ -112,7 +112,7 @@
     <string name="journal_problem_emotional_worry">Oro</string>
     <string name="journal_problem_emotional_loss">Förlust av intresse för vardagliga aktiviteter</string>
 
-    <string name="journal_problem_physical">Fysiska problem</string>
+    <string name="journal_problem_physical">Fysiska biverkningar</string>
     <string name="journal_problem_physical_appearance">Utseende</string>
     <string name="journal_problem_physical_hygiene">Hygien/påklädning</string>
     <string name="journal_problem_physical_breathing">Andning</string>

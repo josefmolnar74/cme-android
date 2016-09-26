@@ -53,8 +53,6 @@ public class EventsDetailsFragment extends Fragment {
     private ImageView subCategory8;
     private ImageView subCategory9;
     private String subCategoryClicked;
-    private TextView eventDate;
-    private TextView eventTime;
     private EditText notes;
     private Button mDateButton;
     private Button mTimeButton;
@@ -114,8 +112,6 @@ public class EventsDetailsFragment extends Fragment {
         final Button testButton = (Button) view.findViewById(R.id.btn_event_selection_test);
         mDateButton = (Button) view.findViewById(R.id.btn_pick_date);
         mTimeButton = (Button) view.findViewById(R.id.btn_pick_time);
-        eventDate = (TextView) view.findViewById(R.id.txt_events_date);
-        eventTime = (TextView) view.findViewById(R.id.txt_events_time);
         final TextView chooseCategory = (TextView) view.findViewById(R.id.event_choose_category);
         final LinearLayout showOnSelection = (LinearLayout) view.findViewById(R.id.show_on_selection);
         notes = (EditText) view.findViewById(R.id.event_notes);
@@ -133,8 +129,6 @@ public class EventsDetailsFragment extends Fragment {
 
         if (listItem.sub_category.matches("create_new")){
             eventText.setText(context.getResources().getString(R.string.choose_event));
-            eventDate.setText("");
-            eventTime.setText("");
             showOnSelection.setVisibility(View.GONE);
             subCategoryClicked = "";
         }else{
