@@ -36,7 +36,6 @@ public class JournalFragment extends Fragment {
     final static public String SIDEEFFECT_PHYSICAL_PAIN = "physical_pain";
     final static public String SIDEEFFECT_PHYSICAL_SEX = "physical_sex";
     final static public String SIDEEFFECT_PHYSICAL_DERMAL = "physical_dermal";
-    final static public String SIDEEFFECT_PHYSICAL_ITCH = "physical_itch";
     final static public String SIDEEFFECT_PHYSICAL_SLEEP = "physical_sleep";
     final static public String SIDEEFFECT_PHYSICAL_ABUSE = "physical_abuse";
     final static public String SIDEEFFECT_PHYSICAL_TINGLING = "physical_tingling";

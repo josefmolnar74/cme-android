@@ -66,11 +66,13 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txt_journal_sideeffect_question"
                     android:text="Question"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp" />
 
                 <LinearLayout
                     android:id="@+id/lay_journal_sideeffect_seekbars"
@@ -88,14 +90,14 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/txt_journal_sideeeffect_seekbar_headline1"
+                            android:id="@+id/txt_journal_sideeffect_seekbar_headline1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Breakfast"
                             android:textSize="@dimen/MEDIUM" />
 
                         <SeekBar
-                            android:id="@+id/txt_journal_sideeffect_seekbar1"
+                            android:id="@+id/sb_journal_sideeffect_seekbar1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:max="10"
@@ -103,27 +105,27 @@
                             android:layout_marginTop="@dimen/activity_vertical_margin"
                             android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:layout_marginRight="@dimen/activity_horizontal_margin"
-                            android:layout_below="@+id/txt_journal_sideeeffect_seekbar_headline1"
+                            android:layout_below="@+id/txt_journal_sideeffect_seekbar_headline1"
                             android:layout_alignParentLeft="true"
                             android:layout_gravity="center_horizontal" />
 
                         <TextView
-                            android:id="@+id/txt_journal_sideeeffect_seekbar_min1"
+                            android:id="@+id/txt_journal_sideeffect_seekbar_min1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:layout_alignParentLeft="true"
-                            android:layout_below="@+id/txt_journal_sideeffect_seekbar1"
+                            android:layout_below="@+id/sb_journal_sideeffect_seekbar1"
                             android:text="Nothing" />
 
                         <TextView
 
-                            android:id="@+id/txt_journal_sideeeffect_seekbar_max1" 
+                            android:id="@+id/txt_journal_sideeffect_seekbar_max1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:layout_alignParentRight="true"
-                            android:layout_below="@+id/txt_journal_sideeffect_seekbar1"
+                            android:layout_below="@+id/sb_journal_sideeffect_seekbar1"
                             android:text="Everything"/>
 
                         <TextView
@@ -133,7 +135,7 @@
                             android:text="0"
                             android:layout_alignParentTop="true"
                             android:textSize="@dimen/LARGE"
-                            android:layout_alignEnd="@+id/txt_journal_sideeffect_seekbar1" />
+                            android:layout_alignEnd="@+id/sb_journal_sideeffect_seekbar1" />
 
                     </RelativeLayout>
 
@@ -144,14 +146,14 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/txt_journal_sideeeffect_seekbar_headline2"
+                            android:id="@+id/txt_journal_sideeffect_seekbar_headline2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Breakfast"
                             android:textSize="@dimen/MEDIUM" />
 
                         <SeekBar
-                            android:id="@+id/txt_journal_sideeffect_seekbar2"
+                            android:id="@+id/sb_journal_sideeffect_seekbar2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:max="10"
@@ -159,27 +161,27 @@
                             android:layout_marginTop="@dimen/activity_vertical_margin"
                             android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:layout_marginRight="@dimen/activity_horizontal_margin"
-                            android:layout_below="@+id/txt_journal_sideeeffect_seekbar_headline2"
+                            android:layout_below="@+id/txt_journal_sideeffect_seekbar_headline2"
                             android:layout_alignParentLeft="true"
                             android:layout_gravity="center_horizontal" />
 
                         <TextView
-                            android:id="@+id/txt_journal_sideeeffect_seekbar_min2"
+                            android:id="@+id/txt_journal_sideeffect_seekbar_min2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:layout_alignParentLeft="true"
-                            android:layout_below="@+id/txt_journal_sideeffect_seekbar2"
+                            android:layout_below="@+id/sb_journal_sideeffect_seekbar2"
                             android:text="Nothing" />
 
                         <TextView
 
-                            android:id="@+id/txt_journal_sideeeffect_seekbar_max2"
+                            android:id="@+id/txt_journal_sideeffect_seekbar_max2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:layout_alignParentRight="true"
-                            android:layout_below="@+id/txt_journal_sideeffect_seekbar2"
+                            android:layout_below="@+id/sb_journal_sideeffect_seekbar2"
                             android:text="Everything"/>
 
                         <TextView
@@ -189,7 +191,7 @@
                             android:text="0"
                             android:layout_alignParentTop="true"
                             android:textSize="@dimen/LARGE"
-                            android:layout_alignEnd="@+id/txt_journal_sideeffect_seekbar2" />
+                            android:layout_alignEnd="@+id/sb_journal_sideeffect_seekbar2" />
 
                     </RelativeLayout>
 
@@ -208,7 +210,7 @@
                             android:textSize="@dimen/MEDIUM" />
 
                         <SeekBar
-                            android:id="@+id/txt_journal_sideeffect_seekbar3"
+                            android:id="@+id/sb_journal_sideeffect_seekbar3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:max="10"
@@ -226,7 +228,7 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:layout_alignParentLeft="true"
-                            android:layout_below="@+id/txt_journal_sideeffect_seekbar3"
+                            android:layout_below="@+id/sb_journal_sideeffect_seekbar3"
                             android:text="Nothing" />
 
                         <TextView
@@ -235,7 +237,7 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:layout_alignParentRight="true"
-                            android:layout_below="@+id/txt_journal_sideeffect_seekbar3"
+                            android:layout_below="@+id/sb_journal_sideeffect_seekbar3"
                             android:text="Everything" />
 
                         <TextView
@@ -245,7 +247,7 @@
                             android:text="0"
                             android:layout_alignParentTop="true"
                             android:textSize="@dimen/LARGE"
-                            android:layout_alignEnd="@+id/txt_journal_sideeffect_seekbar3" />
+                            android:layout_alignEnd="@+id/sb_journal_sideeffect_seekbar3" />
 
                     </RelativeLayout>
 

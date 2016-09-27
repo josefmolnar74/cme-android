@@ -16,17 +16,16 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.text.Collator;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 
 /**
@@ -191,29 +190,28 @@ public class JournalExpandListFragment extends Fragment {
 
     private void prepareExpList(){
 
-        List<String> physicalSideEffects = Arrays.asList(
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_APPERANCE, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_BREATHING, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_URINATION, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_APPETITE, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_FATIGUE, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_BLOATED, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_FEVER, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_NAUSEA, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_NOSE, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_PAIN, "string", getActivity().getPackageName())),
-//                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_SEX, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_DERMAL, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_ITCH, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_SLEEP, "string", getActivity().getPackageName())),
-//                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING, "string", getActivity().getPackageName()))
+        List<String> physicalSideeffectList = Arrays.asList(
+                JournalFragment.SIDEEFFECT_PHYSICAL_APPERANCE,
+                JournalFragment.SIDEEFFECT_PHYSICAL_BREATHING,
+                JournalFragment.SIDEEFFECT_PHYSICAL_URINATION,
+                JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION,
+                JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA,
+                JournalFragment.SIDEEFFECT_PHYSICAL_APPETITE,
+                JournalFragment.SIDEEFFECT_PHYSICAL_FATIGUE,
+                JournalFragment.SIDEEFFECT_PHYSICAL_BLOATED,
+                JournalFragment.SIDEEFFECT_PHYSICAL_FEVER,
+                JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY,
+                JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION,
+                JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY,
+                JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH,
+                JournalFragment.SIDEEFFECT_PHYSICAL_NAUSEA,
+                JournalFragment.SIDEEFFECT_PHYSICAL_NOSE,
+                JournalFragment.SIDEEFFECT_PHYSICAL_PAIN,
+//              JournalFragment.SIDEEFFECT_PHYSICAL_SEX,
+                JournalFragment.SIDEEFFECT_PHYSICAL_DERMAL,
+                JournalFragment.SIDEEFFECT_PHYSICAL_SLEEP,
+//              JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE,
+                JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING
         );
 
         List<String> emotionalSideeffects = Arrays.asList(
@@ -246,13 +244,12 @@ public class JournalExpandListFragment extends Fragment {
             }
         }
 
-        Collections.sort(physicalSideEffects, Collator.getInstance(new Locale("sv")));
-        Collections.sort(physicalSideEffects, Collator.getInstance(new Locale("sv")));
+//        Collections.sort(physicalSideEffects, Collator.getInstance(new Locale("sv")));
+//        Collections.sort(physicalSideEffects, Collator.getInstance(new Locale("sv")));
 
         int todaysSideffectPosition;
 
-        SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem();
-        for (int i=0; i < physicalSideEffects.size() ; i++){
+        for (int i=0; i < physicalSideeffectList.size() ; i++){
             todaysSideffectPosition = -1;
 /*            for (int j=0; j < todaysSideeffects.size(); j++){
                 if
@@ -263,30 +260,43 @@ public class JournalExpandListFragment extends Fragment {
                     break;
                 }
             }
-*/            sideeffectItem.headline = physicalSideEffects.get(i);
-            Sideeffect sideeffect = null;
+*/
             if (todaysSideffectPosition >=0) {
-                sideeffect = new Sideeffect(todaysSideeffects.get(todaysSideffectPosition).sideeffect_ID,
+                String header =
+                        getString(getActivity().getResources().getIdentifier("sideeffect_"+ physicalSideeffectList.get(i), "string", getActivity().getPackageName()));
+
+                Sideeffect sideeffect = new Sideeffect(todaysSideeffects.get(todaysSideffectPosition).sideeffect_ID,
                                             connectHandler.patient.patient_ID,
                                             connectHandler.person.person_ID,
                                             todaysSideeffects.get(todaysSideffectPosition).date,
                                             todaysSideeffects.get(todaysSideffectPosition).time,
                                             todaysSideeffects.get(todaysSideffectPosition).type,
                                             todaysSideeffects.get(todaysSideffectPosition).value);
+                SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem(header, sideeffect);
+                physicalExpandList.add(sideeffectItem);
+
             }else{
                 // create empty Sideeffect object
-                sideeffect = new Sideeffect(0,
+                String header =
+                        getString(getActivity().getResources().getIdentifier("sideeffect_"+ physicalSideeffectList.get(i), "string", getActivity().getPackageName()));
+                Sideeffect sideeffect = new Sideeffect(0,
                                             connectHandler.patient.patient_ID,
                                             connectHandler.person.person_ID,
                                             "",
                                             "",
-                                            physicalSideEffects.get(i),
+                                            physicalSideeffectList.get(i),
                                             "");
+                SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem(header, sideeffect);
+                physicalExpandList.add(sideeffectItem);
             }
-            sideeffectItem.headline = emotionalSideeffects.get(i);
-            sideeffectItem.sideeffect = sideeffect;
-            physicalExpandList.add(sideeffectItem);
         }
+
+        Collections.sort(physicalExpandList, new Comparator<SideeffectExpandListItem>() {
+            @Override
+            public int compare(SideeffectExpandListItem o1, SideeffectExpandListItem o2) {
+                return o1.header.compareTo(o2.header);
+            }
+        });
 
         for (int i=0; i < emotionalSideeffects.size() ; i++){
             todaysSideffectPosition = -1;
@@ -297,29 +307,36 @@ public class JournalExpandListFragment extends Fragment {
                     break;
                 }
             }
-            Sideeffect sideeffect = null;
             if (todaysSideffectPosition >=0) {
-                sideeffect = new Sideeffect(todaysSideeffects.get(todaysSideffectPosition).sideeffect_ID,
+                Sideeffect sideeffect = new Sideeffect(todaysSideeffects.get(todaysSideffectPosition).sideeffect_ID,
                         connectHandler.patient.patient_ID,
                         connectHandler.person.person_ID,
                         todaysSideeffects.get(todaysSideffectPosition).date,
                         todaysSideeffects.get(todaysSideffectPosition).time,
                         todaysSideeffects.get(todaysSideffectPosition).type,
                         todaysSideeffects.get(todaysSideffectPosition).value);
+                SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem(emotionalSideeffects.get(i), sideeffect);
+                emotionalExpandList.add(sideeffectItem);
             }else{
                 // create empty Sideeffect object
-                sideeffect = new Sideeffect(0,
+                Sideeffect sideeffect = new Sideeffect(0,
                         connectHandler.patient.patient_ID,
                         connectHandler.person.person_ID,
                         "",
-                        "",
+                        getSideeffectType(emotionalSideeffects.get(i)),
                         emotionalSideeffects.get(i),
                         "");
+                SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem(emotionalSideeffects.get(i), sideeffect);
+                emotionalExpandList.add(sideeffectItem);
             }
-            sideeffectItem.headline = emotionalSideeffects.get(i);
-            emotionalExpandList.add(sideeffectItem);
         }
 
+        Collections.sort(emotionalExpandList, new Comparator<SideeffectExpandListItem>() {
+            @Override
+            public int compare(SideeffectExpandListItem o1, SideeffectExpandListItem o2) {
+                return o1.header.compareTo(o2.header);
+            }
+        });
     }
 
     private boolean matchDate(String targetDateString , String dateString) throws ParseException {
@@ -346,4 +363,12 @@ public class JournalExpandListFragment extends Fragment {
         }
     }
 
+    private String getSideeffectType(String translatedSideeffectType){
+        // The sideeffect was translated and sorted, thus we do not now the sideeffect type
+        // Now we need to identify the translated string and find
+        // the associated type. Needed for setup the corresponding detail fragment
+        String sideeffectType = "";
+
+        return sideeffectType;
+    }
 }

@@ -33,10 +33,6 @@ public class EventsExpandListFragment extends Fragment {
     List<Event> eventExpList;
     List<Event> passedEventExpList;
 
-//    List<Event> EventThisWeekList;
-//    List<Event> EventThisMonthExpList;
-//    List<Event> cancerFriendsExpList;
-
     List<String> listDataHeader;
     HashMap<String, List<Event>> listDataChild;
     ConnectionHandler connectHandler;
@@ -67,8 +63,6 @@ public class EventsExpandListFragment extends Fragment {
 
         listDataHeader.add(getResources().getString(R.string.events_all));
         listDataHeader.add(getResources().getString(R.string.events_passed));
-//        listDataHeader.add(getResources().getString(R.string.events_all));
-//        listDataHeader.add(getResources().getString(R.string.events_passed));
 
         if (connectHandler.patient != null) {
             connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);

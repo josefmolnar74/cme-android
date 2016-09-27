@@ -1374,8 +1374,8 @@ public class JournalActivity extends AppCompatActivity {
                 seekbarLayout3.removeAllViews();
                 textSideeffectQuestion.setText(R.string.journal_sideeffects_fatigue_question);
                 textSideeffectsHeader1.setVisibility(View.INVISIBLE);
-                textSeekBarMin1.setText(R.string.journal_sideeffects_fatigue_seekbar_min1);
-                textSeekBarMax1.setText(R.string.journal_sideeffects_fatigue_seekbar_max1);
+                textSeekBarMin1.setText(R.string.journal_sideeffects_fatigue_seekbar_min);
+                textSeekBarMax1.setText(R.string.journal_sideeffects_fatigue_seekbar_max);
                 break;
         }
 

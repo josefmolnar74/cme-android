@@ -143,13 +143,14 @@
 
                         <ImageButton
                             android:visibility="gone"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginRight="5dp"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:id="@+id/btn_event_information"
-                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/information_button"
                             android:layout_centerVertical="true"
-                            android:background="@drawable/information_button" />
+                            android:layout_toEndOf="@+id/txt_event_category" />
 
                     </RelativeLayout>
 

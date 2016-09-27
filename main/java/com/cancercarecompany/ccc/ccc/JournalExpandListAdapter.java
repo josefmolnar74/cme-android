@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -56,7 +55,7 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
 
         TextView txtListName = (TextView) convertView.findViewById(R.id.txt_journal_list_name);
         RadioButton sideeffectExists = (RadioButton) convertView.findViewById(R.id.rb_sideeffect_exists);
-        txtListName.setText(listItem.headline);
+        txtListName.setText(listItem.header);
 
         if (listItem.sideeffect.sideeffect_ID != 0){
             sideeffectExists.setChecked(true);

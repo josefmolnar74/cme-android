@@ -134,6 +134,8 @@ public class EventsDetailsFragment extends Fragment {
             showOnSelection.setVisibility(View.GONE);
             subCategoryClicked = "";
         }else{
+            eventImage.setVisibility(View.VISIBLE);
+            informationButton.setVisibility(View.VISIBLE);
             mDateButton.setText(listItem.date.substring(0,10));
             mTimeButton.setText(listItem.time.substring(0,5));
             eventImage.setImageResource(context.getResources().getIdentifier("event_"+listItem.sub_category+"_bubble", "drawable", context.getPackageName()));

@@ -64,9 +64,9 @@
     <string name="journal_sideeffects_appetite_seekbar_max3">Åt upp allt</string>
     <string name="journal_sideeffects_fatigue_header">Trötthet</string>
     <string name="journal_sideeffects_fatigue_question">Hur känner sig * just nu </string>
-    <string name="journal_sideeffects_fatigue_seekbar_headline1"></string>
-    <string name="journal_sideeffects_fatigue_seekbar_min1">Lite trött</string>
-    <string name="journal_sideeffects_fatigue_seekbar_max1">Jättetrött</string>
+    <string name="journal_sideeffects_fatigue_seekbar_headline"></string>
+    <string name="journal_sideeffects_fatigue_seekbar_min">Lite trött</string>
+    <string name="journal_sideeffects_fatigue_seekbar_max">Jättetrött</string>
     <string name="journal_sideeffects_diarrhea_header">Diarré</string>
     <string name="journal_sideeffects_diarrhea_question">Hur ofta har * haft diarré under det senaste dygnet </string>
     <string name="journal_sideeffects_diarrhea_radioButton1">1</string>
