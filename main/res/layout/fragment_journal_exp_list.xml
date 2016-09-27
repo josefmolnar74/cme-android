@@ -10,7 +10,7 @@
         android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="36dp">
 
         <TextView
             android:layout_marginLeft="10dp"
@@ -20,12 +20,10 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/txt_journal_headline"
             android:id="@+id/txt_journal_date"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/cme_dark"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:textStyle="bold" />
+            android:layout_centerHorizontal="true" />
 
         <ImageButton
             android:layout_width="30dp"
@@ -33,7 +31,8 @@
             android:id="@+id/img_journal_navigate_back"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/txt_journal_date"
-            android:background="@drawable/back" />
+            android:background="@drawable/back"
+            android:layout_marginRight="5dp" />
 
         <ImageButton
             android:layout_width="30dp"
@@ -41,12 +40,37 @@
             android:id="@+id/img_journal_navigate_forward"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/txt_journal_date"
-            android:background="@drawable/forward" />
+            android:background="@drawable/forward"
+            android:layout_marginLeft="5dp" />
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/img_calendar"
+            android:background="@drawable/calendar"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_journal_calendar" >
+
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:theme="@style/cme_custom_theme"
+            android:id="@+id/cal_journal_calendar" />
 
     </RelativeLayout>
 
     <ExpandableListView
-         android:visibility="visible"
+        android:visibility="visible"
         android:id="@+id/explv_journal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

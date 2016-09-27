@@ -8,15 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class JournalDetailsFragment extends Fragment {
 
-    private Sideeffect listItem;
+    private SideeffectExpandListItem listItem;
     private ConnectionHandler connectHandler;
 
 
@@ -34,21 +31,90 @@ public class JournalDetailsFragment extends Fragment {
             ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.GONE);
             CustomViewPager viewPager = (CustomViewPager) getActivity().findViewById(R.id.container);
             viewPager.setPagingEnabled(false);
-            ((MainActivity) getActivity()).setActionBarTitle(listItem.type);
+            ((MainActivity) getActivity()).setActionBarTitle(listItem.sideeffect.type);
             RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.lay_journal_detail);
             layout.setVisibility(View.GONE);
         }
 
+        LinearLayout seekbarLayout = (LinearLayout) view.findViewById(R.id.lay_journal_sideeffect_seekbars);
 
+        switch(listItem.sideeffect.type){
 
-        // Insert Detail code here
+            case JournalFragment.SIDEEFFECT_PHYSICAL_APPERANCE:
+                break;
 
+            case JournalFragment.SIDEEFFECT_PHYSICAL_HYGIENE:
+                break;
 
+            case JournalFragment.SIDEEFFECT_PHYSICAL_BREATHING:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_URINATION:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_APPETITE:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_FATIGUE:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_BLOATED:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_FEVER:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_NAUSEA:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_NOSE:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_PAIN:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_SEX:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_DERMAL:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_ITCH:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_SLEEP:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE:
+                break;
+
+            case JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING:
+                break;
+
+        }
         return view;
 
     }
 
-    public void setItem(Sideeffect selectedListItem){
+    public void setItem(SideeffectExpandListItem selectedListItem){
         listItem = selectedListItem;
     }
 }

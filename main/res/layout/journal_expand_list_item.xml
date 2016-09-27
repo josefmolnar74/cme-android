@@ -5,7 +5,6 @@
     android:layout_marginTop="5dp"
     android:layout_marginBottom ="5dp">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="56dp"
@@ -22,7 +21,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rb_sideeffect_exists"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:checked="false"
+        android:contextClickable="false" />
+
 </RelativeLayout>

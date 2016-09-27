@@ -110,7 +110,7 @@
     <string name="sideeffect_emotional_nervous">Nervösitet</string>
     <string name="sideeffect_emotional_dejection">Nedstämdhet</string>
     <string name="sideeffect_emotional_worry">Oro</string>
-    <string name="sideeffect_emotional_loss">Förlust av intresse för vardagliga aktiviteter</string>
+    <string name="sideeffect_emotional_loss">Intresse för vardagliga aktiviteter</string>
 
     <string name="sideeffect_physical">Fysiska biverkningar</string>
     <string name="sideeffect_physical_appearance">Utseende</string>
@@ -119,7 +119,7 @@
     <string name="sideeffect_physical_urination">Förändrad urinering</string>
     <string name="sideeffect_physical_constipation">Förstoppning</string>
     <string name="sideeffect_physical_diarrhea">Diarré</string>
-    <string name="sideeffect_physical_eating">Ätsvårigheter</string>
+    <string name="sideeffect_physical_appetite">Ätsvårigheter</string>
     <string name="sideeffect_physical_fatigue">Trötthet</string>
     <string name="sideeffect_physical_bloated">Känner mig svullen</string>
     <string name="sideeffect_physical_fever">Feber</string>
@@ -131,7 +131,8 @@
     <string name="sideeffect_physical_nose">Torr/tilltäppt näsa</string>
     <string name="sideeffect_physical_pain">Smärta</string>
     <string name="sideeffect_physical_sex">Sexuella problem</string>
-    <string name="sideeffect_physical_dermal">Torr hud/klåda</string>
+    <string name="sideeffect_physical_dermal">Torr hud</string>
+    <string name="sideeffect_physical_itch">Klåda</string>
     <string name="sideeffect_physical_sleep">Sömn</string>
     <string name="sideeffect_physical_abuse">Missbruk</string>
     <string name="sideeffect_physical_tingling">Stickningar i händer fötter</string>

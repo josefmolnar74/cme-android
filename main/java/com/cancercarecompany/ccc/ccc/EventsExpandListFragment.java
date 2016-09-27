@@ -168,7 +168,6 @@ public class EventsExpandListFragment extends Fragment {
         expListView.setAdapter(eventsExpandListAdapter);
 
         expListView.expandGroup(0);
-//        expListView.expandGroup(1);
 
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {

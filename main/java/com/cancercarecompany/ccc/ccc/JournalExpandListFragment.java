@@ -9,9 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.Collator;
@@ -37,13 +39,13 @@ public class JournalExpandListFragment extends Fragment {
     ExpandableListAdapter expandListAdapter;
     ExpandableListView expandListView;
 
-    List<Sideeffect> emotionalExpandList;
-    List<Sideeffect> physicalExpandList;
+    List<SideeffectExpandListItem> emotionalExpandList;
+    List<SideeffectExpandListItem> physicalExpandList;
     List<String> familyExpandList;
     List<String> practicalExpandList;
 
     List<String> listDataHeader;
-    HashMap<String, List<Sideeffect>> listDataChild;
+    HashMap<String, List<SideeffectExpandListItem>> listDataChild;
     ConnectionHandler connectHandler;
 
     private int calendarDays;
@@ -64,69 +66,33 @@ public class JournalExpandListFragment extends Fragment {
         connectHandler = ConnectionHandler.getInstance();
         final ImageButton dateBackButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_back);
         final ImageButton dateForwardButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_forward);
+        final ImageButton calendarButton = (ImageButton) view.findViewById(R.id.img_calendar);
+        final RelativeLayout calendarLayout = (RelativeLayout) view.findViewById(R.id.layout_journal_calendar);
         journalHeaderText = (TextView) view.findViewById(R.id.txt_journal_date);
         expandListView = (ExpandableListView) view.findViewById(R.id.explv_journal);
-        emotionalExpandList = new ArrayList<Sideeffect>();
-        physicalExpandList = new ArrayList<Sideeffect>();
-//        familyExpandList = new ArrayList<String>();
- //       practicalExpandList = new ArrayList<String>();
+        emotionalExpandList = new ArrayList<SideeffectExpandListItem>();
+        physicalExpandList = new ArrayList<SideeffectExpandListItem>();
         journalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         journalHeaderText.setText(journalDate);
+        final CalendarView calendar = (CalendarView) view.findViewById(R.id.cal_journal_calendar);
 
         //build list data
         listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<Sideeffect>>();
+        listDataChild = new HashMap<String, List<SideeffectExpandListItem>>();
 
         listDataHeader.add(getResources().getString(R.string.sideeffect_physical));
         listDataHeader.add(getResources().getString(R.string.sideeffect_emotional));
-//        listDataHeader.add(getResources().getString(R.string.journal_problem_family));
-//        listDataHeader.add(getResources().getString(R.string.journal_problem_practical));
 
         prepareExpList();
 
         listDataChild.put(listDataHeader.get(0), physicalExpandList); // Header, Child data
         listDataChild.put(listDataHeader.get(1), emotionalExpandList);
-//        listDataChild.put(listDataHeader.get(2), familyExpandList);
-//        listDataChild.put(listDataHeader.get(3), practicalExpandList);
 
         expandListAdapter = new JournalExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
-
         expandListView.setAdapter(expandListAdapter);
 
         expandListView.expandGroup(0);
-         expandListView.expandGroup(1);
-
-        dateBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calendarDays -= 1;
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DAY_OF_MONTH, calendarDays);
-//                calendar.setDate (cal.getTimeInMillis(), true, true);
-                journalDate = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    journalHeaderText.setText(journalDate);
-                } else{
-                    journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
-                }
-            }
-        });
-
-        dateForwardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calendarDays += 1;
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DAY_OF_MONTH, calendarDays);
-//                calendar.setDate (cal.getTimeInMillis(), true, true);
-                journalDate = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    journalHeaderText.setText(journalDate);
-                } else{
-                    journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
-                }
-            }
-        });
+        expandListView.expandGroup(1);
 
         // Listview on child click listener
         expandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -162,6 +128,64 @@ public class JournalExpandListFragment extends Fragment {
             }
         });
 
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (calendarLayout.getVisibility() == View.VISIBLE){
+                    calendarLayout.setVisibility(View.GONE);
+                }else{
+                    calendarLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int date) {
+                journalHeaderText.setText(R.string.txt_journal_headline);
+                month += 1;
+                journalDate = year + "-" +String.format("%02d",month) +"-" +String.format("%02d",date);
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    journalHeaderText.setText(journalDate);
+                } else{
+                    journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
+                }
+            }
+        });
+
+
+        dateBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendarDays -= 1;
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DAY_OF_MONTH, calendarDays);
+                calendar.setDate (cal.getTimeInMillis(), true, true);
+                journalDate = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    journalHeaderText.setText(journalDate);
+                } else{
+                    journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
+                }
+            }
+        });
+
+        dateForwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendarDays += 1;
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DAY_OF_MONTH, calendarDays);
+                calendar.setDate (cal.getTimeInMillis(), true, true);
+                journalDate = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    journalHeaderText.setText(journalDate);
+                } else{
+                    journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
+                }
+            }
+        });
+
         return view;
     }
 
@@ -173,7 +197,7 @@ public class JournalExpandListFragment extends Fragment {
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_URINATION, "string", getActivity().getPackageName())),
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION, "string", getActivity().getPackageName())),
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_EATING, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_APPETITE, "string", getActivity().getPackageName())),
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_FATIGUE, "string", getActivity().getPackageName())),
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_BLOATED, "string", getActivity().getPackageName())),
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_FEVER, "string", getActivity().getPackageName())),
@@ -184,10 +208,11 @@ public class JournalExpandListFragment extends Fragment {
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_NAUSEA, "string", getActivity().getPackageName())),
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_NOSE, "string", getActivity().getPackageName())),
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_PAIN, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_SEX, "string", getActivity().getPackageName())),
+//                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_SEX, "string", getActivity().getPackageName())),
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_DERMAL, "string", getActivity().getPackageName())),
+                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_ITCH, "string", getActivity().getPackageName())),
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_SLEEP, "string", getActivity().getPackageName())),
-                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE, "string", getActivity().getPackageName())),
+//                getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE, "string", getActivity().getPackageName())),
                 getString(getActivity().getResources().getIdentifier("sideeffect_"+JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING, "string", getActivity().getPackageName()))
         );
 
@@ -226,18 +251,22 @@ public class JournalExpandListFragment extends Fragment {
 
         int todaysSideffectPosition;
 
+        SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem();
         for (int i=0; i < physicalSideEffects.size() ; i++){
             todaysSideffectPosition = -1;
-            for (int j=0; j < todaysSideeffects.size(); j++){
-                if (todaysSideeffects.get(j).type.matches(physicalSideEffects.get(i))){
+/*            for (int j=0; j < todaysSideeffects.size(); j++){
+                if
+                String mString = getString(getActivity().getResources().getIdentifier("sideeffect_"+todaysSideeffects.get(j).type, "string", getActivity().getPackageName()));
+                if (mString.matches(physicalSideEffects.get(i))){
                     // Sideeffect has already saved value from today
                     todaysSideffectPosition = j;
                     break;
                 }
             }
-            Sideeffect sideeffectItem = null;
+*/            sideeffectItem.headline = physicalSideEffects.get(i);
+            Sideeffect sideeffect = null;
             if (todaysSideffectPosition >=0) {
-                sideeffectItem = new Sideeffect(todaysSideeffects.get(todaysSideffectPosition).sideeffect_ID,
+                sideeffect = new Sideeffect(todaysSideeffects.get(todaysSideffectPosition).sideeffect_ID,
                                             connectHandler.patient.patient_ID,
                                             connectHandler.person.person_ID,
                                             todaysSideeffects.get(todaysSideffectPosition).date,
@@ -246,7 +275,7 @@ public class JournalExpandListFragment extends Fragment {
                                             todaysSideeffects.get(todaysSideffectPosition).value);
             }else{
                 // create empty Sideeffect object
-                sideeffectItem = new Sideeffect(0,
+                sideeffect = new Sideeffect(0,
                                             connectHandler.patient.patient_ID,
                                             connectHandler.person.person_ID,
                                             "",
@@ -254,6 +283,8 @@ public class JournalExpandListFragment extends Fragment {
                                             physicalSideEffects.get(i),
                                             "");
             }
+            sideeffectItem.headline = emotionalSideeffects.get(i);
+            sideeffectItem.sideeffect = sideeffect;
             physicalExpandList.add(sideeffectItem);
         }
 
@@ -266,9 +297,9 @@ public class JournalExpandListFragment extends Fragment {
                     break;
                 }
             }
-            Sideeffect sideeffectItem = null;
+            Sideeffect sideeffect = null;
             if (todaysSideffectPosition >=0) {
-                sideeffectItem = new Sideeffect(todaysSideeffects.get(todaysSideffectPosition).sideeffect_ID,
+                sideeffect = new Sideeffect(todaysSideeffects.get(todaysSideffectPosition).sideeffect_ID,
                         connectHandler.patient.patient_ID,
                         connectHandler.person.person_ID,
                         todaysSideeffects.get(todaysSideffectPosition).date,
@@ -277,7 +308,7 @@ public class JournalExpandListFragment extends Fragment {
                         todaysSideeffects.get(todaysSideffectPosition).value);
             }else{
                 // create empty Sideeffect object
-                sideeffectItem = new Sideeffect(0,
+                sideeffect = new Sideeffect(0,
                         connectHandler.patient.patient_ID,
                         connectHandler.person.person_ID,
                         "",
@@ -285,6 +316,7 @@ public class JournalExpandListFragment extends Fragment {
                         emotionalSideeffects.get(i),
                         "");
             }
+            sideeffectItem.headline = emotionalSideeffects.get(i);
             emotionalExpandList.add(sideeffectItem);
         }
 

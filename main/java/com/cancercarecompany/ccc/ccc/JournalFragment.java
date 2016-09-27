@@ -23,7 +23,7 @@ public class JournalFragment extends Fragment {
     final static public String SIDEEFFECT_PHYSICAL_URINATION = "physical_urination";
     final static public String SIDEEFFECT_PHYSICAL_CONSTIPATION = "physical_constipation";
     final static public String SIDEEFFECT_PHYSICAL_DIARRHEA = "physical_diarrhea";
-    final static public String SIDEEFFECT_PHYSICAL_EATING = "physical_eating";
+    final static public String SIDEEFFECT_PHYSICAL_APPETITE = "physical_appetite";
     final static public String SIDEEFFECT_PHYSICAL_FATIGUE = "physical_fatigue";
     final static public String SIDEEFFECT_PHYSICAL_BLOATED  = "physical_bloated";
     final static public String SIDEEFFECT_PHYSICAL_FEVER  = "physical_fever";
@@ -36,6 +36,7 @@ public class JournalFragment extends Fragment {
     final static public String SIDEEFFECT_PHYSICAL_PAIN = "physical_pain";
     final static public String SIDEEFFECT_PHYSICAL_SEX = "physical_sex";
     final static public String SIDEEFFECT_PHYSICAL_DERMAL = "physical_dermal";
+    final static public String SIDEEFFECT_PHYSICAL_ITCH = "physical_itch";
     final static public String SIDEEFFECT_PHYSICAL_SLEEP = "physical_sleep";
     final static public String SIDEEFFECT_PHYSICAL_ABUSE = "physical_abuse";
     final static public String SIDEEFFECT_PHYSICAL_TINGLING = "physical_tingling";

@@ -65,20 +65,204 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                    <EditText
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:id="@+id/journal_notes"
-                        android:hint="Anteckningar"
-                        android:layout_gravity="top"
-                        android:gravity="top|left"
-                        android:background="@android:drawable/editbox_background" />
+                <TextView
+                    android:text="Question"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"/>
+                <LinearLayout
+                    android:id="@+id/lay_journal_sideeffect_seekbars"
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:id="@+id/lay_journal_sideeffect_seekbar1"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_journal_sideeeffect_seekbar_headline1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Breakfast"
+                            android:textSize="@dimen/MEDIUM" />
+
+                        <SeekBar
+                            android:id="@+id/txt_journal_sideeffect_seekbar1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:max="10"
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:layout_below="@+id/txt_journal_sideeeffect_seekbar_headline1"
+                            android:layout_alignParentLeft="true"
+                            android:layout_gravity="center_horizontal" />
+
+                        <TextView
+                            android:id="@+id/txt_journal_sideeeffect_seekbar_min1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:layout_alignParentLeft="true"
+                            android:layout_below="@+id/txt_journal_sideeffect_seekbar1"
+                            android:text="Nothing" />
+
+                        <TextView
+
+                            android:id="@+id/txt_journal_sideeeffect_seekbar_max1" 
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/txt_journal_sideeffect_seekbar1"
+                            android:text="Everything"/>
+
+                        <TextView
+                            android:id="@+id/txt_journal_sideeffect_seekbar_result1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:layout_alignParentTop="true"
+                            android:textSize="@dimen/LARGE"
+                            android:layout_alignEnd="@+id/txt_journal_sideeffect_seekbar1" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/lay_journal_sideeffect_seekbar2"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_journal_sideeeffect_seekbar_headline2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Breakfast"
+                            android:textSize="@dimen/MEDIUM" />
+
+                        <SeekBar
+                            android:id="@+id/txt_journal_sideeffect_seekbar2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:max="10"
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:layout_below="@+id/txt_journal_sideeeffect_seekbar_headline2"
+                            android:layout_alignParentLeft="true"
+                            android:layout_gravity="center_horizontal" />
+
+                        <TextView
+                            android:id="@+id/txt_journal_sideeeffect_seekbar_min2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:layout_alignParentLeft="true"
+                            android:layout_below="@+id/txt_journal_sideeffect_seekbar2"
+                            android:text="Nothing" />
+
+                        <TextView
+
+                            android:id="@+id/txt_journal_sideeeffect_seekbar_max2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/txt_journal_sideeffect_seekbar2"
+                            android:text="Everything"/>
+
+                        <TextView
+                            android:id="@+id/txt_journal_sideeffect_seekbar_result2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:layout_alignParentTop="true"
+                            android:textSize="@dimen/LARGE"
+                            android:layout_alignEnd="@+id/txt_journal_sideeffect_seekbar2" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/lay_journal_sideeffect_seekbar3"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/txt_journal_sideeffect_seekbar_headline3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Dinner"
+                            android:textSize="@dimen/MEDIUM" />
+
+                        <SeekBar
+                            android:id="@+id/txt_journal_sideeffect_seekbar3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:max="10"
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:layout_below="@+id/txt_journal_sideeffect_seekbar_headline3"
+                            android:layout_alignParentLeft="true"
+                            android:layout_gravity="center_horizontal" />
+
+                        <TextView
+                            android:id="@+id/txt_journal_sideeffect_seekbar_min3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:layout_alignParentLeft="true"
+                            android:layout_below="@+id/txt_journal_sideeffect_seekbar3"
+                            android:text="Nothing" />
+
+                        <TextView
+                            android:id="@+id/txt_journal_sideeffect_seekbar_max3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/txt_journal_sideeffect_seekbar3"
+                            android:text="Everything" />
+
+                        <TextView
+                            android:id="@+id/txt_journal_sideeffect_seekbar_result3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:layout_alignParentTop="true"
+                            android:textSize="@dimen/LARGE"
+                            android:layout_alignEnd="@+id/txt_journal_sideeffect_seekbar3" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/journal_notes"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:hint="Anteckningar"
+                    android:layout_gravity="top"
+                    android:gravity="top|left"
+                    android:background="@android:drawable/editbox_background"
+                    android:theme="@style/cme_custom_theme"/>
 
             </LinearLayout>
 
