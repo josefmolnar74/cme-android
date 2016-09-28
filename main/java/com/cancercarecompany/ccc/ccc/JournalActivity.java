@@ -1797,8 +1797,7 @@ public class JournalActivity extends AppCompatActivity {
     }
 
     private void saveSideeffect(String sideeffectType, String sideeffectValue) {
-//        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
+         String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
 
         Random rand = new Random();
         int sideeffectID = -rand.nextInt(Integer.MAX_VALUE);

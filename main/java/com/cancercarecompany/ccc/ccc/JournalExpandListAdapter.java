@@ -57,8 +57,10 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
         RadioButton sideeffectExists = (RadioButton) convertView.findViewById(R.id.rb_sideeffect_exists);
         txtListName.setText(listItem.header);
 
-        if (listItem.sideeffect.sideeffect_ID != 0){
+        if (listItem.sideeffect.sideeffect_ID != -1){
             sideeffectExists.setChecked(true);
+        } else{
+            sideeffectExists.setChecked(false);
         }
 
         return convertView;

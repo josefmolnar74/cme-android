@@ -245,6 +245,7 @@ public class JournalDetailsFragment extends Fragment {
                 radioButton3.setText(R.string.journal_sideeffects_constipation_radioButton3);
                 radioButton4.setText(R.string.journal_sideeffects_constipation_radioButton4);
                 radioButton5.setText(R.string.journal_sideeffects_constipation_radioButton5);
+                initailizeRadioButton(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA:
@@ -255,6 +256,7 @@ public class JournalDetailsFragment extends Fragment {
                 radioButton3.setText(R.string.journal_sideeffects_diarrhea_radioButton3);
                 radioButton4.setText(R.string.journal_sideeffects_diarrhea_radioButton4);
                 radioButton5.setText(R.string.journal_sideeffects_diarrhea_radioButton5);
+                initailizeRadioButton(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_APPETITE:
@@ -331,6 +333,7 @@ public class JournalDetailsFragment extends Fragment {
                 radioButton2.setText(R.string.journal_sideeffects_mouth_checkbox2);
                 radioButton3.setText(R.string.journal_sideeffects_mouth_checkbox3);
                 radioButton4.setText(R.string.journal_sideeffects_mouth_checkbox4);
+                initailizeRadioButton(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_VOMIT:
@@ -341,6 +344,7 @@ public class JournalDetailsFragment extends Fragment {
                 radioButton3.setText(R.string.journal_sideeffects_vomit_radioButton3);
                 radioButton4.setVisibility(View.GONE);
                 radioButton5.setVisibility(View.GONE);
+                initailizeRadioButton(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_DIZZINESS:
@@ -351,6 +355,7 @@ public class JournalDetailsFragment extends Fragment {
                 radioButton3.setVisibility(View.GONE);
                 radioButton4.setVisibility(View.GONE);
                 radioButton5.setVisibility(View.GONE);
+                initailizeRadioButton(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_NOSE:
@@ -406,6 +411,7 @@ public class JournalDetailsFragment extends Fragment {
                 radioButton2.setText(R.string.journal_sideeffects_tingling_checkbox2);
                 radioButton3.setVisibility(View.GONE);
                 radioButton4.setVisibility(View.GONE);
+                initailizeRadioButton(listItem.sideeffect.value);
                 break;
         }
 
@@ -872,5 +878,27 @@ public class JournalDetailsFragment extends Fragment {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
 
+    }
+
+    private void initailizeRadioButton(String sideeffectValue){
+        switch (Integer.parseInt(sideeffectValue)) {
+            case 0:
+                break;
+            case 1:
+                radioButton1.setChecked(true);
+                break;
+            case 2:
+                radioButton2.setChecked(true);
+                break;
+            case 3:
+                radioButton3.setChecked(true);
+                break;
+            case 4:
+                radioButton4.setChecked(true);
+                break;
+            case 5:
+                radioButton5.setChecked(true);
+                break;
+        }
     }
 }
