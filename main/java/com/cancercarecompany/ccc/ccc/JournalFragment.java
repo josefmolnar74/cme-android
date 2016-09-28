@@ -31,7 +31,9 @@ public class JournalFragment extends Fragment {
     final static public String SIDEEFFECT_PHYSICAL_DIGESTION  ="physical_digestion";
     final static public String SIDEEFFECT_PHYSICAL_MEMORY  = "physical_memory";
     final static public String SIDEEFFECT_PHYSICAL_MOUTH  = "physical_mouth";
-    final static public String SIDEEFFECT_PHYSICAL_NAUSEA  = "physical_nausea";
+//    final static public String SIDEEFFECT_PHYSICAL_NAUSEA  = "physical_nausea";
+    final static public String SIDEEFFECT_PHYSICAL_VOMIT = "physical_vomit";
+    final static public String SIDEEFFECT_PHYSICAL_DIZZINESS = "physical_dizziness";
     final static public String SIDEEFFECT_PHYSICAL_NOSE = "physical_nose";
     final static public String SIDEEFFECT_PHYSICAL_PAIN = "physical_pain";
     final static public String SIDEEFFECT_PHYSICAL_SEX = "physical_sex";

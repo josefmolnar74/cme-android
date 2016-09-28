@@ -53,9 +53,9 @@
     <string name="journal_sideeffects_pain_tailbone">Svanskotan</string>
     <string name="journal_sideeffects_appetite_header">Appetite</string>
     <string name="journal_sideeffects_appetite_question">Hur mycket åt * vid </string>
-    <string name="journal_sideeffects_appetite_seekbar_headline1">Frukost</string>
-    <string name="journal_sideeffects_appetite_seekbar_headline2">Lunch</string>
-    <string name="journal_sideeffects_appetite_seekbar_headline3">Middag</string>
+    <string name="journal_sideeffects_appetite_seekbar_breakfast">Frukost</string>
+    <string name="journal_sideeffects_appetite_seekbar_lunch">Lunch</string>
+    <string name="journal_sideeffects_appetite_seekbar_dinner">Middag</string>
     <string name="journal_sideeffects_appetite_seekbar_min1">Inget alls</string>
     <string name="journal_sideeffects_appetite_seekbar_min2">Inget alls</string>
     <string name="journal_sideeffects_appetite_seekbar_min3">Inget alls</string>

@@ -27,7 +27,7 @@
     <string name="journal_sideeffects_diarrhea">Diarré</string>
     <string name="journal_sideeffects_appetite">Aptit</string>
     <string name="journal_sideeffects_dizziness">Yrsel</string>
-    <string name="journal_sideeffects_vomit">Kräkning</string>
+    <string name="journal_sideeffects_vomit">Kräkningar</string>
     <string name="journal_sideeffects_other">Annan biverkning</string>
     <string name="journal_sideeffects_pain_header">Smärta</string>
     <string name="journal_sideeffects_pain_right_hand">Höger hand</string>
@@ -58,9 +58,9 @@
     <string name="journal_sideeffects_pain_tailbone">Svanskotan</string>
     <string name="journal_sideeffects_appetite_header">Appetite</string>
     <string name="journal_sideeffects_appetite_question">Hur mycket åt * vid </string>
-    <string name="journal_sideeffects_appetite_seekbar_headline1">Frukost</string>
-    <string name="journal_sideeffects_appetite_seekbar_headline2">Lunch</string>
-    <string name="journal_sideeffects_appetite_seekbar_headline3">Middag</string>
+    <string name="journal_sideeffects_appetite_seekbar_breakfast">Frukost</string>
+    <string name="journal_sideeffects_appetite_seekbar_lunch">Lunch</string>
+    <string name="journal_sideeffects_appetite_seekbar_dinner">Middag</string>
     <string name="journal_sideeffects_appetite_seekbar_min">Inget alls</string>
     <string name="journal_sideeffects_appetite_seekbar_max">Åt upp allt</string>
     <string name="journal_sideeffects_fatigue_header">Trötthet</string>
@@ -68,7 +68,7 @@
     <string name="journal_sideeffects_fatigue_seekbar_headline">Trötthet</string>
     <string name="journal_sideeffects_fatigue_seekbar_min">Lite trött</string>
     <string name="journal_sideeffects_fatigue_seekbar_max">Jättetrött</string>
-    <string name="journal_sideeffects_memory_question">Hur * minnes eller koncentrationssvårigheter just nu? </string>
+    <string name="journal_sideeffects_memory_question">Har * minnes eller koncentrationssvårigheter just nu? </string>
     <string name="journal_sideeffects_memory_seekbar_headline1">Minne</string>
     <string name="journal_sideeffects_memory_seekbar_min">Dåligt</string>
     <string name="journal_sideeffects_memory_seekbar_max">Jättebra</string>
@@ -95,6 +95,12 @@
     <string name="journal_sideeffects_nose_seekbar_min">Inget</string>
     <string name="journal_sideeffects_nose_seekbar_max">Jättemycket</string>
     <string name="journal_sideeffects_nose_seekbar_headline2">Tilltäppt näsa</string>
+    <string name="journal_sideeffects_appearance_question">Beskriv hur *s utseende har påverkats.</string>
+    <string name="journal_sideeffects_digestion_question">Beskriv hur *s matsmältnig har påverkats.</string>
+    <string name="journal_sideeffects_hygiene_question">Beskriv *s hygien eller påklädningssvårigheter</string>
+    <string name="journal_sideeffects_urination_question">Beskriv *s urinförändringar</string>
+    <string name="journal_sideeffects_breathing_question">Beskriv *s andningssvårigheter</string>
+    <string name="journal_sideeffects_fever_question">Ange *s temperatur</string>
     <string name="journal_sideeffects_diarrhea_header">Diarré</string>
     <string name="journal_sideeffects_diarrhea_question">Hur ofta har * haft diarré under det senaste dygnet?</string>
     <string name="journal_sideeffects_diarrhea_radioButton1">1</string>
@@ -102,14 +108,23 @@
     <string name="journal_sideeffects_diarrhea_radioButton3">3</string>
     <string name="journal_sideeffects_diarrhea_radioButton4">4</string>
     <string name="journal_sideeffects_diarrhea_radioButton5">Mer än 4</string>
-    <string name="journal_sideeffects_mouth_change_header">Munförändringar</string>
-    <string name="journal_sideeffects_mouth_change_question">Har * några munförändringar </string>
-    <string name="journal_sideeffects_mouth_change_radioButton1">Sår i munnen</string>
-    <string name="journal_sideeffects_mouth_change_radioButton2">Torr i munnen</string>
-    <string name="journal_sideeffects_mouth_change_radioButton3">Smakförändringar</string>
-    <string name="journal_sideeffects_mouth_change_radioButton4">Ont i munnen</string>
+    <string name="journal_sideeffects_constipation_question">När hade * senast normal avföring?</string>
+    <string name="journal_sideeffects_constipation_radioButton1">Igår</string>
+    <string name="journal_sideeffects_constipation_radioButton2">2 dagar sedan</string>
+    <string name="journal_sideeffects_constipation_radioButton3">3 dagar sedan</string>
+    <string name="journal_sideeffects_constipation_radioButton4">4 dagar sedan</string>
+    <string name="journal_sideeffects_constipation_radioButton5">Mer än 4 </string>
+    <string name="journal_sideeffects_mouth_header">Munförändringar</string>
+    <string name="journal_sideeffects_mouth_question">Har * några munförändringar </string>
+    <string name="journal_sideeffects_mouth_checkbox1">Sår i munnen</string>
+    <string name="journal_sideeffects_mouth_checkbox2">Torr i munnen</string>
+    <string name="journal_sideeffects_mouth_checkbox3">Smakförändringar</string>
+    <string name="journal_sideeffects_mouth_checkbox4">Ont i munnen</string>
+    <string name="journal_sideeffects_tingling_question">Ange var * upplever stickningar</string>
+    <string name="journal_sideeffects_tingling_checkbox1">I händerna</string>
+    <string name="journal_sideeffects_tingling_checkbox2">I fötterna</string>
     <string name="journal_sideeffects_dizziness_header">Yrsel</string>
-    <string name="journal_sideeffects_dizziness_question">Hur ofta har * upplevt yrsel idag </string>
+    <string name="journal_sideeffects_dizziness_question">Hur ofta har * upplevt yrsel idag?</string>
     <string name="journal_sideeffects_dizziness_radioButton1">1-2 gånger</string>
     <string name="journal_sideeffects_dizziness_radioButton2">Fler än 2 gånger</string>
     <string name="journal_sideeffects_vomit_header">Kräkningar</string>
@@ -126,7 +141,6 @@
     <string name="journal_emotion_scared">Rädd</string>
     <string name="journal_emotion_sick">Sjuk</string>
     <string name="journal_emotion_nauseous">Illamående</string>
-
     <string name="sideeffect_emotional">Känslomässiga biverkningar</string>
     <string name="sideeffect_emotional_depression">Depression</string>
     <string name="sideeffect_emotional_fear">Rädsla</string>
@@ -134,7 +148,6 @@
     <string name="sideeffect_emotional_dejection">Nedstämdhet</string>
     <string name="sideeffect_emotional_worry">Oro</string>
     <string name="sideeffect_emotional_loss">Intresse för vardagliga aktiviteter</string>
-
     <string name="sideeffect_physical">Fysiska biverkningar</string>
     <string name="sideeffect_physical_appearance">Utseende</string>
     <string name="sideeffect_physical_hygiene">Hygien/påklädning</string>
@@ -150,15 +163,15 @@
     <string name="sideeffect_physical_digestion">Matsmältning</string>
     <string name="sideeffect_physical_memory">Minne/koncentration</string>
     <string name="sideeffect_physical_mouth">Munsår</string>
-    <string name="sideeffect_physical_nausea">Illamående</string>
+    <string name="sideeffect_physical_vomit">Kräkningar</string>
+    <string name="sideeffect_physical_dizziness">Yrsel</string>
     <string name="sideeffect_physical_nose">Torr/tilltäppt näsa</string>
     <string name="sideeffect_physical_pain">Smärta</string>
     <string name="sideeffect_physical_sex">Sexuella problem</string>
     <string name="sideeffect_physical_dermal">Torr hud/klåda</string>
     <string name="sideeffect_physical_sleep">Sömn</string>
     <string name="sideeffect_physical_abuse">Missbruk</string>
-    <string name="sideeffect_physical_tingling">Stickningar i händer fötter</string>
-
+    <string name="sideeffect_physical_tingling">Stickningar</string>
 
     <string name="sideeffect_family">Familjrelaterade problem</string>
     <string name="sideeffect_family_relation_child">Relation till barn</string>
@@ -173,7 +186,6 @@
     <string name="sideeffect_practical_transportation">Transport</string>
     <string name="sideeffect_practical_work">Arbete/studier</string>
     <string name="sideeffect_practical_decision">Beslut om behandling</string>
-
 
     <string name="careteam_healthcare">Hälsovård</string>
     <string name="careteam_family">Familj - vänner</string>

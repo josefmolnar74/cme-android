@@ -75,7 +75,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rg_journal_sideeffects_diarrhea_popup"
+            android:id="@+id/rg_journal_sideeffects_radiogroup"
             android:layout_below="@+id/txt_journal_sideeffects_diarrhea_popup_question"
             android:layout_centerHorizontal="true">
 

@@ -253,8 +253,350 @@
 
                 </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/lay_journal_sideeffect_radiogroup"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rg_journal_sideeffects_radiogroup"
+                    android:layout_below="@+id/txt_journal_sideeffects_diarrhea_popup_question"
+                    android:layout_centerHorizontal="true">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="One"
+                        android:id="@+id/rb_journal_sideeffects_radiobutton1"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="244dp"
+                        android:layout_marginEnd="244dp" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Two"
+                        android:id="@+id/rb_journal_sideeffects_radiobutton2"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="244dp"
+                        android:layout_marginEnd="244dp" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Three"
+                        android:id="@+id/rb_journal_sideeffects_radiobutton3"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="244dp"
+                        android:layout_marginEnd="244dp" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Four"
+                        android:id="@+id/rb_journal_sideeffects_radiobutton4"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="244dp"
+                        android:layout_marginEnd="244dp" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="More than 4"
+                        android:id="@+id/rb_journal_sideeffects_radiobutton5"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="244dp"
+                        android:layout_marginEnd="244dp" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_journal_sideeffect_checkbox"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cb_journal_sideeffect_checkbox1"
+                    android:text="@string/journal_sideeffects_mouth_checkbox1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cb_journal_sideeffect_checkbox2"
+                    android:text="@string/journal_sideeffects_mouth_checkbox2" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cb_journal_sideeffect_checkbox3"
+                    android:text="@string/journal_sideeffects_mouth_checkbox3" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cb_journal_sideeffect_checkbox4"
+                    android:text="@string/journal_sideeffects_mouth_checkbox4"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/lay_journal_sideeffect_checkbox_grid"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <GridLayout
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_journal_sideeffects_popup_pain_question"
+                        android:gravity="center"
+                        android:columnCount="2"
+                        android:layout_centerHorizontal="true">
+
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/checkBox_journal_sideeffect_right_hand"
+                            android:layout_row="0"
+                            android:layout_column="0"
+                            android:text="@string/journal_sideeffects_pain_right_hand" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_right_shoulder"
+                            android:id="@+id/checkBox_journal_sideeffect_right_shoulder"
+                            android:layout_row="1"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_right_chest"
+                            android:id="@+id/checkBox_journal_sideeffect_right_chest"
+                            android:layout_row="2"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_right_arm"
+                            android:id="@+id/checkBox_journal_sideeffect_right_arm"
+                            android:layout_row="3"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_right_hip"
+                            android:id="@+id/checkBox_journal_sideeffect_right_hip"
+                            android:layout_row="4"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_right_upper_leg"
+                            android:id="@+id/checkBox_journal_sideeffect_right_upper_leg"
+                            android:layout_row="5"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_right_knee"
+                            android:id="@+id/checkBox_journal_sideeffect_right_knee"
+                            android:layout_row="6"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_right_lower_leg"
+                            android:id="@+id/checkBox_journal_sideeffect_right_lower_leg"
+                            android:layout_row="7"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_right_foot"
+                            android:id="@+id/checkBox_journal_sideeffect_right_foot"
+                            android:layout_row="8"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_left_hand"
+                            android:id="@+id/checkBox_journal_sideeffect_left_hand"
+                            android:layout_row="9"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_left_shoulder"
+                            android:id="@+id/checkBox_journal_sideeffect_left_shoulder"
+                            android:layout_row="10"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_left_chest"
+                            android:id="@+id/checkBox_journal_sideeffect_left_chest"
+                            android:layout_row="11"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_left_arm"
+                            android:id="@+id/checkBox_journal_sideeffect_left_arm"
+                            android:layout_row="12"
+                            android:layout_column="0" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_left_hip"
+                            android:id="@+id/checkBox_journal_sideeffect_left_hip"
+                            android:layout_row="0"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_left_upper_leg"
+                            android:id="@+id/checkBox_journal_sideeffect_left_upper_leg"
+                            android:layout_row="1"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_left_knee"
+                            android:id="@+id/checkBox_journal_sideeffect_left_knee"
+                            android:layout_row="2"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_left_lower_leg"
+                            android:id="@+id/checkBox_journal_sideeffect_left_lower_leg"
+                            android:layout_row="3"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_left_foot"
+                            android:id="@+id/checkBox_journal_sideeffect_left_foot"
+                            android:layout_row="4"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_head"
+                            android:id="@+id/checkBox_journal_sideeffect_head"
+                            android:layout_row="5"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_neck"
+                            android:id="@+id/checkBox_journal_sideeffect_neck"
+                            android:layout_row="6"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_upper_back"
+                            android:id="@+id/checkBox_journal_sideeffect_upper_back"
+                            android:layout_row="7"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_mid_back"
+                            android:id="@+id/checkBox_journal_sideeffect_mid_back"
+                            android:layout_row="8"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_lower_back"
+                            android:id="@+id/checkBox_journal_sideeffect_lower_back"
+                            android:layout_row="9"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_right_abdomen"
+                            android:id="@+id/checkBox_journal_sideeffect_right_abdomen"
+                            android:layout_row="10"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_left_abdomen"
+                            android:id="@+id/checkBox_journal_sideeffect_left_abdomen"
+                            android:layout_row="11"
+                            android:layout_column="1" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/journal_sideeffects_pain_tailbone"
+                            android:id="@+id/checkBox_journal_sideeffect_tailbone"
+                            android:layout_row="12"
+                            android:layout_column="1" />
+
+                    </GridLayout>
+
+                </LinearLayout>
+
                 <EditText
-                    android:id="@+id/journal_notes"
+                    android:id="@+id/txt_journal_notes"
                     android:layout_marginTop="30dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
@@ -265,6 +607,10 @@
                     android:gravity="top|left"
                     android:background="@android:drawable/editbox_background"
                     android:theme="@style/cme_custom_theme"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"/>
 
             </LinearLayout>
 

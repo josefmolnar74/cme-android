@@ -113,6 +113,7 @@ public class JournalExpandListFragment extends Fragment {
                 }
                 ft.addToBackStack(null);
                 // send family member data to fragment
+                myJournalDetails.setDate(journalDate);
                 switch (groupi){
                     case 0:
                         myJournalDetails.setItem(physicalExpandList.get(childi));
@@ -204,7 +205,9 @@ public class JournalExpandListFragment extends Fragment {
                 JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION,
                 JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY,
                 JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH,
-                JournalFragment.SIDEEFFECT_PHYSICAL_NAUSEA,
+//                JournalFragment.SIDEEFFECT_PHYSICAL_NAUSEA,
+                JournalFragment.SIDEEFFECT_PHYSICAL_VOMIT,
+                JournalFragment.SIDEEFFECT_PHYSICAL_DIZZINESS,
                 JournalFragment.SIDEEFFECT_PHYSICAL_NOSE,
                 JournalFragment.SIDEEFFECT_PHYSICAL_PAIN,
 //              JournalFragment.SIDEEFFECT_PHYSICAL_SEX,
@@ -279,7 +282,7 @@ public class JournalExpandListFragment extends Fragment {
                 // create empty Sideeffect object
                 String header =
                         getString(getActivity().getResources().getIdentifier("sideeffect_"+ physicalSideeffectList.get(i), "string", getActivity().getPackageName()));
-                Sideeffect sideeffect = new Sideeffect(0,
+                Sideeffect sideeffect = new Sideeffect(-1,
                                             connectHandler.patient.patient_ID,
                                             connectHandler.person.person_ID,
                                             "",

@@ -1358,13 +1358,13 @@ public class JournalActivity extends AppCompatActivity {
             case SIDEEFFECT_TYPE_APPETITE:
                 textSideeffectsHeader.setText(R.string.journal_sideeffects_appetite);
                 textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
-                textSideeffectsHeader1.setText(R.string.journal_sideeffects_appetite_seekbar_headline1);
+                textSideeffectsHeader1.setText(R.string.journal_sideeffects_appetite_seekbar_breakfast);
                 textSeekBarMin1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
                 textSeekBarMax1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
-                textSideeffectsHeader2.setText(R.string.journal_sideeffects_appetite_seekbar_headline2);
+                textSideeffectsHeader2.setText(R.string.journal_sideeffects_appetite_seekbar_lunch);
                 textSeekBarMin2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
                 textSeekBarMax2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
-                textSideeffectsHeader3.setText(R.string.journal_sideeffects_appetite_seekbar_headline3);
+                textSideeffectsHeader3.setText(R.string.journal_sideeffects_appetite_seekbar_dinner);
                 textSeekBarMin3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
                 textSeekBarMax3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
                 break;
@@ -1510,7 +1510,7 @@ public class JournalActivity extends AppCompatActivity {
         final Button buttonCancel = (Button) popupView.findViewById(R.id.btn_journal_sideeffects_diarrhea_cancel);
         final TextView textSideeffectsHeader = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_diarrhea_popup_headline);
         final TextView textSideeffectQuestion = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_diarrhea_popup_question);
-        final RadioGroup radioGroup = (RadioGroup) popupView.findViewById(R.id.rg_journal_sideeffects_diarrhea_popup);
+        final RadioGroup radioGroup = (RadioGroup) popupView.findViewById(R.id.rg_journal_sideeffects_radiogroup);
         final RadioButton radioButton1 = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection1);
         final RadioButton radioButton2 = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection2);
         final RadioButton radioButton3 = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection3);
