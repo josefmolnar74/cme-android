@@ -28,15 +28,50 @@ import java.util.Date;
 
 public class JournalDetailsFragment extends Fragment {
 
-    public static final String SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_1 = "breakfast";
-    public static final String SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_2 = "lunch";
-    public static final String SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_3 = "dinner";
+    private static final String SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_1 = "breakfast";
+    private static final String SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_2 = "lunch";
+    private static final String SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_3 = "dinner";
+    private static final String SIDEEFFECT_MEMORY_SEEKBAR_HEADLINE_1 = "memory";
+    private static final String SIDEEFFECT_MEMORY_SEEKBAR_HEADLINE_2 = "concentration";
+    private static final String SIDEEFFECT_DERMAL_SEEKBAR_HEADLINE_1 = "dry_skin";
+    private static final String SIDEEFFECT_DERMAL_SEEKBAR_HEADLINE_2 = "itch";
+    private static final String SIDEEFFECT_NOSE_SEEKBAR_HEADLINE_1 = "dry_nose";
+    private static final String SIDEEFFECT_NOSE_SEEKBAR_HEADLINE_2 = "blocked_nose";
 
-    public static final String SIDEEFFECT_DIARRHEA_RADIOBUTTON_VALUE_1 = "1";
-    public static final String SIDEEFFECT_DIARRHEA_RADIOBUTTON_VALUE_2 = "2";
-    public static final String SIDEEFFECT_DIARRHEA_RADIOBUTTON_VALUE_3 = "3";
-    public static final String SIDEEFFECT_DIARRHEA_RADIOBUTTON_VALUE_4 = "4";
-    public static final String SIDEEFFECT_DIARRHEA_RADIOBUTTON_VALUE_5 = "more_than_4";
+    private static final String SIDEEFFECT_MOUTH_CHECKBOX_VALUE1 = "sore";
+    private static final String SIDEEFFECT_MOUTH_CHECKBOX_VALUE2 = "dry";
+    private static final String SIDEEFFECT_MOUTH_CHECKBOX_VALUE3 = "taste";
+    private static final String SIDEEFFECT_MOUTH_CHECKBOX_VALUE4 = "pain";
+
+    private static final String SIDEEFFECT_TINGLING_CHECKBOX_VALUE1 = "hands";
+    private static final String SIDEEFFECT_TINGLING_CHECKBOX_VALUE2 = "feet";
+
+    private static final String SIDEEFFECT_PAIN_RIGHT_HAND_VALUE         = "RHA";
+    private static final String SIDEEFFECT_PAIN_RIGHT_SHOULDER_VALUE     = "RSH";
+    private static final String SIDEEFFECT_PAIN_RIGHT_CHEST_VALUE        = "RCH";
+    private static final String SIDEEFFECT_PAIN_RIGHT_ARM_VALUE          = "RAR";
+    private static final String SIDEEFFECT_PAIN_RIGHT_HIP_VALUE          = "RHI";
+    private static final String SIDEEFFECT_PAIN_RIGHT_UPPER_LEG_VALUE    = "RUL";
+    private static final String SIDEEFFECT_PAIN_RIGHT_KNEE_VALUE         = "RKN";
+    private static final String SIDEEFFECT_PAIN_RIGHT_LOWER_LEG_VALUE    = "RLL";
+    private static final String SIDEEFFECT_PAIN_RIGHT_FOOT_VALUE         = "RFO";
+    private static final String SIDEEFFECT_PAIN_LEFT_HAND_VALUE          = "LHA";
+    private static final String SIDEEFFECT_PAIN_LEFT_SHOULDER_VALUE      = "LSH";
+    private static final String SIDEEFFECT_PAIN_LEFT_CHEST_VALUE         = "LCH";
+    private static final String SIDEEFFECT_PAIN_LEFT_ARM_VALUE           = "LAR";
+    private static final String SIDEEFFECT_PAIN_LEFT_HIP_VALUE           = "LHI";
+    private static final String SIDEEFFECT_PAIN_LEFT_UPPER_LEG_VALUE     = "LUL";
+    private static final String SIDEEFFECT_PAIN_LEFT_KNEE_VALUE          = "LKN";
+    private static final String SIDEEFFECT_PAIN_LEFT_LOWER_LEG_VALUE     = "LLL";
+    private static final String SIDEEFFECT_PAIN_LEFT_FOOT_VALUE          = "LFO";
+    private static final String SIDEEFFECT_PAIN_HEAD_VALUE               = "HEA";
+    private static final String SIDEEFFECT_PAIN_NECK_VALUE               = "NEC";
+    private static final String SIDEEFFECT_PAIN_UPPER_BACK_VALUE         = "UBA";
+    private static final String SIDEEFFECT_PAIN_MID_BACK_VALUE           = "MBA";
+    private static final String SIDEEFFECT_PAIN_LOWER_BACK_VALUE         = "LBA";
+    private static final String SIDEEFFECT_PAIN_RIGHT_ABDOMEN_VALUE      = "RAB";
+    private static final String SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE       = "LAB";
+    private static final String SIDEEFFECT_PAIN_TAILBONE_VALUE           = "TAI";
 
     private LinearLayout seekBarsLayout;
     private RelativeLayout seekBarLayout1;
@@ -73,6 +108,11 @@ public class JournalDetailsFragment extends Fragment {
     private RadioButton radioButton4;
     private RadioButton radioButton5;
 
+    private CheckBox checkBox1;
+    private CheckBox checkBox2;
+    private CheckBox checkBox3;
+    private CheckBox checkBox4;
+
     private CheckBox rightHandCheckbox;
     private CheckBox rightShoulderCheckbox;
     private CheckBox rightChestCheckbox;
@@ -99,33 +139,6 @@ public class JournalDetailsFragment extends Fragment {
     private CheckBox rightAbdomenCheckbox;
     private CheckBox leftAbdomenCheckbox;
     private CheckBox tailboneCheckbox;
-
-    public static final String SIDEEFFECT_PAIN_RIGHT_HAND_VALUE         = "RHA";
-    public static final String SIDEEFFECT_PAIN_RIGHT_SHOULDER_VALUE     = "RSH";
-    public static final String SIDEEFFECT_PAIN_RIGHT_CHEST_VALUE        = "RCH";
-    public static final String SIDEEFFECT_PAIN_RIGHT_ARM_VALUE          = "RAR";
-    public static final String SIDEEFFECT_PAIN_RIGHT_HIP_VALUE          = "RHI";
-    public static final String SIDEEFFECT_PAIN_RIGHT_UPPER_LEG_VALUE    = "RUL";
-    public static final String SIDEEFFECT_PAIN_RIGHT_KNEE_VALUE         = "RKN";
-    public static final String SIDEEFFECT_PAIN_RIGHT_LOWER_LEG_VALUE    = "RLL";
-    public static final String SIDEEFFECT_PAIN_RIGHT_FOOT_VALUE         = "RFO";
-    public static final String SIDEEFFECT_PAIN_LEFT_HAND_VALUE          = "LHA";
-    public static final String SIDEEFFECT_PAIN_LEFT_SHOULDER_VALUE      = "LSH";
-    public static final String SIDEEFFECT_PAIN_LEFT_CHEST_VALUE         = "LCH";
-    public static final String SIDEEFFECT_PAIN_LEFT_ARM_VALUE           = "LAR";
-    public static final String SIDEEFFECT_PAIN_LEFT_HIP_VALUE           = "LHI";
-    public static final String SIDEEFFECT_PAIN_LEFT_UPPER_LEG_VALUE     = "LUL";
-    public static final String SIDEEFFECT_PAIN_LEFT_KNEE_VALUE          = "LKN";
-    public static final String SIDEEFFECT_PAIN_LEFT_LOWER_LEG_VALUE     = "LLL";
-    public static final String SIDEEFFECT_PAIN_LEFT_FOOT_VALUE          = "LFO";
-    public static final String SIDEEFFECT_PAIN_HEAD_VALUE               = "HEA";
-    public static final String SIDEEFFECT_PAIN_NECK_VALUE               = "NEC";
-    public static final String SIDEEFFECT_PAIN_UPPER_BACK_VALUE         = "UBA";
-    public static final String SIDEEFFECT_PAIN_MID_BACK_VALUE           = "MBA";
-    public static final String SIDEEFFECT_PAIN_LOWER_BACK_VALUE         = "LBA";
-    public static final String SIDEEFFECT_PAIN_RIGHT_ABDOMEN_VALUE      = "RAB";
-    public static final String SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE       = "LAB";
-    public static final String SIDEEFFECT_PAIN_TAILBONE_VALUE           = "TAI";
 
     private SideeffectExpandListItem listItem;
     private ConnectionHandler connectHandler;
@@ -187,6 +200,11 @@ public class JournalDetailsFragment extends Fragment {
         radioButton3 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffects_radiobutton3);
         radioButton4 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffects_radiobutton4);
         radioButton5 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffects_radiobutton5);
+
+        checkBox1 = (CheckBox) view.findViewById(R.id.cb_journal_sideeffect_checkbox1);
+        checkBox2 = (CheckBox) view.findViewById(R.id.cb_journal_sideeffect_checkbox2);
+        checkBox3 = (CheckBox) view.findViewById(R.id.cb_journal_sideeffect_checkbox3);
+        checkBox4 = (CheckBox) view.findViewById(R.id.cb_journal_sideeffect_checkbox4);
 
         rightHandCheckbox = (CheckBox) view.findViewById(R.id.checkBox_journal_sideeffect_right_hand);
         rightShoulderCheckbox = (CheckBox) view.findViewById(R.id.checkBox_journal_sideeffect_right_shoulder);
@@ -266,13 +284,15 @@ public class JournalDetailsFragment extends Fragment {
                         + SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
                 seekBarMin1.setText(getString(R.string.journal_sideeffects_appetite_seekbar_min));
                 seekBarMax1.setText(getString(R.string.journal_sideeffects_appetite_seekbar_max));
-                seekBarHeadline2.setText(getString(R.string.journal_sideeffects_appetite_seekbar_lunch));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_appetite_seekbar_"
+                        + SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_2, "string", getActivity().getPackageName())));
                 seekBarMin2.setText(getString(R.string.journal_sideeffects_appetite_seekbar_min));
                 seekBarMax2.setText(getString(R.string.journal_sideeffects_appetite_seekbar_max));
-                seekBarHeadline3.setText(getString(R.string.journal_sideeffects_appetite_seekbar_dinner));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_appetite_seekbar_"
+                        + SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_3, "string", getActivity().getPackageName())));
                 seekBarMin3.setText(getString(R.string.journal_sideeffects_appetite_seekbar_min));
                 seekBarMax3.setText(getString(R.string.journal_sideeffects_appetite_seekbar_max));
-
+                initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_FATIGUE:
@@ -283,6 +303,7 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarHeadline1.setText(getString(R.string.journal_sideeffects_fatigue_seekbar_headline));
                 seekBarMin1.setText(getString(R.string.journal_sideeffects_fatigue_seekbar_min));
                 seekBarMax1.setText(getString(R.string.journal_sideeffects_fatigue_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_BLOATED:
@@ -293,6 +314,7 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarHeadline1.setText(getString(R.string.journal_sideeffects_bloated_seekbar_headline));
                 seekBarMin1.setText(getString(R.string.journal_sideeffects_bloated_seekbar_min));
                 seekBarMax1.setText(getString(R.string.journal_sideeffects_bloated_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_FEVER:
@@ -307,6 +329,7 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarHeadline1.setText(getString(R.string.journal_sideeffects_mobility_seekbar_headline));
                 seekBarMin1.setText(getString(R.string.journal_sideeffects_mobility_seekbar_min));
                 seekBarMax1.setText(getString(R.string.journal_sideeffects_mobility_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION:
@@ -318,22 +341,29 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarLayout2.setVisibility(View.VISIBLE);
                 seekBarLayout3.setVisibility(View.GONE);
                 sideeffectQuestion.setText(getString(R.string.journal_sideeffects_memory_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_memory_seekbar_headline1));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_memory_seekbar_"
+                        + SIDEEFFECT_MEMORY_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
                 seekBarMin1.setText(getString(R.string.journal_sideeffects_memory_seekbar_min));
                 seekBarMax1.setText(getString(R.string.journal_sideeffects_memory_seekbar_max));
-                seekBarHeadline2.setText(getString(R.string.journal_sideeffects_memory_seekbar_headline2));
+                seekBarHeadline2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_memory_seekbar_"
+                        + SIDEEFFECT_MEMORY_SEEKBAR_HEADLINE_2, "string", getActivity().getPackageName())));
                 seekBarMin2.setText(getString(R.string.journal_sideeffects_memory_seekbar_min));
                 seekBarMax2.setText(getString(R.string.journal_sideeffects_memory_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH:
                 checkBoxLayout.setVisibility(View.VISIBLE);
                 sideeffectQuestion.setText(R.string.journal_sideeffects_mouth_question);
-                radioButton1.setText(R.string.journal_sideeffects_mouth_checkbox1);
-                radioButton2.setText(R.string.journal_sideeffects_mouth_checkbox2);
-                radioButton3.setText(R.string.journal_sideeffects_mouth_checkbox3);
-                radioButton4.setText(R.string.journal_sideeffects_mouth_checkbox4);
-                initailizeRadioButton(listItem.sideeffect.value);
+                checkBox1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_mouth_checkbox_"
+                        + SIDEEFFECT_MOUTH_CHECKBOX_VALUE1, "string", getActivity().getPackageName())));
+                checkBox2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_mouth_checkbox_"
+                        + SIDEEFFECT_MOUTH_CHECKBOX_VALUE2, "string", getActivity().getPackageName())));
+                checkBox3.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_mouth_checkbox_"
+                        + SIDEEFFECT_MOUTH_CHECKBOX_VALUE3, "string", getActivity().getPackageName())));
+                checkBox4.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_mouth_checkbox_"
+                        + SIDEEFFECT_MOUTH_CHECKBOX_VALUE4, "string", getActivity().getPackageName())));
+                initCheckBoxes();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_VOMIT:
@@ -363,16 +393,20 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarLayout2.setVisibility(View.VISIBLE);
                 seekBarLayout3.setVisibility(View.GONE);
                 sideeffectQuestion.setText(getString(R.string.journal_sideeffects_nose_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_nose_seekbar_headline1));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_nose_seekbar_"
+                        + SIDEEFFECT_NOSE_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
                 seekBarMin1.setText(getString(R.string.journal_sideeffects_nose_seekbar_min));
                 seekBarMax1.setText(getString(R.string.journal_sideeffects_nose_seekbar_max));
-                seekBarHeadline2.setText(getString(R.string.journal_sideeffects_nose_seekbar_headline2));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_nose_seekbar_"
+                        + SIDEEFFECT_NOSE_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
                 seekBarMin2.setText(getString(R.string.journal_sideeffects_nose_seekbar_min));
                 seekBarMax2.setText(getString(R.string.journal_sideeffects_nose_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_PAIN:
                 checkBoxGridLayout.setVisibility(View.VISIBLE);
+                initCheckBoxes();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_SEX:
@@ -383,12 +417,15 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarLayout2.setVisibility(View.VISIBLE);
                 seekBarLayout3.setVisibility(View.GONE);
                 sideeffectQuestion.setText(getString(R.string.journal_sideeffects_dermal_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_dermal_seekbar_headline1));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_dermal_seekbar_"
+                        + SIDEEFFECT_DERMAL_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
                 seekBarMin1.setText(getString(R.string.journal_sideeffects_dermal_seekbar_min));
                 seekBarMax1.setText(getString(R.string.journal_sideeffects_dermal_seekbar_max));
-                seekBarHeadline2.setText(getString(R.string.journal_sideeffects_dermal_seekbar_headline2));
+                seekBarHeadline2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_dermal_seekbar_"
+                        + SIDEEFFECT_DERMAL_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
                 seekBarMin2.setText(getString(R.string.journal_sideeffects_dermal_seekbar_min));
                 seekBarMax2.setText(getString(R.string.journal_sideeffects_dermal_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_SLEEP:
@@ -399,6 +436,7 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarHeadline1.setText(getString(R.string.journal_sideeffects_sleep_seekbar_headline));
                 seekBarMin1.setText(getString(R.string.journal_sideeffects_sleep_seekbar_min));
                 seekBarMax1.setText(getString(R.string.journal_sideeffects_sleep_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE:
@@ -406,16 +444,16 @@ public class JournalDetailsFragment extends Fragment {
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING:
                 checkBoxLayout.setVisibility(View.VISIBLE);
-                sideeffectQuestion.setText(R.string.journal_sideeffects_mouth_question);
-                radioButton1.setText(R.string.journal_sideeffects_tingling_checkbox1);
-                radioButton2.setText(R.string.journal_sideeffects_tingling_checkbox2);
-                radioButton3.setVisibility(View.GONE);
-                radioButton4.setVisibility(View.GONE);
-                initailizeRadioButton(listItem.sideeffect.value);
+                sideeffectQuestion.setText(R.string.journal_sideeffects_tingling_question);
+                checkBox1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_tingling_checkbox_"
+                        + SIDEEFFECT_TINGLING_CHECKBOX_VALUE1, "string", getActivity().getPackageName())));
+                checkBox2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_tingling_checkbox_"
+                        + SIDEEFFECT_TINGLING_CHECKBOX_VALUE2, "string", getActivity().getPackageName())));
+                checkBox3.setVisibility(View.GONE);
+                checkBox4.setVisibility(View.GONE);
+                initCheckBoxes();
                 break;
         }
-
-        initializeSideeffect();
 
         // Replace x with patient name in Question text
         sideeffectQuestion.setText(sideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
@@ -593,6 +631,7 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY:
+                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION:
@@ -604,9 +643,27 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY:
+                sideeffectValue = SIDEEFFECT_MEMORY_SEEKBAR_HEADLINE_1 +":" + seekBar1.getProgress()
+                        +"," +SIDEEFFECT_MEMORY_SEEKBAR_HEADLINE_2 +":" + seekBar2.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH:
+                if (checkBox1.isChecked()) {
+                    sideeffectValue += SIDEEFFECT_MOUTH_CHECKBOX_VALUE1;
+                    sideeffectValue += ",";
+                }
+                if (checkBox2.isChecked()) {
+                    sideeffectValue += SIDEEFFECT_MOUTH_CHECKBOX_VALUE2;
+                    sideeffectValue += ",";
+                }
+                if (checkBox3.isChecked()) {
+                    sideeffectValue += SIDEEFFECT_MOUTH_CHECKBOX_VALUE3;
+                    sideeffectValue += ",";
+                }
+                if (checkBox4.isChecked()) {
+                    sideeffectValue += SIDEEFFECT_MOUTH_CHECKBOX_VALUE4;
+                    sideeffectValue += ",";
+                }
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_VOMIT:
@@ -618,6 +675,8 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_NOSE:
+                sideeffectValue = SIDEEFFECT_NOSE_SEEKBAR_HEADLINE_1 +":" + seekBar1.getProgress()
+                        +"," +SIDEEFFECT_NOSE_SEEKBAR_HEADLINE_2 +":" + seekBar2.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_PAIN:
@@ -731,16 +790,26 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_DERMAL:
+                sideeffectValue = SIDEEFFECT_DERMAL_SEEKBAR_HEADLINE_1 +":" + seekBar1.getProgress()
+                        +"," +SIDEEFFECT_DERMAL_SEEKBAR_HEADLINE_2 +":" + seekBar2.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_SLEEP:
+                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE:
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING:
-                sideeffectValue = getRadioButtonData();
+                if (checkBox1.isChecked()) {
+                    sideeffectValue += SIDEEFFECT_TINGLING_CHECKBOX_VALUE1;
+                    sideeffectValue += ",";
+                }
+                if (checkBox2.isChecked()) {
+                    sideeffectValue += SIDEEFFECT_TINGLING_CHECKBOX_VALUE2;
+                    sideeffectValue += ",";
+                }
                 break;
 
         }
@@ -766,82 +835,6 @@ public class JournalDetailsFragment extends Fragment {
             inputAlert();
         }
 
-    }
-
-    private void initializeSideeffect(){
-
-        switch(listItem.sideeffect.type){
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_APPERANCE:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_HYGIENE:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_BREATHING:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_URINATION:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_APPETITE:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_FATIGUE:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_BLOATED:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_FEVER:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_VOMIT:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_DIZZINESS:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_NOSE:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_PAIN:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_SEX:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_DERMAL:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_SLEEP:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE:
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING:
-                break;
-
-        }
     }
 
     private String getRadioButtonData(){
@@ -881,23 +874,164 @@ public class JournalDetailsFragment extends Fragment {
     }
 
     private void initailizeRadioButton(String sideeffectValue){
-        switch (Integer.parseInt(sideeffectValue)) {
-            case 0:
+        if (!sideeffectValue.isEmpty()){
+            switch (Integer.parseInt(sideeffectValue)) {
+                case 0:
+                    break;
+                case 1:
+                    radioButton1.setChecked(true);
+                    break;
+                case 2:
+                    radioButton2.setChecked(true);
+                    break;
+                case 3:
+                    radioButton3.setChecked(true);
+                    break;
+                case 4:
+                    radioButton4.setChecked(true);
+                    break;
+                case 5:
+                    radioButton5.setChecked(true);
+                    break;
+            }
+        }
+    }
+
+    private void initalizeSeekbars(String sideeffectValue){
+        String[] parts = sideeffectValue.split(",");
+        if ((parts.length > 0) && (!parts[0].isEmpty())){
+            Integer value1 = Integer.parseInt(parts[0].substring(parts[0].indexOf(":") + 1));
+            seekBar1.setProgress(value1);
+            seekBarResult1.setText(value1.toString());
+        }
+        if ((parts.length > 1) && (!parts[1].isEmpty())){
+            Integer value2 = Integer.parseInt(parts[1].substring(parts[1].indexOf(":") + 1));
+            seekBar2.setProgress(value2);
+            seekBarResult2.setText(value2.toString());
+        }
+        if ((parts.length > 2) && (!parts[2].isEmpty())){
+            Integer value3 = Integer.parseInt(parts[2].substring(parts[2].indexOf(":") + 1));
+            seekBar3.setProgress(value3);
+            seekBarResult3.setText(value3.toString());
+        }
+    }
+
+    private void initCheckBoxes(){
+        String[] bodyAreasArray = listItem.sideeffect.value.split(",");
+        switch(listItem.sideeffect.type){
+            case JournalFragment.SIDEEFFECT_PHYSICAL_PAIN:
+                for (String s : bodyAreasArray) {
+                    switch (s) {
+                        case SIDEEFFECT_PAIN_RIGHT_HAND_VALUE:
+                            rightHandCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_RIGHT_SHOULDER_VALUE:
+                            rightShoulderCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_RIGHT_CHEST_VALUE:
+                            rightChestCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_RIGHT_ARM_VALUE:
+                            rightArmCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_RIGHT_HIP_VALUE:
+                            rightHipCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_RIGHT_UPPER_LEG_VALUE:
+                            rightUpperLegCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_RIGHT_KNEE_VALUE:
+                            rightKneeCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_RIGHT_LOWER_LEG_VALUE:
+                            rightLowerLegCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_RIGHT_FOOT_VALUE:
+                            rightFootCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_LEFT_HAND_VALUE:
+                            leftHandCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_LEFT_SHOULDER_VALUE:
+                            leftShoulderCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_LEFT_CHEST_VALUE:
+                            leftChestCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_LEFT_ARM_VALUE:
+                            leftArmCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_LEFT_HIP_VALUE:
+                            leftHipCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_LEFT_UPPER_LEG_VALUE:
+                            leftUpperLegCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_LEFT_KNEE_VALUE:
+                            leftKneeCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_LEFT_LOWER_LEG_VALUE:
+                            leftLowerLegCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_LEFT_FOOT_VALUE:
+                            leftFootCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_HEAD_VALUE:
+                            headCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_NECK_VALUE:
+                            neckCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_UPPER_BACK_VALUE:
+                            upperBackCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_MID_BACK_VALUE:
+                            midBackCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_LOWER_BACK_VALUE:
+                            lowerBackCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_RIGHT_ABDOMEN_VALUE:
+                            rightAbdomenCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_LEFT_ABDOMEN_VALUE:
+                            leftAbdomenCheckbox.setChecked(true);
+                            break;
+                        case SIDEEFFECT_PAIN_TAILBONE_VALUE:
+                            tailboneCheckbox.setChecked(true);
+                            break;
+                    }
+                }
                 break;
-            case 1:
-                radioButton1.setChecked(true);
+            case JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH:
+                for (String s : bodyAreasArray) {
+                    switch (s) {
+                        case SIDEEFFECT_MOUTH_CHECKBOX_VALUE1:
+                            checkBox1.setChecked(true);
+                            break;
+                        case SIDEEFFECT_MOUTH_CHECKBOX_VALUE2:
+                            checkBox2.setChecked(true);
+                            break;
+                        case SIDEEFFECT_MOUTH_CHECKBOX_VALUE3:
+                            checkBox3.setChecked(true);
+                            break;
+                        case SIDEEFFECT_MOUTH_CHECKBOX_VALUE4:
+                            checkBox4.setChecked(true);
+                            break;
+                    }
+                }
                 break;
-            case 2:
-                radioButton2.setChecked(true);
-                break;
-            case 3:
-                radioButton3.setChecked(true);
-                break;
-            case 4:
-                radioButton4.setChecked(true);
-                break;
-            case 5:
-                radioButton5.setChecked(true);
+            case JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING:
+                for (String s : bodyAreasArray) {
+                    switch (s) {
+                        case SIDEEFFECT_TINGLING_CHECKBOX_VALUE1:
+                            checkBox1.setChecked(true);
+                            break;
+                        case SIDEEFFECT_TINGLING_CHECKBOX_VALUE2:
+                            checkBox2.setChecked(true);
+                            break;
+                    }
+                }
                 break;
         }
     }

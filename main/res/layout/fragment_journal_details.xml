@@ -341,25 +341,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/cb_journal_sideeffect_checkbox1"
-                    android:text="@string/journal_sideeffects_mouth_checkbox1" />
+                    android:text="@string/journal_sideeffects_mouth_checkbox_sore" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/cb_journal_sideeffect_checkbox2"
-                    android:text="@string/journal_sideeffects_mouth_checkbox2" />
+                    android:text="@string/journal_sideeffects_mouth_checkbox_dry" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/cb_journal_sideeffect_checkbox3"
-                    android:text="@string/journal_sideeffects_mouth_checkbox3" />
+                    android:text="@string/journal_sideeffects_mouth_checkbox_taste" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/cb_journal_sideeffect_checkbox4"
-                    android:text="@string/journal_sideeffects_mouth_checkbox4"/>
+                    android:text="@string/journal_sideeffects_mouth_checkbox_pain"/>
 
             </LinearLayout>
 

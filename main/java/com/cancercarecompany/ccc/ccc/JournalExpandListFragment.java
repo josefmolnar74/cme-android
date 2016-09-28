@@ -84,11 +84,6 @@ public class JournalExpandListFragment extends Fragment {
 
         prepareExpList();
 
-        expandListAdapter = new JournalExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
-        expandListView.setAdapter(expandListAdapter);
-        expandListView.expandGroup(0);
-        expandListView.expandGroup(1);
-
         // Listview on child click listener
         expandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
@@ -354,9 +349,9 @@ public class JournalExpandListFragment extends Fragment {
 
         if (expandListAdapter == null){
             expandListAdapter = new JournalExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
-            expandListView.setAdapter(expandListAdapter);
         }
 
+        expandListView.setAdapter(expandListAdapter);
         expandListView.collapseGroup(0);
         expandListView.collapseGroup(1);
         expandListView.expandGroup(0);
