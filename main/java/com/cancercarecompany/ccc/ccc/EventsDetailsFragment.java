@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
@@ -72,6 +73,7 @@ public class EventsDetailsFragment extends Fragment {
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         View view = inflater.inflate(R.layout.fragment_events_details, container, false);
+        RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.lay_event_detail);
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             setHasOptionsMenu(true);
@@ -80,7 +82,6 @@ public class EventsDetailsFragment extends Fragment {
             CustomViewPager viewPager = (CustomViewPager) getActivity().findViewById(R.id.container);
             viewPager.setPagingEnabled(false);
             ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.events_detail_header));
-            RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.lay_event_detail);
             layout.setVisibility(View.GONE);
         }
 
@@ -238,6 +239,25 @@ public class EventsDetailsFragment extends Fragment {
             }
         });
 
+        informationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                // Family or invited user
+                EventsInformationFragment myEventInformation = new EventsInformationFragment();
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                    ft.replace(R.id.events_placeholder2, myEventInformation);
+                }
+                else{
+                    ft.replace(R.id.events_placeholder1, myEventInformation);
+                }
+                ft.addToBackStack(null);
+                // send family member data to fragment
+                myEventInformation.setItem(listItem);
+                ft.commit();
+
+            }
+        });
 
         return view;
 
@@ -556,11 +576,6 @@ public class EventsDetailsFragment extends Fragment {
                 });
                 break;
         }
-        if(!subCategoryClicked.isEmpty()){
-            // Selection has been made, update listItem
-            listItem.sub_category = subCategoryClicked;
-            listItem.category = category;
-        }
     }
 
     private void setEventCategory(String subCategoryClicked){
@@ -568,6 +583,12 @@ public class EventsDetailsFragment extends Fragment {
         informationButton.setVisibility(View.VISIBLE);
         eventImage.setImageResource(getActivity().getResources().getIdentifier("event_"+subCategoryClicked+"_bubble", "drawable", getActivity().getPackageName()));
         eventText.setText(getActivity().getString(getActivity().getResources().getIdentifier("event_"+subCategoryClicked, "string", getActivity().getPackageName())));
+        if(!subCategoryClicked.isEmpty()){
+            // Selection has been made, update listItem
+            listItem.sub_category = subCategoryClicked;
+            listItem.category = category;
+        }
+
     }
 
     private void saveEvent(){

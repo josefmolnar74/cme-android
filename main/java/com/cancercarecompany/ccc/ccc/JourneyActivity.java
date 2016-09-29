@@ -726,9 +726,6 @@ public class JourneyActivity extends AppCompatActivity {
 
                 }
 
-                System.out.println(currentPage);
-
-                eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                 Glide.clear(eventInfoImage);
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
                 Glide.with(getApplicationContext()).load(resourceId).diskCacheStrategy(DiskCacheStrategy.NONE).fitCenter().into(eventInfoImage);
@@ -736,39 +733,25 @@ public class JourneyActivity extends AppCompatActivity {
 
                 switch (currentPage) {
 
-
-
                     case 1:
-
                         page1.setBackgroundResource(R.drawable.bluecircle);
-
                         page2.setBackgroundResource(R.drawable.blackcircle);
-
                         page3.setBackgroundResource(R.drawable.blackcircle);
-
                         break;
 
                     case 2:
 
                         page1.setBackgroundResource(R.drawable.blackcircle);
-
                         page2.setBackgroundResource(R.drawable.bluecircle);
-
                         page3.setBackgroundResource(R.drawable.blackcircle);
-
                         break;
 
                     case 3:
 
                         page1.setBackgroundResource(R.drawable.blackcircle);
-
                         page2.setBackgroundResource(R.drawable.blackcircle);
-
                         page3.setBackgroundResource(R.drawable.bluecircle);
-
                         break;
-
-
 
                 }
 
