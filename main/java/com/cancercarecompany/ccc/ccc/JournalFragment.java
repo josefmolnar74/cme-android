@@ -47,7 +47,7 @@ public class JournalFragment extends Fragment {
     final static public String SIDEEFFECT_EMOTIONAL_NERVOUS = "emotional_nervous";
     final static public String SIDEEFFECT_EMOTIONAL_DEJECTION = "emotional_dejection";
     final static public String SIDEEFFECT_EMOTIONAL_WORRY = "emotional_worry";
-    final static public String SIDEEFFECT_EMOTIONAL_LOSS = "emotional_loss";
+    final static public String SIDEEFFECT_EMOTIONAL_ACTIVITIES = "emotional_activities";
 
 
     public JournalFragment() {

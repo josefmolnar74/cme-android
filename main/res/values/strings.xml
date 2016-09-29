@@ -16,7 +16,8 @@
 
     <string name="patient_careteam">s vårdteam</string>
     <string name="patient_journal">s dagbok</string>
-    <string name="patient_journey">s resa</string>
+    <string name="patient_events">s events</string>
+    <string name="patient_journey">s cancerresa</string>
 
     <string name="journal_status_header">Status</string>
     <string name="journal_patient_name">s cancerresa</string>
@@ -132,6 +133,30 @@
     <string name="journal_sideeffects_vomit_radioButton1">Blood/röd</string>
     <string name="journal_sideeffects_vomit_radioButton2">Klar/grönaktig</string>
     <string name="journal_sideeffects_vomit_radioButton3">Onedbruten mat</string>
+    <string name="journal_sideeffects_dejection_question">Hur nedstämd känner * sig?</string>
+    <string name="journal_sideeffects_dejection_seekbar_headline"></string>
+    <string name="journal_sideeffects_dejection_seekbar_min">Ingen nedstämdhet alls</string>
+    <string name="journal_sideeffects_dejection_seekbar_max">Nedstämd</string>
+    <string name="journal_sideeffects_depression_question">Hur deprimerad är *?</string>
+    <string name="journal_sideeffects_depression_seekbar_headline"></string>
+    <string name="journal_sideeffects_depression_seekbar_min">Ingen depression</string>
+    <string name="journal_sideeffects_depression_seekbar_max">Jättemycket depression</string>
+    <string name="journal_sideeffects_fear_question">Känner * av någon rädsla?</string>
+    <string name="journal_sideeffects_fear_seekbar_headline"></string>
+    <string name="journal_sideeffects_fear_seekbar_min">Ingen rädsla</string>
+    <string name="journal_sideeffects_fear_seekbar_max">Jättemycket rädsla</string>
+    <string name="journal_sideeffects_activities_question">Känner * av någon förlust?</string>
+    <string name="journal_sideeffects_activities_seekbar_headline"></string>
+    <string name="journal_sideeffects_activities_seekbar_min">Ingen alls</string>
+    <string name="journal_sideeffects_activities_seekbar_max">Jätteycket</string>
+    <string name="journal_sideeffects_nervous_question">Hur nervös känner * sig?</string>
+    <string name="journal_sideeffects_nervous_seekbar_headline"></string>
+    <string name="journal_sideeffects_nervous_seekbar_min">Inte alls nervös</string>
+    <string name="journal_sideeffects_nervous_seekbar_max">Jättenervös</string>
+    <string name="journal_sideeffects_worry_question">Känner * någon oro??</string>
+    <string name="journal_sideeffects_worry_seekbar_headline"></string>
+    <string name="journal_sideeffects_worry_seekbar_min">Inte alls orolig</string>
+    <string name="journal_sideeffects_worry_seekbar_max">Jätteorolig</string>
     <string name="journal_emotion_happy">Glad</string>
     <string name="journal_emotion_sad">Ledsen</string>
     <string name="journal_emotion_worried">Orolig</string>
@@ -147,7 +172,7 @@
     <string name="sideeffect_emotional_nervous">Nervösitet</string>
     <string name="sideeffect_emotional_dejection">Nedstämdhet</string>
     <string name="sideeffect_emotional_worry">Oro</string>
-    <string name="sideeffect_emotional_loss">Intresse för vardagliga aktiviteter</string>
+    <string name="sideeffect_emotional_activities">Intresse för vardagliga aktiviteter</string>
     <string name="sideeffect_physical">Fysiska biverkningar</string>
     <string name="sideeffect_physical_appearance">Utseende</string>
     <string name="sideeffect_physical_hygiene">Hygien/påklädning</string>

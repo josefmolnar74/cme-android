@@ -42,6 +42,7 @@ public class CareTeamExpListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_care_team_exp_list, container, false);
+        connectHandler = ConnectionHandler.getInstance();
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.VISIBLE);
@@ -49,7 +50,7 @@ public class CareTeamExpListFragment extends Fragment {
             viewPager.setPagingEnabled(true);
         }
 
-        connectHandler = ConnectionHandler.getInstance();
+        ((MainActivity) getActivity()).setTitle(connectHandler.patient.patient_name.concat(getString(R.string.patient_journey)));
 
         expListView = (ExpandableListView) view.findViewById(R.id.explv_careteam);
         familyExpList = new ArrayList<CareTeamExpandListItem>();
@@ -207,7 +208,8 @@ public class CareTeamExpListFragment extends Fragment {
         return view;
     }
 
-    private class CancerFriend{
+
+        private class CancerFriend{
         String name;
         String link;
         String phone;
@@ -228,6 +230,12 @@ public class CareTeamExpListFragment extends Fragment {
         cancerFriends.add(myCancerFriend1);
         cancerFriends.add(myCancerFriend2);
         cancerFriends.add(myCancerFriend3);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((MainActivity) getActivity()).setActionBarTitle((connectHandler.patient.patient_name.concat(getString(R.string.patient_journey))));
     }
 }
 

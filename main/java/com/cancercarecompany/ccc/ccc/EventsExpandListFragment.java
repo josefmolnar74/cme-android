@@ -42,6 +42,7 @@ public class EventsExpandListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        connectHandler = ConnectionHandler.getInstance();
 
         View view = inflater.inflate(R.layout.fragment_care_team_exp_list, container, false);
 
@@ -50,8 +51,6 @@ public class EventsExpandListFragment extends Fragment {
             CustomViewPager viewPager = (CustomViewPager) getActivity().findViewById(R.id.container);
             viewPager.setPagingEnabled(true);
         }
-
-        connectHandler = ConnectionHandler.getInstance();
 
         expListView = (ExpandableListView) view.findViewById(R.id.explv_careteam);
         eventExpList = new ArrayList<Event>();
@@ -208,5 +207,12 @@ public class EventsExpandListFragment extends Fragment {
             }
         }
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((MainActivity) getActivity()).setActionBarTitle((connectHandler.patient.patient_name.concat(getString(R.string.patient_journey))));
+    }
+
 }
 

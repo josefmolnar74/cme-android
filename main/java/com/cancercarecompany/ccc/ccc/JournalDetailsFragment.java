@@ -164,6 +164,8 @@ public class JournalDetailsFragment extends Fragment {
             layout.setVisibility(View.GONE);
         }
 
+        ((MainActivity) getActivity()).setTitle(connectHandler.patient.patient_name.concat(getString(R.string.patient_journey)));
+
         // Declare Seekbar views
         seekBarsLayout = (LinearLayout) view.findViewById(R.id.lay_journal_sideeffect_seekbars);
         seekBarLayout1 = (RelativeLayout) view.findViewById(R.id.lay_journal_sideeffect_seekbar1);
@@ -453,6 +455,73 @@ public class JournalDetailsFragment extends Fragment {
                 checkBox4.setVisibility(View.GONE);
                 initCheckBoxes();
                 break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_DEJECTION:
+                seekBarsLayout.setVisibility(View.VISIBLE);
+                seekBarLayout2.setVisibility(View.GONE);
+                seekBarLayout3.setVisibility(View.GONE);
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_dejection_question));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_dejection_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffects_dejection_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffects_dejection_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
+                break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_DEPRESSION:
+                seekBarsLayout.setVisibility(View.VISIBLE);
+                seekBarLayout2.setVisibility(View.GONE);
+                seekBarLayout3.setVisibility(View.GONE);
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_depression_question));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_depression_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffects_depression_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffects_depression_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
+                break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_FEAR:
+                seekBarsLayout.setVisibility(View.VISIBLE);
+                seekBarLayout2.setVisibility(View.GONE);
+                seekBarLayout3.setVisibility(View.GONE);
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_fear_question));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_fear_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffects_fear_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffects_fear_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
+                break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_ACTIVITIES:
+                seekBarsLayout.setVisibility(View.VISIBLE);
+                seekBarLayout2.setVisibility(View.GONE);
+                seekBarLayout3.setVisibility(View.GONE);
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_activities_question));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_activities_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffects_activities_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffects_activities_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
+                break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_NERVOUS:
+                seekBarsLayout.setVisibility(View.VISIBLE);
+                seekBarLayout2.setVisibility(View.GONE);
+                seekBarLayout3.setVisibility(View.GONE);
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_nervous_question));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_nervous_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffects_nervous_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffects_nervous_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
+                break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_WORRY:
+                seekBarsLayout.setVisibility(View.VISIBLE);
+                seekBarLayout2.setVisibility(View.GONE);
+                seekBarLayout3.setVisibility(View.GONE);
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_worry_question));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_worry_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffects_worry_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffects_worry_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
+                break;
+
         }
 
         // Replace x with patient name in Question text
@@ -569,35 +638,15 @@ public class JournalDetailsFragment extends Fragment {
         switch(listItem.sideeffect.type){
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_APPERANCE:
-                if (!sideeffectNotes.getText().toString().isEmpty()){
-                    saveSideeffect();
-                }else{
-                    inputAlert();
-                }
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_HYGIENE:
-                if (!sideeffectNotes.getText().toString().isEmpty()){
-                    saveSideeffect();
-                }else{
-                    inputAlert();
-                }
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_BREATHING:
-                if (!sideeffectNotes.getText().toString().isEmpty()){
-                    saveSideeffect();
-                }else{
-                    inputAlert();
-                }
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_URINATION:
-                if (!sideeffectNotes.getText().toString().isEmpty()){
-                    saveSideeffect();
-                }else{
-                    inputAlert();
-                }
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION:
@@ -623,11 +672,6 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_FEVER:
-                if (!sideeffectNotes.getText().toString().isEmpty()){
-                    saveSideeffect();
-                }else{
-                    inputAlert();
-                }
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY:
@@ -635,11 +679,6 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION:
-                if (!sideeffectNotes.getText().toString().isEmpty()){
-                    saveSideeffect();
-                }else{
-                    inputAlert();
-                }
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY:
@@ -810,6 +849,30 @@ public class JournalDetailsFragment extends Fragment {
                     sideeffectValue += SIDEEFFECT_TINGLING_CHECKBOX_VALUE2;
                     sideeffectValue += ",";
                 }
+                break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_DEJECTION:
+                sideeffectValue = "" + seekBar1.getProgress();
+                break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_DEPRESSION:
+                sideeffectValue = "" + seekBar1.getProgress();
+                break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_FEAR:
+                sideeffectValue = "" + seekBar1.getProgress();
+                break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_ACTIVITIES:
+                sideeffectValue = "" + seekBar1.getProgress();
+                break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_NERVOUS:
+                sideeffectValue = "" + seekBar1.getProgress();
+                break;
+
+            case JournalFragment.SIDEEFFECT_EMOTIONAL_WORRY:
+                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
         }

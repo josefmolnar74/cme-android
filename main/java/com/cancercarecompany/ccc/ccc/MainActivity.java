@@ -1,5 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -195,5 +197,6 @@ public class MainActivity extends AppCompatActivity {
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
     }
+
 }
 

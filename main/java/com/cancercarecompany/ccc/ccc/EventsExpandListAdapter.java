@@ -64,7 +64,7 @@ public class EventsExpandListAdapter extends BaseExpandableListAdapter {
             eventImage.setImageResource(context.getResources().getIdentifier("add_event", "drawable", context.getPackageName()));
             eventTime.setText("");
             eventDate.setText("");
-        }else{
+        }else if (!listItem.sub_category.isEmpty()){
             eventCategory.setText(context.getString(context.getResources().getIdentifier("event_"+listItem.sub_category, "string", context.getPackageName())));
             eventDate.setText(listItem.date.substring(0,10));
             eventTime.setText(listItem.time.substring(0,5));

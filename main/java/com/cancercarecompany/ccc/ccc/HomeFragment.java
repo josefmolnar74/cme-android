@@ -1,6 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,7 +28,13 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((MainActivity) getActivity()).setTitle("Hem");
+    }
 }
