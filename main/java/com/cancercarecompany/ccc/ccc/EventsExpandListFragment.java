@@ -143,7 +143,7 @@ public class EventsExpandListFragment extends Fragment {
                 }
             }
 
-            if ((admin) && (!eventExpList.isEmpty()) && (eventExpList.get(0).event_ID != 0)){
+            if ((admin) && (eventExpList.isEmpty() || (eventExpList.get(0).event_ID != 0))){
                 //add position to invite new member
                 Event newListItem = new Event(0, 0, 0, 0, null, "",
                         "create_new",

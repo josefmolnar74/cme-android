@@ -293,7 +293,7 @@ public class EventsDetailsFragment extends Fragment {
         subCategory8.setVisibility(View.INVISIBLE);
         subCategory9.setVisibility(View.INVISIBLE);
 
-        switch (category){
+        switch (category) {
             case EVENT_CATEGORY_APPOINTMENT:
                 subCategory1.setVisibility(View.VISIBLE);
                 subCategory2.setVisibility(View.VISIBLE);
@@ -556,6 +556,11 @@ public class EventsDetailsFragment extends Fragment {
                 });
                 break;
         }
+        if(!subCategoryClicked.isEmpty()){
+            // Selection has been made, update listItem
+            listItem.sub_category = subCategoryClicked;
+            listItem.category = category;
+        }
     }
 
     private void setEventCategory(String subCategoryClicked){
@@ -576,11 +581,11 @@ public class EventsDetailsFragment extends Fragment {
                     listItem.person_ID,
                     listItem.healthcare_ID,
                     listItem.healthcare_name,
-                    category,
-                    subCategoryClicked,
+                    listItem.category,
+                    listItem.sub_category,
                     mDateButton.getText().toString(),
                     mTimeButton.getText().toString(),
-                    listItem.notes,
+                    notes.getText().toString(),
                     listItem.status,
                     listItem.emotion);
 
@@ -619,7 +624,7 @@ public class EventsDetailsFragment extends Fragment {
                         subCategoryClicked,
                         mDateButton.getText().toString(),
                         mTimeButton.getText().toString(),
-                        notes.getText().toString() ,
+                        notes.getText().toString(),
                         "",
                         "");
                 connectHandler.createEvent(newEvent);
