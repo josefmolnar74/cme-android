@@ -276,7 +276,8 @@ public class JournalExpandListFragment extends Fragment {
                                             todaysSideeffects.get(todaysSideffectPosition).date,
                                             todaysSideeffects.get(todaysSideffectPosition).time,
                                             todaysSideeffects.get(todaysSideffectPosition).type,
-                                            todaysSideeffects.get(todaysSideffectPosition).value);
+                                            todaysSideeffects.get(todaysSideffectPosition).value,
+                                            "");
                 SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem(header, sideeffect);
                 physicalExpandList.add(sideeffectItem);
 
@@ -290,6 +291,7 @@ public class JournalExpandListFragment extends Fragment {
                                             "",
                                             "",
                                             physicalSideeffectList.get(i),
+                                            "",
                                             "");
                 SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem(header, sideeffect);
                 physicalExpandList.add(sideeffectItem);
@@ -323,7 +325,8 @@ public class JournalExpandListFragment extends Fragment {
                         todaysSideeffects.get(todaysSideffectPosition).date,
                         todaysSideeffects.get(todaysSideffectPosition).time,
                         todaysSideeffects.get(todaysSideffectPosition).type,
-                        todaysSideeffects.get(todaysSideffectPosition).value);
+                        todaysSideeffects.get(todaysSideffectPosition).value,
+                        "");
                 SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem(header, sideeffect);
                 emotionalExpandList.add(sideeffectItem);
 
@@ -337,6 +340,7 @@ public class JournalExpandListFragment extends Fragment {
                         "",
                         "",
                         emotionalSideeffectList.get(i),
+                        "",
                         "");
                 SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem(header, sideeffect);
                 emotionalExpandList.add(sideeffectItem);

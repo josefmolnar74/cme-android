@@ -1856,7 +1856,8 @@ public class JournalActivity extends AppCompatActivity {
                 journalDate,
                 time,
                 sideeffectType,
-                sideeffectValue);
+                sideeffectValue,
+                "");
 
         if (sideeffectID >= 0){
             // sideeffect already exist, just update
