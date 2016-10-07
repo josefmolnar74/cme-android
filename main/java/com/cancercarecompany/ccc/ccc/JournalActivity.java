@@ -1359,14 +1359,14 @@ public class JournalActivity extends AppCompatActivity {
                 textSideeffectsHeader.setText(R.string.journal_sideeffects_appetite);
                 textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
                 textSideeffectsHeader1.setText(R.string.journal_sideeffects_appetite_seekbar_breakfast);
-                textSeekBarMin1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
-                textSeekBarMax1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
+//                textSeekBarMin1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
+//                textSeekBarMax1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
                 textSideeffectsHeader2.setText(R.string.journal_sideeffects_appetite_seekbar_lunch);
-                textSeekBarMin2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
-                textSeekBarMax2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
+//                textSeekBarMin2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
+//                textSeekBarMax2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
                 textSideeffectsHeader3.setText(R.string.journal_sideeffects_appetite_seekbar_dinner);
-                textSeekBarMin3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
-                textSeekBarMax3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
+//                textSeekBarMin3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
+//                textSeekBarMax3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
                 break;
             case SIDEEFFECT_TYPE_FATIGUE:
                 textSideeffectsHeader.setText(R.string.journal_sideeffects_fatigue);
@@ -1529,12 +1529,12 @@ public class JournalActivity extends AppCompatActivity {
                 radioButton5.setText(R.string.journal_sideeffects_diarrhea_radioButton5);
                 break;
             case SIDEEFFECT_TYPE_MOUTH:
-                textSideeffectsHeader.setText(R.string.journal_sideeffects_mouth_change_header);
-                textSideeffectQuestion.setText(R.string.journal_sideeffects_mouth_change_question);
-                radioButton1.setText(R.string.journal_sideeffects_mouth_change_radioButton1);
-                radioButton2.setText(R.string.journal_sideeffects_mouth_change_radioButton2);
-                radioButton3.setText(R.string.journal_sideeffects_mouth_change_radioButton3);
-                radioButton4.setText(R.string.journal_sideeffects_mouth_change_radioButton4);
+//                textSideeffectsHeader.setText(R.string.journal_sideeffects_mouth_change_header);
+//                textSideeffectQuestion.setText(R.string.journal_sideeffects_mouth_change_question);
+//                radioButton1.setText(R.string.journal_sideeffects_mouth_change_radioButton1);
+//                radioButton2.setText(R.string.journal_sideeffects_mouth_change_radioButton2);
+//                radioButton3.setText(R.string.journal_sideeffects_mouth_change_radioButton3);
+//                radioButton4.setText(R.string.journal_sideeffects_mouth_change_radioButton4);
                 radioButton5.setVisibility(View.INVISIBLE);
                 break;
             case SIDEEFFECT_TYPE_VOMIT:

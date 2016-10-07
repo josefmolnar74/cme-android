@@ -424,6 +424,7 @@
     <string name="event_hospital_txt1">För det mesta måste du åka in till sjukhuset när det är dags för cellgifter. Det kan vara för några dagar eller lite längre. </string>
     <string name="event_hospital_txt2">Efter cellgifterna kan du ibland må jättedåligt och därför måste du in till sjukhuset igen, men det är bara för att få dig att må bättre och för att läkarna och sjuksköterskor ska bättre kunna ta hand om dig.</string>
     <string name="event_hospital_txt3">Mamma och pappa kommer att vara där för det mesta och du kommer att träffa andra barn som också är på sjukhuset. Om ni vill och orka så finns det många leksaker där man kan leka med! </string>
+    <string name="events_explore_journey">Utforska cancerresa</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

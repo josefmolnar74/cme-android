@@ -1,6 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,6 +32,7 @@ public class EventsExpandListFragment extends Fragment {
     ExpandableListAdapter eventsExpandListAdapter;
     ExpandableListView expListView;
 
+    ImageButton exploreJourneyButton;
     List<Event> eventExpList;
     List<Event> passedEventExpList;
 
@@ -44,7 +47,7 @@ public class EventsExpandListFragment extends Fragment {
         // Inflate the layout for this fragment
         connectHandler = ConnectionHandler.getInstance();
 
-        View view = inflater.inflate(R.layout.fragment_care_team_exp_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_events_exp_list, container, false);
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.VISIBLE);
@@ -52,7 +55,8 @@ public class EventsExpandListFragment extends Fragment {
             viewPager.setPagingEnabled(true);
         }
 
-        expListView = (ExpandableListView) view.findViewById(R.id.explv_careteam);
+        exploreJourneyButton = (ImageButton) view.findViewById(R.id.img_explore_journey);
+        expListView = (ExpandableListView) view.findViewById(R.id.explv_events);
         eventExpList = new ArrayList<Event>();
         passedEventExpList = new ArrayList<Event>();
 
@@ -195,8 +199,19 @@ public class EventsExpandListFragment extends Fragment {
             }
         });
 
+        exploreJourneyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MyApplication.getContext(), JourneyActivity.class);
+                getActivity().startActivity(myIntent);
+                getActivity().finish();
+            }
+        });
+
         return view;
     }
+
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

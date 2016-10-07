@@ -1,3 +1,4 @@
+
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.ClipData;
@@ -7,16 +8,13 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +36,11 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+import android.widget.VideoView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,13 +51,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Random;
 
-import android.widget.Toast;
-import android.widget.VideoView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
-public class JourneyActivity extends AppCompatActivity {
+public class JourneyActivity_ extends AppCompatActivity {
 
     String languageString;
 
@@ -90,6 +87,11 @@ public class JourneyActivity extends AppCompatActivity {
     int pages = 0;
     int currentPage = 1;
 
+
+    ImageButton careTeamButton;
+    ImageButton journalButton;
+    ImageButton logoButton;
+    ImageButton settingsButton;
     int location = 0;
 
     String eventPage1 = "";
@@ -163,12 +165,11 @@ public class JourneyActivity extends AppCompatActivity {
             }
         }).start();
 
-        connectHandler = ConnectionHandler.getInstance();
-
         Glide.get(getApplicationContext()).clearMemory();
 
         eventList = new ArrayList<Event>();
         questionList = new ArrayList<Question>();
+        connectHandler = ConnectionHandler.getInstance();
 
         // Check language settings
         SharedPreferences prefs = this.getSharedPreferences(
@@ -177,6 +178,21 @@ public class JourneyActivity extends AppCompatActivity {
         languageString = prefs.getString("language_settings", "");
         System.out.println("LANGUAGE SETTINGS: "+languageString);
         //////////////////////////
+
+        // Display patient name on topbar
+        TextView patientNameText = (TextView) findViewById(R.id.txt_patientName);
+        if (connectHandler.patient != null) {
+            patientNameText.setText(connectHandler.patient.patient_name.concat(patientNameText.getText().toString()));
+            patientID = connectHandler.patient.patient_ID;
+            personID = connectHandler.person.person_ID;
+
+            System.out.println("PersonID: " + personID + " PatientID: " + patientID);
+        }
+
+        TextView loggedIn = (TextView) findViewById(R.id.txt_loggedIn);
+        if (connectHandler.person != null){
+            loggedIn.setText(connectHandler.person.name);
+        }
 
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy) {}
@@ -219,6 +235,9 @@ public class JourneyActivity extends AppCompatActivity {
         mountains_layer = (RelativeLayout) findViewById(R.id.mountains_layer);
         lion_layer = (RelativeLayout) findViewById(R.id.lion_layer);
         wholeScreen = (LinearLayout) findViewById(R.id.journeyLayout);
+        careTeamButton = (ImageButton) findViewById(R.id.btn_careteam_button);
+        journalButton = (ImageButton) findViewById(R.id.btn_journal_button);
+        logoButton = (ImageButton) findViewById(R.id.logoButton);
         sun = (ImageButton) findViewById(R.id.btn_sun_journey);
 
         sign1 = (ImageView) findViewById(R.id.sign1);
@@ -229,13 +248,13 @@ public class JourneyActivity extends AppCompatActivity {
         relativeLayout3 = (GridLayout) findViewById(R.id.relativeLayout3);
 
 
-/*        addAppointment.setOnTouchListener(new MyTouchListener());
+        addAppointment.setOnTouchListener(new MyTouchListener());
         eventLayout.setOnDragListener(new MyDragListener());
         addTreatment.setOnTouchListener(new MyTouchListener());
         addTest.setOnTouchListener(new MyTouchListener());
         addFoto.setOnTouchListener(new MyTouchListener());
         addHospital.setOnTouchListener(new MyTouchListener());
-*/
+
         // Statusbar color
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -275,11 +294,11 @@ public class JourneyActivity extends AppCompatActivity {
                 containerHeight = containerLayout.getHeight();
                 containerWidth = containerLayout.getWidth();
                 generateCar();
-                generateBushes();
-                generateMountains();
-                generateLion();
-                generateSigns();
-                generateClouds();
+//                generateBushes();
+//                generateMountains();
+//                generateLion();
+//                generateSigns();
+//                generateClouds();
 
                 containerLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
@@ -301,6 +320,28 @@ public class JourneyActivity extends AppCompatActivity {
             }
         });
 
+        careTeamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                careTeam();
+            }
+        });
+
+        journalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                journal();
+            }
+        });
+
+        loggedIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Settings settingsClass = new Settings();
+            settingsClass.settingsPopup(wholeScreen, JourneyActivity_.this);
+
+            }
+        });
 
         sun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -349,13 +390,6 @@ public class JourneyActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     private void careTeam() {
@@ -460,7 +494,7 @@ public class JourneyActivity extends AppCompatActivity {
                     btn.setBackgroundResource(R.drawable.event_mr_bubble);
                     break;
                 case "dt":
-                    btn.setBackgroundResource(R.drawable.dt);
+                    btn.setBackgroundResource(R.drawable.event_dt_bubble);
                     break;
                 case "hearing_tests":
                     btn.setBackgroundResource(R.drawable.event_hearing_tests_bubble);
@@ -576,7 +610,7 @@ public class JourneyActivity extends AppCompatActivity {
 
 
         if(viewID == appointmentID) {
-            vCategory = "appointments";
+               vCategory = "appointments";
         }
         if(viewID == treatmentID) {
             vCategory = "treatments";
@@ -590,7 +624,7 @@ public class JourneyActivity extends AppCompatActivity {
         if(viewID == hospitalID) {
             vCategory = "hospital";
         }
-        System.out.println(vCategory);
+            System.out.println(vCategory);
 
         final String eventCategory = vCategory;
         LayoutInflater layoutInflater
@@ -600,6 +634,7 @@ public class JourneyActivity extends AppCompatActivity {
 /*        final PopupWindow popupWindow = new PopupWindow(
                 popupView, (int) (width * 0.90), (int) (height * 0.85));
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
+
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
 */
 
@@ -634,7 +669,7 @@ public class JourneyActivity extends AppCompatActivity {
         eventHeadline = (TextView) popupView.findViewById(R.id.txt_subcategory_journey);
         swipeLayout = (RelativeLayout) popupView.findViewById(R.id.swipeEventLayout);
 
-        swipeLayout.setOnTouchListener(new OnSwipeTouchListener(JourneyActivity.this) {
+        swipeLayout.setOnTouchListener(new OnSwipeTouchListener(JourneyActivity_.this) {
 
 
             public void onSwipeRight() {
@@ -690,9 +725,6 @@ public class JourneyActivity extends AppCompatActivity {
 
                 }
 
-                System.out.println(currentPage);
-
-                eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
                 Glide.clear(eventInfoImage);
                 int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
                 Glide.with(getApplicationContext()).load(resourceId).diskCacheStrategy(DiskCacheStrategy.NONE).fitCenter().into(eventInfoImage);
@@ -700,39 +732,25 @@ public class JourneyActivity extends AppCompatActivity {
 
                 switch (currentPage) {
 
-
-
                     case 1:
-
                         page1.setBackgroundResource(R.drawable.bluecircle);
-
                         page2.setBackgroundResource(R.drawable.blackcircle);
-
                         page3.setBackgroundResource(R.drawable.blackcircle);
-
                         break;
 
                     case 2:
 
                         page1.setBackgroundResource(R.drawable.blackcircle);
-
                         page2.setBackgroundResource(R.drawable.bluecircle);
-
                         page3.setBackgroundResource(R.drawable.blackcircle);
-
                         break;
 
                     case 3:
 
                         page1.setBackgroundResource(R.drawable.blackcircle);
-
                         page2.setBackgroundResource(R.drawable.blackcircle);
-
                         page3.setBackgroundResource(R.drawable.bluecircle);
-
                         break;
-
-
 
                 }
 
@@ -989,7 +1007,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                 subCategory1.setBackgroundResource(R.drawable.event_bloodtest_bubble);
                 subCategory2.setBackgroundResource(R.drawable.event_mr_bubble);
-                subCategory3.setBackgroundResource(R.drawable.dt);
+                subCategory3.setBackgroundResource(R.drawable.event_dt_bubble);
                 subCategory4.setBackgroundResource(R.drawable.event_hearing_tests_bubble);
                 subCategory5.setBackgroundResource(R.drawable.event_bone_marrow_samples_bubble);
                 subCategory6.setBackgroundResource(R.drawable.event_eeg_bubble);
@@ -1265,7 +1283,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         }
 
-
+        
     }
     private void createEventButton() {
 
@@ -1287,7 +1305,7 @@ public class JourneyActivity extends AppCompatActivity {
 
         String subCategory = eventList.get(id_).sub_category;
 
-        switch (subCategory) {
+         switch (subCategory) {
             case "medical_oncologist":
                 btn.setBackgroundResource(R.drawable.event_medical_oncologist_bubble);
                 break;
@@ -1322,7 +1340,7 @@ public class JourneyActivity extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.event_mr_bubble);
                 break;
             case "dt":
-                btn.setBackgroundResource(R.drawable.dt);
+                btn.setBackgroundResource(R.drawable.event_dt_bubble);
                 break;
             case "hearing_tests":
                 btn.setBackgroundResource(R.drawable.event_hearing_tests_bubble);
@@ -1447,6 +1465,7 @@ public class JourneyActivity extends AppCompatActivity {
 /*        final PopupWindow popupWindow = new PopupWindow(
                 popupView, (int) (width * 0.90), (int) (height * 0.85));
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout_eventlayer);
+
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
 */
         final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
@@ -1477,10 +1496,10 @@ public class JourneyActivity extends AppCompatActivity {
         editTime.setIs24HourView(true);
         swipeLayout = (RelativeLayout) popupView.findViewById(R.id.swipeEventLayout);
 
-        swipeLayout.setOnTouchListener(new OnSwipeTouchListener(JourneyActivity.this) {
+        swipeLayout.setOnTouchListener(new OnSwipeTouchListener(JourneyActivity_.this) {
 
 
-            public void onSwipeRight() {
+                public void onSwipeRight() {
 
                 if(currentPage > 1) {
 
@@ -1493,8 +1512,8 @@ public class JourneyActivity extends AppCompatActivity {
 
 
                 eventInfoText.setText(getResources().getString(getResources().getIdentifier("event_"+subCategoryClicked+"_txt"+currentPage, "string", getPackageName())));
-                int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
-                Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
+                    int resourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "drawable", getPackageName());
+                    Glide.with(getApplicationContext()).load(resourceId).fitCenter().into(eventInfoImage);
 
                 switch (currentPage) {
 
@@ -1600,14 +1619,14 @@ public class JourneyActivity extends AppCompatActivity {
         timeDetail.setText(dateString);
 
         soundButton.setOnClickListener(new View.OnClickListener(){
-            @Override
+           @Override
             public void onClick(View v) {
-                int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
-                if (soundResourceId != 0) {
-                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
-                    mp.start();
-                }
-            }
+               int soundResourceId = getApplicationContext().getResources().getIdentifier("event_"+subCategoryClicked+currentPage, "raw", getPackageName());
+               if (soundResourceId != 0) {
+                   MediaPlayer mp = MediaPlayer.create(getApplicationContext(), soundResourceId);
+                   mp.start();
+               }
+           }
         });
 
         cancelButtonDetail.setOnClickListener(new View.OnClickListener() {
@@ -1631,10 +1650,10 @@ public class JourneyActivity extends AppCompatActivity {
                 editDate.setVisibility(View.VISIBLE);
                 editTime.setVisibility(View.VISIBLE);
 
-                Calendar c = Calendar.getInstance();
-                c.setTime(convertToDate(eventList.get(id_).date, eventList.get(id_).time));
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(convertToDate(eventList.get(id_).date, eventList.get(id_).time));
 
-                editDate.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+                    editDate.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
             }
         });
@@ -1642,14 +1661,18 @@ public class JourneyActivity extends AppCompatActivity {
 /*        cancelEditMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 editButtonDetail.setVisibility(View.VISIBLE);
                 timeDetail.setVisibility(View.VISIBLE);
                 notesDetail.setVisibility(View.VISIBLE);
+
+
                 saveButtonDetail.setVisibility(View.INVISIBLE);
                 editNotes.setVisibility(View.INVISIBLE);
                 editDate.setVisibility(View.INVISIBLE);
                 editTime.setVisibility(View.INVISIBLE);
                 cancelEditMode.setVisibility(View.INVISIBLE);
+
             }
         });*/
 
@@ -1748,7 +1771,7 @@ public class JourneyActivity extends AppCompatActivity {
                 categoryImage.setBackgroundResource(R.drawable.event_mr_bubble);
                 break;
             case "dt":
-                categoryImage.setBackgroundResource(R.drawable.dt);
+                categoryImage.setBackgroundResource(R.drawable.event_dt_bubble);
                 break;
             case "hearing_tests":
                 categoryImage.setBackgroundResource(R.drawable.event_hearing_tests_bubble);
@@ -1865,7 +1888,6 @@ public class JourneyActivity extends AppCompatActivity {
         } else {
             paramsCar.setMargins(0, 0, 0, 50);
         }
-
         car.setLayoutParams(paramsCar);
         bottomLayout.addView(car, paramsCar);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) car.getLayoutParams();
@@ -1877,7 +1899,7 @@ public class JourneyActivity extends AppCompatActivity {
     private void generateClouds() {
 
 
-        int cloudCount = background_layer.getWidth() / 500;
+       int cloudCount = background_layer.getWidth() / 500;
 
         for (int i = 0; i <= cloudCount; i++) {
 
@@ -1923,7 +1945,7 @@ public class JourneyActivity extends AppCompatActivity {
                     break;
             }
 
-            cloud_layout.addView(btn, params);
+           cloud_layout.addView(btn, params);
         }
 
     }
@@ -1968,18 +1990,18 @@ public class JourneyActivity extends AppCompatActivity {
                     break;
                 case DragEvent.ACTION_DROP:
 
-                    System.out.println(event.getX());
-                    location =(int) event.getX();
-                    System.out.println("LOCATION = " + location);
-                    addTreatment(vID);
+                                    System.out.println(event.getX());
+                                    location =(int) event.getX();
+                                    System.out.println("LOCATION = " + location);
+                                    addTreatment(vID);
 
 
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
-                    if (event.getResult() == false){
-                        location = 0;
-                        addTreatment(vID);
-                    }
+                        if (event.getResult() == false){
+                            location = 0;
+                            addTreatment(vID);
+                        }
 
                 default:
                     break;
@@ -2013,7 +2035,6 @@ public class JourneyActivity extends AppCompatActivity {
             eventLayout.getLayoutParams().width = lastButtonX;
         }
         cloud_layout.getLayoutParams().width = lastButtonX / 2;
-//        cloud_layout.getLayoutParams().height = 100;
         big_mountain_layer.getLayoutParams().width = lastButtonX / 2;
         big_mountain_layer.setBackgroundResource(R.drawable.backmountainxml);
         mountains_layer.getLayoutParams().width = lastButtonX;
@@ -2021,7 +2042,6 @@ public class JourneyActivity extends AppCompatActivity {
         bushes_layer.getLayoutParams().width = lastButtonX * 2;
         bushes_layer.setBackgroundResource(R.drawable.bushesxml);
         road_layer.getLayoutParams().width = lastButtonX * 2;
-//        road_layer.getLayoutParams().height = 100;
         road_layer.setBackgroundResource(R.drawable.roadxml);
         front_bushes_layer.getLayoutParams().width = lastButtonX * 3;
 
@@ -2302,7 +2322,7 @@ public class JourneyActivity extends AppCompatActivity {
                 Question newQuestion = new Question(0, patientID, personID, journeyQuestion.getText().toString(), null, dateString, null, "unanswered");
                 questionList.add(newQuestion);
 
-                question_sign= new ImageButton(JourneyActivity.this);
+                 question_sign= new ImageButton(JourneyActivity_.this);
                 question_sign.setTag("question_sign"+ (questionList.size() - 1));
 
                 question_sign.setBackgroundResource(R.drawable.question_sign);
@@ -2429,7 +2449,7 @@ public class JourneyActivity extends AppCompatActivity {
         sign2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sunPopup();
+                                    sunPopup();
             }
         });
 
@@ -2469,3 +2489,4 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
 }
+

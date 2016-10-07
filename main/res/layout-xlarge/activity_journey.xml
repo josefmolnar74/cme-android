@@ -37,7 +37,6 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginBottom="125px"></RelativeLayout>
             </RelativeLayout>
-
         </HorizontalScrollView>
 
         <HorizontalScrollView
@@ -158,8 +157,8 @@
                     android:layout_alignParentBottom="true"></RelativeLayout>
 
                 <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
+                    android:layout_width="350dp"
+                    android:layout_height="300dp"
                     android:tileMode="repeat"
                     android:id="@+id/img_car_journey"
                     android:adjustViewBounds="true"
@@ -205,8 +204,8 @@
         </HorizontalScrollView>
 
         <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:id="@+id/btn_sun_journey"
             android:background="@drawable/sun"
             android:layout_gravity="right"
