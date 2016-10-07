@@ -12,15 +12,17 @@ public class Sideeffect {
     String time;
     String type;
     String value;
+    String notes;
 
-    public Sideeffect(int sideeffect_ID, int patient_ID, int person_ID, String date, String time, String type, String value){
+    public Sideeffect(int sideeffect_ID, int patient_ID, int person_ID, String date, String time, String type, String value, String notes){
 
         this.sideeffect_ID  = sideeffect_ID;
         this.patient_ID = patient_ID;
-        this.person_ID  = person_ID;
-        this.date       = date;
-        this.time       = time;
-        this.type     = type;
-        this.value    = value;
+        this.person_ID = person_ID;
+        this.date = date;
+        this.time = time;
+        this.type = type;
+        this.value = value;
+        this.notes = notes;
     }
 }
