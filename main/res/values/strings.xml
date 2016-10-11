@@ -96,6 +96,10 @@
     <string name="journal_sideeffects_nose_seekbar_min">Inget</string>
     <string name="journal_sideeffects_nose_seekbar_max">Jättemycket</string>
     <string name="journal_sideeffects_nose_seekbar_blocked_nose">Tilltäppt näsa</string>
+    <string name="journal_sideeffects_distress_question">Känner * av distress´?</string>
+    <string name="journal_sideeffects_distress_seekbar_headline">Distress</string>
+    <string name="journal_sideeffects_distress_seekbar_min">Ingen distress</string>
+    <string name="journal_sideeffects_distress_seekbar_max">Extrem distress</string>
     <string name="journal_sideeffects_appearance_question">Beskriv hur *s utseende har påverkats.</string>
     <string name="journal_sideeffects_digestion_question">Beskriv hur *s matsmältnig har påverkats.</string>
     <string name="journal_sideeffects_hygiene_question">Beskriv *s hygien eller påklädningssvårigheter</string>
@@ -157,6 +161,7 @@
     <string name="journal_sideeffects_worry_seekbar_headline"></string>
     <string name="journal_sideeffects_worry_seekbar_min">Inte alls orolig</string>
     <string name="journal_sideeffects_worry_seekbar_max">Jätteorolig</string>
+    <string name="journal_sideeffects_distress">Distress</string>
     <string name="journal_emotion_happy">Glad</string>
     <string name="journal_emotion_sad">Ledsen</string>
     <string name="journal_emotion_worried">Orolig</string>
@@ -166,6 +171,7 @@
     <string name="journal_emotion_scared">Rädd</string>
     <string name="journal_emotion_sick">Sjuk</string>
     <string name="journal_emotion_nauseous">Illamående</string>
+    <string name="sideeffect_distress">Distress</string>
     <string name="sideeffect_emotional">Känslomässiga biverkningar</string>
     <string name="sideeffect_emotional_depression">Depression</string>
     <string name="sideeffect_emotional_fear">Rädsla</string>

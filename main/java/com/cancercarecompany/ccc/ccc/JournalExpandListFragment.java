@@ -40,8 +40,7 @@ public class JournalExpandListFragment extends Fragment {
 
     List<SideeffectExpandListItem> emotionalExpandList;
     List<SideeffectExpandListItem> physicalExpandList;
-    List<String> familyExpandList;
-    List<String> practicalExpandList;
+    List<SideeffectExpandListItem> distressExpandList;
 
     List<String> listDataHeader;
     HashMap<String, List<SideeffectExpandListItem>> listDataChild;
@@ -75,6 +74,7 @@ public class JournalExpandListFragment extends Fragment {
         expandListView = (ExpandableListView) view.findViewById(R.id.explv_journal);
         emotionalExpandList = new ArrayList<SideeffectExpandListItem>();
         physicalExpandList = new ArrayList<SideeffectExpandListItem>();
+        distressExpandList = new ArrayList<SideeffectExpandListItem>();
         calendarDays = 0;
         journalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
@@ -85,6 +85,7 @@ public class JournalExpandListFragment extends Fragment {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<SideeffectExpandListItem>>();
 
+        listDataHeader.add(getResources().getString(R.string.sideeffect_distress));
         listDataHeader.add(getResources().getString(R.string.sideeffect_physical));
         listDataHeader.add(getResources().getString(R.string.sideeffect_emotional));
 
@@ -111,11 +112,15 @@ public class JournalExpandListFragment extends Fragment {
                 ft.addToBackStack(null);
                 // send family member data to fragment
                 myJournalDetails.setDate(journalDate);
+
                 switch (groupi){
                     case 0:
-                        myJournalDetails.setItem(physicalExpandList.get(childi));
+                        myJournalDetails.setItem(distressExpandList.get(childi));
                         break;
                     case 1:
+                        myJournalDetails.setItem(physicalExpandList.get(childi));
+                        break;
+                    case 2:
                         myJournalDetails.setItem(emotionalExpandList.get(childi));
                         break;
                 }
@@ -226,12 +231,20 @@ public class JournalExpandListFragment extends Fragment {
                 JournalFragment.SIDEEFFECT_EMOTIONAL_ACTIVITIES
         );
 
+        List<String> distressSideeffectList = Arrays.asList(
+                JournalFragment.SIDEEFFECT_DISTRESS
+        );
+
         if (!physicalExpandList.isEmpty()){
             physicalExpandList.clear();
         }
 
         if (!emotionalExpandList.isEmpty()){
             emotionalExpandList.clear();
+        }
+
+        if (!distressExpandList.isEmpty()){
+            distressExpandList.clear();
         }
 
         if (!listDataChild.isEmpty()){
@@ -354,16 +367,74 @@ public class JournalExpandListFragment extends Fragment {
             }
         });
 
-        listDataChild.put(listDataHeader.get(0), physicalExpandList); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), emotionalExpandList);
+        for (int i=0; i < distressSideeffectList.size() ; i++){
+            todaysSideffectPosition = -1;
+            for (int j=0; j < todaysSideeffects.size(); j++){
+                if (todaysSideeffects.get(j).type.matches(distressSideeffectList.get(i))){
+                    // Sideeffect has already saved value from today
+                    todaysSideffectPosition = j;
+                    break;
+                }
+            }
+
+            if (todaysSideffectPosition >=0) {
+                String header =
+                        getString(getActivity().getResources().getIdentifier("sideeffect_"+ distressSideeffectList.get(i), "string", getActivity().getPackageName()));
+
+                Sideeffect sideeffect = new Sideeffect(todaysSideeffects.get(todaysSideffectPosition).sideeffect_ID,
+                        connectHandler.patient.patient_ID,
+                        connectHandler.person.person_ID,
+                        todaysSideeffects.get(todaysSideffectPosition).date,
+                        todaysSideeffects.get(todaysSideffectPosition).time,
+                        todaysSideeffects.get(todaysSideffectPosition).type,
+                        todaysSideeffects.get(todaysSideffectPosition).value,
+                        "");
+                SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem(header, sideeffect);
+                distressExpandList.add(sideeffectItem);
+
+            }else{
+                // create empty Sideeffect object
+                String header =
+                        getString(getActivity().getResources().getIdentifier("sideeffect_"+ distressSideeffectList.get(i), "string", getActivity().getPackageName()));
+                Sideeffect sideeffect = new Sideeffect(-1,
+                        connectHandler.patient.patient_ID,
+                        connectHandler.person.person_ID,
+                        journalDate,
+                        "",
+                        distressSideeffectList.get(i),
+                        "",
+                        "");
+                SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem(header, sideeffect);
+                distressExpandList.add(sideeffectItem);
+            }
+
+        }
+
+        // temp solution, add one empty element to emotional list so that whole list is shown
+        Sideeffect sideeffect = new Sideeffect(-1,
+                0,
+                0,
+                "",
+                "",
+                "",
+                "",
+                "");
+        SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem("", sideeffect);
+        emotionalExpandList.add(sideeffectItem);
+
+        listDataChild.put(listDataHeader.get(0), distressExpandList); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), physicalExpandList); // Header, Child data
+        listDataChild.put(listDataHeader.get(2), emotionalExpandList);
 
         expandListAdapter = new JournalExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
 
         expandListView.setAdapter(expandListAdapter);
         expandListView.collapseGroup(0);
         expandListView.collapseGroup(1);
+        expandListView.collapseGroup(2);
         expandListView.expandGroup(0);
         expandListView.expandGroup(1);
+        expandListView.expandGroup(2);
 
     }
 

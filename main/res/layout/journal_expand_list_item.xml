@@ -1,33 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom ="5dp">
+    android:layout_marginBottom ="5dp"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:text="New Text"
-        android:textSize="@dimen/MEDIUM"
-        android:id="@+id/txt_journal_list_name"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+    <RelativeLayout
+        android:id="@+id/lay_journal_expand_list_not_distress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <RadioButton
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:text="New Text"
+            android:textSize="@dimen/MEDIUM"
+            android:id="@+id/txt_journal_list_name"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_sideeffect_exists"
+            android:layout_marginRight="10dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:checked="false"
+            android:contextClickable="false" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lay_journal_expand_list_item_distress"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/rb_sideeffect_exists"
-        android:layout_marginRight="10dp"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:clickable="false"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:checked="false"
-        android:contextClickable="false" />
+        android:layout_margin="30dp">
 
-</RelativeLayout>
+        <SeekBar
+            android:id="@+id/sb_journal_sideeffects_distress_seekbar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:layout_alignParentLeft="false"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:id="@+id/txt_journal_sideeffects_distress_seekbar_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/sb_journal_sideeffects_distress_seekbar1"
+            android:text="@string/journal_sideeffects_distress_seekbar_min" />
+
+        <TextView
+
+            android:id="@+id/txt_journal_sideeffects_distress_seekbar_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/sb_journal_sideeffects_distress_seekbar1"
+            android:text="@string/journal_sideeffects_distress_seekbar_max"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

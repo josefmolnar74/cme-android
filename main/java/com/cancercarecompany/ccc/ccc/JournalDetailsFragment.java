@@ -522,6 +522,17 @@ public class JournalDetailsFragment extends Fragment {
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
+            case JournalFragment.SIDEEFFECT_DISTRESS:
+                seekBarsLayout.setVisibility(View.VISIBLE);
+                seekBarLayout2.setVisibility(View.GONE);
+                seekBarLayout3.setVisibility(View.GONE);
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_distress_question));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_distress_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffects_distress_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffects_distress_seekbar_max));
+                initalizeSeekbars(listItem.sideeffect.value);
+                break;
+
         }
 
         // Replace x with patient name in Question text
@@ -872,6 +883,10 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_EMOTIONAL_WORRY:
+                sideeffectValue = "" + seekBar1.getProgress();
+                break;
+
+            case JournalFragment.SIDEEFFECT_DISTRESS:
                 sideeffectValue = "" + seekBar1.getProgress();
                 break;
 

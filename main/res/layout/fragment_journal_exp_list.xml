@@ -69,6 +69,64 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/lay_journal_sideeffect_seekbar_headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/cme_dark"
+        android:layout_marginTop="1sp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/journal_sideeffects_distress_seekbar_headline"
+            android:textSize="@dimen/MEDIUM"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="37dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/lay_journal_sideeffect_seekbar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp">
+
+        <SeekBar
+            android:id="@+id/sb_journal_sideeffects_distress_seekbar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:layout_alignParentLeft="false"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:id="@+id/txt_journal_sideeffects_distress_seekbar_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/sb_journal_sideeffects_distress_seekbar1"
+            android:text="@string/journal_sideeffects_distress_seekbar_min" />
+
+        <TextView
+
+            android:id="@+id/txt_journal_sideeffects_distress_seekbar_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/sb_journal_sideeffects_distress_seekbar1"
+            android:text="@string/journal_sideeffects_distress_seekbar_max"/>
+
+    </RelativeLayout>
+
     <ExpandableListView
         android:visibility="visible"
         android:id="@+id/explv_journal"
