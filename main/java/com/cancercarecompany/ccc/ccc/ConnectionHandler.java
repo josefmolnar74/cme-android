@@ -120,7 +120,7 @@ public class ConnectionHandler {
                                         break;
                                     case CONTENT_PATIENT:
                                         Patient recievedPatient = gson.fromJson(resultData, Patient.class);
-                                        patient.patient_ID = recievedPatient.patient_ID;
+                                        patient = recievedPatient;
                                         break;
                                     case CONTENT_HEALTHCARE:
                                         // Must find a solution how to handle reponse message when creating and updating

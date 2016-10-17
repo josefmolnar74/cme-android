@@ -56,23 +56,29 @@ public class CareTeamExpListFragment extends Fragment {
         listDataHeader.add(getResources().getString(R.string.careteam_cancer_friends));
 
         // check admin
-        for (int i=0; i < connectHandler.patient.care_team.size(); i++){
-            if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
-                    (connectHandler.patient.care_team.get(i).admin == 1)){
-                admin = true;
+
+        if (connectHandler.patient.care_team != null){
+            for (int i=0; i < connectHandler.patient.care_team.size(); i++){
+                if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
+                        (connectHandler.patient.care_team.get(i).admin == 1)){
+                    admin = true;
+                }
             }
+        }
+        else{
+            admin = true;
         }
 
         if (connectHandler.patient != null) {
+            if (admin){
+                // add position to invite new member
+                CareTeamExpandListItem dummyListItem = new CareTeamExpandListItem();
+                dummyListItem.name = getResources().getString(R.string.careteam_invite_new_member);
+                dummyListItem.type = "new";
+                dummyListItem.avatar = 0;
+                familyExpList.add(dummyListItem);
+            }
             if (connectHandler.patient.care_team != null) {
-                if (admin){
-                    // add position to invite new member
-                    CareTeamExpandListItem dummyListItem = new CareTeamExpandListItem();
-                    dummyListItem.name = getResources().getString(R.string.careteam_invite_new_member);
-                    dummyListItem.type = "new";
-                    dummyListItem.avatar = 0;
-                    familyExpList.add(dummyListItem);
-                }
                 for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
                     CareTeamExpandListItem listItem = new CareTeamExpandListItem();
                     listItem.id = connectHandler.patient.care_team.get(i).person_ID;

@@ -63,7 +63,6 @@
     <EditText
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/text_register_relationship"
         android:hint="Relation to patient"

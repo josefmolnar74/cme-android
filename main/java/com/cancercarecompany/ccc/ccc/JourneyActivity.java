@@ -191,7 +191,7 @@ public class JourneyActivity extends AppCompatActivity {
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy) {}
 
-        if (connectHandler.events.event_data != null){
+        if ((connectHandler.events != null) && (connectHandler.events.event_data != null)){
             for (int i = 0; i < connectHandler.events.event_data.size(); i++) {
                 eventList.add(connectHandler.events.event_data.get(i));
             }

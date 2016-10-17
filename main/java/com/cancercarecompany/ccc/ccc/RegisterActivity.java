@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerName = (EditText) findViewById(R.id.text_register_name);
         registerPassword = (EditText) findViewById(R.id.text_register_password);
         registerEmail = (EditText) findViewById(R.id.text_register_email);
-        registerRelationship = (EditText) findViewById(R.id.text_create_careteam_relationship);
+        registerRelationship = (EditText) findViewById(R.id.text_register_relationship);
 
 
         // Get values sent from Create team and join activity
