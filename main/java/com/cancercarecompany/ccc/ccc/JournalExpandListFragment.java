@@ -85,9 +85,9 @@ public class JournalExpandListFragment extends Fragment {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<SideeffectExpandListItem>>();
 
-        listDataHeader.add(getResources().getString(R.string.sideeffect_distress));
         listDataHeader.add(getResources().getString(R.string.sideeffect_physical));
         listDataHeader.add(getResources().getString(R.string.sideeffect_emotional));
+        listDataHeader.add(getResources().getString(R.string.sideeffect_distress));
 
         prepareExpList();
 
@@ -422,9 +422,10 @@ public class JournalExpandListFragment extends Fragment {
         SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem("", sideeffect);
         emotionalExpandList.add(sideeffectItem);
 
-        listDataChild.put(listDataHeader.get(0), distressExpandList); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), physicalExpandList); // Header, Child data
-        listDataChild.put(listDataHeader.get(2), emotionalExpandList);
+
+        listDataChild.put(listDataHeader.get(0), physicalExpandList);
+        listDataChild.put(listDataHeader.get(1), emotionalExpandList);
+        listDataChild.put(listDataHeader.get(2), distressExpandList);
 
         expandListAdapter = new JournalExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
 

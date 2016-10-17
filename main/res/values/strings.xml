@@ -11,6 +11,8 @@
     <string name="yes">Ja</string>
     <string name="no">Nej</string>
     <string name="ok">Ok</string>
+    <string name="logout">Logga ut</string>
+    <string name="settings">Inställningar</string>
 
     <string name="remove_question">Är du säker på att du vill ta bort?</string>
 
@@ -96,7 +98,7 @@
     <string name="journal_sideeffects_nose_seekbar_min">Inget</string>
     <string name="journal_sideeffects_nose_seekbar_max">Jättemycket</string>
     <string name="journal_sideeffects_nose_seekbar_blocked_nose">Tilltäppt näsa</string>
-    <string name="journal_sideeffects_distress_question">Känner * av distress´?</string>
+    <string name="journal_sideeffects_distress_question">Känner * av distress?</string>
     <string name="journal_sideeffects_distress_seekbar_headline">Distress</string>
     <string name="journal_sideeffects_distress_seekbar_min">Ingen distress</string>
     <string name="journal_sideeffects_distress_seekbar_max">Extrem distress</string>

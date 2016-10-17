@@ -40,39 +40,56 @@
 
     <RelativeLayout
         android:id="@+id/lay_journal_expand_list_item_distress"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp">
+        android:layout_margin="20dp">
 
-        <SeekBar
-            android:id="@+id/sb_journal_sideeffects_distress_seekbar1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="10"
-            android:layout_alignParentLeft="false"
-            android:layout_gravity="center_horizontal"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp" />
-
-        <TextView
-            android:id="@+id/txt_journal_sideeffects_distress_seekbar_min"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/sb_journal_sideeffects_distress_seekbar1"
-            android:text="@string/journal_sideeffects_distress_seekbar_min" />
+            android:background="@drawable/thermometer"
+            android:layout_centerHorizontal="true"/>
 
-        <TextView
 
-            android:id="@+id/txt_journal_sideeffects_distress_seekbar_max"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/sb_journal_sideeffects_distress_seekbar1"
-            android:text="@string/journal_sideeffects_distress_seekbar_max"/>
+            android:layout_centerHorizontal="true">
+
+            <SeekBar
+                android:id="@+id/sb_journal_sideeffects_distress_seekbar1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="10"
+                android:layout_alignParentLeft="false"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="30dp" />
+
+            <TextView
+                android:id="@+id/txt_journal_sideeffects_distress_seekbar_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/sb_journal_sideeffects_distress_seekbar1"
+                android:text="@string/journal_sideeffects_distress_seekbar_min" />
+
+            <TextView
+
+                android:id="@+id/txt_journal_sideeffects_distress_seekbar_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/sb_journal_sideeffects_distress_seekbar1"
+                android:text="@string/journal_sideeffects_distress_seekbar_max"/>
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 

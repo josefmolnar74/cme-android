@@ -4,6 +4,10 @@
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/cme_start_settings"
+        android:title="@string/settings"
+        app:showAsAction="collapseActionView"/>
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/logout"
         app:showAsAction="collapseActionView"/>
 </menu>
