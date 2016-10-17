@@ -714,7 +714,7 @@ public class EventsDetailsFragment extends Fragment {
             int year = 0;
             int month = 0;
             int day = 0;
-            if (listItem.sub_category.matches("create_new")){
+            if (listItem.date.isEmpty()){
                 final Calendar c = Calendar.getInstance();
                 year = c.get(Calendar.YEAR);
                 month = c.get(Calendar.MONTH);
