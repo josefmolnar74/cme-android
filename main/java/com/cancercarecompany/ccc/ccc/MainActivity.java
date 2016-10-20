@@ -2,6 +2,8 @@ package com.cancercarecompany.ccc.ccc;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -87,8 +89,16 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id){
+            case R.id.action_settings:
+                break;
+            case  R.id.action_logout:
+                SharedPreferences sharedPref = this.getSharedPreferences("login_settings", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean(getString(R.string.login_auto_login), false);
+                editor.commit();
+                this.finish();
+                break;
         }
 
         return super.onOptionsItemSelected(item);

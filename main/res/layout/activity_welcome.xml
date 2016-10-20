@@ -79,13 +79,13 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/text_login_email"
                     android:inputType="textPersonName"
-                    android:hint="Email"
+                    android:hint="@string/email"
                     android:background="@android:drawable/edit_text" />
 
                 <EditText
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:id="@+id/text_login_password"
                     android:background="@android:drawable/edit_text" />

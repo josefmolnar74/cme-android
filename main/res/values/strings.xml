@@ -236,12 +236,16 @@
     <string name="button_join_care_team">Gå med team</string>
     <string name="login_saved_password">sparat lösenord</string>
     <string name="login_saved_email">sparat email</string>
-    <string name="login_auto_login"></string>
+    <string name="login_auto_login">auto login</string>
     <string name="title_activity_journal">JournalActivity</string>
-    <string name="login">Login</string>
 
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Lösenord</string>
     <string name="name">Namn</string>
     <string name="phone">Telefon</string>
+    <string name="relationship">Relation till patient</string>
+
     <string name="delete_name">Ta bort CT <xliff:g name="patient_name">%s</xliff:g>?</string>
     <string name="txt_journal_headline">Dagbok Datum:</string>
     <string name="journal_medication_breakfast">Frukost </string>

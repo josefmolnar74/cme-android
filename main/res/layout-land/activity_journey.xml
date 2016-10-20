@@ -163,8 +163,9 @@
                     android:tileMode="repeat"
                     android:id="@+id/img_car_journey"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/bus"
+                    android:src="@drawable/bus_small"
                     android:visibility="visible"
+                    android:onClick="onClickStartBus"
                     android:layout_gravity="bottom|left"
                     android:layout_alignParentTop="false"
                     android:layout_alignParentStart="true"
@@ -192,8 +193,7 @@
             android:layout_height="fill_parent"
             android:id="@+id/Scroll_eventlayer"
             android:scrollbars="none"
-            android:fillViewport="false"
-            >
+            android:fillViewport="false">
 
             <RelativeLayout
                 android:animateLayoutChanges="true"
@@ -205,8 +205,8 @@
         </HorizontalScrollView>
 
         <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:id="@+id/btn_sun_journey"
             android:background="@drawable/sun"
             android:layout_gravity="right"

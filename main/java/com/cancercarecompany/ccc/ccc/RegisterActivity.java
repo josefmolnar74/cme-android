@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerName = (EditText) findViewById(R.id.text_register_name);
         registerPassword = (EditText) findViewById(R.id.text_register_password);
         registerEmail = (EditText) findViewById(R.id.text_register_email);
-        registerRelationship = (EditText) findViewById(R.id.text_create_careteam_relationship);
+        registerRelationship = (EditText) findViewById(R.id.text_register_relationship);
 
 
         // Get values sent from Create team and join activity
@@ -53,7 +53,9 @@ public class RegisterActivity extends AppCompatActivity {
         yearOfBirth = intent.getStringExtra(YEAR_OF_BIRTH);
         diagnose = intent.getStringExtra(DIAGNOSE);
         invitedEmail = intent.getStringExtra(INVITED_EMAIL);
-        registerEmail.setText(invitedEmail);
+        if (invitedEmail != null){
+            registerEmail.setText(invitedEmail);
+        }
 
         // Statusbar color
         Window window = this.getWindow();
