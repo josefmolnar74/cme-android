@@ -68,7 +68,6 @@
         android:layout_height="75dp"
         android:id="@+id/img_subcategory6"
         android:layout_marginLeft="20dp"
-        android:layout_alignBottom="@+id/imageView11"
         android:background="@drawable/pinkbubble"
         android:layout_toRightOf="@+id/img_subcategory5"
         android:visibility="invisible" />
@@ -80,7 +79,6 @@
         android:layout_marginLeft="20dp"
         android:background="@drawable/bluebubble"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView7"
         android:layout_toRightOf="@+id/img_subcategory6"
         android:visibility="invisible" />
 

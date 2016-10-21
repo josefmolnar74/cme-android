@@ -99,8 +99,12 @@
 
     <string name="careteam_healthcare">Hälsovård</string>
     <string name="careteam_family">Familj - vänner</string>
+    <string name="careteam_cancer_friends">Cancer vänner</string>
     <string name="careteam_invite_new_member">Bjud in en ny medlem</string>
     <string name="careteam_create_new_healthcare">Skapa ny vårdperson</string>
+    <string name="careteam_alert_empty_values">Du måste ange namn och email</string>
+    <string name="careteam_alert_email_exists">Person med email är redan en del av teamet</string>
+
 
     <string name="welcome1">Välkommen till C-me kids!</string>
     <string name="welcome2">Här kan du leka, utforska och dokumentera ditt barns cancerresa.\nSkapa ditt team och dela med familj och vänner.</string>
@@ -116,8 +120,7 @@
     <string name="title_activity_journal">JournalActivity</string>
     <string name="login">Login</string>
 
-    <string name="firstname">Förnamn</string>
-    <string name="lastname">Efternamn</string>
+    <string name="name">Namn</string>
     <string name="phone">Telefon</string>
     <string name="delete_name">Ta bort CT <xliff:g name="patient_name">%s</xliff:g>?</string>
     <string name="txt_journal_headline">Dagbok Datum:</string>
@@ -212,10 +215,9 @@
     <string name="join_careteam_header">Vänligen ange din email</string>
     <string name="join_careteam_email">Email</string>
     <string name="join_careteam_find">Sök</string>
-    <string name="careteam_family_firstname">Tilltalsnamn</string>
-    <string name="careteam_family_lastname">Efternamn</string>
+    <string name="careteam_family_name">Namn</string>
     <string name="careteam_family_email">Email</string>
-    <string name="careteam_family_phone">Phone</string>
+    <string name="careteam_family_phone">Telefon</string>
     <string name="careteam_family_relationship">Förhållande</string>
     <string name="careteam_family_admin">Admin</string>
     <string name="careteam_error_message">Tilltalsnamn och email måste anges!</string>
@@ -227,9 +229,12 @@
     <string name="careteam_healthcare_phone2">Telefon 2</string>
     <string name="careteam_healthcare_phone3">Telefon 3</string>
     <string name="careteam_healthcare_email">Email</string>
-
+    <string name="careteam_alert1">Du måste minst ange namn och lösenord</string>
+    <string name="careteam_alert2">Endast ansvarig kan redigera personlig data</string>
 
     ////////Events////////////
+    <string name="journey_event_details">Händelsedetaljer</string>
+    <string name="journey_event_details_hint">Skriv viktiga händelsedetaljer här</string>
     <string name="event_start">Här startar min resa!</string>
     <string name="event_start_txt1">Våra kroppar är uppbyggda av miljontals små celler som alla har olika jobb. De växer och delar sig hela tiden för att göra nya celler som ser till att hålla oss friska. Men ibland kan några av dessa celler växa okontrollerat och uppföra sig konstigt. Dessa kallas cancerceller och kan göra en person mycket sjuk. Mer än 185000 barn varje år diagnostiseras med cancer i hela världen. Det finns mer än 100 typer olika cancerformer. Vi brukar kalla dem vid namn för den del av kroppen där cancercellerna började. Vilken typ av cancer har du?</string>
     <string name="event_appointments">Möten</string>
@@ -304,6 +309,10 @@
     <string name="event_hospital_txt1">För det mesta måste du åka in till sjukhuset när det är dags för cellgifter. Det kan vara för några dagar eller lite längre. </string>
     <string name="event_hospital_txt2">Efter cellgifterna kan du ibland må jättedåligt och därför måste du in till sjukhuset igen, men det är bara för att få dig att må bättre och för att läkarna och sjuksköterskor ska bättre kunna ta hand om dig.</string>
     <string name="event_hospital_txt3">Mamma och pappa kommer att vara där för det mesta och du kommer att träffa andra barn som också är på sjukhuset. Om ni vill och orka så finns det många leksaker där man kan leka med! </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
 
