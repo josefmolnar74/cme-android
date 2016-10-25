@@ -5,7 +5,6 @@ package com.cancercarecompany.ccc.ccc;
  */
 public class Question {
 
-
     int question_ID;
     int patient_ID;
     int person_ID;
@@ -25,7 +24,6 @@ public class Question {
         this.date = date;
         this.time = time;
         this.status = status;
-
 
     }
 }

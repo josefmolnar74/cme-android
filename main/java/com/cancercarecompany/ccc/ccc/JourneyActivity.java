@@ -342,8 +342,6 @@ public class JourneyActivity extends AppCompatActivity {
                         }
                     }
 
-
-
                 }
                 return false;
             }
@@ -358,33 +356,6 @@ public class JourneyActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-
-    /*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_careteam:
-                // User chose the "Settings" item, show the app settings UI...
-                careTeam();
-                return true;
-
-            case R.id.action_journey:
-                return true;
-
-            case R.id.action_journal:
-                journal();
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-
-*/
 
     private void careTeam() {
         Intent myIntent = new Intent(this, CareTeamActivity.class);

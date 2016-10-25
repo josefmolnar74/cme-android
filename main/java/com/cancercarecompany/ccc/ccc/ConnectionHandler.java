@@ -52,6 +52,7 @@ public class ConnectionHandler {
     public static final String CONTENT_SIDEEFFECT = "sideeffect";
     public static final String CONTENT_BEVERAGE = "beverage";
     public static final String CONTENT_JOURNAL = "journal";
+    public static final String CONTENT_QUESTION = "question";
 
     public static ConnectionHandler getInstance() {
         return ourInstance;
@@ -377,6 +378,16 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_CREATE, CONTENT_EVENT, msgData);
         } else {
             offlineDataManager.createEvents(event);
+        }
+    }
+
+    public void createQuestion(Question question){
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(question);
+            sendMessage(MESSAGE_CREATE, CONTENT_QUESTION, msgData);
+        } else {
+//            offlineDataManager.createEvents(event);
         }
     }
 
