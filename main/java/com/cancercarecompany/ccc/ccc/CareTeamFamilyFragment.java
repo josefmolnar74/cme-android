@@ -3,13 +3,11 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -27,6 +25,21 @@ public class CareTeamFamilyFragment extends Fragment {
     private boolean admin = false;
     private boolean myUser = false;
 
+    TextView txtName;
+    TextView txtPhoneNumber;
+    TextView txtEmail;
+    TextView txtRelation;
+    EditText editName;
+    EditText editPhoneNumber;
+    EditText editEmail;
+    EditText editRelation;
+    ImageButton familyAvatar;
+    ImageButton buttonDelete;
+    ImageButton buttonSave;
+    TextView alertText1;
+    TextView alertText2;
+    CheckBox chkAdmin;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,7 +47,6 @@ public class CareTeamFamilyFragment extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         View view = inflater.inflate(R.layout.fragment_care_team_family, container, false);
-        setHasOptionsMenu(true);
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             // Disable viewpager scrolling, disable tabs in order to use the action bar for vertical use
@@ -44,28 +56,28 @@ public class CareTeamFamilyFragment extends Fragment {
             ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.careteam_contact));
             RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.careteam_family_header);
             layout.setVisibility(View.GONE);
+            setHasOptionsMenu(true);
         }
 
         connectHandler = ConnectionHandler.getInstance();
 
-        final TextView txtName = (TextView) view.findViewById(R.id.txt_careteam_name);
-        final TextView txtPhoneNumber = (TextView) view.findViewById(R.id.txt_careteam_family_phone);
-        final TextView txtEmail = (TextView) view.findViewById(R.id.txt_careteam_family_email);
-        final TextView txtRelation = (TextView) view.findViewById(R.id.txt_careteam_family_relation);
-        final EditText editName = (EditText) view.findViewById(R.id.etxt_careteam_name);
-        final EditText editPhoneNumber = (EditText) view.findViewById(R.id.etxt_careteam_phone);
-        final EditText editEmail = (EditText) view.findViewById(R.id.etx_careteamt_email);
-        final EditText editRelation = (EditText) view.findViewById(R.id.etxt_careteam_relation);
-        final ImageButton familyAvatar = (ImageButton) view.findViewById(R.id.img_careteam_family_avatar);
-        final ImageButton buttonEdit = (ImageButton) view.findViewById(R.id.btn_edit);
-        final TextView txtSave = (TextView) view.findViewById(R.id.txt_save);
-        final TextView alertText1 = (TextView) view.findViewById(R.id.txt_careteam_invite_alert);
-        final TextView alertText2 = (TextView) view.findViewById(R.id.txt_careteam_edit_alert);
-        final CheckBox chkAdmin = (CheckBox) view.findViewById(R.id.chkbx_careteam);
+        txtName = (TextView) view.findViewById(R.id.txt_careteam_name);
+        txtPhoneNumber = (TextView) view.findViewById(R.id.txt_careteam_family_phone);
+        txtEmail = (TextView) view.findViewById(R.id.txt_careteam_family_email);
+        txtRelation = (TextView) view.findViewById(R.id.txt_careteam_family_relation);
+        editName = (EditText) view.findViewById(R.id.etxt_careteam_name);
+        editPhoneNumber = (EditText) view.findViewById(R.id.etxt_careteam_phone);
+        editEmail = (EditText) view.findViewById(R.id.etx_careteamt_email);
+        editRelation = (EditText) view.findViewById(R.id.etxt_careteam_relation);
+        familyAvatar = (ImageButton) view.findViewById(R.id.img_careteam_family_avatar);
+        buttonDelete = (ImageButton) view.findViewById(R.id.btn_delete);
+        buttonSave = (ImageButton) view.findViewById(R.id.btn_save);
+        alertText1 = (TextView) view.findViewById(R.id.txt_careteam_invite_alert);
+        alertText2 = (TextView) view.findViewById(R.id.txt_careteam_edit_alert);
+        chkAdmin = (CheckBox) view.findViewById(R.id.chkbx_careteam);
         alertText1.setVisibility(View.INVISIBLE);
         alertText2.setVisibility(View.INVISIBLE);
-        txtSave.setVisibility(View.INVISIBLE);
-        buttonEdit.setVisibility(View.INVISIBLE);
+        buttonDelete.setVisibility(View.INVISIBLE);
         int familyAvatarId = 0;
 
         switch(listItem.type) {
@@ -116,7 +128,38 @@ public class CareTeamFamilyFragment extends Fragment {
         }
 
         if (myUser || admin){
-            buttonEdit.setVisibility(View.VISIBLE);
+            buttonDelete.setVisibility(View.VISIBLE);
+            buttonSave.setVisibility(View.VISIBLE);
+            if (myUser){
+                editName.setFocusable(true);
+                editName.setFocusableInTouchMode(true);
+                editName.setEnabled(true);
+                editName.requestFocus();
+                editEmail.setFocusable(true);
+                editEmail.setFocusableInTouchMode(true);
+                editEmail.setEnabled(true);
+                editPhoneNumber.setFocusable(true);
+                editPhoneNumber.setFocusableInTouchMode(true);
+                editPhoneNumber.setEnabled(true);
+                editRelation.setFocusable(true);
+                editRelation.setFocusableInTouchMode(true);
+                editRelation.setEnabled(true);
+            }
+        }else{
+            buttonDelete.setVisibility(View.INVISIBLE);
+            buttonSave.setVisibility(View.INVISIBLE);
+            editName.setFocusable(false);
+            editName.setFocusableInTouchMode(false);
+            editName.setEnabled(false);
+            editEmail.setFocusable(false);
+            editEmail.setFocusableInTouchMode(false);
+            editEmail.setEnabled(false);
+            editPhoneNumber.setFocusable(false);
+            editPhoneNumber.setFocusableInTouchMode(false);
+            editPhoneNumber.setEnabled(false);
+            editRelation.setFocusable(false);
+            editRelation.setFocusableInTouchMode(false);
+            editRelation.setEnabled(false);
         }
 
         switch (familyAvatarId) {
@@ -178,9 +221,9 @@ public class CareTeamFamilyFragment extends Fragment {
                 familyAvatar.setImageResource(R.drawable.family_avatar_18);
                 break;
         }
+
         if (listItem.type == "new"){
-            buttonEdit.setVisibility(View.INVISIBLE);
-            txtSave.setVisibility(View.VISIBLE);
+            buttonDelete.setVisibility(View.INVISIBLE);
             editName.requestFocus();
             txtName.setVisibility(View.INVISIBLE);
             txtEmail.setVisibility(View.INVISIBLE);
@@ -195,104 +238,20 @@ public class CareTeamFamilyFragment extends Fragment {
             chkAdmin.setEnabled(false);
         }
 
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonEdit.setVisibility(View.INVISIBLE);
-                txtSave.setVisibility(View.VISIBLE);
+                buttonDelete.setVisibility(View.INVISIBLE);
                 if (myUser){
-                    // Only possible to edit your own content if you are not
-                    editName.setVisibility(View.VISIBLE);
-                    editEmail.setVisibility(View.VISIBLE);
-                    editPhoneNumber.setVisibility(View.VISIBLE);
-                    editRelation.setVisibility(View.VISIBLE);
-                    txtName.setVisibility(View.VISIBLE);
-                    txtEmail.setVisibility(View.VISIBLE);
-                    txtPhoneNumber.setVisibility(View.VISIBLE);
-                    txtRelation.setVisibility(View.VISIBLE);
-                    editName.setFocusable(true);
-                    editName.setFocusableInTouchMode(true);
-                    editName.setEnabled(true);
-                    editName.requestFocus();
-                    editEmail.setFocusable(true);
-                    editEmail.setFocusableInTouchMode(true);
-                    editEmail.setEnabled(true);
-                    editPhoneNumber.setFocusable(true);
-                    editPhoneNumber.setFocusableInTouchMode(true);
-                    editPhoneNumber.setEnabled(true);
-                    editRelation.setFocusable(true);
-                    editRelation.setFocusableInTouchMode(true);
-                    editRelation.setEnabled(true);
-                    chkAdmin.setFocusable(true);
-                    chkAdmin.setFocusableInTouchMode(true);
-                    chkAdmin.setEnabled(true);
-                }
-                else if (admin){
-                    chkAdmin.setFocusable(true);
-                    chkAdmin.setFocusableInTouchMode(true);
-                    chkAdmin.setEnabled(true);
-                    alertText2.setVisibility(View.VISIBLE);
+                    connectHandler.deleteUser(listItem.id);
                 }
             }
         });
 
-        txtSave.setOnClickListener(new View.OnClickListener() {
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String invitedNameString = editName.getText().toString();
-                String invitedEmailString = editEmail.getText().toString();
-
-                if (listItem.type == "new"){
-                    //FirstName and email must be specified, the others will get emptystring if not specified
-                    boolean wrongInput = false;
-
-                    if ((invitedNameString.isEmpty()) || (invitedEmailString.isEmpty())){
-                        wrongInput = true;
-                        alertText1.setText(getString(R.string.careteam_alert_empty_values));
-                        alertText1.setVisibility(View.VISIBLE);
-                    }
-
-                    // Check email so it is not already part of care team
-                    if (!wrongInput)
-                    for (int i=0; i < connectHandler.patient.care_team.size(); i++){
-                        if (invitedEmailString.matches(connectHandler.patient.care_team.get(i).email)){
-                            alertText1.setText(getString(R.string.careteam_alert_email_exists));
-                            alertText1.setVisibility(View.VISIBLE);
-                            wrongInput = true;
-                        }
-                    }
-
-                    if (!wrongInput){
-                        alertText1.setVisibility(View.INVISIBLE);
-                        // invite new care team member
-                        int admin;
-                        if(chkAdmin.isChecked()) {
-                            admin = 1;
-                        }
-                        else {
-                            admin = 0;
-                        }
-
-                        Invite newInvite = new Invite(  0,
-                                connectHandler.person.name,
-                                connectHandler.patient.patient_ID,
-                                connectHandler.patient.patient_name,
-                                invitedNameString,
-                                invitedEmailString,
-                                editRelation.getText().toString(),
-                                0,
-                                admin,
-                                0,
-                                0);
-
-                        connectHandler.inviteCareTeamMember(newInvite);
-                        buttonEdit.setVisibility(View.VISIBLE);
-                        txtSave.setVisibility(View.INVISIBLE);
-                        getActivity().onBackPressed();
-
-                    }
-
-                }
+                saveUser();
             }
         });
 
@@ -315,14 +274,74 @@ public class CareTeamFamilyFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete) {
+            if (myUser){
+                connectHandler.deleteUser(listItem.id);
+            }
             return true;
         }
 
         if (id == R.id.action_save) {
+            saveUser();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void saveUser() {
+        String invitedNameString = editName.getText().toString();
+        String invitedEmailString = editEmail.getText().toString();
+
+        if (listItem.type == "new"){
+            //FirstName and email must be specified, the others will get emptystring if not specified
+            boolean wrongInput = false;
+
+            if ((invitedNameString.isEmpty()) || (invitedEmailString.isEmpty())){
+                wrongInput = true;
+                alertText1.setText(getString(R.string.careteam_alert_empty_values));
+                alertText1.setVisibility(View.VISIBLE);
+            }
+
+            // Check email so it is not already part of care team
+            if (!wrongInput)
+                for (int i=0; i < connectHandler.patient.care_team.size(); i++){
+                    if (invitedEmailString.matches(connectHandler.patient.care_team.get(i).email)){
+                        alertText1.setText(getString(R.string.careteam_alert_email_exists));
+                        alertText1.setVisibility(View.VISIBLE);
+                        wrongInput = true;
+                    }
+                }
+
+            if (!wrongInput){
+                alertText1.setVisibility(View.INVISIBLE);
+                // invite new care team member
+                int admin;
+                if(chkAdmin.isChecked()) {
+                    admin = 1;
+                }
+                else {
+                    admin = 0;
+                }
+
+                Invite newInvite = new Invite(  0,
+                        connectHandler.person.name,
+                        connectHandler.patient.patient_ID,
+                        connectHandler.patient.patient_name,
+                        invitedNameString,
+                        invitedEmailString,
+                        editRelation.getText().toString(),
+                        0,
+                        admin,
+                        0,
+                        0);
+
+                connectHandler.inviteCareTeamMember(newInvite);
+                buttonDelete.setVisibility(View.VISIBLE);
+                getActivity().onBackPressed();
+
+            }
+
+        }
     }
 
     public void setItem(CareTeamExpandListItem selectedListItem){

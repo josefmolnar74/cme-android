@@ -249,11 +249,13 @@ public class ConnectionHandler {
         }
     }
 
-    public void deleteUser(Person newUser) {
+
+    public void deleteUser(int userID){
         if (checkConnection()){
-            Gson gson = new Gson();
-            String msgData = gson.toJson(newUser);
-            sendMessage(MESSAGE_DELETE, CONTENT_PERSON, msgData);
+            String msgData = String.format("{\"person_ID\":\"%d\"}", userID);
+            sendMessage(MESSAGE_DELETE, CONTENT_HEALTHCARE, msgData);
+        } else {
+//            offlineDataManager.deleteUser(userID);
         }
     }
 

@@ -32,7 +32,6 @@ public class EventsExpandListFragment extends Fragment {
     ExpandableListAdapter eventsExpandListAdapter;
     ExpandableListView expListView;
 
-    ImageButton exploreJourneyButton;
     List<Event> eventExpList;
     List<Event> passedEventExpList;
 
@@ -55,7 +54,6 @@ public class EventsExpandListFragment extends Fragment {
             viewPager.setPagingEnabled(true);
         }
 
-        exploreJourneyButton = (ImageButton) view.findViewById(R.id.img_explore_journey);
         expListView = (ExpandableListView) view.findViewById(R.id.explv_events);
         eventExpList = new ArrayList<Event>();
         passedEventExpList = new ArrayList<Event>();
@@ -196,15 +194,6 @@ public class EventsExpandListFragment extends Fragment {
                 }
                 ft.commit();
                 return false;
-            }
-        });
-
-        exploreJourneyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(MyApplication.getContext(), JourneyActivity.class);
-                getActivity().startActivity(myIntent);
-                getActivity().finish();
             }
         });
 

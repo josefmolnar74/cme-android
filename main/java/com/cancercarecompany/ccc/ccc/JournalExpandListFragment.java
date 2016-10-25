@@ -115,13 +115,13 @@ public class JournalExpandListFragment extends Fragment {
 
                 switch (groupi){
                     case 0:
-                        myJournalDetails.setItem(distressExpandList.get(childi));
-                        break;
-                    case 1:
                         myJournalDetails.setItem(physicalExpandList.get(childi));
                         break;
-                    case 2:
+                    case 1:
                         myJournalDetails.setItem(emotionalExpandList.get(childi));
+                        break;
+                    case 2:
+                        myJournalDetails.setItem(distressExpandList.get(childi));
                         break;
                 }
 
