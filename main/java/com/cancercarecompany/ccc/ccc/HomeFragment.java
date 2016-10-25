@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -22,6 +25,9 @@ public class HomeFragment extends Fragment {
 
     private ConnectionHandler connectHandler;
     private EditText questionText;
+    private ArrayList<Event> eventList = new ArrayList<>();
+    private ListView eventListView;
+    private JournalEventAdapter eventAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -45,6 +51,23 @@ public class HomeFragment extends Fragment {
         final TextView journeyHeaderText = (TextView) view.findViewById(R.id.txt_header_journey);
         final Button sendQuestionButton = (Button) view.findViewById(R.id.button_send_question);
         questionText = (EditText) view.findViewById(R.id.edit_question);
+        eventListView = (ListView) view.findViewById(R.id.listView_events);
+        eventAdapter = new JournalEventAdapter(getActivity(), eventList);
+        eventListView.setAdapter(eventAdapter);
+
+        connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
+
+        while (connectHandler.socketBusy){}
+
+        for (int i = 0; i < connectHandler.events.event_data.size(); i++) {
+            if (!connectHandler.events.event_data.get(i).sub_category.matches("start")){
+                eventList.add(connectHandler.events.event_data.get(i));
+            }
+        }
+
+        if (eventAdapter != null){
+            eventAdapter.notifyDataSetChanged();
+        }
 
         journeyHeaderText.setText(journeyHeaderText.getText().toString().replace("*", connectHandler.patient.patient_name));
 
