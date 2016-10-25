@@ -1,0 +1,304 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cancercarecompany.ccc.ccc.EventsDetailsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/lay_event_detail"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/cme_dark">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Händelseinformation"
+                android:id="@+id/textView"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"/>
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/btn_save"
+                android:background="@drawable/mark_white"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true" />
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/btn_delete"
+                android:background="@drawable/garbage_white"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/btn_save" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:orientation="vertical"
+
+            android:focusableInTouchMode="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose_category"
+                    android:id="@+id/event_choose_category"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:textSize="@dimen/MEDIUM"
+                    android:textStyle="bold" />
+
+                <TableLayout
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0,1,2">
+
+                    <TableRow>
+                        <Button
+                            android:id="@+id/btn_event_selection_appointment"
+                            android:layout_gravity="center"
+                            android:text="@string/event_appointments"
+                            android:background="@drawable/custom_button"
+                            android:textColor="@drawable/custom_button_text_color" />
+
+                        <Button
+                            android:id="@+id/btn_event_selection_treatment"
+                            android:layout_gravity="center"
+                            android:text="@string/event_treatments"
+                            android:background="@drawable/custom_button"
+                            android:textColor="@drawable/custom_button_text_color" />
+
+                        <Button
+                            android:id="@+id/btn_event_selection_test"
+                            android:layout_gravity="center"
+                            android:text="@string/event_tests"
+                            android:background="@drawable/custom_button"
+                            android:textColor="@drawable/custom_button_text_color" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/show_on_selection"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_event_category"
+                            android:text="Eventrubrik"
+                            android:textSize="@dimen/MEDIUM"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/img_event"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:visibility="gone"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentStart="true"
+                            android:id="@+id/img_event" />
+
+                        <ImageButton
+                            android:visibility="gone"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:id="@+id/btn_event_information"
+                            android:background="@drawable/information_button"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/txt_event_category" />
+
+                    </RelativeLayout>
+
+                    <GridLayout
+                        android:visibility="gone"
+                        android:id="@+id/lay_events_selection"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:columnCount="5"
+                        android:layout_gravity="center_horizontal">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/img_subcategory1"
+                            android:background="@drawable/greenbubble"
+                            android:visibility="visible"/>
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/img_subcategory2"
+                            android:background="@drawable/pinkbubble"
+                            android:visibility="visible"/>
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/img_subcategory3"
+                            android:background="@drawable/bluebubble"
+                            android:visibility="visible"/>
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/img_subcategory4"
+                            android:background="@drawable/orangebubblee"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/img_subcategory5"
+                            android:background="@drawable/greenbubble"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/img_subcategory6"
+                            android:background="@drawable/pinkbubble"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/img_subcategory7"
+                            android:background="@drawable/bluebubble"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/img_subcategory8"
+                            android:background="@drawable/orangebubble"
+                            android:visibility="visible"/>
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/img_subcategory9"
+                            android:background="@drawable/orangebubble"
+                            android:visibility="visible" />
+
+                    </GridLayout>
+
+                    <GridLayout
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:columnCount="2">
+
+                        <Button
+                            android:id="@+id/btn_pick_date"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/event_pick_date"
+                            android:background="@drawable/custom_button"
+                            android:textColor="@drawable/custom_button_text_color" />
+
+                        <Button
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:id="@+id/btn_pick_time"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/event_pick_time"
+                            android:background="@drawable/custom_button"
+                            android:textColor="@drawable/custom_button_text_color" />
+
+                    </GridLayout>
+
+                    <EditText
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:id="@+id/event_notes"
+                        android:hint="Anteckningar"
+                        android:layout_gravity="top"
+                        android:gravity="top|left"
+                        android:background="@android:drawable/editbox_background" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>

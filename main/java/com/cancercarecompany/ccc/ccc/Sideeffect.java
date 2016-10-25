@@ -18,7 +18,7 @@ public class Sideeffect {
 
         this.sideeffect_ID  = sideeffect_ID;
         this.patient_ID = patient_ID;
-        this.person_ID = person_ID;
+        this.person_ID  = person_ID;
         this.date = date;
         this.time = time;
         this.type = type;

@@ -47,21 +47,7 @@
 
             </FrameLayout>
 
-
         </LinearLayout>
-
-
-        <Button
-            android:visibility="gone"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/btn_add"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/addcontact" />
 
     </RelativeLayout>
 

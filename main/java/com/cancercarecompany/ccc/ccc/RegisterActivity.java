@@ -53,7 +53,9 @@ public class RegisterActivity extends AppCompatActivity {
         yearOfBirth = intent.getStringExtra(YEAR_OF_BIRTH);
         diagnose = intent.getStringExtra(DIAGNOSE);
         invitedEmail = intent.getStringExtra(INVITED_EMAIL);
-        registerEmail.setText(invitedEmail);
+        if (invitedEmail != null){
+            registerEmail.setText(invitedEmail);
+        }
 
         // Statusbar color
         Window window = this.getWindow();
@@ -99,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
             // During register user need to either create a new care team or join and existing
             if (patientName != null){
                 // User tries to create new patient
-                Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null,null);
+                Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null);
                 connectHandler.createPatient(newPatient, registerRelationship.getText().toString());
             }
             else if (invitedEmail != null){//replace with invite object
@@ -110,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
 
-            Intent myIntent = new Intent(this, JourneyActivity.class);
+            Intent myIntent = new Intent(this, MainActivity.class);
             startActivity(myIntent);
             finish();
         }

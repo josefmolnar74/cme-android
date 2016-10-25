@@ -1,108 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cancercarecompany.ccc.ccc.MainActivity"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:fitsSystemWindows="true"
+    tools:context="com.cancercarecompany.ccc.ccc.MainActivity">
 
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="0.14"
-        android:background="@drawable/border"
-        android:weightSum="100">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:id="@+id/logoButton"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logo_icon"
-            android:background="@null"
-            android:layout_weight="10"
-            />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
+        </android.support.v7.widget.Toolbar>
 
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="90dp"
-            android:id="@+id/btn_careteam_button"
-            android:layout_weight="16"
-            android:padding="8dp"
-            android:src="@drawable/careteam"
-            android:scaleType="fitCenter"
-            android:background="@null"
-            android:cropToPadding="false"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:background="@color/cme_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="@color/white"/>
 
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="90dp"
-            android:id="@+id/btn_journey_button"
-            android:layout_weight="16"
-            android:padding="4dp"
-            android:src="@drawable/myjourney"
-            android:scaleType="fitCenter"
-            android:background="@null"
-            android:cropToPadding="false"
-            android:layout_marginLeft="28dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/btn_journal_button" />
+    </android.support.design.widget.AppBarLayout>
 
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="90dp"
-            android:id="@+id/myWallButton"
-            android:layout_weight="16"
-            android:padding="4dp"
-            android:src="@drawable/cwall"
-            android:scaleType="fitCenter"
-            android:background="@null"
-            android:cropToPadding="false"
-            android:layout_marginLeft="28dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/btn_journey_button" />
-
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="90dp"
-            android:id="@+id/btn_journal_button"
-            android:layout_weight="16"
-            android:padding="8dp"
-            android:src="@drawable/myjournal"
-            android:scaleType="fitCenter"
-            android:background="@null"
-            android:cropToPadding="false"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/btn_careteam_button"
-            android:layout_marginLeft="28dp" />
-
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="90dp"
-            android:padding="5dp"
-            android:id="@+id/userSettingsButton"
-            android:layout_weight="10"
-            android:background="@null"
-            android:src="@drawable/settings"
-            android:scaleType="fitCenter"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/myWallButton"
-            android:layout_marginLeft="28dp" />
-
-    </RelativeLayout>
-
-    <ImageView
+    <com.cancercarecompany.ccc.ccc.CustomViewPager
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/imageView"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.86"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logobackground"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

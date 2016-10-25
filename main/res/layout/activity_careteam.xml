@@ -32,7 +32,7 @@
             android:orientation="vertical">
 
             <FrameLayout
-                android:id="@+id/your_placeholder1"
+                android:id="@+id/journal_placeholder1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

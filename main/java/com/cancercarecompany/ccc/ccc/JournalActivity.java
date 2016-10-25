@@ -218,7 +218,7 @@ public class JournalActivity extends AppCompatActivity {
         emotionText = (TextView) findViewById(R.id.txt_journal_emotions);
 
         final EditText statusTextEditText = (EditText) findViewById(R.id.edtxt_journal_status);
-        final TextView journalHeaderText = (TextView) findViewById(R.id.txt_journal_header);
+        final TextView journalHeaderText = (TextView) findViewById(R.id.txt_journal_date);
         final TextView patientNameText = (TextView) findViewById(R.id.txt_patientName);
         final Button saveStatusButton = (Button) findViewById(R.id.btn_journal_status_save);
         final Button medicationBreakfastButton = (Button) findViewById(R.id.btn_journal_medication_breakfast);
@@ -657,29 +657,6 @@ public class JournalActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_careteam:
-                // User chose the "Settings" item, show the app settings UI...
-                careTeam();
-                return true;
-
-            case R.id.action_journey:
-                journeyActivity();
-                return true;
-
-            case R.id.action_journal:
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
     }
 
     @Override
@@ -1357,15 +1334,15 @@ public class JournalActivity extends AppCompatActivity {
             case SIDEEFFECT_TYPE_APPETITE:
                 textSideeffectsHeader.setText(R.string.journal_sideeffects_appetite);
                 textSideeffectQuestion.setText(R.string.journal_sideeffects_appetite_question);
-                textSideeffectsHeader1.setText(R.string.journal_sideeffects_appetite_seekbar_headline1);
-                textSeekBarMin1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
-                textSeekBarMax1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
-                textSideeffectsHeader2.setText(R.string.journal_sideeffects_appetite_seekbar_headline2);
-                textSeekBarMin2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
-                textSeekBarMax2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
-                textSideeffectsHeader3.setText(R.string.journal_sideeffects_appetite_seekbar_headline3);
-                textSeekBarMin3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
-                textSeekBarMax3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
+                textSideeffectsHeader1.setText(R.string.journal_sideeffects_appetite_seekbar_breakfast);
+//                textSeekBarMin1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
+//                textSeekBarMax1.setText(R.string.journal_sideeffects_appetite_seekbar_min1);
+                textSideeffectsHeader2.setText(R.string.journal_sideeffects_appetite_seekbar_lunch);
+//                textSeekBarMin2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
+//                textSeekBarMax2.setText(R.string.journal_sideeffects_appetite_seekbar_min2);
+                textSideeffectsHeader3.setText(R.string.journal_sideeffects_appetite_seekbar_dinner);
+//                textSeekBarMin3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
+//                textSeekBarMax3.setText(R.string.journal_sideeffects_appetite_seekbar_min3);
                 break;
             case SIDEEFFECT_TYPE_FATIGUE:
                 textSideeffectsHeader.setText(R.string.journal_sideeffects_fatigue);
@@ -1373,8 +1350,8 @@ public class JournalActivity extends AppCompatActivity {
                 seekbarLayout3.removeAllViews();
                 textSideeffectQuestion.setText(R.string.journal_sideeffects_fatigue_question);
                 textSideeffectsHeader1.setVisibility(View.INVISIBLE);
-                textSeekBarMin1.setText(R.string.journal_sideeffects_fatigue_seekbar_min1);
-                textSeekBarMax1.setText(R.string.journal_sideeffects_fatigue_seekbar_max1);
+                textSeekBarMin1.setText(R.string.journal_sideeffects_fatigue_seekbar_min);
+                textSeekBarMax1.setText(R.string.journal_sideeffects_fatigue_seekbar_max);
                 break;
         }
 
@@ -1509,7 +1486,7 @@ public class JournalActivity extends AppCompatActivity {
         final Button buttonCancel = (Button) popupView.findViewById(R.id.btn_journal_sideeffects_diarrhea_cancel);
         final TextView textSideeffectsHeader = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_diarrhea_popup_headline);
         final TextView textSideeffectQuestion = (TextView) popupView.findViewById(R.id.txt_journal_sideeffects_diarrhea_popup_question);
-        final RadioGroup radioGroup = (RadioGroup) popupView.findViewById(R.id.rg_journal_sideeffects_diarrhea_popup);
+        final RadioGroup radioGroup = (RadioGroup) popupView.findViewById(R.id.rg_journal_sideeffects_radiogroup);
         final RadioButton radioButton1 = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection1);
         final RadioButton radioButton2 = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection2);
         final RadioButton radioButton3 = (RadioButton) popupView.findViewById(R.id.rb_journal_sideeffects_diarrhea_popup_selection3);
@@ -1528,12 +1505,12 @@ public class JournalActivity extends AppCompatActivity {
                 radioButton5.setText(R.string.journal_sideeffects_diarrhea_radioButton5);
                 break;
             case SIDEEFFECT_TYPE_MOUTH:
-                textSideeffectsHeader.setText(R.string.journal_sideeffects_mouth_change_header);
-                textSideeffectQuestion.setText(R.string.journal_sideeffects_mouth_change_question);
-                radioButton1.setText(R.string.journal_sideeffects_mouth_change_radioButton1);
-                radioButton2.setText(R.string.journal_sideeffects_mouth_change_radioButton2);
-                radioButton3.setText(R.string.journal_sideeffects_mouth_change_radioButton3);
-                radioButton4.setText(R.string.journal_sideeffects_mouth_change_radioButton4);
+//                textSideeffectsHeader.setText(R.string.journal_sideeffects_mouth_change_header);
+//                textSideeffectQuestion.setText(R.string.journal_sideeffects_mouth_change_question);
+//                radioButton1.setText(R.string.journal_sideeffects_mouth_change_radioButton1);
+//                radioButton2.setText(R.string.journal_sideeffects_mouth_change_radioButton2);
+//                radioButton3.setText(R.string.journal_sideeffects_mouth_change_radioButton3);
+//                radioButton4.setText(R.string.journal_sideeffects_mouth_change_radioButton4);
                 radioButton5.setVisibility(View.INVISIBLE);
                 break;
             case SIDEEFFECT_TYPE_VOMIT:
@@ -1796,8 +1773,7 @@ public class JournalActivity extends AppCompatActivity {
     }
 
     private void saveSideeffect(String sideeffectType, String sideeffectValue) {
-//        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
+         String time = new SimpleDateFormat("kk:mm:ss").format(new Date());
 
         Random rand = new Random();
         int sideeffectID = -rand.nextInt(Integer.MAX_VALUE);

@@ -28,7 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
         connectHandler = ConnectionHandler.getInstance(); //initialize socket and server connection
         setContentView(R.layout.welcome_splash_screen);
         //Check if username and password has been saved in share preferences
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences("login_settings", Context.MODE_PRIVATE);
         autoLogin = sharedPref.getBoolean(getString(R.string.login_auto_login), false);
 //        autoLogin = false;  // set autologin to false to skip autologin, will be fixed when logout is implemented
         if (autoLogin){
@@ -113,7 +113,7 @@ public class WelcomeActivity extends AppCompatActivity {
             alertDialog.show();
         } else {
             //Login success
-            SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences sharedPref = this.getSharedPreferences("login_settings", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             if (!sharedPref.getBoolean(getString(R.string.login_auto_login), false)){
                 // if not auto login
@@ -128,7 +128,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 editor.commit();
             }
 
-            Intent myIntent = new Intent(this, JourneyActivity.class);
+            Intent myIntent = new Intent(this, MainActivity.class);
             startActivity(myIntent);
             finish();
         }

@@ -91,16 +91,8 @@ public class CareTeamActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_careteam:
+            case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
-                return true;
-
-            case R.id.action_journey:
-                journeyActivity();
-                return true;
-
-            case R.id.action_journal:
-                journalActivity();
                 return true;
 
             default:

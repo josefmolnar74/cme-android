@@ -54,15 +54,15 @@ public class CareTeamExpandListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView txtListName = (TextView) convertView
-                .findViewById(R.id.txt_careteam_list_name);
+                .findViewById(R.id.txt_event_explist_category);
         txtListName.setText(listItem.name);
 
         TextView txtListRelationship = (TextView) convertView
-                .findViewById(R.id.txt_careteam_list_relationship);
+                .findViewById(R.id.txt_event_explist_time);
         txtListRelationship.setText(listItem.relationship);
 
 
-        ImageView avatar = (ImageView) convertView.findViewById(R.id.img_careteam_list_avatar);
+        ImageView avatar = (ImageView) convertView.findViewById(R.id.img_careteam_family_avatar);
         if (listItem.type == "healthcare") {
             switch (listItem.avatar) {
                 case 1:

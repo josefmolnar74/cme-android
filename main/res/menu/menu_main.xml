@@ -3,15 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
-        android:id="@+id/action_careteam"
-        android:icon="@drawable/careteam_start_icon"
-        app:showAsAction="ifRoom"/>
+        android:id="@+id/action_settings"
+        android:title="@string/settings"
+        app:showAsAction="collapseActionView"/>
     <item
-        android:id="@+id/action_journal"
-        android:icon="@drawable/journal_start_icon"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/action_journey"
-        android:icon="@drawable/journey_start_icon"
-        app:showAsAction="ifRoom"/>
+        android:id="@+id/action_logout"
+        android:title="@string/logout"
+        app:showAsAction="collapseActionView"/>
 </menu>

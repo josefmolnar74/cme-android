@@ -5,11 +5,14 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,10 +41,17 @@ public class CareTeamExpListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        View view = inflater.inflate(R.layout.fragment_care_team_exp_list, container, false);
         connectHandler = ConnectionHandler.getInstance();
 
-        View view = inflater.inflate(R.layout.fragment_care_team_exp_list, container, false);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.VISIBLE);
+            CustomViewPager viewPager = (CustomViewPager) getActivity().findViewById(R.id.container);
+            viewPager.setPagingEnabled(true);
+        }
+
+        ((MainActivity) getActivity()).setTitle(connectHandler.patient.patient_name.concat(getString(R.string.patient_journey)));
+
         expListView = (ExpandableListView) view.findViewById(R.id.explv_careteam);
         familyExpList = new ArrayList<CareTeamExpandListItem>();
         healthCareExpList = new ArrayList<CareTeamExpandListItem>();
@@ -130,7 +140,11 @@ public class CareTeamExpListFragment extends Fragment {
                 }
             }
 
-            prepareCancerFriends();
+            if (cancerFriends.isEmpty()){
+                // Prepare cancer friends
+                prepareCancerFriends();
+            }
+
             for (int i = 0; i < cancerFriends.size(); i++) {
                 CareTeamExpandListItem listItem = new CareTeamExpandListItem();
                 listItem.id = i;
@@ -150,8 +164,9 @@ public class CareTeamExpListFragment extends Fragment {
 
         expListView.setAdapter(expListAdapter);
 
-//        expListView.expandGroup(0);
-//        expListView.expandGroup(1);
+        expListView.expandGroup(0);
+        expListView.expandGroup(1);
+        expListView.expandGroup(2);
 
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -221,6 +236,12 @@ public class CareTeamExpListFragment extends Fragment {
         cancerFriends.add(myCancerFriend1);
         cancerFriends.add(myCancerFriend2);
         cancerFriends.add(myCancerFriend3);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((MainActivity) getActivity()).setActionBarTitle((connectHandler.patient.patient_name.concat(getString(R.string.patient_journey))));
     }
 }
 

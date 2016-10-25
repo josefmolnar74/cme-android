@@ -11,9 +11,10 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/careteam_healthcare_header"
             android:layout_width="match_parent"
             android:layout_height="60sp"
-            android:background="@color/white">
+            android:background="@color/cme_dark">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -21,32 +22,30 @@
                 android:layout_marginLeft="10dp"
                 android:text="Kontaktinfo"
                 android:id="@+id/textView"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_gravity="left|center_vertical"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_save"
-                android:text="@string/save"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="right|center_vertical"
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/btn_delete"
+                android:background="@drawable/garbage_white"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_toLeftOf="@+id/btn_save"  />
 
             <ImageButton
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/btn_edit"
-                android:background="@drawable/edit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/btn_save"
+                android:background="@drawable/mark_white"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true" />
 
@@ -64,6 +63,7 @@
                 android:layout_height="wrap_content">
 
                 <RelativeLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="80dp">
 
@@ -300,6 +300,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
+                        android:inputType="phone"
                         android:hint="@string/careteam_healthcare_phone2"
                         android:id="@+id/etxt_careteam_healthcare_phone2"
                         android:textSize="20sp"
@@ -338,6 +339,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
+                        android:inputType="phone"
                         android:hint="@string/careteam_healthcare_phone3"
                         android:id="@+id/etxt_careteam_healthcare_phone3"
                         android:textSize="20sp"

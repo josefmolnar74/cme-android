@@ -1,13 +1,19 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class CareTeamHealthcareFragment extends Fragment {
@@ -17,35 +23,62 @@ public class CareTeamHealthcareFragment extends Fragment {
     private int position = 0;
     private boolean admin = false;
 
+    private TextView txtTitle;
+    private TextView txtDepartment;
+    private TextView txtName;
+    private TextView txtEmail;
+    private TextView txtPhone1;
+    private TextView txtPhone2;
+    private TextView txtPhone3;
+    private EditText editTitle;
+    private EditText editDepartment;
+    private EditText editName;
+    private EditText editEmail;
+    private EditText editPhone1;
+    private EditText editPhone2;
+    private EditText editPhone3;
+    private ImageButton healthcareAvatar;
+    private ImageButton buttonDelete;
+    private ImageButton buttonSave;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        setHasOptionsMenu(true);
+        View view = inflater.inflate(R.layout.fragment_care_team_healthcare, container, false);
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            // Disable viewpager scrolling, disable tabs in order to use the action bar for vertical use
+            ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.GONE);
+            CustomViewPager viewPager = (CustomViewPager) getActivity().findViewById(R.id.container);
+            viewPager.setPagingEnabled(false);
+            ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.careteam_contact));
+            RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.careteam_healthcare_header);
+            layout.setVisibility(View.GONE);
+        }
 
         connectHandler = ConnectionHandler.getInstance();
 
-        View view = inflater.inflate(R.layout.fragment_care_team_healthcare, container, false);
-        final TextView txtTitle = (TextView) view.findViewById(R.id.txt_careteam_healthcare_title);
-        final TextView txtDepartment = (TextView) view.findViewById(R.id.txt_careteam_healthcare_department);
-        final TextView txtName = (TextView) view.findViewById(R.id.txt_careteam_healthcare_name);
-        final TextView txtEmail = (TextView) view.findViewById(R.id.txt_careteam_healthcare_email);
-        final TextView txtPhone1 = (TextView) view.findViewById(R.id.txt_careteam_healthcare_phone1);
-        final TextView txtPhone2 = (TextView) view.findViewById(R.id.txt_careteam_healthcare_phone2);
-        final TextView txtPhone3 = (TextView) view.findViewById(R.id.txt_careteam_healthcare_phone3);
+        txtTitle = (TextView) view.findViewById(R.id.txt_careteam_healthcare_title);
+        txtDepartment = (TextView) view.findViewById(R.id.txt_careteam_healthcare_department);
+        txtName = (TextView) view.findViewById(R.id.txt_careteam_healthcare_name);
+        txtEmail = (TextView) view.findViewById(R.id.txt_careteam_healthcare_email);
+        txtPhone1 = (TextView) view.findViewById(R.id.txt_careteam_healthcare_phone1);
+        txtPhone2 = (TextView) view.findViewById(R.id.txt_careteam_healthcare_phone2);
+        txtPhone3 = (TextView) view.findViewById(R.id.txt_careteam_healthcare_phone3);
+        editTitle = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_title);
+        editDepartment = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_department);
+        editName = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_name);
+        editEmail = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_email);
+        editPhone1 = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_phone1);
+        editPhone2 = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_phone2);
+        editPhone3 = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_phone3);
+        healthcareAvatar = (ImageButton) view.findViewById(R.id.img_careteam_healthcare_avatar);
+        buttonDelete = (ImageButton) view.findViewById(R.id.btn_delete);
+        buttonSave = (ImageButton) view.findViewById(R.id.btn_save);
 
-        final EditText editTitle = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_title);
-        final EditText editDepartment = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_department);
-        final EditText editName = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_name);
-        final EditText editEmail = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_email);
-        final EditText editPhone1 = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_phone1);
-        final EditText editPhone2 = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_phone2);
-        final EditText editPhone3 = (EditText) view.findViewById(R.id.etxt_careteam_healthcare_phone3);
-        final ImageButton healthcareAvatar = (ImageButton) view.findViewById(R.id.img_careteam_healthcare_avatar);
-        final ImageButton buttonEdit = (ImageButton) view.findViewById(R.id.btn_edit);
-        final TextView txtSave = (TextView) view.findViewById(R.id.txt_save);
-        buttonEdit.setVisibility(View.INVISIBLE);
-        txtSave.setVisibility(View.INVISIBLE);
         int healthcareAvatarId = 0;
 
         // check admin
@@ -53,8 +86,35 @@ public class CareTeamHealthcareFragment extends Fragment {
             if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
                     (connectHandler.patient.care_team.get(i).admin == 1)){
                 admin = true;
-                buttonEdit.setVisibility(View.VISIBLE);
+                buttonDelete.setVisibility(View.VISIBLE);
             }
+        }
+
+        if (!admin){
+            buttonDelete.setVisibility(View.INVISIBLE);
+            buttonSave.setVisibility(View.INVISIBLE);
+            editTitle.setFocusable(false);
+            editTitle.setFocusableInTouchMode(false);
+            editTitle.setEnabled(false);
+            editTitle.requestFocus();
+            editDepartment.setFocusable(false);
+            editDepartment.setFocusableInTouchMode(false);
+            editDepartment.setEnabled(false);
+            editName.setFocusable(false);
+            editName.setFocusableInTouchMode(false);
+            editName.setEnabled(false);
+            editEmail.setFocusable(false);
+            editEmail.setFocusableInTouchMode(false);
+            editEmail.setEnabled(false);
+            editPhone1.setFocusable(false);
+            editPhone1.setFocusableInTouchMode(false);
+            editPhone1.setEnabled(false);
+            editPhone2.setFocusable(false);
+            editPhone2.setFocusableInTouchMode(false);
+            editPhone2.setEnabled(false);
+            editPhone3.setFocusable(false);
+            editPhone3.setFocusableInTouchMode(false);
+            editPhone3.setEnabled(false);
         }
 
         if (listItem.type == "healthcare"){
@@ -117,102 +177,104 @@ public class CareTeamHealthcareFragment extends Fragment {
         }
 
         if (listItem.type == "new") {
-            txtSave.setVisibility(View.VISIBLE);
-            buttonEdit.setVisibility(View.INVISIBLE);
+            buttonDelete.setVisibility(View.INVISIBLE);
             editTitle.requestFocus();
             txtTitle.setVisibility(View.INVISIBLE);
 
         }
+        if (!admin){
+            editTitle.setFocusable(false);
+            editDepartment.setFocusable(false);
+            editName.setFocusable(false);
+            editEmail.setFocusable(false);
+            editPhone1.setFocusable(false);
+            editPhone2.setFocusable(false);
+            editPhone3.setFocusable(false);
+        }
 
-        editTitle.setFocusable(false);
-        editDepartment.setFocusable(false);
-        editName.setFocusable(false);
-        editEmail.setFocusable(false);
-        editPhone1.setFocusable(false);
-        editPhone2.setFocusable(false);
-        editPhone3.setFocusable(false);
-
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (admin){
-                    editTitle.setVisibility(View.VISIBLE);
-                    editDepartment.setVisibility(View.VISIBLE);
-                    editName.setVisibility(View.VISIBLE);
-                    editEmail.setVisibility(View.VISIBLE);
-                    editPhone1.setVisibility(View.VISIBLE);
-                    editPhone2.setVisibility(View.VISIBLE);
-                    editPhone3.setVisibility(View.VISIBLE);
-                    txtSave.setVisibility(View.VISIBLE);
-                    buttonEdit.setVisibility(View.INVISIBLE);
-                    editTitle.setFocusable(true);
-                    editTitle.setFocusableInTouchMode(true);
-                    editTitle.setEnabled(true);
-                    editTitle.requestFocus();
-                    editDepartment.setFocusable(true);
-                    editDepartment.setFocusableInTouchMode(true);
-                    editDepartment.setEnabled(true);
-                    editName.setFocusable(true);
-                    editName.setFocusableInTouchMode(true);
-                    editName.setEnabled(true);
-                    editEmail.setFocusable(true);
-                    editEmail.setFocusableInTouchMode(true);
-                    editEmail.setEnabled(true);
-                    editPhone1.setFocusable(true);
-                    editPhone1.setFocusableInTouchMode(true);
-                    editPhone1.setEnabled(true);
-                    editPhone2.setFocusable(true);
-                    editPhone2.setFocusableInTouchMode(true);
-                    editPhone2.setEnabled(true);
-                    editPhone3.setFocusable(true);
-                    editPhone3.setFocusableInTouchMode(true);
-                    editPhone3.setEnabled(true);
+                    connectHandler.deleteHealthcare(listItem.id);
                 }
             }
 
         });
 
-        txtSave.setOnClickListener(new View.OnClickListener() {
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonEdit.setVisibility(View.VISIBLE);
-                txtSave.setVisibility(View.INVISIBLE);
-
-                if (listItem.type == "new"){
-                    HealthCare newHealthCare = new HealthCare(
-                            0,
-                            connectHandler.patient.patient_ID,
-                            editTitle.getText().toString(),
-                            editName.getText().toString(),
-                            editDepartment.getText().toString(),
-                            editPhone1.getText().toString(),
-                            editPhone2.getText().toString(),
-                            editPhone3.getText().toString(),
-                            editEmail.getText().toString(),
-                            0); // must fix avatar
-
-                    connectHandler.createHealthcare(newHealthCare);
-                }else{
-                    //update existing healthcare member
-                    HealthCare updateHealthCare = new HealthCare(
-                            connectHandler.healthcare.healthcare_data.get(position).healthcare_ID,
-                            connectHandler.patient.patient_ID,
-                            editTitle.getText().toString(),
-                            editName.getText().toString(),
-                            editDepartment.getText().toString(),
-                            editPhone1.getText().toString(),
-                            editPhone2.getText().toString(),
-                            editPhone3.getText().toString(),
-                            editEmail.getText().toString(),
-                            connectHandler.healthcare.healthcare_data.get(position).avatar);
-
-                    connectHandler.updateHealthcare(updateHealthCare);
-                }
+                saveHealthcare();
             }
         });
 
         return view;
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.menu_details, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_delete) {
+            if (admin){
+                connectHandler.deleteHealthcare(listItem.id);
+            }
+            return true;
+        }
+
+        if (id == R.id.action_save) {
+            if (admin){
+                saveHealthcare();
+            }
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    void saveHealthcare(){
+        if (listItem.type == "new"){
+            HealthCare newHealthCare = new HealthCare(
+                    0,
+                    connectHandler.patient.patient_ID,
+                    editTitle.getText().toString(),
+                    editName.getText().toString(),
+                    editDepartment.getText().toString(),
+                    editPhone1.getText().toString(),
+                    editPhone2.getText().toString(),
+                    editPhone3.getText().toString(),
+                    editEmail.getText().toString(),
+                    0); // must fix avatar
+
+            connectHandler.createHealthcare(newHealthCare);
+        }else{
+            //update existing healthcare member
+            HealthCare updateHealthCare = new HealthCare(
+                    connectHandler.healthcare.healthcare_data.get(position).healthcare_ID,
+                    connectHandler.patient.patient_ID,
+                    editTitle.getText().toString(),
+                    editName.getText().toString(),
+                    editDepartment.getText().toString(),
+                    editPhone1.getText().toString(),
+                    editPhone2.getText().toString(),
+                    editPhone3.getText().toString(),
+                    editEmail.getText().toString(),
+                    connectHandler.healthcare.healthcare_data.get(position).avatar);
+
+            connectHandler.updateHealthcare(updateHealthCare);
+        }
     }
 
     public void setItem(CareTeamExpandListItem selectedListItem){

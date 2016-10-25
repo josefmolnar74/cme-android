@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/txt_journal_headline"
-            android:id="@+id/txt_journal_header"
+            android:id="@+id/txt_journal_date"
             android:textSize="@dimen/XLARGE" />
 
         <LinearLayout

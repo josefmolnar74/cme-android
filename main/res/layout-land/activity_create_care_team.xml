@@ -54,7 +54,7 @@
             android:background="@android:drawable/edit_text"
             android:layout_below="@+id/text_create_careteam_year_of_birth"
             android:layout_centerHorizontal="true" />
-        
+
 
         <Button
             android:layout_width="100dp"
