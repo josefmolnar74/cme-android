@@ -19,7 +19,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:background="@drawable/background_border">
 
                 <RelativeLayout
@@ -65,7 +65,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:background="@drawable/background_border">
 
                 <RelativeLayout
@@ -115,7 +115,40 @@
 
             </RelativeLayout>
 
-         </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/layout_home_events"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/background_border">
+
+                <RelativeLayout
+                    android:id="@+id/header3"
+                    android:background="@color/cme_dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true">
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_events"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:id="@+id/txt_home_events"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </ScrollView>
 

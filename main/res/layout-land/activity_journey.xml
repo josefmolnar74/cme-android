@@ -3,214 +3,310 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/journeyLayout"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="100">
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/journeyscreen"
         android:layout_height="match_parent"
-        android:id="@+id/layerCoantainerJourney"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/linearLayout">
+        android:weightSum="100">
 
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/Scroll_background"
-            android:scrollbars="none">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="92"
+            android:id="@+id/layerCoantainerJourney"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/linearLayout">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:background="@drawable/backgroundjourneyxml"
-                android:id="@+id/relativeLayout_background"
-                android:layout_height="fill_parent">
-
-                <RelativeLayout
-                    android:id="@+id/cloud_layout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"></RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/big_mountains_layer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="125px"></RelativeLayout>
-            </RelativeLayout>
-
-        </HorizontalScrollView>
-
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/Scroll_background2"
-            android:scrollbars="none">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:id="@+id/relativeLayout_background2"
-                android:layout_height="fill_parent" >
-
-                <RelativeLayout
-                    android:id="@+id/mountains_layer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="135px"></RelativeLayout>
-            </RelativeLayout>
-        </HorizontalScrollView>
-
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/Scroll_lion"
-            android:visibility="gone">
-
-            <RelativeLayout
-                android:animateLayoutChanges="true"
-                android:id="@+id/lion_layer"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="155px">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/img_lion"
-                    android:background="@drawable/lionnaked"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="false" />
-
-                <ImageView
-                    android:background="@drawable/sign1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/sign1" />
-
-                <ImageView
-                    android:background="@drawable/sign2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/sign2" />
-
-                <ImageView
-                    android:background="@drawable/sign3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/sign3" />
-
-                <ImageView
-                    android:background="@drawable/lion_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/img_lion_text"
-                    android:visibility="invisible" />
-
-            </RelativeLayout>
-
-
-        </HorizontalScrollView>
-
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/Scroll_background3" >
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout_background3"
+            <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
+                android:id="@+id/Scroll_background"
+                android:scrollbars="none">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/backgroundjourneyxml"
+                    android:id="@+id/relativeLayout_background"
+                    android:layout_height="fill_parent">
+
+                    <RelativeLayout
+                        android:id="@+id/cloud_layout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"></RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/big_mountains_layer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="125px"></RelativeLayout>
+                </RelativeLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/Scroll_background2"
+                android:scrollbars="none">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:id="@+id/relativeLayout_background2"
+                    android:layout_height="fill_parent" >
+
+                    <RelativeLayout
+                        android:id="@+id/mountains_layer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="135px"></RelativeLayout>
+                </RelativeLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/Scroll_lion" >
+
+                <RelativeLayout
+                    android:animateLayoutChanges="true"
+                    android:id="@+id/lion_layer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="155px">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/img_lion"
+                        android:background="@drawable/lionnaked"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="false" />
+
+                    <ImageView
+                        android:background="@drawable/sign1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sign1" />
+
+                    <ImageView
+                        android:background="@drawable/sign2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sign2" />
+
+                    <ImageView
+                        android:background="@drawable/sign3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sign3" />
+
+                    <ImageView
+                        android:background="@drawable/lion_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/img_lion_text"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/Scroll_background3" >
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout_background3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/bushes_layer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="130px"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+                        android:visibility="visible">
+                    </RelativeLayout>
+
+
+
+                </RelativeLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/Scroll_roadlayer"
+                android:scrollbars="none">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:id="@+id/relativeLayout_roadlayout"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/border">
+
+                    <RelativeLayout
+                        android:id="@+id/roadlayer"
+                        android:layout_width="fill_parent"
+                        android:background="@drawable/roadxml"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"></RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="350dp"
+                        android:layout_height="300dp"
+                        android:tileMode="repeat"
+                        android:id="@+id/img_car_journey"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/bus"
+                        android:visibility="visible"
+                        android:layout_gravity="bottom|left"
+                        android:layout_alignParentTop="false"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="20dp" />
+
+                </RelativeLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:scrollbars="none"
+                android:id="@+id/Scroll_Bushes" >
+
+                <RelativeLayout
+                    android:id="@+id/front_bushes_layer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"></RelativeLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/Scroll_eventlayer"
+                android:scrollbars="none"
+                android:fillViewport="false"
                 >
 
                 <RelativeLayout
-                    android:id="@+id/bushes_layer"
+                    android:animateLayoutChanges="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="130px"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentBottom="true"
-                    android:visibility="visible">
+                    android:id="@+id/relativeLayout_eventlayer"
+                    android:layout_height="fill_parent">
+
                 </RelativeLayout>
+            </HorizontalScrollView>
 
-            </RelativeLayout>
-        </HorizontalScrollView>
+            <ImageButton
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:id="@+id/btn_sun_journey"
+                android:background="@drawable/sun"
+                android:layout_gravity="right"
+                android:layout_alignParentRight="true" />
 
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/Scroll_roadlayer"
-            android:scrollbars="none">
+        </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:id="@+id/relativeLayout_roadlayout"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/linearLayout">
+
+            <GridLayout
+                android:layout_width="match_parent"
                 android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/relativeLayout3"
+                android:layout_alignParentTop="false"
+                android:columnCount="1"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/border">
 
-                <RelativeLayout
-                    android:id="@+id/roadlayer"
-                    android:layout_width="fill_parent"
-                    android:background="@drawable/roadxml"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"></RelativeLayout>
+                <ImageButton
+                    android:gravity="center"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:scaleType="matrix"
+                    android:id="@+id/btn_appointment_journey"
+                    android:background="@drawable/event_medical_oncologist_bubble"
+                    android:onClick="addTreatment"
+                    android:layout_marginTop="40dp"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center_horizontal" />
 
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:tileMode="repeat"
-                    android:id="@+id/img_car_journey"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/bus_small"
-                    android:visibility="visible"
-                    android:onClick="onClickStartBus"
-                    android:layout_gravity="bottom|left"
-                    android:layout_alignParentTop="false"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="20dp" />
+                <ImageButton
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/btn_treatment_journey"
+                    android:background="@drawable/event_cytostatika_bubble"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="40dp"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:onClick="addTreatment"
+                    android:layout_gravity="center_horizontal" />
 
-            </RelativeLayout>
-        </HorizontalScrollView>
+                <ImageButton
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/btn_test_journey"
+                    android:background="@drawable/event_bloodtest_bubble"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="40dp"
+                    android:onClick="addTreatment"
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:layout_gravity="center_horizontal" />
 
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:scrollbars="none"
-            android:id="@+id/Scroll_Bushes" >
+                <ImageButton
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/btn_foto_journey"
+                    android:background="@drawable/photo"
+                    android:layout_marginTop="40dp"
+                    android:scaleType="centerCrop"
+                    android:onClick="addTreatment"
+                    android:layout_column="0"
+                    android:layout_row="3"
+                    android:layout_gravity="center_horizontal" />
 
-            <RelativeLayout
-                android:id="@+id/front_bushes_layer"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"></RelativeLayout>
-        </HorizontalScrollView>
+                <ImageButton
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/btn_hospital_journey"
+                    android:background="@drawable/event_hospital_bubble"
+                    android:layout_marginTop="40dp"
+                    android:scaleType="centerCrop"
+                    android:onClick="addTreatment"
+                    android:layout_column="0"
+                    android:layout_row="4"
+                    android:layout_gravity="center_horizontal" />
 
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/Scroll_eventlayer"
-            android:scrollbars="none"
-            android:fillViewport="false">
 
-            <RelativeLayout
-                android:animateLayoutChanges="true"
-                android:layout_width="wrap_content"
-                android:id="@+id/relativeLayout_eventlayer"
-                android:layout_height="fill_parent">
+            </GridLayout>
 
-            </RelativeLayout>
-        </HorizontalScrollView>
-
-        <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/btn_sun_journey"
-            android:background="@drawable/sun"
-            android:layout_gravity="right"
-            android:layout_alignParentRight="true" />
+        </LinearLayout>
 
     </RelativeLayout>
 
