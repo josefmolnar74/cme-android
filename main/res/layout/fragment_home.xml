@@ -151,6 +151,16 @@
 
                 </RelativeLayout>
 
+                <ListView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listView_events"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/header3" />
             </RelativeLayout>
 
         </LinearLayout>

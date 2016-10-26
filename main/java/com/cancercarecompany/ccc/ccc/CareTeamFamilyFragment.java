@@ -298,7 +298,7 @@ public class CareTeamFamilyFragment extends Fragment {
 
             if ((invitedNameString.isEmpty()) || (invitedEmailString.isEmpty())){
                 wrongInput = true;
-                alertText1.setText(getString(R.string.careteam_alert_empty_values));
+                alertText1.setText(getString(R.string.careteam_alert1));
                 alertText1.setVisibility(View.VISIBLE);
             }
 
@@ -306,7 +306,7 @@ public class CareTeamFamilyFragment extends Fragment {
             if (!wrongInput)
                 for (int i=0; i < connectHandler.patient.care_team.size(); i++){
                     if (invitedEmailString.matches(connectHandler.patient.care_team.get(i).email)){
-                        alertText1.setText(getString(R.string.careteam_alert_email_exists));
+                        alertText1.setText(getString(R.string.careteam_alert2));
                         alertText1.setVisibility(View.VISIBLE);
                         wrongInput = true;
                     }

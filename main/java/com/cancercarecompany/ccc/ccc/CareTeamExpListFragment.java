@@ -28,6 +28,7 @@ public class CareTeamExpListFragment extends Fragment {
     ExpandableListAdapter expListAdapter;
     ExpandableListView expListView;
 
+    List<CareTeamExpandListItem> patientExpList;
     List<CareTeamExpandListItem> familyExpList;
     List<CareTeamExpandListItem> healthCareExpList;
     List<CareTeamExpandListItem> cancerFriendsExpList;
@@ -53,6 +54,7 @@ public class CareTeamExpListFragment extends Fragment {
         ((MainActivity) getActivity()).setTitle(connectHandler.patient.patient_name.concat(getString(R.string.patient_journey)));
 
         expListView = (ExpandableListView) view.findViewById(R.id.explv_careteam);
+        patientExpList = new ArrayList<CareTeamExpandListItem>();
         familyExpList = new ArrayList<CareTeamExpandListItem>();
         healthCareExpList = new ArrayList<CareTeamExpandListItem>();
         cancerFriendsExpList = new ArrayList<CareTeamExpandListItem>();
@@ -61,6 +63,7 @@ public class CareTeamExpListFragment extends Fragment {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<CareTeamExpandListItem>>();
 
+        listDataHeader.add(getResources().getString(R.string.careteam_patient));
         listDataHeader.add(getResources().getString(R.string.careteam_family));
         listDataHeader.add(getResources().getString(R.string.careteam_healthcare));
         listDataHeader.add(getResources().getString(R.string.careteam_cancer_friends));
@@ -155,9 +158,18 @@ public class CareTeamExpListFragment extends Fragment {
                 cancerFriendsExpList.add(listItem);
             }
 
-            listDataChild.put(listDataHeader.get(0), familyExpList); // Header, Child data
-            listDataChild.put(listDataHeader.get(1), healthCareExpList);
-            listDataChild.put(listDataHeader.get(2), cancerFriendsExpList);
+            CareTeamExpandListItem listItem = new CareTeamExpandListItem();
+            listItem.id = connectHandler.patient.patient_ID;
+            listItem.type = "patient";
+            listItem.name = connectHandler.patient.patient_name;
+            listItem.avatar = 0;
+            listItem.relationship = connectHandler.patient.diagnose;
+            patientExpList.add(listItem);
+
+            listDataChild.put(listDataHeader.get(0), patientExpList); // Header, Child data
+            listDataChild.put(listDataHeader.get(1), familyExpList);
+            listDataChild.put(listDataHeader.get(2), healthCareExpList);
+            listDataChild.put(listDataHeader.get(3), cancerFriendsExpList);
         }
 
         expListAdapter = new CareTeamExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
@@ -167,6 +179,7 @@ public class CareTeamExpListFragment extends Fragment {
         expListView.expandGroup(0);
         expListView.expandGroup(1);
         expListView.expandGroup(2);
+        expListView.expandGroup(3);
 
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -180,6 +193,21 @@ public class CareTeamExpListFragment extends Fragment {
 
                 switch (groupPosition){
                     case 0:
+                        // Patient
+                        CareTeamPatientFragment mycareTeamShowPatient = new CareTeamPatientFragment();
+                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                            ft.replace(R.id.careteam_placeholder2, mycareTeamShowPatient);
+                        }
+                        else{
+                            ft.replace(R.id.careteam_placeholder1, mycareTeamShowPatient);
+                        }
+                        ft.addToBackStack(null);
+                        // send family member data to fragment
+                        mycareTeamShowPatient.setItem(familyExpList.get(childPosition));
+
+                        break;
+
+                    case 1:
                         // Family or invited user
                         CareTeamFamilyFragment mycareTeamShowFamily = new CareTeamFamilyFragment();
                         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
@@ -194,7 +222,7 @@ public class CareTeamExpListFragment extends Fragment {
 
                         break;
 
-                    case 1:
+                    case 2:
                         CareTeamHealthcareFragment mycareTeamShowHealthcare = new CareTeamHealthcareFragment();
                         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                             ft.replace(R.id.careteam_placeholder2, mycareTeamShowHealthcare);

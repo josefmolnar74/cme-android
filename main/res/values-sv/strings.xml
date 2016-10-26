@@ -342,9 +342,11 @@
     <string name="careteam_healthcare_phone2">Telefon 2</string>
     <string name="careteam_healthcare_phone3">Telefon 3</string>
     <string name="careteam_healthcare_email">Email</string>
-    <string name="careteam_alert_empty_values">Du måste minst ange namn och lösenord</string>
-    <string name="careteam_alert_email_exists">Person med email är redan inbjuden</string>
-    <string name="careteam_alert2">Endast ansvarig kan redigera personlig data</string>
+    <string name="careteam_patient_name">Patientnamn</string>
+    <string name="careteam_patient_diagnose">Diagnos</string>
+    <string name="careteam_alert1">Du måste minst ange namn och lösenord</string>
+    <string name="careteam_alert2">Person med email är redan inbjuden</string>
+    <string name="careteam_alert3">Endast ansvarig kan redigera personlig data</string>
 
     ////////Events////////////
     <string name="journey_event_details">Händelsedetaljer</string>
