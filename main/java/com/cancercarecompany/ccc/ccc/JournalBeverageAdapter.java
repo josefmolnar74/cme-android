@@ -26,7 +26,7 @@ public class JournalBeverageAdapter extends ArrayAdapter<String> {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View customGridview = inflater.inflate(R.layout.journal_beverage_gridview, parent, false);
-        ImageView glassImageView = (ImageView) customGridview.findViewById(R.id.img_journal_listview_event);
+        ImageView glassImageView = (ImageView) customGridview.findViewById(R.id.img_home_events_event1);
 
         if (beverageList.get(position) == "empty"){
             // set empty glass image

@@ -16,15 +16,16 @@
 
             <RelativeLayout
                 android:id="@+id/layout_home_journey"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
                 android:background="@drawable/background_border">
 
                 <RelativeLayout
-                    android:id="@+id/header2"
+                    android:id="@+id/header_home_journey"
                     android:background="@color/cme_dark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,91 +47,45 @@
                 </RelativeLayout>
 
                 <ImageButton
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:background="@drawable/bus_small"
                     android:id="@+id/button_start_journey"
-                    android:layout_below="@+id/header2"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_below="@+id/header_home_journey"
+                    android:layout_alignParentStart="true" />
 
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layout_home_question"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/background_border">
-
-                <RelativeLayout
-                    android:id="@+id/header1"
-                    android:background="@color/cme_dark"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true">
-
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_question"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:id="@+id/txt_question"
-                        android:layout_centerHorizontal="true" />
-
-                </RelativeLayout>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:hint="@string/journey_question_hint"
-                    android:id="@+id/edit_question"
-                    android:layout_below="@+id/header1"
-                    android:layout_alignParentStart="true"
-                    android:background="@android:drawable/edit_text"
-                    android:theme="@style/cme_custom_theme"
-                    android:textAlignment="textStart"
-                    android:layout_gravity="top"
-                    android:gravity="top|left" />
-
-                <Button
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/send"
-                    android:id="@+id/button_send_question"
-                    android:layout_below="@+id/edit_question"
-                    android:layout_alignParentRight="true" />
+                    android:text="Utforska cancerresan på ett lekfullt sätt"
+                    android:id="@+id/textView5"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/button_start_journey"
+                    android:layout_centerHorizontal="true" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/textView5"></FrameLayout>
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/layout_home_events"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
                 android:background="@drawable/background_border">
 
                 <RelativeLayout
-                    android:id="@+id/header3"
+                    android:id="@+id/header_home_events"
                     android:background="@color/cme_dark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -146,22 +101,426 @@
                         android:text="@string/home_events"
                         android:textColor="@color/white"
                         android:textSize="20sp"
-                        android:id="@+id/txt_home_events"
+                        android:id="@+id/txt_header_home_events"
                         android:layout_centerHorizontal="true" />
 
                 </RelativeLayout>
 
-                <ListView
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_below="@+id/header_home_events"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:id="@+id/layout_home_event1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/img_home_events_event1"
+                            android:src="@drawable/event_nurse_bubble"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true" />
+
+                        <TextView
+                            android:layout_marginTop="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Event type"
+                            android:id="@+id/txt_home_events_sub_category1"
+                            android:layout_gravity="center_horizontal"
+                            android:textAlignment="center"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@+id/img_home_events_event1"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date"
+                            android:id="@+id/txt_home_events_date1"
+                            android:layout_alignBottom="@+id/img_home_events_event1"
+                            android:layout_toEndOf="@+id/img_home_events_event1" />
+
+                        <TextView
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Time"
+                            android:id="@+id/txt_home_events_time1"
+                            android:layout_alignBottom="@+id/img_home_events_event1"
+                            android:layout_toEndOf="@+id/txt_home_events_date1" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:id="@+id/layout_home_event2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/img_home_events_event2"
+                            android:src="@drawable/event_nurse_bubble"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true" />
+
+                        <TextView
+                            android:layout_marginTop="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Event type"
+                            android:id="@+id/txt_home_events_sub_category2"
+                            android:layout_gravity="center_horizontal"
+                            android:textAlignment="center"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@+id/img_home_events_event2"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date"
+                            android:id="@+id/txt_home_events_date2"
+                            android:layout_alignBottom="@+id/img_home_events_event2"
+                            android:layout_toEndOf="@+id/img_home_events_event2" />
+
+                        <TextView
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Time"
+                            android:id="@+id/txt_home_events_time2"
+                            android:layout_alignBottom="@+id/img_home_events_event2"
+                            android:layout_toEndOf="@+id/txt_home_events_date2" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:id="@+id/layout_home_event3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/img_home_events_event3"
+                            android:src="@drawable/event_nurse_bubble"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true" />
+
+                        <TextView
+                            android:layout_marginTop="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Event type"
+                            android:id="@+id/txt_home_events_sub_category3"
+                            android:layout_gravity="center_horizontal"
+                            android:textAlignment="center"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@+id/img_home_events_event3"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date"
+                            android:id="@+id/txt_home_events_date3"
+                            android:layout_alignBottom="@+id/img_home_events_event3"
+                            android:layout_toEndOf="@+id/img_home_events_event3" />
+
+                        <TextView
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Time"
+                            android:id="@+id/txt_home_events_time3"
+                            android:layout_alignBottom="@+id/img_home_events_event3"
+                            android:layout_toEndOf="@+id/txt_home_events_date3" />
+
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"></FrameLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_home_question"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_border">
+
+                <RelativeLayout
+                    android:id="@+id/header_home_question"
+                    android:background="@color/cme_dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true">
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_question"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:id="@+id/txt_header_home_question"
+                        android:layout_centerHorizontal="true" />
+
+
+                </RelativeLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:hint="@string/journey_question_hint"
+                    android:id="@+id/edit_question"
+                    android:layout_below="@+id/header_home_question"
+                    android:layout_alignParentStart="true"
+                    android:background="@android:drawable/edit_text"
+                    android:theme="@style/cme_custom_theme"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="top"
+                    android:gravity="top|left" />
+
+                <Button
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/listView_events"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/header3" />
+                    android:text="@string/send"
+                    android:background="@drawable/custom_button"
+                    android:textColor="@drawable/custom_button_text_color"
+                    android:id="@+id/button_send_question"
+                    android:layout_below="@+id/edit_question"
+                    android:layout_alignParentRight="true" />
+
+                <Button
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_all_questions"
+                    android:background="@drawable/custom_button"
+                    android:textColor="@drawable/custom_button_text_color"
+                    android:id="@+id/button_all_questions"
+                    android:layout_below="@+id/edit_question"
+                    android:layout_alignParentLeft="true" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/button_all_questions"></FrameLayout>
+
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_home_school"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/background_border">
+
+                <RelativeLayout
+                    android:id="@+id/header_school"
+                    android:background="@color/cme_dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true">
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_school"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="När ett barn drabbas av cancer är det inte bara en individ som drabbas utan en hel familj. Föräldrar, syskon, mor- och farföräldrar får i ett slag en förändrad livssituation."
+                    android:id="@+id/txt_home_school"
+                    android:layout_below="@+id/header_school"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/txt_home_school"></FrameLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_home_inspiration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/background_border">
+
+                <RelativeLayout
+                    android:id="@+id/header_home_inspiration"
+                    android:background="@color/cme_dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true">
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_inspiration"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:text="I Sverige insjuknar ungefär ett barn om dagen i någon form av cancer. Olika typer av cancer förekommer i olika åldrar. Vissa cancertyper drabbar små barn medan andra typer drabbar äldre barn och tonåringar. Här har vi samlat information om hur de diagnosticeras, behandlas och vilka komplikationer behandlingarna kan medföra."
+                    android:id="@+id/txt_home_inspiration"
+                    android:layout_below="@+id/header_home_inspiration"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/txt_home_inspiration"></FrameLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_home_tips"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_border">
+
+                <RelativeLayout
+                    android:id="@+id/header_home_tips"
+                    android:background="@color/cme_dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true">
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_tips"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:text="När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna."
+                    android:id="@+id/txt_home_tips"
+                    android:layout_below="@+id/header_home_tips"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/txt_home_tips"></FrameLayout>
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"></FrameLayout>
 
         </LinearLayout>
 

@@ -10,6 +10,6 @@
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:id="@+id/img_journal_listview_event"
+        android:id="@+id/img_home_events_event1"
         android:src="@drawable/journal_glass_empty" />
 </LinearLayout>

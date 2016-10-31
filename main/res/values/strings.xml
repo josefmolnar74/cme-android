@@ -19,6 +19,26 @@
     <string name="home_question">Fråga oss vad som helst!</string>
     <string name="home_journey">Utforska *s cancerresa!</string>
     <string name="home_events">Kommande events</string>
+    <string name="home_tips">Praktiska tips</string>
+    <string name="home_inspiration">Livsbejakande</string>
+    <string name="home_school">C-me skola</string>
+    <string name="home_all_questions">Alla frågor</string>
+
+    <string name="info_school">Cme Skola</string>
+    <string name="info_inspiration">Livsbejakande</string>
+    <string name="info_tips">Praktiska tips</string>
+    <string name="info_school_title1">Information: Cme Skola 1, titel</string>
+    <string name="info_school_content1">Information: Cme Skola 1, text</string>
+    <string name="info_school_title2">Information: Cme Skola 2, titel</string>
+    <string name="info_school_content2">Information: Cme Skola 2, text</string>
+    <string name="info_inspiration_title1">Information: Livsbejakande 1, titel</string>
+    <string name="info_inspiration_content1">Information: Livsbejakande 1, text</string>
+    <string name="info_inspiration_title2">Information: Livsbejakande 2, titel</string>
+    <string name="info_inspiration_content2">Information: Livsbejakande 1, text</string>
+    <string name="info_tips_title1">Information: Tips 1, titel</string>
+    <string name="info_tips_content1">Information: Tips 1, text</string>
+    <string name="info_tips_title2">Information: Tips 2, titel</string>
+    <string name="info_tips_content2">Information: Livsbejakande 2, text</string>
 
     <string name="remove_question">Är du säker på att du vill ta bort?</string>
 

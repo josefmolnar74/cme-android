@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/img_journal_listview_event"
+            android:id="@+id/img_home_events_event1"
             android:src="@drawable/event_nurse_bubble"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
@@ -29,11 +29,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Event type"
-            android:id="@+id/txt_journal_listview_event_sub_category"
+            android:id="@+id/txt_home_events_sub_category1"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/img_journal_listview_event"
+            android:layout_toEndOf="@+id/img_home_events_event1"
             android:textStyle="bold" />
 
         <TextView
@@ -42,9 +42,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date"
-            android:id="@+id/txt_journal_listview_event_date"
-            android:layout_alignBottom="@+id/img_journal_listview_event"
-            android:layout_toEndOf="@+id/img_journal_listview_event" />
+            android:id="@+id/txt_home_events_date1"
+            android:layout_alignBottom="@+id/img_home_events_event1"
+            android:layout_toEndOf="@+id/img_home_events_event1" />
 
         <TextView
             android:layout_marginBottom="2dp"
@@ -52,9 +52,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Time"
-            android:id="@+id/txt_journal_listview_event_time"
-            android:layout_alignBottom="@+id/img_journal_listview_event"
-            android:layout_toEndOf="@+id/txt_journal_listview_event_date" />
+            android:id="@+id/txt_home_events_time"
+            android:layout_alignBottom="@+id/img_home_events_event1"
+            android:layout_toEndOf="@+id/txt_home_events_date1" />
 
     </RelativeLayout>
 

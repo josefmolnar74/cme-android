@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,10 +28,10 @@ public class JournalEventAdapter extends ArrayAdapter<Event> {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View customListView = inflater.inflate(R.layout.journal_events_listview, parent, false);
         Context context = MyApplication.getContext();
-        ImageView eventImage = (ImageView) customListView.findViewById(R.id.img_journal_listview_event);
-        TextView subCategory = (TextView) customListView.findViewById(R.id.txt_journal_listview_event_sub_category);
-        TextView date = (TextView) customListView.findViewById(R.id.txt_journal_listview_event_date);
-        TextView time = (TextView) customListView.findViewById(R.id.txt_journal_listview_event_time);
+        ImageView eventImage = (ImageView) customListView.findViewById(R.id.img_home_events_event1);
+        TextView subCategory = (TextView) customListView.findViewById(R.id.txt_home_events_sub_category1);
+        TextView date = (TextView) customListView.findViewById(R.id.txt_home_events_date1);
+        TextView time = (TextView) customListView.findViewById(R.id.txt_home_events_time);
 
         subCategory.setText(eventList.get(position).sub_category);
         date.setText(eventList.get(position).date.split("T")[0]);

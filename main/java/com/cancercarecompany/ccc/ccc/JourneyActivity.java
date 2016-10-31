@@ -2301,7 +2301,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                 String dateString = new SimpleDateFormat("yyyy-MM-dd").format(currentDate);
 
-                Question newQuestion = new Question(0, patientID, personID, journeyQuestion.getText().toString(), null, dateString, null, "unanswered");
+                Question newQuestion = new Question(0, patientID, personID, connectHandler.person.email, journeyQuestion.getText().toString(), null, dateString, null, "unanswered");
                 questionList.add(newQuestion);
 
                 question_sign= new ImageButton(JourneyActivity.this);
