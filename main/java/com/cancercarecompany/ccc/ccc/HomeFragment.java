@@ -1,12 +1,15 @@
 package com.cancercarecompany.ccc.ccc;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +37,7 @@ public class HomeFragment extends Fragment {
 
     private ConnectionHandler connectHandler;
     private EditText questionText;
-    private ArrayList<Event> eventList = new ArrayList<>();
+    private ArrayList<Event> eventList;
     private Integer infoIndex = 0;
 
     ArrayList<Article> cmeArticleList;
@@ -88,7 +91,7 @@ public class HomeFragment extends Fragment {
         cmeArticleList = new ArrayList<Article>();
         inspirationArticleList = new ArrayList<Article>();
         tipsArticleList = new ArrayList<Article>();
-
+        eventList = new ArrayList<>();
         questionText = (EditText) view.findViewById(R.id.edit_question);
 
         if (connectHandler.patient != null) {
@@ -243,23 +246,59 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Add date and time later
-                Question newQuestion = new Question(0,
-                                                    connectHandler.patient.patient_ID,
-                                                    connectHandler.person.person_ID,
-                                                    connectHandler.person.email,
-                                                    questionText.getText().toString(),
-                                                    "",
-                                                    "",
-                                                    "",
-                                                    "");
-                // needs implementation in backend
-                connectHandler.createQuestion(newQuestion);
-                while (connectHandler.socketBusy){}
-                questionText.setText("");
+                if (!connectHandler.socketBusy){
+                    Question newQuestion = new Question(0,
+                            connectHandler.patient.patient_ID,
+                            connectHandler.person.person_ID,
+                            connectHandler.person.email,
+                            questionText.getText().toString(),
+                            "",
+                            "",
+                            "",
+                            "");
+                    // needs implementation in backend
+                    connectHandler.createQuestion(newQuestion);
+                    questionText.setText("");
+                    while (connectHandler.socketBusy){}
+                    questionCreatedDialog();
+                }
             }
         });
 
         return view;
+    }
+
+    private void questionCreatedDialog(){
+        // Generate dialog to make sure user wants to delete
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        String alertText = String.format(getString(R.string.created_question));
+        alertDialogBuilder.setMessage(alertText);
+
+        alertDialogBuilder.setNegativeButton(getString(R.string.ok),new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // do nothing
+            }
+        });
+
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+        new CountDownTimer(3000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onFinish() {
+                // TODO Auto-generated method stub
+
+                alertDialog.dismiss();
+            }
+        }.start();
     }
 
     void showInfoDialog(String type, String title, String content){

@@ -41,6 +41,7 @@
     <string name="info_tips_content2">Information: Livsbejakande 2, text</string>
 
     <string name="remove_question">Är du säker på att du vill ta bort?</string>
+    <string name="created_question">Du har skapat en ny fråga.</string>
 
     <string name="patient_careteam">s vårdteam</string>
     <string name="patient_journal">s dagbok</string>
