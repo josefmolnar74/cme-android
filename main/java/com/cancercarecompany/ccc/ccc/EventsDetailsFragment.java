@@ -755,7 +755,7 @@ public class EventsDetailsFragment extends Fragment {
             // Use the current time as the default values for the picker
             int hour = 0;
             int minute = 0;
-            if (listItem.sub_category.matches("create_new")){
+            if (listItem.time.isEmpty()){
                 final Calendar c = Calendar.getInstance();
                 hour = c.get(Calendar.HOUR_OF_DAY);
                 minute = c.get(Calendar.MINUTE);
