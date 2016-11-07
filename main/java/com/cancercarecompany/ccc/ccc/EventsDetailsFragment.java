@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -242,7 +243,7 @@ public class EventsDetailsFragment extends Fragment {
         informationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
+/*                FragmentTransaction ft = getFragmentManager().beginTransaction();
                 // Family or invited user
                 EventsInformationFragment myEventInformation = new EventsInformationFragment();
                 if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
@@ -255,7 +256,13 @@ public class EventsDetailsFragment extends Fragment {
                 // send family member data to fragment
                 myEventInformation.setItem(listItem);
                 ft.commit();
-
+*/
+                FragmentManager fm = getFragmentManager();
+                EventDialogFragment dialogFragment = new EventDialogFragment();
+                Bundle args = new Bundle();
+                args.putString(EventDialogFragment.SUB_CATEGORY, listItem.sub_category);
+                dialogFragment.setArguments(args);
+                dialogFragment.show(fm, "Josef");
             }
         });
 

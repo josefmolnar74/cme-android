@@ -118,10 +118,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
                         android:layout_below="@+id/header_home_events"
                         android:orientation="vertical">
 
@@ -135,8 +131,8 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
                                 android:id="@+id/img_home_events_event1"
                                 android:src="@drawable/event_nurse_bubble"
                                 android:layout_alignParentTop="true"
@@ -144,10 +140,11 @@
 
                             <TextView
                                 android:layout_marginTop="2dp"
-                                android:layout_marginLeft="5dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Event type"
+                                android:textSize="20sp"
                                 android:id="@+id/txt_home_events_sub_category1"
                                 android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
@@ -156,21 +153,21 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:layout_marginBottom="2dp"
-                                android:layout_marginLeft="5dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Date"
+                                android:textSize="20sp"
                                 android:id="@+id/txt_home_events_date1"
                                 android:layout_alignBottom="@+id/img_home_events_event1"
                                 android:layout_toEndOf="@+id/img_home_events_event1" />
 
                             <TextView
-                                android:layout_marginBottom="2dp"
                                 android:layout_marginLeft="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Time"
+                                android:textSize="20sp"
                                 android:id="@+id/txt_home_events_time1"
                                 android:layout_alignBottom="@+id/img_home_events_event1"
                                 android:layout_toEndOf="@+id/txt_home_events_date1" />
@@ -187,8 +184,8 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
                                 android:id="@+id/img_home_events_event2"
                                 android:src="@drawable/event_nurse_bubble"
                                 android:layout_alignParentTop="true"
@@ -196,10 +193,11 @@
 
                             <TextView
                                 android:layout_marginTop="2dp"
-                                android:layout_marginLeft="5dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Event type"
+                                android:textSize="20sp"
                                 android:id="@+id/txt_home_events_sub_category2"
                                 android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
@@ -208,21 +206,21 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:layout_marginBottom="2dp"
-                                android:layout_marginLeft="5dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Date"
+                                android:textSize="20sp"
                                 android:id="@+id/txt_home_events_date2"
                                 android:layout_alignBottom="@+id/img_home_events_event2"
                                 android:layout_toEndOf="@+id/img_home_events_event2" />
 
                             <TextView
-                                android:layout_marginBottom="2dp"
                                 android:layout_marginLeft="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Time"
+                                android:textSize="20sp"
                                 android:id="@+id/txt_home_events_time2"
                                 android:layout_alignBottom="@+id/img_home_events_event2"
                                 android:layout_toEndOf="@+id/txt_home_events_date2" />
@@ -239,8 +237,8 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
                                 android:id="@+id/img_home_events_event3"
                                 android:src="@drawable/event_nurse_bubble"
                                 android:layout_alignParentTop="true"
@@ -248,10 +246,11 @@
 
                             <TextView
                                 android:layout_marginTop="2dp"
-                                android:layout_marginLeft="5dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Event type"
+                                android:textSize="20sp"
                                 android:id="@+id/txt_home_events_sub_category3"
                                 android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
@@ -260,21 +259,21 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:layout_marginBottom="2dp"
-                                android:layout_marginLeft="5dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Date"
+                                android:textSize="20sp"
                                 android:id="@+id/txt_home_events_date3"
                                 android:layout_alignBottom="@+id/img_home_events_event3"
                                 android:layout_toEndOf="@+id/img_home_events_event3" />
 
                             <TextView
-                                android:layout_marginBottom="2dp"
                                 android:layout_marginLeft="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Time"
+                                android:textSize="20sp"
                                 android:id="@+id/txt_home_events_time3"
                                 android:layout_alignBottom="@+id/img_home_events_event3"
                                 android:layout_toEndOf="@+id/txt_home_events_date3" />

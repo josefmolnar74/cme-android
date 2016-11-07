@@ -2,9 +2,11 @@ package com.cancercarecompany.ccc.ccc;
 
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -21,6 +23,8 @@ public class InfoDialogFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getDialog().setCanceledOnTouchOutside(true);
         View rootView = inflater.inflate(R.layout.fragment_info_dialog, container, false);
 
         ImageButton dismissButton = (ImageButton) rootView.findViewById(R.id.btn_dialog_dismiss);
@@ -40,5 +44,15 @@ public class InfoDialogFragment extends DialogFragment {
             }
         });
         return rootView;
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        Window window = getDialog().getWindow();
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        window.setGravity(Gravity.CENTER);
+        //TODO:
     }
 }

@@ -3,6 +3,7 @@ package com.cancercarecompany.ccc.ccc;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -59,6 +60,12 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        if(getResources().getBoolean(R.bool.portrait_only)){
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else{
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
 
         connectHandler = ConnectionHandler.getInstance();
 

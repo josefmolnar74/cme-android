@@ -15,14 +15,12 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/layout_home_journey"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:background="@drawable/background_border">
+                android:background="@drawable/background_border"
+                android:layout_margin="5dp">
 
                 <RelativeLayout
                     android:id="@+id/header_home_journey"
@@ -40,6 +38,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/home_journey"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textSize="20sp"
                         android:id="@+id/txt_header_journey"
                         android:layout_centerHorizontal="true" />
@@ -82,7 +81,8 @@
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:background="@drawable/background_border">
+                android:background="@drawable/background_border"
+                android:layout_margin="5dp">
 
                 <RelativeLayout
                     android:id="@+id/header_home_events"
@@ -100,6 +100,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/home_events"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textSize="20sp"
                         android:id="@+id/txt_header_home_events"
                         android:layout_centerHorizontal="true" />
@@ -109,10 +110,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_below="@+id/header_home_events"
                     android:orientation="vertical">
 
@@ -126,8 +123,8 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:id="@+id/img_home_events_event1"
                             android:src="@drawable/event_nurse_bubble"
                             android:layout_alignParentTop="true"
@@ -135,10 +132,11 @@
 
                         <TextView
                             android:layout_marginTop="2dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Event type"
+                            android:textSize="20sp"
                             android:id="@+id/txt_home_events_sub_category1"
                             android:layout_gravity="center_horizontal"
                             android:textAlignment="center"
@@ -147,21 +145,21 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_marginBottom="2dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Date"
+                            android:textSize="20sp"
                             android:id="@+id/txt_home_events_date1"
                             android:layout_alignBottom="@+id/img_home_events_event1"
                             android:layout_toEndOf="@+id/img_home_events_event1" />
 
                         <TextView
-                            android:layout_marginBottom="2dp"
                             android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Time"
+                            android:textSize="20sp"
                             android:id="@+id/txt_home_events_time1"
                             android:layout_alignBottom="@+id/img_home_events_event1"
                             android:layout_toEndOf="@+id/txt_home_events_date1" />
@@ -178,8 +176,8 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:id="@+id/img_home_events_event2"
                             android:src="@drawable/event_nurse_bubble"
                             android:layout_alignParentTop="true"
@@ -187,10 +185,11 @@
 
                         <TextView
                             android:layout_marginTop="2dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Event type"
+                            android:textSize="20sp"
                             android:id="@+id/txt_home_events_sub_category2"
                             android:layout_gravity="center_horizontal"
                             android:textAlignment="center"
@@ -199,21 +198,21 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_marginBottom="2dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Date"
+                            android:textSize="20sp"
                             android:id="@+id/txt_home_events_date2"
                             android:layout_alignBottom="@+id/img_home_events_event2"
                             android:layout_toEndOf="@+id/img_home_events_event2" />
 
                         <TextView
-                            android:layout_marginBottom="2dp"
                             android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Time"
+                            android:textSize="20sp"
                             android:id="@+id/txt_home_events_time2"
                             android:layout_alignBottom="@+id/img_home_events_event2"
                             android:layout_toEndOf="@+id/txt_home_events_date2" />
@@ -230,8 +229,8 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:id="@+id/img_home_events_event3"
                             android:src="@drawable/event_nurse_bubble"
                             android:layout_alignParentTop="true"
@@ -239,10 +238,11 @@
 
                         <TextView
                             android:layout_marginTop="2dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Event type"
+                            android:textSize="20sp"
                             android:id="@+id/txt_home_events_sub_category3"
                             android:layout_gravity="center_horizontal"
                             android:textAlignment="center"
@@ -251,21 +251,21 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_marginBottom="2dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Date"
+                            android:textSize="20sp"
                             android:id="@+id/txt_home_events_date3"
                             android:layout_alignBottom="@+id/img_home_events_event3"
                             android:layout_toEndOf="@+id/img_home_events_event3" />
 
                         <TextView
-                            android:layout_marginBottom="2dp"
                             android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Time"
+                            android:textSize="20sp"
                             android:id="@+id/txt_home_events_time3"
                             android:layout_alignBottom="@+id/img_home_events_event3"
                             android:layout_toEndOf="@+id/txt_home_events_date3" />
@@ -288,7 +288,8 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/background_border">
+                android:background="@drawable/background_border"
+                android:layout_margin="5dp">
 
                 <RelativeLayout
                     android:id="@+id/header_home_question"
@@ -306,6 +307,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/home_question"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textSize="20sp"
                         android:id="@+id/txt_header_home_question"
                         android:layout_centerHorizontal="true" />
@@ -372,7 +374,8 @@
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:background="@drawable/background_border">
+                android:background="@drawable/background_border"
+                android:layout_margin="5dp">
 
                 <RelativeLayout
                     android:id="@+id/header_school"
@@ -389,6 +392,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/home_school"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:layout_centerHorizontal="true" />
@@ -424,7 +428,8 @@
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:background="@drawable/background_border">
+                android:background="@drawable/background_border"
+                android:layout_margin="5dp">
 
                 <RelativeLayout
                     android:id="@+id/header_home_inspiration"
@@ -441,6 +446,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/home_inspiration"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:layout_centerHorizontal="true" />
@@ -475,7 +481,8 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/background_border">
+                android:background="@drawable/background_border"
+                android:layout_margin="5dp">
 
                 <RelativeLayout
                     android:id="@+id/header_home_tips"
@@ -492,6 +499,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/home_tips"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:layout_centerHorizontal="true" />
@@ -520,7 +528,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"></FrameLayout>
+                android:layout_height="80dp"></FrameLayout>
 
         </LinearLayout>
 
