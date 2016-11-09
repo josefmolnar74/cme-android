@@ -254,7 +254,7 @@ public class ConnectionHandler {
     public void updateUser(Person newUser) {
         if (checkConnection()){
             Gson gson = new Gson();
-            String messageData = gson.toJson(person);
+            String messageData = gson.toJson(newUser);
             sendMessage(MESSAGE_UPDATE, CONTENT_PERSON, messageData);
         }
     }

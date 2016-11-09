@@ -10,6 +10,7 @@ public class CareTeamMember {
     public int person_ID;
     public String name;
     public String email;
+    public String phone_number;
     public String relationship;
     public int avatar;
     public int admin;

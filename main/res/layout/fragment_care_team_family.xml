@@ -206,45 +206,6 @@
                     android:layout_height="80dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/careteam_family_phone"
-                        android:id="@+id/txt_careteam_family_phone"
-                        android:textColor="@color/cme_dark"
-                        android:textSize="20sp"
-                        android:layout_alignParentTop="true" />
-
-                    <EditText
-                        android:background="@android:color/transparent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:hint="@string/careteam_family_phone"
-                        android:inputType="phone"
-                        android:id="@+id/etxt_careteam_phone"
-                        android:textSize="20sp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignStart="@+id/txt_careteam_family_phone" />
-
-                </RelativeLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="#afafaf">
-
-                </FrameLayout>
-
-                <RelativeLayout
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp">
-
-                    <TextView
                         android:background="@android:color/transparent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

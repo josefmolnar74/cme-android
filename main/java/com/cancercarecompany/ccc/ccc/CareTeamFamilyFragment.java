@@ -24,13 +24,12 @@ public class CareTeamFamilyFragment extends Fragment {
     private int position;
     private boolean admin = false;
     private boolean myUser = false;
+    int familyAvatarId;
 
     TextView txtName;
-    TextView txtPhoneNumber;
     TextView txtEmail;
     TextView txtRelation;
     EditText editName;
-    EditText editPhoneNumber;
     EditText editEmail;
     EditText editRelation;
     ImageButton familyAvatar;
@@ -62,11 +61,9 @@ public class CareTeamFamilyFragment extends Fragment {
         connectHandler = ConnectionHandler.getInstance();
 
         txtName = (TextView) view.findViewById(R.id.txt_careteam_name);
-        txtPhoneNumber = (TextView) view.findViewById(R.id.txt_careteam_family_phone);
         txtEmail = (TextView) view.findViewById(R.id.txt_careteam_family_email);
         txtRelation = (TextView) view.findViewById(R.id.txt_careteam_family_relation);
         editName = (EditText) view.findViewById(R.id.etxt_careteam_name);
-        editPhoneNumber = (EditText) view.findViewById(R.id.etxt_careteam_phone);
         editEmail = (EditText) view.findViewById(R.id.etx_careteamt_email);
         editRelation = (EditText) view.findViewById(R.id.etxt_careteam_relation);
         familyAvatar = (ImageButton) view.findViewById(R.id.img_careteam_family_avatar);
@@ -78,7 +75,7 @@ public class CareTeamFamilyFragment extends Fragment {
         alertText1.setVisibility(View.INVISIBLE);
         alertText2.setVisibility(View.INVISIBLE);
         buttonDelete.setVisibility(View.INVISIBLE);
-        int familyAvatarId = 0;
+        familyAvatarId = 0;
 
         switch(listItem.type) {
 
@@ -138,9 +135,6 @@ public class CareTeamFamilyFragment extends Fragment {
                 editEmail.setFocusable(true);
                 editEmail.setFocusableInTouchMode(true);
                 editEmail.setEnabled(true);
-                editPhoneNumber.setFocusable(true);
-                editPhoneNumber.setFocusableInTouchMode(true);
-                editPhoneNumber.setEnabled(true);
                 editRelation.setFocusable(true);
                 editRelation.setFocusableInTouchMode(true);
                 editRelation.setEnabled(true);
@@ -154,9 +148,6 @@ public class CareTeamFamilyFragment extends Fragment {
             editEmail.setFocusable(false);
             editEmail.setFocusableInTouchMode(false);
             editEmail.setEnabled(false);
-            editPhoneNumber.setFocusable(false);
-            editPhoneNumber.setFocusableInTouchMode(false);
-            editPhoneNumber.setEnabled(false);
             editRelation.setFocusable(false);
             editRelation.setFocusableInTouchMode(false);
             editRelation.setEnabled(false);
@@ -227,12 +218,10 @@ public class CareTeamFamilyFragment extends Fragment {
             editName.requestFocus();
             txtName.setVisibility(View.INVISIBLE);
             txtEmail.setVisibility(View.INVISIBLE);
-            txtPhoneNumber.setVisibility(View.INVISIBLE);
             txtRelation.setVisibility(View.INVISIBLE);
         }else if (!admin){
             editName.setFocusable(false);
             editEmail.setFocusable(false);
-            editPhoneNumber.setFocusable(false);
             editRelation.setFocusable(false);
             chkAdmin.setFocusable(false);
             chkAdmin.setEnabled(false);
@@ -289,46 +278,37 @@ public class CareTeamFamilyFragment extends Fragment {
     }
 
     public void saveUser() {
-        String invitedNameString = editName.getText().toString();
-        String invitedEmailString = editEmail.getText().toString();
+        String nameString = editName.getText().toString();
+        String emailString = editEmail.getText().toString();
 
-        if (listItem.type == "new"){
-            //FirstName and email must be specified, the others will get emptystring if not specified
-            boolean wrongInput = false;
+        //FirstName and email must be specified, the others will get emptystring if not specified
+        boolean wrongInput = false;
 
-            if ((invitedNameString.isEmpty()) || (invitedEmailString.isEmpty())){
-                wrongInput = true;
-                alertText1.setText(getString(R.string.careteam_alert1));
-                alertText1.setVisibility(View.VISIBLE);
+        if ((nameString.isEmpty()) || (emailString.isEmpty())){
+            wrongInput = true;
+            alertText1.setText(getString(R.string.careteam_alert1));
+            alertText1.setVisibility(View.VISIBLE);
+        }
+
+        if (!wrongInput){
+            alertText1.setVisibility(View.INVISIBLE);
+            // invite new care team member
+            int admin;
+            if(chkAdmin.isChecked()) {
+                admin = 1;
+            }
+            else {
+                admin = 0;
             }
 
-            // Check email so it is not already part of care team
-            if (!wrongInput)
-                for (int i=0; i < connectHandler.patient.care_team.size(); i++){
-                    if (invitedEmailString.matches(connectHandler.patient.care_team.get(i).email)){
-                        alertText1.setText(getString(R.string.careteam_alert2));
-                        alertText1.setVisibility(View.VISIBLE);
-                        wrongInput = true;
-                    }
-                }
-
-            if (!wrongInput){
-                alertText1.setVisibility(View.INVISIBLE);
-                // invite new care team member
-                int admin;
-                if(chkAdmin.isChecked()) {
-                    admin = 1;
-                }
-                else {
-                    admin = 0;
-                }
+            if (listItem.type == "new"){
 
                 Invite newInvite = new Invite(  0,
                         connectHandler.person.name,
                         connectHandler.patient.patient_ID,
                         connectHandler.patient.patient_name,
-                        invitedNameString,
-                        invitedEmailString,
+                        nameString,
+                        emailString,
                         editRelation.getText().toString(),
                         0,
                         admin,
@@ -340,7 +320,18 @@ public class CareTeamFamilyFragment extends Fragment {
                 getActivity().onBackPressed();
 
             }
-
+            else if (myUser){
+                // update my information
+                Person updatedPerson = new Person(
+                        listItem.id,
+                        nameString,
+                        emailString,
+                        null,
+                        familyAvatarId,
+                        null
+                );
+                connectHandler.updateUser(updatedPerson);
+            }
         }
     }
 
