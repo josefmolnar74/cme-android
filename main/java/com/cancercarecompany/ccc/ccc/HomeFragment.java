@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 
 /**
@@ -32,9 +33,9 @@ import java.util.Date;
  */
 public class HomeFragment extends Fragment {
 
-    public static final String INFO_TYPE_CME = "cme";
-    public static final String INFO_TYPE_INSPIRATION = "inspiration";
-    public static final String INFO_TYPE_TIPS = "tips";
+    public static final String article_type_CME = "cme";
+    public static final String article_type_INSPIRATION = "inspiration";
+    public static final String article_type_TIPS = "tips";
 
     private ConnectionHandler connectHandler;
     private EditText questionText;
@@ -184,21 +185,25 @@ public class HomeFragment extends Fragment {
         while(connectHandler.socketBusy){}
 
         for (int i=0; i < connectHandler.articles.article_data.size(); i++){
-            switch(connectHandler.articles.article_data.get(i).info_type){
-                case INFO_TYPE_CME:
+            switch(connectHandler.articles.article_data.get(i).article_type){
+                case article_type_CME:
                     cmeArticleList.add(connectHandler.articles.article_data.get(i));
                     break;
-                case INFO_TYPE_INSPIRATION:
+                case article_type_INSPIRATION:
                     inspirationArticleList.add(connectHandler.articles.article_data.get(i));
                     break;
-                case INFO_TYPE_TIPS:
+                case article_type_TIPS:
                     tipsArticleList.add(connectHandler.articles.article_data.get(i));
                     break;
             }
         }
 
+        Random r = new Random();
+        infoIndex = r.nextInt(cmeArticleList.size());
         schoolText.setText(cmeArticleList.get(infoIndex).title);
+        infoIndex = r.nextInt(inspirationArticleList.size());
         inspirationText.setText(inspirationArticleList.get(infoIndex).title);
+        infoIndex = r.nextInt(tipsArticleList.size());
         tipsText.setText(tipsArticleList.get(infoIndex).title);
 
         startJourneyButton.setOnClickListener(new View.OnClickListener() {
@@ -227,7 +232,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 showInfoDialog( getActivity().getString(getActivity().getResources().getIdentifier("info_school", "string", getActivity().getPackageName())),
                         cmeArticleList.get(infoIndex).title,
-                        cmeArticleList.get(infoIndex).content);
+                        cmeArticleList.get(infoIndex).text);
             }
         });
 
@@ -236,7 +241,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 showInfoDialog( getActivity().getString(getActivity().getResources().getIdentifier("info_inspiration", "string", getActivity().getPackageName())),
                         inspirationArticleList.get(infoIndex).title,
-                        inspirationArticleList.get(infoIndex).content);
+                        inspirationArticleList.get(infoIndex).text);
             }
         });
 
@@ -245,7 +250,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 showInfoDialog( getActivity().getString(getActivity().getResources().getIdentifier("info_tips", "string", getActivity().getPackageName())),
                         tipsArticleList.get(infoIndex).title,
-                        tipsArticleList.get(infoIndex).content);
+                        tipsArticleList.get(infoIndex).text);
             }
         });
 
@@ -308,13 +313,13 @@ public class HomeFragment extends Fragment {
         }.start();
     }
 
-    void showInfoDialog(String type, String title, String content){
+    void showInfoDialog(String type, String title, String text){
         FragmentManager fm = getFragmentManager();
         InfoDialogFragment dialogFragment = new InfoDialogFragment();
         Bundle args = new Bundle();
         args.putString(InfoDialogFragment.INFO_TYPE, type);
         args.putString(InfoDialogFragment.INFO_TITLE, title);
-        args.putString(InfoDialogFragment.INFO_TEXT, content);
+        args.putString(InfoDialogFragment.INFO_TEXT, text);
         dialogFragment.setArguments(args);
         dialogFragment.show(fm, "Josef");
     }
