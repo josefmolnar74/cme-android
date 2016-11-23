@@ -70,6 +70,9 @@ public class HomeFragment extends Fragment {
 
         connectHandler = ConnectionHandler.getInstance();
 
+        connectHandler.getPatient(connectHandler.person.patient.get(0).patient_ID);
+        while(connectHandler.socketBusy){}
+
         final ImageButton startJourneyButton = (ImageButton) view.findViewById(R.id.button_start_journey);
         final TextView journeyHeaderText = (TextView) view.findViewById(R.id.txt_header_journey);
         final Button sendQuestionButton = (Button) view.findViewById(R.id.button_send_question);
@@ -176,25 +179,27 @@ public class HomeFragment extends Fragment {
             eventTimeText3.setText(eventList.get(2).time.substring(0,5));
         }
 
-        journeyHeaderText.setText(journeyHeaderText.getText().toString().replace("*", connectHandler.patient.patient_name));
+        if (connectHandler.patient != null) {
+            journeyHeaderText.setText(journeyHeaderText.getText().toString().replace("*", connectHandler.patient.patient_name));
 
-        connectHandler.getQuestionsForPatient(connectHandler.patient.patient_ID);
-        while(connectHandler.socketBusy){}
+            connectHandler.getQuestionsForPatient(connectHandler.patient.patient_ID);
+            while(connectHandler.socketBusy){}
 
-        connectHandler.getArticles(connectHandler.patient.patient_ID);
-        while(connectHandler.socketBusy){}
+            connectHandler.getArticles(connectHandler.patient.patient_ID);
+            while(connectHandler.socketBusy){}
 
-        for (int i=0; i < connectHandler.articles.article_data.size(); i++){
-            switch(connectHandler.articles.article_data.get(i).article_type){
-                case article_type_CME:
-                    cmeArticleList.add(connectHandler.articles.article_data.get(i));
-                    break;
-                case article_type_INSPIRATION:
-                    inspirationArticleList.add(connectHandler.articles.article_data.get(i));
-                    break;
-                case article_type_TIPS:
-                    tipsArticleList.add(connectHandler.articles.article_data.get(i));
-                    break;
+            for (int i=0; i < connectHandler.articles.article_data.size(); i++){
+                switch(connectHandler.articles.article_data.get(i).article_type){
+                    case article_type_CME:
+                        cmeArticleList.add(connectHandler.articles.article_data.get(i));
+                        break;
+                    case article_type_INSPIRATION:
+                        inspirationArticleList.add(connectHandler.articles.article_data.get(i));
+                        break;
+                    case article_type_TIPS:
+                        tipsArticleList.add(connectHandler.articles.article_data.get(i));
+                        break;
+                }
             }
         }
 
