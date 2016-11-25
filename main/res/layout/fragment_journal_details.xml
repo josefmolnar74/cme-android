@@ -609,6 +609,15 @@
                     android:background="@android:drawable/editbox_background"
                     android:theme="@style/cme_custom_theme"/>
 
+                <Button
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show history"
+                    android:id="@+id/btn_show_sideeffect_history" />
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"/>

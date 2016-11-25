@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -139,6 +141,7 @@ public class JournalDetailsFragment extends Fragment {
     private CheckBox rightAbdomenCheckbox;
     private CheckBox leftAbdomenCheckbox;
     private CheckBox tailboneCheckbox;
+    private Button showHistoryButton;
 
     private SideeffectExpandListItem listItem;
     private ConnectionHandler connectHandler;
@@ -235,9 +238,22 @@ public class JournalDetailsFragment extends Fragment {
         leftAbdomenCheckbox = (CheckBox) view.findViewById(R.id.checkBox_journal_sideeffect_left_abdomen);
         tailboneCheckbox = (CheckBox) view.findViewById(R.id.checkBox_journal_sideeffect_tailbone);
 
+        showHistoryButton = (Button) view.findViewById(R.id.btn_show_sideeffect_history);
         seekBarResult1.setVisibility(View.GONE);
         seekBarResult2.setVisibility(View.GONE);
         seekBarResult3.setVisibility(View.GONE);
+
+        showHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                SideeffectDialogFragment dialogFragment = new SideeffectDialogFragment();
+                Bundle args = new Bundle();
+                args.putString(SideeffectDialogFragment.SIDEEFFECT_TYPE, listItem.sideeffect.type);
+                dialogFragment.setArguments(args);
+                dialogFragment.show(fm, "Josef");
+            }
+        });
 
         switch(listItem.sideeffect.type){
 
@@ -535,6 +551,8 @@ public class JournalDetailsFragment extends Fragment {
 
         }
 
+        sideeffectNotes.setText(listItem.sideeffect.notes);
+
         // Replace x with patient name in Question text
         sideeffectQuestion.setText(sideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
 
@@ -643,8 +661,6 @@ public class JournalDetailsFragment extends Fragment {
     private void saveSideeffect(){
 
         String sideeffectValue = "";
-
-//                listItem.sideeffect.notes.setText(sideeffectNotes.getText().toString());
 
         switch(listItem.sideeffect.type){
 
@@ -891,27 +907,22 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
         }
-        sideeffectNotes.setText(sideeffectValue);
+        listItem.sideeffect.notes = sideeffectNotes.getText().toString();
 
-        if (!sideeffectValue.isEmpty()){
-            // Save or update sideffect on database
-            listItem.sideeffect.value = sideeffectValue;
-            listItem.sideeffect.date = selectedDate;
-            listItem.sideeffect.time = new SimpleDateFormat("kk:mm:ss").format(new Date());
-            if (listItem.sideeffect.sideeffect_ID >= 0){
-                // sideeffect already exist, just update
-                connectHandler.updateSideeffect(listItem.sideeffect);
-            } else {
-                // new sideeffect
-                connectHandler.createSideeffect(listItem.sideeffect);
-            }
-
-            while (connectHandler.socketBusy) {}
-            getActivity().onBackPressed();
-
-        }else{
-            inputAlert();
+        // Save or update sideffect on database
+        listItem.sideeffect.value = sideeffectValue;
+        listItem.sideeffect.date = selectedDate;
+        listItem.sideeffect.time = new SimpleDateFormat("kk:mm:ss").format(new Date());
+        if (listItem.sideeffect.sideeffect_ID >= 0){
+            // sideeffect already exist, just update
+            connectHandler.updateSideeffect(listItem.sideeffect);
+        } else {
+            // new sideeffect
+            connectHandler.createSideeffect(listItem.sideeffect);
         }
+
+        while (connectHandler.socketBusy) {}
+        getActivity().onBackPressed();
 
     }
 

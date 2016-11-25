@@ -9,7 +9,7 @@ import org.acra.sender.HttpSender;
 @ReportsCrashes(
         httpMethod = HttpSender.Method.PUT,
         reportType = HttpSender.Type.JSON,
-        formUri = "http://collector.tracepot.com/6686741d",
+//        formUri = "http://collector.tracepot.com/6686741d",
         mode = ReportingInteractionMode.TOAST,
         resToastText = R.string.crash_toast_text
 )

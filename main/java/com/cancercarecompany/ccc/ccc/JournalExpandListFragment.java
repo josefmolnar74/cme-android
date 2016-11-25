@@ -290,7 +290,7 @@ public class JournalExpandListFragment extends Fragment {
                                             todaysSideeffects.get(todaysSideffectPosition).time,
                                             todaysSideeffects.get(todaysSideffectPosition).type,
                                             todaysSideeffects.get(todaysSideffectPosition).value,
-                                            "");
+                                            todaysSideeffects.get(todaysSideffectPosition).notes);
                 SideeffectExpandListItem sideeffectItem = new SideeffectExpandListItem(header, sideeffect);
                 physicalExpandList.add(sideeffectItem);
 
