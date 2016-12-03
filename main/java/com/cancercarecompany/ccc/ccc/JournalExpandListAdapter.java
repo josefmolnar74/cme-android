@@ -25,9 +25,9 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
     private Context _context;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<String, List<SideeffectExpandListItem>> _listDataChild;
+    private HashMap<String, List<JournalExpandListItem>> _listDataChild;
     public JournalExpandListAdapter(Context context, List<String> listDataHeader,
-                                    HashMap<String, List<SideeffectExpandListItem>> listChildData) {
+                                    HashMap<String, List<JournalExpandListItem>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
@@ -48,7 +48,7 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final SideeffectExpandListItem listItem = (SideeffectExpandListItem) getChild(groupPosition, childPosition);
+        final JournalExpandListItem listItem = (JournalExpandListItem) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context

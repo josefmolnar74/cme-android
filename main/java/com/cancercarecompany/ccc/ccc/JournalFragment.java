@@ -48,7 +48,12 @@ public class JournalFragment extends Fragment {
     final static public String SIDEEFFECT_EMOTIONAL_DEJECTION = "emotional_dejection";
     final static public String SIDEEFFECT_EMOTIONAL_WORRY = "emotional_worry";
     final static public String SIDEEFFECT_EMOTIONAL_ACTIVITIES = "emotional_activities";
-    final static public String SIDEEFFECT_DISTRESS = "distress";
+    final static public String SIDEEFFECT_DISTRESS = "sideeffects_distress";
+
+    final static public String HEALTH_DATA_WEIGHT = "body_weight";
+    final static public String HEALTH_DATA_TEMPERATURE = "body_temperature";
+    final static public String HEALTH_DATA_BLOODPRESSURE = "blood_pressure";
+    final static public String HEALTH_DATA_PULSE = "heart_rate";
 
     public JournalFragment() {
         // Required empty public constructor

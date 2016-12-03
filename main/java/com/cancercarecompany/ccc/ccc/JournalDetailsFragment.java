@@ -143,7 +143,7 @@ public class JournalDetailsFragment extends Fragment {
     private CheckBox tailboneCheckbox;
     private Button showHistoryButton;
 
-    private SideeffectExpandListItem listItem;
+    private JournalExpandListItem listItem;
     private ConnectionHandler connectHandler;
     private String selectedDate;
 
@@ -199,12 +199,12 @@ public class JournalDetailsFragment extends Fragment {
         seekBarResult2 = (TextView) view.findViewById(R.id.txt_journal_sideeffect_seekbar_result2);
         seekBarResult3 = (TextView) view.findViewById(R.id.txt_journal_sideeffect_seekbar_result3);
 
-        radioGroup = (RadioGroup) view.findViewById(R.id.rg_journal_sideeffects_radiogroup);
-        radioButton1 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffects_radiobutton1);
-        radioButton2 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffects_radiobutton2);
-        radioButton3 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffects_radiobutton3);
-        radioButton4 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffects_radiobutton4);
-        radioButton5 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffects_radiobutton5);
+        radioGroup = (RadioGroup) view.findViewById(R.id.rg_journal_sideeffect_radiogroup);
+        radioButton1 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffect_radiobutton1);
+        radioButton2 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffect_radiobutton2);
+        radioButton3 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffect_radiobutton3);
+        radioButton4 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffect_radiobutton4);
+        radioButton5 = (RadioButton) view.findViewById(R.id.rb_journal_sideeffect_radiobutton5);
 
         checkBox1 = (CheckBox) view.findViewById(R.id.cb_journal_sideeffect_checkbox1);
         checkBox2 = (CheckBox) view.findViewById(R.id.cb_journal_sideeffect_checkbox2);
@@ -239,6 +239,10 @@ public class JournalDetailsFragment extends Fragment {
         tailboneCheckbox = (CheckBox) view.findViewById(R.id.checkBox_journal_sideeffect_tailbone);
 
         showHistoryButton = (Button) view.findViewById(R.id.btn_show_sideeffect_history);
+        seekBarsLayout.setVisibility(View.VISIBLE);
+        seekBarHeadline1.setVisibility(View.INVISIBLE);
+        seekBarLayout2.setVisibility(View.GONE);
+        seekBarLayout3.setVisibility(View.GONE);
         seekBarResult1.setVisibility(View.GONE);
         seekBarResult2.setVisibility(View.GONE);
         seekBarResult3.setVisibility(View.GONE);
@@ -255,61 +259,70 @@ public class JournalDetailsFragment extends Fragment {
             }
         });
 
+        if (listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_BREATHING) ||
+                listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA) ||
+                listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION) ||
+                listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_VOMIT) ||
+                listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY) ||
+                listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY) ||
+                listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING) ||
+                listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_SLEEP) ||
+                listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_FATIGUE)){
+            sideeffectQuestion.setText(
+                    getString(getActivity().getResources().getIdentifier("journal_sideeffect_"+ listItem.sideeffect.type +"_question", "string", getActivity().getPackageName())));
+        }
+
         switch(listItem.sideeffect.type){
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_APPERANCE:
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_appearance_question));
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffect_appearance_question));
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_HYGIENE:
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_hygiene_question));
-                break;
-
-            case JournalFragment.SIDEEFFECT_PHYSICAL_BREATHING:
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_breathing_question));
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffect_hygiene_question));
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_URINATION:
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_urination_question));
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffect_urination_question));
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION:
                 radioGroupLayout.setVisibility(View.VISIBLE);
-                sideeffectQuestion.setText(R.string.journal_sideeffects_constipation_question);
-                radioButton1.setText(R.string.journal_sideeffects_constipation_radioButton1);
-                radioButton2.setText(R.string.journal_sideeffects_constipation_radioButton2);
-                radioButton3.setText(R.string.journal_sideeffects_constipation_radioButton3);
-                radioButton4.setText(R.string.journal_sideeffects_constipation_radioButton4);
-                radioButton5.setText(R.string.journal_sideeffects_constipation_radioButton5);
+                radioButton1.setText(R.string.journal_sideeffect_physical_constipation_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffect_physical_constipation_radioButton2);
+                radioButton3.setText(R.string.journal_sideeffect_physical_constipation_radioButton3);
+                radioButton4.setText(R.string.journal_sideeffect_physical_constipation_radioButton4);
+                radioButton5.setText(R.string.journal_sideeffect_physical_constipation_radioButton5);
                 initailizeRadioButton(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA:
+                seekBarsLayout.setVisibility(View.GONE);
+                seekBarHeadline1.setVisibility(View.GONE);
                 radioGroupLayout.setVisibility(View.VISIBLE);
-                sideeffectQuestion.setText(R.string.journal_sideeffects_diarrhea_question);
-                radioButton1.setText(R.string.journal_sideeffects_diarrhea_radioButton1);
-                radioButton2.setText(R.string.journal_sideeffects_diarrhea_radioButton2);
-                radioButton3.setText(R.string.journal_sideeffects_diarrhea_radioButton3);
-                radioButton4.setText(R.string.journal_sideeffects_diarrhea_radioButton4);
-                radioButton5.setText(R.string.journal_sideeffects_diarrhea_radioButton5);
+                radioButton1.setText(R.string.journal_sideeffect_physical_diarrhea_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffect_physical_diarrhea_radioButton2);
+                radioButton3.setText(R.string.journal_sideeffect_physical_diarrhea_radioButton3);
+                radioButton4.setText(R.string.journal_sideeffect_physical_diarrhea_radioButton4);
+                radioButton5.setText(R.string.journal_sideeffect_physical_diarrhea_radioButton5);
                 initailizeRadioButton(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_APPETITE:
                 seekBarsLayout.setVisibility(View.VISIBLE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_appetite_question));
-                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_appetite_seekbar_"
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffect_appetite_question));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_appetite_seekbar_"
                         + SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_appetite_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_appetite_seekbar_max));
-                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_appetite_seekbar_"
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_appetite_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_appetite_seekbar_max));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_appetite_seekbar_"
                         + SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_2, "string", getActivity().getPackageName())));
-                seekBarMin2.setText(getString(R.string.journal_sideeffects_appetite_seekbar_min));
-                seekBarMax2.setText(getString(R.string.journal_sideeffects_appetite_seekbar_max));
-                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_appetite_seekbar_"
+                seekBarMin2.setText(getString(R.string.journal_sideeffect_appetite_seekbar_min));
+                seekBarMax2.setText(getString(R.string.journal_sideeffect_appetite_seekbar_max));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_appetite_seekbar_"
                         + SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_3, "string", getActivity().getPackageName())));
-                seekBarMin3.setText(getString(R.string.journal_sideeffects_appetite_seekbar_min));
-                seekBarMax3.setText(getString(R.string.journal_sideeffects_appetite_seekbar_max));
+                seekBarMin3.setText(getString(R.string.journal_sideeffect_appetite_seekbar_min));
+                seekBarMax3.setText(getString(R.string.journal_sideeffect_appetite_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
@@ -317,10 +330,9 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.GONE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_fatigue_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_fatigue_seekbar_headline));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_fatigue_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_fatigue_seekbar_max));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffect_physical_fatigue_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_physical_fatigue_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_physical_fatigue_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
@@ -328,68 +340,67 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.GONE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_bloated_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_bloated_seekbar_headline));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_bloated_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_bloated_seekbar_max));
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffect_bloated_question));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffect_bloated_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_bloated_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_bloated_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_FEVER:
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_fever_question));
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffect_fever_question));
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY:
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.GONE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_mobility_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_mobility_seekbar_headline));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_mobility_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_mobility_seekbar_max));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffect_physical_mobility_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_physical_mobility_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_physical_mobility_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION:
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_digestion_question));
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffect_digestion_question));
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY:
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.VISIBLE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_memory_question));
-                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_memory_seekbar_"
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_memory_seekbar_"
                         + SIDEEFFECT_MEMORY_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_memory_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_memory_seekbar_max));
-                seekBarHeadline2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_memory_seekbar_"
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_physical_memory_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_physical_memory_seekbar_max));
+                seekBarHeadline2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_memory_seekbar_"
                         + SIDEEFFECT_MEMORY_SEEKBAR_HEADLINE_2, "string", getActivity().getPackageName())));
-                seekBarMin2.setText(getString(R.string.journal_sideeffects_memory_seekbar_min));
-                seekBarMax2.setText(getString(R.string.journal_sideeffects_memory_seekbar_max));
+                seekBarMin2.setText(getString(R.string.journal_sideeffect_physical_memory_seekbar_min));
+                seekBarMax2.setText(getString(R.string.journal_sideeffect_physical_memory_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH:
                 checkBoxLayout.setVisibility(View.VISIBLE);
-                sideeffectQuestion.setText(R.string.journal_sideeffects_mouth_question);
-                checkBox1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_mouth_checkbox_"
+                sideeffectQuestion.setText(R.string.journal_sideeffect_mouth_question);
+                checkBox1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_mouth_checkbox_"
                         + SIDEEFFECT_MOUTH_CHECKBOX_VALUE1, "string", getActivity().getPackageName())));
-                checkBox2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_mouth_checkbox_"
+                checkBox2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_mouth_checkbox_"
                         + SIDEEFFECT_MOUTH_CHECKBOX_VALUE2, "string", getActivity().getPackageName())));
-                checkBox3.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_mouth_checkbox_"
+                checkBox3.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_mouth_checkbox_"
                         + SIDEEFFECT_MOUTH_CHECKBOX_VALUE3, "string", getActivity().getPackageName())));
-                checkBox4.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_mouth_checkbox_"
+                checkBox4.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_mouth_checkbox_"
                         + SIDEEFFECT_MOUTH_CHECKBOX_VALUE4, "string", getActivity().getPackageName())));
                 initCheckBoxes();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_VOMIT:
+                seekBarsLayout.setVisibility(View.GONE);
+                seekBarHeadline1.setVisibility(View.GONE);
                 radioGroupLayout.setVisibility(View.VISIBLE);
-                sideeffectQuestion.setText(R.string.journal_sideeffects_vomit_question);
-                radioButton1.setText(R.string.journal_sideeffects_vomit_radioButton1);
-                radioButton2.setText(R.string.journal_sideeffects_vomit_radioButton2);
-                radioButton3.setText(R.string.journal_sideeffects_vomit_radioButton3);
+                radioButton1.setText(R.string.journal_sideeffect_physical_vomit_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffect_physical_vomit_radioButton2);
+                radioButton3.setText(R.string.journal_sideeffect_physical_vomit_radioButton3);
                 radioButton4.setVisibility(View.GONE);
                 radioButton5.setVisibility(View.GONE);
                 initailizeRadioButton(listItem.sideeffect.value);
@@ -397,9 +408,9 @@ public class JournalDetailsFragment extends Fragment {
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_DIZZINESS:
                 radioGroupLayout.setVisibility(View.VISIBLE);
-                sideeffectQuestion.setText(R.string.journal_sideeffects_dizziness_question);
-                radioButton1.setText(R.string.journal_sideeffects_dizziness_radioButton1);
-                radioButton2.setText(R.string.journal_sideeffects_dizziness_radioButton2);
+                sideeffectQuestion.setText(R.string.journal_sideeffect_dizziness_question);
+                radioButton1.setText(R.string.journal_sideeffect_dizziness_radioButton1);
+                radioButton2.setText(R.string.journal_sideeffect_dizziness_radioButton2);
                 radioButton3.setVisibility(View.GONE);
                 radioButton4.setVisibility(View.GONE);
                 radioButton5.setVisibility(View.GONE);
@@ -410,15 +421,15 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.VISIBLE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_nose_question));
-                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_nose_seekbar_"
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffect_nose_question));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_nose_seekbar_"
                         + SIDEEFFECT_NOSE_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_nose_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_nose_seekbar_max));
-                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_nose_seekbar_"
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_nose_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_nose_seekbar_max));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_nose_seekbar_"
                         + SIDEEFFECT_NOSE_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
-                seekBarMin2.setText(getString(R.string.journal_sideeffects_nose_seekbar_min));
-                seekBarMax2.setText(getString(R.string.journal_sideeffects_nose_seekbar_max));
+                seekBarMin2.setText(getString(R.string.journal_sideeffect_nose_seekbar_min));
+                seekBarMax2.setText(getString(R.string.journal_sideeffect_nose_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
@@ -427,22 +438,19 @@ public class JournalDetailsFragment extends Fragment {
                 initCheckBoxes();
                 break;
 
-            case JournalFragment.SIDEEFFECT_PHYSICAL_SEX:
-                break;
-
             case JournalFragment.SIDEEFFECT_PHYSICAL_DERMAL:
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.VISIBLE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_dermal_question));
-                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_dermal_seekbar_"
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffect_dermal_question));
+                seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_dermal_seekbar_"
                         + SIDEEFFECT_DERMAL_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_dermal_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_dermal_seekbar_max));
-                seekBarHeadline2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_dermal_seekbar_"
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_dermal_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_dermal_seekbar_max));
+                seekBarHeadline2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_dermal_seekbar_"
                         + SIDEEFFECT_DERMAL_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
-                seekBarMin2.setText(getString(R.string.journal_sideeffects_dermal_seekbar_min));
-                seekBarMax2.setText(getString(R.string.journal_sideeffects_dermal_seekbar_max));
+                seekBarMin2.setText(getString(R.string.journal_sideeffect_dermal_seekbar_min));
+                seekBarMax2.setText(getString(R.string.journal_sideeffect_dermal_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
@@ -450,22 +458,19 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.GONE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_sleep_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_sleep_seekbar_headline));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_sleep_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_sleep_seekbar_max));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffect_physical_sleep_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_physical_sleep_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_physical_sleep_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
-            case JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE:
-                break;
-
             case JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING:
+                seekBarsLayout.setVisibility(View.GONE);
+                seekBarHeadline1.setVisibility(View.GONE);
                 checkBoxLayout.setVisibility(View.VISIBLE);
-                sideeffectQuestion.setText(R.string.journal_sideeffects_tingling_question);
-                checkBox1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_tingling_checkbox_"
+                checkBox1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_physical_tingling_checkbox_"
                         + SIDEEFFECT_TINGLING_CHECKBOX_VALUE1, "string", getActivity().getPackageName())));
-                checkBox2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffects_tingling_checkbox_"
+                checkBox2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_physical_tingling_checkbox_"
                         + SIDEEFFECT_TINGLING_CHECKBOX_VALUE2, "string", getActivity().getPackageName())));
                 checkBox3.setVisibility(View.GONE);
                 checkBox4.setVisibility(View.GONE);
@@ -476,10 +481,10 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.GONE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_dejection_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_dejection_seekbar_headline));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_dejection_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_dejection_seekbar_max));
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffect_emotional_dejection_question));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffect_emotional_dejection_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_emotional_dejection_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_emotional_dejection_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
@@ -487,10 +492,10 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.GONE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_depression_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_depression_seekbar_headline));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_depression_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_depression_seekbar_max));
+                sideeffectQuestion.setText(getString(R.string.journal_sideeffect_emotional_depression_question));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffect_emotional_depression_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_emotional_depression_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_emotional_depression_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
@@ -498,10 +503,9 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.GONE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_fear_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_fear_seekbar_headline));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_fear_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_fear_seekbar_max));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffect_emotional_fear_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_emotional_fear_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_emotional_fear_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
@@ -509,10 +513,9 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.GONE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_activities_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_activities_seekbar_headline));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_activities_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_activities_seekbar_max));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffect_emotional_activities_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_emotional_activities_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_emotional_activities_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
@@ -520,10 +523,9 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.GONE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_nervous_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_nervous_seekbar_headline));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_nervous_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_nervous_seekbar_max));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffect_emotional_nervous_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_emotional_nervous_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_emotional_nervous_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
@@ -531,10 +533,9 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.GONE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_worry_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_worry_seekbar_headline));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_worry_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_worry_seekbar_max));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffect_emotional_worry_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_emotional_worry_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_emotional_worry_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
@@ -542,10 +543,9 @@ public class JournalDetailsFragment extends Fragment {
                 seekBarsLayout.setVisibility(View.VISIBLE);
                 seekBarLayout2.setVisibility(View.GONE);
                 seekBarLayout3.setVisibility(View.GONE);
-                sideeffectQuestion.setText(getString(R.string.journal_sideeffects_distress_question));
-                seekBarHeadline1.setText(getString(R.string.journal_sideeffects_distress_seekbar_headline));
-                seekBarMin1.setText(getString(R.string.journal_sideeffects_distress_seekbar_min));
-                seekBarMax1.setText(getString(R.string.journal_sideeffects_distress_seekbar_max));
+                seekBarHeadline1.setText(getString(R.string.journal_sideeffect_distress_seekbar_headline));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_distress_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_distress_seekbar_max));
                 initalizeSeekbars(listItem.sideeffect.value);
                 break;
 
@@ -650,7 +650,7 @@ public class JournalDetailsFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setItem(SideeffectExpandListItem selectedListItem){
+    public void setItem(JournalExpandListItem selectedListItem){
         listItem = selectedListItem;
     }
 
@@ -671,6 +671,7 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_BREATHING:
+                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_URINATION:
@@ -1124,4 +1125,6 @@ public class JournalDetailsFragment extends Fragment {
                 break;
         }
     }
+
+
 }

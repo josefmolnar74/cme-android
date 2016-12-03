@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -80,6 +79,9 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
             // Enter Data from sideeffect
             if (chartData.get(i).value != null){
                 entries.add(new BarEntry(i, chartData.get(i).value));
+            }
+            else{
+                entries.add(new BarEntry(i, 0));
             }
             xValues[i] =  chartData.get(i).date;
         }

@@ -126,7 +126,7 @@ public class HomeFragment extends Fragment {
                         }
                         Date compareDate = null;
                         // Sort the events in date order
-                        if (todaysDate.before(date)) {
+                        if ((date != null) && (todaysDate.before(date))) {
                             // put event in future list
                             if (eventList.size() == 0) {
                                 eventList.add(connectHandler.events.event_data.get(i));

@@ -93,7 +93,7 @@ public class EventsExpandListFragment extends Fragment {
                         }
                         Date compareDate = null;
                         // Sort the events in date order
-                        if (todaysDate.after(date)){
+                        if ((date != null) && (todaysDate.after(date))){
                             // put event in passed list
                             if (passedEventExpList.size()==0){
                                 passedEventExpList.add(connectHandler.events.event_data.get(i));

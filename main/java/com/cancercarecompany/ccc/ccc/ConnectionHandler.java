@@ -33,6 +33,7 @@ public class ConnectionHandler {
     EventData events;
     StatusData status;
     SideeffectData sideeffects;
+    HealthDataData healthData;
     BeverageData beverages;
     JournalData journal;
     QuestionData questions;
@@ -52,6 +53,7 @@ public class ConnectionHandler {
     public static final String CONTENT_EVENT = "event";
     public static final String CONTENT_STATUS = "status";
     public static final String CONTENT_SIDEEFFECT = "sideeffect";
+    public static final String CONTENT_HEALTH_DATA = "health_data";
     public static final String CONTENT_BEVERAGE = "beverage";
     public static final String CONTENT_JOURNAL = "journal";
     public static final String CONTENT_QUESTION = "question";
