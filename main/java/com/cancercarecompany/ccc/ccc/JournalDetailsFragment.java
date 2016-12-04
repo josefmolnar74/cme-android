@@ -278,12 +278,21 @@ public class JournalDetailsFragment extends Fragment {
         showHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                SideeffectDialogFragment dialogFragment = new SideeffectDialogFragment();
-                Bundle args = new Bundle();
-                args.putString(SideeffectDialogFragment.SIDEEFFECT_TYPE, listItem.sideeffect.type);
-                dialogFragment.setArguments(args);
-                dialogFragment.show(fm, "Josef");
+                if (listItem.sideeffect!=null){
+                    FragmentManager fm = getFragmentManager();
+                    SideeffectDialogFragment dialogFragment = new SideeffectDialogFragment();
+                    Bundle args = new Bundle();
+                    args.putString(SideeffectDialogFragment.SIDEEFFECT_TYPE, listItem.sideeffect.type);
+                    dialogFragment.setArguments(args);
+                    dialogFragment.show(fm, "Josef");
+                }else if (listItem.healthData!=null){
+                    FragmentManager fm = getFragmentManager();
+                    HealthDataDialogFragment dialogFragment = new HealthDataDialogFragment();
+                    Bundle args = new Bundle();
+                    args.putString(HealthDataDialogFragment.HEALTH_DATA_TYPE, listItem.healthData.type);
+                    dialogFragment.setArguments(args);
+                    dialogFragment.show(fm, "Josef");
+                }
             }
         });
 
@@ -298,7 +307,7 @@ public class JournalDetailsFragment extends Fragment {
             sideeffectNotes.setVisibility(View.GONE);
             healthDataValue.setVisibility(View.VISIBLE);
             seekBarLayout1.setVisibility(View.GONE);
-
+            healthDataValue.setText(listItem.healthData.value);
             healthDataValue.setFilters(new InputFilter[] {filter});
 
         }
@@ -563,7 +572,12 @@ public class JournalDetailsFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveSideeffect();
+                if (listItem.sideeffect!=null){
+                    saveSideeffect();
+                }
+                else if (listItem.healthData!=null){
+                    saveHealthData();
+                }
             }
 
         });
@@ -647,7 +661,12 @@ public class JournalDetailsFragment extends Fragment {
         }
 
         if (id == R.id.action_save) {
-            saveSideeffect();
+            if (listItem.sideeffect!=null){
+                saveSideeffect();
+            }
+            else if (listItem.healthData!=null){
+                saveHealthData();
+            }
             return true;
         }
 
@@ -929,6 +948,27 @@ public class JournalDetailsFragment extends Fragment {
         while (connectHandler.socketBusy) {}
         getActivity().onBackPressed();
 
+    }
+
+    private void saveHealthData(){
+
+        String sideeffectValue = "";
+
+        listItem.healthData.value = healthDataValue.getText().toString();
+
+        // Save or update healthData on database
+        listItem.healthData.date = selectedDate;
+        listItem.healthData.time = new SimpleDateFormat("kk:mm:ss").format(new Date());
+        if (listItem.healthData.healthdata_ID >= 0){
+            // healthData already exist, just update
+            connectHandler.updateHealthData(listItem.healthData);
+        } else {
+            // new healthData
+            connectHandler.createHealthData(listItem.healthData);
+        }
+
+        while (connectHandler.socketBusy) {}
+        getActivity().onBackPressed();
     }
 
     private String getRadioButtonData(){

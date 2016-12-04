@@ -68,6 +68,10 @@ public class JournalExpandListFragment extends Fragment {
         connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
         while (connectHandler.socketBusy){}
 
+        // find todays sideeffects
+        connectHandler.getHealthDataForPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy){}
+
         final ImageButton dateBackButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_back);
         final ImageButton dateForwardButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_forward);
         final ImageButton calendarButton = (ImageButton) view.findViewById(R.id.img_calendar);
@@ -229,7 +233,6 @@ public class JournalExpandListFragment extends Fragment {
                 JournalFragment.SIDEEFFECT_PHYSICAL_URINATION,
                 JournalFragment.SIDEEFFECT_PHYSICAL_APPETITE,
                 JournalFragment.SIDEEFFECT_PHYSICAL_BLOATED,
-                JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY,
                 JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION,
                 JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH,
 //                JournalFragment.SIDEEFFECT_PHYSICAL_NAUSEA,
@@ -253,6 +256,10 @@ public class JournalExpandListFragment extends Fragment {
         List<String> distressSideeffectList = Arrays.asList(
                 JournalFragment.SIDEEFFECT_DISTRESS
         );
+
+        if (!healthDataExpandList.isEmpty()){
+            healthDataExpandList .clear();
+        }
 
         if (!physicalExpandList.isEmpty()){
             physicalExpandList.clear();
@@ -335,10 +342,10 @@ public class JournalExpandListFragment extends Fragment {
         expandListView.collapseGroup(1);
         expandListView.collapseGroup(2);
         expandListView.collapseGroup(3);
-//        expandListView.expandGroup(0);
-//        expandListView.expandGroup(1);
-//        expandListView.expandGroup(2);
-//        expandListView.expandGroup(3);
+        expandListView.expandGroup(0);
+        expandListView.expandGroup(1);
+        expandListView.expandGroup(2);
+        expandListView.expandGroup(3);
     }
 
     private boolean matchDate(String targetDateString , String dateString) throws ParseException {

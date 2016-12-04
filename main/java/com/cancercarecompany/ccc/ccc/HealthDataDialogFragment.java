@@ -9,18 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,40 +23,33 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created by Josef on 2016-10-30.
+ * Created by Josef on 2016-12-04.
  */
-public class SideeffectDialogFragment extends DialogFragment implements OnChartValueSelectedListener {
+public class HealthDataDialogFragment extends DialogFragment implements OnChartValueSelectedListener {
 
-    public static final String SIDEEFFECT_TYPE = "sideeffect_type";
+    public static final String HEALTH_DATA_TYPE = "healthdata_type";
 
     public static final String INFO_TYPE = "info_type";
     public static final String INFO_TITLE = "info_title";
     public static final String INFO_TEXT = "info_text";
     private ArrayList<MyChartData> chartData;
-    private TextView notesText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().setCanceledOnTouchOutside(true);
-        View rootView = inflater.inflate(R.layout.fragment_sideeffect_dialog, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_healthdata_dialog, container, false);
         ImageButton dismissButton = (ImageButton) rootView.findViewById(R.id.btn_dialog_dismiss);
-        notesText = (TextView) rootView.findViewById(R.id.text_sideeffect_notes);
         ConnectionHandler connectHandler = ConnectionHandler.getInstance();
 
         chartData = new ArrayList<>();
-        String sideeffect_type = getArguments().getString(SIDEEFFECT_TYPE);
+        String healthdata_type = getArguments().getString(HEALTH_DATA_TYPE);
 
-        for (int i=0; i < connectHandler.sideeffects.sideeffect_data.size(); i++){
-            if (connectHandler.sideeffects.sideeffect_data.get(i).type.matches(sideeffect_type)){
+        for (int i=0; i < connectHandler.healthData.healthdata_data.size(); i++){
+            if (connectHandler.healthData.healthdata_data.get(i).type.matches(healthdata_type)){
                 MyChartData data = new MyChartData();
-                data.date = connectHandler.sideeffects.sideeffect_data.get(i).date.substring(0,10);
-                if (connectHandler.sideeffects.sideeffect_data.get(i).value.length() == 1){
-                    data.value = Integer.parseInt(connectHandler.sideeffects.sideeffect_data.get(i).value.substring(0,1));
-                } else if (connectHandler.sideeffects.sideeffect_data.get(i).value.length() >= 2){
-                    data.value = Integer.parseInt(connectHandler.sideeffects.sideeffect_data.get(i).value.substring(0,2));
-                }
-                data.notes = connectHandler.sideeffects.sideeffect_data.get(i).notes;
+                data.date = connectHandler.healthData.healthdata_data.get(i).date.substring(0,10);
+                data.value = Float.parseFloat(connectHandler.healthData.healthdata_data.get(i).value);
                 chartData.add(data);
             }
         }
@@ -74,42 +62,46 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
             }
         });
 
-        BarChart chart = (BarChart) rootView.findViewById(R.id.chart_sideeffect);
+        LineChart chart = (LineChart) rootView.findViewById(R.id.chart_healthdata);
 
         String[] xValues = new String[chartData.size()];
 
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(xValues));
-        YAxis left = chart.getAxisLeft();
-        left.setValueFormatter(new MyYAxisValueFormatter());
+        chart.getXAxis().setValueFormatter(new MyXAxisValueFormatter(xValues));
+//        YAxis left = chart.getAxisLeft();
+//        left.setValueFormatter(new MyYAxisValueFormatter());
 
-        List<BarEntry> entries = new ArrayList<BarEntry>();
+        List<Entry> entries = new ArrayList<Entry>();
 
         for (int i=0; i < chartData.size(); i++){
-            // Enter Data from sideeffect
+            // Enter Data from Healthdata
             if (chartData.get(i).value != null){
-                entries.add(new BarEntry(i, chartData.get(i).value));
+                entries.add(new Entry(i, chartData.get(i).value));
             }
             else{
-                entries.add(new BarEntry(i, 0));
+                entries.add(new Entry(i, 0));
             }
             xValues[i] =  chartData.get(i).date;
         }
 
         //int max = findMaxYValue(yourdata); // figure out the max value in your dataset
-        chart.getAxisLeft().setLabelCount(6); // replace 6 with max
+/*        chart.getAxisLeft().setLabelCount(6); // replace 6 with max
         chart.getAxisLeft().setAxisMinimum(0);
         chart.getAxisLeft().setAxisMaximum(10);
         chart.getAxisRight().setLabelCount(6); // replace 6 with max
         chart.getAxisRight().setAxisMinimum(0);
-        chart.getAxisRight().setAxisMaximum(10);
-        chart.getXAxis().setLabelCount(chartData.size());
+        chart.getAxisRight().setAxisMaximum(10);*/
 
-        BarDataSet dataSet = new BarDataSet(entries, "Josef"); // add entries to dataset
-        BarData barData = new BarData(dataSet);
+        if (chartData.size()>1){
+            chart.getXAxis().setLabelCount(chartData.size()-1);
+        } else{
+            chart.getXAxis().setLabelCount(3);
+        }
+
+        LineDataSet dataSet = new LineDataSet(entries, "Josef"); // add entries to dataset
+        LineData lineData = new LineData(dataSet);
         dataSet.setColor(Color.parseColor("#7fc9cb")); // cme_light color
         dataSet.setDrawValues(false);
-        chart.setData(barData);
+        chart.setData(lineData);
         chart.getLegend().setEnabled(false);
 
         chart.invalidate(); // refresh
@@ -146,7 +138,6 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
      */
     public void onValueSelected(Entry e, Highlight h){
         int i = (int) Math.floor(e.getX());
-        notesText.setText(chartData.get(i).notes);
     };
 
     /**
@@ -158,7 +149,7 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
 
     public class MyChartData {
         String date;
-        Integer value;
+        Float value;
         String notes;
     }
 

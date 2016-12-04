@@ -57,31 +57,40 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView txtListName = (TextView) convertView.findViewById(R.id.txt_journal_list_name);
-        RadioButton sideeffectExists = (RadioButton) convertView.findViewById(R.id.rb_sideeffect_exists);
-        sideeffectExists.setVisibility(View.VISIBLE);
+        RadioButton journalItemExists = (RadioButton) convertView.findViewById(R.id.rb_sideeffect_exists);
+        journalItemExists.setVisibility(View.VISIBLE);
         txtListName.setText(listItem.header);
         RelativeLayout distressLayout = (RelativeLayout) convertView.findViewById(R.id.lay_journal_expand_list_item_distress);
         distressLayout.setVisibility(View.GONE);
         SeekBar distressSeekBar = (SeekBar) convertView.findViewById(R.id.sb_journal_sideeffects_distress_seekbar1);
 
+        if (listItem.healthData != null) {
+            if (listItem.healthData.healthdata_ID != -1) {
+                journalItemExists.setChecked(true);
+            } else {
+                journalItemExists.setChecked(false);
+            }
+        }
+
         if (listItem.sideeffect != null){
-            // Manage distress seekbar direct in expandList, can be removed
             if (!listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_DISTRESS)){
                 if (listItem.sideeffect.sideeffect_ID != -1){
-                    sideeffectExists.setChecked(true);
+                    journalItemExists.setChecked(true);
                 } else{
-                    sideeffectExists.setChecked(false);
+                    journalItemExists.setChecked(false);
                 }
             }
 
             //temp solution
             if (listItem.header == ""){
-                sideeffectExists.setVisibility(View.GONE);
+                journalItemExists.setVisibility(View.GONE);
             }
+
+            // Manage distress seekbar direct in expandList, can be removed
 
             if (listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_DISTRESS)){
                 ConnectionHandler connectHandler = ConnectionHandler.getInstance();
-                sideeffectExists.setVisibility(View.GONE);
+                journalItemExists.setVisibility(View.GONE);
                 distressLayout.setVisibility(View.VISIBLE);
                 txtListName.setText(MyApplication.getContext().getString(R.string.journal_sideeffects_distress_question));
                 txtListName.setText(txtListName.getText().toString().replace("*", connectHandler.patient.patient_name));
