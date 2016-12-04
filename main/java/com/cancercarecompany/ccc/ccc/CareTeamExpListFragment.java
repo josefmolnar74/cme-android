@@ -158,6 +158,15 @@ public class CareTeamExpListFragment extends Fragment {
                 cancerFriendsExpList.add(listItem);
             }
 
+            // temp solution, add one empty element to emotional list so that whole list is shown
+            CareTeamExpandListItem emptyItem = new CareTeamExpandListItem();
+            emptyItem.id = 0;
+            emptyItem.type = "empty_line";
+            emptyItem.name = "";
+            emptyItem.avatar = 0;
+            emptyItem.relationship = "";
+            cancerFriendsExpList.add(emptyItem);
+
             CareTeamExpandListItem listItem = new CareTeamExpandListItem();
             listItem.id = connectHandler.patient.patient_ID;
             listItem.type = "patient";

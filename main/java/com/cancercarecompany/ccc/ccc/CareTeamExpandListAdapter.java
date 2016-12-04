@@ -63,7 +63,9 @@ public class CareTeamExpandListAdapter extends BaseExpandableListAdapter {
 
 
         ImageView avatar = (ImageView) convertView.findViewById(R.id.img_careteam_family_avatar);
-        if (listItem.type == "healthcare") {
+        avatar.setVisibility(View.VISIBLE);
+
+        if (listItem.type.matches("healthcare")) {
             switch (listItem.avatar) {
                 case 1:
                     avatar.setImageResource(R.drawable.avatar_healthcare_doctor_female);
@@ -80,10 +82,13 @@ public class CareTeamExpandListAdapter extends BaseExpandableListAdapter {
                 case 5:
                     avatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
                     break;
+                default:
+                    avatar.setImageResource(R.drawable.addcontact);
+                    break;
             }
         }
-        else if ((listItem.type == "family") || (listItem.type == "invite")) {
-            switch (listItem.avatar) {
+        else if (listItem.type.matches("family") || listItem.type.matches("patient") || listItem.type.matches("invite")) {
+             switch (listItem.avatar) {
                 case 1:
                     avatar.setImageResource(R.drawable.family_avatar_1);
                     break;
@@ -138,11 +143,19 @@ public class CareTeamExpandListAdapter extends BaseExpandableListAdapter {
                 case 18:
                     avatar.setImageResource(R.drawable.family_avatar_18);
                     break;
+                default:
+                    avatar.setImageResource(R.drawable.addcontact);
+
             }
         }
-        else{
+        else if ((listItem.type.matches("new"))){
             avatar.setImageResource(R.drawable.addcontact);
         }
+        else {
+            //Hide avatar on last empty line in expand list
+            avatar.setVisibility(View.INVISIBLE);
+        }
+
         return convertView;
     }
 

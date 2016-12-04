@@ -12,9 +12,8 @@ public class HealthData {
     String time;
     String type;
     String value;
-    String notes;
 
-    public HealthData(int sideeffect_ID, int patient_ID, int person_ID, String date, String time, String type, String value, String notes){
+    public HealthData(int sideeffect_ID, int patient_ID, int person_ID, String date, String time, String type, String value){
 
         this.healthdata_ID  = sideeffect_ID;
         this.patient_ID = patient_ID;
@@ -23,6 +22,5 @@ public class HealthData {
         this.time = time;
         this.type = type;
         this.value = value;
-        this.notes = notes;
     }
 }

@@ -26,6 +26,7 @@ public class OfflineDataManager {
     private EventData events;
     private BeverageData beverages;
     private SideeffectData sideeffects;
+    private HealthDataData healthData;
     private StatusData status;
 
     private JournalData journal;
@@ -34,6 +35,7 @@ public class OfflineDataManager {
     public static final String FILENAME_EVENTS_DATA = "cme_events_data";
     public static final String FILENAME_STATUS_DATA = "cme_status_data";
     public static final String FILENAME_SIDEEFFECTS_DATA = "cme_sideeffects_data";
+    public static final String FILENAME_HEALTH_DATA_DATA = "cme_health_data_data";
     public static final String FILENAME_BEVERAGES_DATA = "cme_beverages_data";
     public static final String FILENAME_PERSON_DATA = "cme_person_data";
     public static final String FILENAME_PATIENT_DATA = "cme_patient_data";
@@ -180,6 +182,31 @@ public class OfflineDataManager {
 //            return "";
         }
     }
+
+    public void readHealthDataLocalData(){
+        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_HEALTH_DATA_DATA);
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+
+            Gson gson = new Gson();
+            healthData =  gson.fromJson(sb.toString(), HealthDataData.class);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (UnsupportedEncodingException e) {
+//            return "";
+        } catch (IOException e) {
+//            return "";
+        }
+    }
+
     public void readPersonLocalData(){
         File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_PERSON_DATA);
         try {
@@ -376,6 +403,18 @@ public class OfflineDataManager {
         }
     }
 
+    public void saveHealthDataData (String healthDataData){
+        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_HEALTH_DATA_DATA);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(healthDataData.getBytes());
+            fos.close();
+        } catch (Exception e){
+            // file write failed
+            System.out.println("SaveSideeffects data failed");
+        }
+    }
+
     public void saveBeveragesData (String beveragesData){
         File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_BEVERAGES_DATA);
         try {
@@ -438,6 +477,10 @@ public class OfflineDataManager {
         return sideeffects;
     }
 
+    public HealthDataData getHealthData(){
+        return healthData;
+    }
+
     public StatusData getStatus(){
         return status;
     }
@@ -461,6 +504,10 @@ public class OfflineDataManager {
 
     public void createSideeffects(Sideeffect newSideeffect){
         sideeffects.sideeffect_data.add(newSideeffect);
+    }
+
+    public void createHealthData(HealthData newHealthData){
+        healthData.healthdata_data.add(newHealthData);
     }
 
     public void createStatus(Status newStatus){
@@ -496,6 +543,14 @@ public class OfflineDataManager {
         for (int i = 0; i < sideeffects.sideeffect_data.size(); i++) {
             if (index == sideeffects.sideeffect_data.get(i).sideeffect_ID) {
                 sideeffects.sideeffect_data.remove(i);
+            }
+        }
+    }
+
+    public void deleteHealthData(int index){
+        for (int i = 0; i < healthData.healthdata_data.size(); i++) {
+            if (index == healthData.healthdata_data.get(i).healthdata_ID) {
+                healthData.healthdata_data.remove(i);
             }
         }
     }
@@ -537,6 +592,14 @@ public class OfflineDataManager {
         for (int i = 0; i < sideeffects.sideeffect_data.size(); i++) {
             if (updateSideeffect.sideeffect_ID == sideeffects.sideeffect_data.get(i).sideeffect_ID) {
                 sideeffects.sideeffect_data.set(i, updateSideeffect);
+            }
+        }
+    }
+
+    public void updateHealthData(HealthData updateHealthData){
+        for (int i = 0; i < healthData.healthdata_data.size(); i++) {
+            if (updateHealthData.healthdata_ID == healthData.healthdata_data.get(i).healthdata_ID) {
+                healthData.healthdata_data.set(i, updateHealthData);
             }
         }
     }

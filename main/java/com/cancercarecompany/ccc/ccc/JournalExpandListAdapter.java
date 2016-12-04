@@ -64,29 +64,32 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
         distressLayout.setVisibility(View.GONE);
         SeekBar distressSeekBar = (SeekBar) convertView.findViewById(R.id.sb_journal_sideeffects_distress_seekbar1);
 
-        if (!listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_DISTRESS)){
-            if (listItem.sideeffect.sideeffect_ID != -1){
-                sideeffectExists.setChecked(true);
-            } else{
-                sideeffectExists.setChecked(false);
+        if (listItem.sideeffect != null){
+            // Manage distress seekbar direct in expandList, can be removed
+            if (!listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_DISTRESS)){
+                if (listItem.sideeffect.sideeffect_ID != -1){
+                    sideeffectExists.setChecked(true);
+                } else{
+                    sideeffectExists.setChecked(false);
+                }
             }
-        }
 
-        //temp solution
-        if (listItem.header == ""){
-            sideeffectExists.setVisibility(View.GONE);
-        }
+            //temp solution
+            if (listItem.header == ""){
+                sideeffectExists.setVisibility(View.GONE);
+            }
 
-        if (listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_DISTRESS)){
-            ConnectionHandler connectHandler = ConnectionHandler.getInstance();
-            sideeffectExists.setVisibility(View.GONE);
-            distressLayout.setVisibility(View.VISIBLE);
-            txtListName.setText(MyApplication.getContext().getString(R.string.journal_sideeffects_distress_question));
-            txtListName.setText(txtListName.getText().toString().replace("*", connectHandler.patient.patient_name));
-            String[] parts = listItem.sideeffect.value.split(",");
-            if ((parts.length > 0) && (!parts[0].isEmpty())){
-                Integer value1 = Integer.parseInt(parts[0].substring(parts[0].indexOf(":") + 1));
-                distressSeekBar.setProgress(value1);
+            if (listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_DISTRESS)){
+                ConnectionHandler connectHandler = ConnectionHandler.getInstance();
+                sideeffectExists.setVisibility(View.GONE);
+                distressLayout.setVisibility(View.VISIBLE);
+                txtListName.setText(MyApplication.getContext().getString(R.string.journal_sideeffects_distress_question));
+                txtListName.setText(txtListName.getText().toString().replace("*", connectHandler.patient.patient_name));
+                String[] parts = listItem.sideeffect.value.split(",");
+                if ((parts.length > 0) && (!parts[0].isEmpty())){
+                    Integer value1 = Integer.parseInt(parts[0].substring(parts[0].indexOf(":") + 1));
+                    distressSeekBar.setProgress(value1);
+                }
             }
         }
 

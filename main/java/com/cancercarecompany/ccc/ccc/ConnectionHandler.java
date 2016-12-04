@@ -166,6 +166,9 @@ public class ConnectionHandler {
                                     case CONTENT_SIDEEFFECT:
                                         sideeffects = gson.fromJson(resultData, SideeffectData.class);
                                         break;
+                                    case CONTENT_HEALTH_DATA:
+                                        healthData = gson.fromJson(resultData, HealthDataData.class);
+                                        break;
                                     case CONTENT_BEVERAGE:
                                         beverages = gson.fromJson(resultData, BeverageData.class);
                                         break;
@@ -490,6 +493,46 @@ public class ConnectionHandler {
         }
     }
 
+    public void createHealthData(HealthData healthData){
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(healthData);
+            sendMessage(MESSAGE_CREATE, CONTENT_HEALTH_DATA, msgData);
+        } else {
+            offlineDataManager.createHealthData(healthData);
+        }
+    }
+
+    public void getHealthDataForPatient(int patientID){
+        if (checkConnection()){
+            String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
+            sendMessage(MESSAGE_READ, CONTENT_HEALTH_DATA, msgData);
+        } else {
+            //offline mode, get data from internal file
+            offlineDataManager.getHealthData();
+        }
+    }
+
+    public void updateHealthData(HealthData healthData){
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String msgData = gson.toJson(healthData);
+            sendMessage(MESSAGE_UPDATE, CONTENT_HEALTH_DATA, msgData);
+        } else {
+            offlineDataManager.updateHealthData(healthData);
+        }
+    }
+
+
+    public void deleteHealthData(int healthDataID){
+        if (checkConnection()){
+            String msgData = String.format("{\"healthdata_ID\":\"%d\"}", healthData);
+            sendMessage(MESSAGE_DELETE, CONTENT_SIDEEFFECT, msgData);
+        } else {
+            offlineDataManager.deleteHealthData(healthDataID);
+        }
+    }
+
     public void createSideeffect(Sideeffect sideeffect){
         if (checkConnection()){
             Gson gson = new Gson();
@@ -519,6 +562,7 @@ public class ConnectionHandler {
             offlineDataManager.updateSideeffect(sideeffect);
         }
     }
+
 
     public void deleteSideeffect(int sideeffectID){
         if (checkConnection()){

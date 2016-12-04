@@ -9,15 +9,17 @@ public class JournalExpandListItem {
 
     public String header;
     public Sideeffect sideeffect;
+    public HealthData healthData;
 
-    public JournalExpandListItem(String headline, Sideeffect sideeffect) {
+    public JournalExpandListItem(String headline, Sideeffect sideeffect, HealthData healthData) {
 
         this.header = headline;
         this.sideeffect = sideeffect;
+        this.healthData = healthData;
     }
 
     /*Comparator for sorting the list by Name*/
-    public static Comparator<JournalExpandListItem> SideEffectItemComparator = new Comparator<JournalExpandListItem>() {
+    public static Comparator<JournalExpandListItem> journalItemComparator = new Comparator<JournalExpandListItem>() {
 
         public int compare(JournalExpandListItem s1, JournalExpandListItem s2) {
             String header1 = s1.header.toUpperCase();
