@@ -5,14 +5,10 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class JoinCareTeamActivity extends AppCompatActivity {
@@ -31,12 +27,6 @@ public class JoinCareTeamActivity extends AppCompatActivity {
         inputEmail = (EditText) findViewById(R.id.text_email_join_careteam);
         buttonFind = (Button) findViewById(R.id.button_find_join_careteam);
         connectHandler = ConnectionHandler.getInstance();
-
-        // Statusbar color
-        Window window = this.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.black));
     }
 
     @Override
