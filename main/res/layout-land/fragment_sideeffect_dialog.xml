@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="@string/home_school"
+                android:text="@string/txt_journal_sideeffects_header"
                 android:id="@+id/txt_home_info_header"
                 android:textColor="@color/white"
                 android:textSize="20sp"

@@ -3,6 +3,7 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -153,65 +154,7 @@ public class CareTeamFamilyFragment extends Fragment {
             editRelation.setEnabled(false);
         }
 
-        switch (familyAvatarId) {
-            case 0:
-                familyAvatar.setImageResource(R.drawable.addcontact);
-                break;
-            case 1:
-                familyAvatar.setImageResource(R.drawable.family_avatar_1);
-                break;
-            case 2:
-                familyAvatar.setImageResource(R.drawable.family_avatar_2);
-                break;
-            case 3:
-                familyAvatar.setImageResource(R.drawable.family_avatar_3);
-                break;
-            case 4:
-                familyAvatar.setImageResource(R.drawable.family_avatar_4);
-                break;
-            case 5:
-                familyAvatar.setImageResource(R.drawable.family_avatar_5);
-                break;
-            case 6:
-                familyAvatar.setImageResource(R.drawable.family_avatar_6);
-                break;
-            case 7:
-                familyAvatar.setImageResource(R.drawable.family_avatar_7);
-                break;
-            case 8:
-                familyAvatar.setImageResource(R.drawable.family_avatar_8);
-                break;
-            case 9:
-                familyAvatar.setImageResource(R.drawable.family_avatar_9);
-                break;
-            case 10:
-                familyAvatar.setImageResource(R.drawable.family_avatar_10);
-                break;
-            case 11:
-                familyAvatar.setImageResource(R.drawable.family_avatar_11);
-                break;
-            case 12:
-                familyAvatar.setImageResource(R.drawable.family_avatar_12);
-                break;
-            case 13:
-                familyAvatar.setImageResource(R.drawable.family_avatar_13);
-                break;
-            case 14:
-                familyAvatar.setImageResource(R.drawable.family_avatar_14);
-                break;
-            case 15:
-                familyAvatar.setImageResource(R.drawable.family_avatar_15);
-                break;
-            case 16:
-                familyAvatar.setImageResource(R.drawable.family_avatar_16);
-                break;
-            case 17:
-                familyAvatar.setImageResource(R.drawable.family_avatar_17);
-                break;
-            case 18:
-                familyAvatar.setImageResource(R.drawable.family_avatar_18);
-                break;
-        }
+        setAvatarResource(familyAvatarId);
 
         if (listItem.type == "new"){
             buttonDelete.setVisibility(View.INVISIBLE);
@@ -244,8 +187,30 @@ public class CareTeamFamilyFragment extends Fragment {
             }
         });
 
+        familyAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open avatar dialog fragment and use bundle to send family avatar type
+                FragmentManager fm = getFragmentManager();
+                AvatarsDialogFragment avatarFragment = new AvatarsDialogFragment();
+                Bundle args = new Bundle();
+                args.putString(AvatarsDialogFragment.AVATAR_TYPE, AvatarsDialogFragment.AVATAR_FAMILY);
+                avatarFragment.setArguments(args);
+                avatarFragment.show(fm, "Josef");
+            }
+        });
+
         return view;
 
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+//        Integer chosenAvatar = getArguments().getInt(AvatarsDialogFragment.AVATAR_ID);
+//        if (chosenAvatar != null){
+//            setAvatarResource(chosenAvatar);
+//        }
     }
 
     @Override
@@ -332,6 +297,68 @@ public class CareTeamFamilyFragment extends Fragment {
                 );
                 connectHandler.updateUser(updatedPerson);
             }
+        }
+    }
+
+    public void setAvatarResource(Integer familyAvatarId){
+        switch (familyAvatarId) {
+            case 0:
+                familyAvatar.setImageResource(R.drawable.addcontact);
+                break;
+            case 1:
+                familyAvatar.setImageResource(R.drawable.family_avatar_1);
+                break;
+            case 2:
+                familyAvatar.setImageResource(R.drawable.family_avatar_2);
+                break;
+            case 3:
+                familyAvatar.setImageResource(R.drawable.family_avatar_3);
+                break;
+            case 4:
+                familyAvatar.setImageResource(R.drawable.family_avatar_4);
+                break;
+            case 5:
+                familyAvatar.setImageResource(R.drawable.family_avatar_5);
+                break;
+            case 6:
+                familyAvatar.setImageResource(R.drawable.family_avatar_6);
+                break;
+            case 7:
+                familyAvatar.setImageResource(R.drawable.family_avatar_7);
+                break;
+            case 8:
+                familyAvatar.setImageResource(R.drawable.family_avatar_8);
+                break;
+            case 9:
+                familyAvatar.setImageResource(R.drawable.family_avatar_9);
+                break;
+            case 10:
+                familyAvatar.setImageResource(R.drawable.family_avatar_10);
+                break;
+            case 11:
+                familyAvatar.setImageResource(R.drawable.family_avatar_11);
+                break;
+            case 12:
+                familyAvatar.setImageResource(R.drawable.family_avatar_12);
+                break;
+            case 13:
+                familyAvatar.setImageResource(R.drawable.family_avatar_13);
+                break;
+            case 14:
+                familyAvatar.setImageResource(R.drawable.family_avatar_14);
+                break;
+            case 15:
+                familyAvatar.setImageResource(R.drawable.family_avatar_15);
+                break;
+            case 16:
+                familyAvatar.setImageResource(R.drawable.family_avatar_16);
+                break;
+            case 17:
+                familyAvatar.setImageResource(R.drawable.family_avatar_17);
+                break;
+            case 18:
+                familyAvatar.setImageResource(R.drawable.family_avatar_18);
+                break;
         }
     }
 

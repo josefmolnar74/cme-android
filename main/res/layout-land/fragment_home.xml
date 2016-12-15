@@ -26,10 +26,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/background_border">
 
                     <RelativeLayout
@@ -58,9 +58,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginLeft="25dp"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="5dp"
                         android:background="@drawable/bus_small"
                         android:id="@+id/button_start_journey"
                         android:layout_below="@+id/header_home_journey"
@@ -87,10 +87,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/background_border">
 
                     <RelativeLayout
@@ -122,10 +122,10 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
-                            android:layout_marginBottom="@dimen/activity_vertical_margin"
-                            android:layout_marginTop="@dimen/activity_vertical_margin"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:id="@+id/layout_home_event1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
@@ -175,10 +175,10 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_marginBottom="@dimen/activity_vertical_margin"
-                            android:layout_marginTop="@dimen/activity_vertical_margin"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:id="@+id/layout_home_event2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
@@ -228,10 +228,10 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_marginBottom="@dimen/activity_vertical_margin"
-                            android:layout_marginTop="@dimen/activity_vertical_margin"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:id="@+id/layout_home_event3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
@@ -290,10 +290,10 @@
 
                 <RelativeLayout
                     android:id="@+id/layout_home_question"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="match_parent"
@@ -325,9 +325,9 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:hint="@string/journey_question_hint"
                         android:id="@+id/edit_question"
                         android:layout_below="@+id/header_home_question"
@@ -339,10 +339,10 @@
                         android:gravity="top|left" />
 
                     <Button
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/send"
@@ -353,10 +353,10 @@
                         android:layout_alignParentRight="true" />
 
                     <Button
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/home_all_questions"
@@ -387,10 +387,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/background_border">
 
                     <RelativeLayout
@@ -417,10 +417,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="När ett barn drabbas av cancer är det inte bara en individ som drabbas utan en hel familj. Föräldrar, syskon, mor- och farföräldrar får i ett slag en förändrad livssituation."
                         android:id="@+id/txt_home_school"
@@ -440,10 +440,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/background_border">
 
                     <RelativeLayout
@@ -470,10 +470,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:text="I Sverige insjuknar ungefär ett barn om dagen i någon form av cancer. Olika typer av cancer förekommer i olika åldrar. Vissa cancertyper drabbar små barn medan andra typer drabbar äldre barn och tonåringar. Här har vi samlat information om hur de diagnosticeras, behandlas och vilka komplikationer behandlingarna kan medföra."
                         android:id="@+id/txt_home_inspiration"
                         android:layout_below="@+id/header_home_inspiration"
@@ -489,10 +489,10 @@
 
                 <RelativeLayout
                     android:id="@+id/layout_home_tips"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="match_parent"
@@ -522,10 +522,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:text="När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna."
                         android:id="@+id/txt_home_tips"
                         android:layout_below="@+id/header_home_tips"

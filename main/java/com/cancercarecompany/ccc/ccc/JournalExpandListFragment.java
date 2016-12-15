@@ -75,7 +75,8 @@ public class JournalExpandListFragment extends Fragment {
         final ImageButton dateBackButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_back);
         final ImageButton dateForwardButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_forward);
         final ImageButton calendarButton = (ImageButton) view.findViewById(R.id.img_calendar);
-        final RelativeLayout calendarLayout = (RelativeLayout) view.findViewById(R.id.layout_journal_calendar);
+        final CalendarView calendar = (CalendarView) view.findViewById(R.id.cal_journal_calendar);
+        calendar.setVisibility(View.GONE);
         journalHeaderText = (TextView) view.findViewById(R.id.txt_journal_date);
         expandListView = (ExpandableListView) view.findViewById(R.id.explv_journal);
         healthDataExpandList = new ArrayList<JournalExpandListItem>();
@@ -87,7 +88,6 @@ public class JournalExpandListFragment extends Fragment {
         journalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         journalHeaderText.setText(journalDate);
-        final CalendarView calendar = (CalendarView) view.findViewById(R.id.cal_journal_calendar);
 
         //build list data
         listDataHeader = new ArrayList<String>();
@@ -146,10 +146,10 @@ public class JournalExpandListFragment extends Fragment {
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (calendarLayout.getVisibility() == View.VISIBLE){
-                    calendarLayout.setVisibility(View.GONE);
+                if (calendar.getVisibility() == View.VISIBLE){
+                    calendar.setVisibility(View.GONE);
                 }else{
-                    calendarLayout.setVisibility(View.VISIBLE);
+                    calendar.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -235,13 +235,10 @@ public class JournalExpandListFragment extends Fragment {
                 JournalFragment.SIDEEFFECT_PHYSICAL_BLOATED,
                 JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION,
                 JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH,
-//                JournalFragment.SIDEEFFECT_PHYSICAL_NAUSEA,
                 JournalFragment.SIDEEFFECT_PHYSICAL_DIZZINESS,
                 JournalFragment.SIDEEFFECT_PHYSICAL_NOSE,
                 JournalFragment.SIDEEFFECT_PHYSICAL_PAIN,
-//              JournalFragment.SIDEEFFECT_PHYSICAL_SEX,
                 JournalFragment.SIDEEFFECT_PHYSICAL_DERMAL
-//              JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE,
         );
 
         List<String> emotionalSideeffectList = Arrays.asList(
@@ -317,18 +314,6 @@ public class JournalExpandListFragment extends Fragment {
         buildSideffectExpandList(todaysSideeffects, otherSideeffectList, otherExpandList);
         buildHealthDataExpandList(todaysHealthData, healthDataList, healthDataExpandList);
 
-        // temp solution, add one empty element to emotional list so that whole list is shown
-/*        Sideeffect sideeffect = new Sideeffect(-1,
-                0,
-                0,
-                "",
-                "",
-                "",
-                "",
-                "");
-        JournalExpandListItem sideeffectItem = new JournalExpandListItem("", sideeffect, null);
-        otherExpandList.add(sideeffectItem);
-*/
         listDataChild.put(listDataHeader.get(0), healthDataExpandList);
         listDataChild.put(listDataHeader.get(1), physicalExpandList);
         listDataChild.put(listDataHeader.get(2), emotionalExpandList);

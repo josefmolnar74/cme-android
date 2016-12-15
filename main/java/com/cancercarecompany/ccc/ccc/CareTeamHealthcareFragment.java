@@ -3,6 +3,7 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -209,6 +210,18 @@ public class CareTeamHealthcareFragment extends Fragment {
             }
         });
 
+        healthcareAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open avatar dialog fragment and use bundle to send family avatar type
+                FragmentManager fm = getFragmentManager();
+                AvatarsDialogFragment avatarFragment = new AvatarsDialogFragment();
+                Bundle args = new Bundle();
+                args.putString(AvatarsDialogFragment.AVATAR_TYPE, AvatarsDialogFragment.AVATAR_HEALTHCARE);
+                avatarFragment.setArguments(args);
+                avatarFragment.show(fm, "Josef");
+            }
+        });
         return view;
 
     }

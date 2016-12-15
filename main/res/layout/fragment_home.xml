@@ -343,7 +343,7 @@
                     android:textColor="@drawable/custom_button_text_color"
                     android:id="@+id/button_send_question"
                     android:layout_below="@+id/edit_question"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"/>
 
                 <Button
                     android:layout_marginTop="@dimen/activity_vertical_margin"
