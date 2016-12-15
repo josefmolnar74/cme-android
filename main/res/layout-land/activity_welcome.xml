@@ -50,6 +50,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/button_create_care_team"
                     android:id="@+id/create"
+                    android:background="@drawable/custom_button"
+                    android:textColor="@drawable/custom_button_text_color"
                     android:onClick="onClickCreateCareTeam" />
 
                 <TextView
@@ -63,6 +65,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/button_join_care_team"
                     android:id="@+id/join"
+                    android:background="@drawable/custom_button"
+                    android:textColor="@drawable/custom_button_text_color"
                     android:onClick="onClickJoinCareTeam" />
 
             </LinearLayout>
@@ -104,6 +108,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/login"
                     android:id="@+id/login"
+                    android:background="@drawable/custom_button"
+                    android:textColor="@drawable/custom_button_text_color"
                     android:onClick="onClickLogin"/>
 
             </LinearLayout>

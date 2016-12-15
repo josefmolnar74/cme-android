@@ -37,7 +37,13 @@ public class JoinCareTeamActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(this.getResources().getColor(R.color.black));
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
     }
 
     public void onClickJoinCareTeamNext(View view){
