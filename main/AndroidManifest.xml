@@ -21,16 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".CareTeamActivity"
-            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".JourneyActivity" />
         <activity
             android:name=".RegisterActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".JournalActivity"
-            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan|adjustResize" />

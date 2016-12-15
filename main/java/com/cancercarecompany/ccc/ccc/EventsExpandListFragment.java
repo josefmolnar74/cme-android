@@ -158,7 +158,7 @@ public class EventsExpandListFragment extends Fragment {
             listDataChild.put(listDataHeader.get(1), passedEventExpList);
         }
 
-        eventsExpandListAdapter = new EventsExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
+        eventsExpandListAdapter = new EventsExpandListAdapter(inflater.getContext(), listDataHeader, listDataChild);
 
         expListView.setAdapter(eventsExpandListAdapter);
 

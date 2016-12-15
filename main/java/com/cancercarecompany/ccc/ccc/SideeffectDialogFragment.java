@@ -37,6 +37,7 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
     public static final String INFO_TYPE = "info_type";
     public static final String INFO_TITLE = "info_title";
     public static final String INFO_TEXT = "info_text";
+
     private ArrayList<MyChartData> chartData;
     private TextView notesText;
 

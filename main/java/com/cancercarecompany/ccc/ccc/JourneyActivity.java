@@ -357,17 +357,6 @@ public class JourneyActivity extends AppCompatActivity {
         return true;
     }
 
-    private void careTeam() {
-        Intent myIntent = new Intent(this, CareTeamActivity.class);
-        startActivity(myIntent);
-        finish();
-    }
-
-    private void journal() {
-        Intent myIntent = new Intent(this, JournalActivity.class);
-        startActivity(myIntent);
-        finish();
-    }
 
     public void addTreatment(View v) {
         System.out.println(v.getId());

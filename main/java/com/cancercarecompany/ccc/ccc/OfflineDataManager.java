@@ -24,7 +24,6 @@ public class OfflineDataManager {
     private InviteData invites;
     private HealthCareData healthcares;
     private EventData events;
-    private BeverageData beverages;
     private SideeffectData sideeffects;
     private HealthDataData healthData;
     private StatusData status;
@@ -36,7 +35,6 @@ public class OfflineDataManager {
     public static final String FILENAME_STATUS_DATA = "cme_status_data";
     public static final String FILENAME_SIDEEFFECTS_DATA = "cme_sideeffects_data";
     public static final String FILENAME_HEALTH_DATA_DATA = "cme_health_data_data";
-    public static final String FILENAME_BEVERAGES_DATA = "cme_beverages_data";
     public static final String FILENAME_PERSON_DATA = "cme_person_data";
     public static final String FILENAME_PATIENT_DATA = "cme_patient_data";
     public static final String FILENAME_INVITES_DATA = "cme_invites_data";
@@ -55,7 +53,6 @@ public class OfflineDataManager {
         readLoginLocalData();
         readStatusLocalData();
         readSideeffectsLocalData();
-        readBeveragesLocalData();
         readEventsLocalData();
         readPersonLocalData();
         readPatientLocalData();
@@ -125,30 +122,6 @@ public class OfflineDataManager {
 
             Gson gson = new Gson();
             status =  gson.fromJson(sb.toString(), StatusData.class);
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (UnsupportedEncodingException e) {
-//            return "";
-        } catch (IOException e) {
-//            return "";
-        }
-    }
-
-    public void readBeveragesLocalData(){
-        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_BEVERAGES_DATA);
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-
-            Gson gson = new Gson();
-            beverages =  gson.fromJson(sb.toString(), BeverageData.class);
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -415,18 +388,6 @@ public class OfflineDataManager {
         }
     }
 
-    public void saveBeveragesData (String beveragesData){
-        File file = new File(MyApplication.getContext().getFilesDir(), FILENAME_BEVERAGES_DATA);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(beveragesData.getBytes());
-            fos.close();
-        } catch (Exception e){
-            // file write failed
-            System.out.println("SaveBeverages data failed");
-        }
-    }
-
     public void saveJournalData (String journalData){
         Gson gson = new Gson();
         journal = gson.fromJson(journalData, JournalData.class);
@@ -436,12 +397,10 @@ public class OfflineDataManager {
         saveStatusData(gson.toJson(status));
         SideeffectData sideeffects = new SideeffectData(journal.sideeffect_data);
         saveSideeffectsData(gson.toJson(sideeffects));
-        BeverageData beverages = new BeverageData(journal.beverage_data);
-        saveBeveragesData(gson.toJson(beverages));
     }
 
     public JournalData getJournal(){
-        journal = new JournalData(events.event_data, status.status_data, sideeffects.sideeffect_data, beverages.beverage_data);
+        journal = new JournalData(events.event_data, status.status_data, sideeffects.sideeffect_data);
         return journal;
     }
 
@@ -469,10 +428,6 @@ public class OfflineDataManager {
         return healthcares;
     }
 
-    public BeverageData getBeverages(){
-        return beverages;
-    }
-
     public SideeffectData getSideeffects(){
         return sideeffects;
     }
@@ -496,10 +451,6 @@ public class OfflineDataManager {
 
     public void createHealthcare(HealthCare newHealthcare){
         healthcares.healthcare_data.add(newHealthcare);
-    }
-
-    public void createBeverages(Beverage newBeverage){
-        beverages.beverage_data.add(newBeverage);
     }
 
     public void createSideeffects(Sideeffect newSideeffect){
@@ -527,14 +478,6 @@ public class OfflineDataManager {
         for (int i = 0; i < healthcares.healthcare_data.size(); i++){
             if (index == healthcares.healthcare_data.get(i).healthcare_ID){
                 healthcares.healthcare_data.remove(i);
-            }
-        }
-    }
-
-    public void deleteBeverage(int index){
-        for (int i = 0; i < beverages.beverage_data.size(); i++) {
-            if (index == beverages.beverage_data.get(i).beverage_ID) {
-                beverages.beverage_data.remove(i);
             }
         }
     }
@@ -576,14 +519,6 @@ public class OfflineDataManager {
         for (int i = 0; i < healthcares.healthcare_data.size(); i++){
             if (updateHealthcare.healthcare_ID == healthcares.healthcare_data.get(i).healthcare_ID){
                 healthcares.healthcare_data.set(i, updateHealthcare);
-            }
-        }
-    }
-
-    public void updateBeverage(Beverage updateBeverage){
-        for (int i = 0; i < beverages.beverage_data.size(); i++) {
-            if (updateBeverage.beverage_ID == beverages.beverage_data.get(i).beverage_ID) {
-                beverages.beverage_data.set(i, updateBeverage);
             }
         }
     }

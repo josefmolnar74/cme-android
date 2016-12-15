@@ -34,7 +34,6 @@ public class ConnectionHandler {
     StatusData status;
     SideeffectData sideeffects;
     HealthDataData healthData;
-    BeverageData beverages;
     JournalData journal;
     QuestionData questions;
     ArticleData articles;
@@ -54,7 +53,6 @@ public class ConnectionHandler {
     public static final String CONTENT_STATUS = "status";
     public static final String CONTENT_SIDEEFFECT = "sideeffect";
     public static final String CONTENT_HEALTH_DATA = "healthdata";
-    public static final String CONTENT_BEVERAGE = "beverage";
     public static final String CONTENT_JOURNAL = "journal";
     public static final String CONTENT_QUESTION = "question";
     public static final String CONTENT_ARTICLE = "article";
@@ -168,9 +166,6 @@ public class ConnectionHandler {
                                         break;
                                     case CONTENT_HEALTH_DATA:
                                         healthData = gson.fromJson(resultData, HealthDataData.class);
-                                        break;
-                                    case CONTENT_BEVERAGE:
-                                        beverages = gson.fromJson(resultData, BeverageData.class);
                                         break;
                                     case CONTENT_QUESTION:
                                         questions = gson.fromJson(resultData, QuestionData.class);
@@ -563,52 +558,12 @@ public class ConnectionHandler {
         }
     }
 
-
     public void deleteSideeffect(int sideeffectID){
         if (checkConnection()){
             String msgData = String.format("{\"sideeffect_ID\":\"%d\"}", sideeffectID);
             sendMessage(MESSAGE_DELETE, CONTENT_SIDEEFFECT, msgData);
         } else {
             offlineDataManager.deleteSideeffect(sideeffectID);
-        }
-    }
-
-    public void createBeverage(Beverage beverage){
-        if (checkConnection()){
-            Gson gson = new Gson();
-            String msgData = gson.toJson(beverage);
-            sendMessage(MESSAGE_CREATE, CONTENT_BEVERAGE, msgData);
-        } else {
-            offlineDataManager.createBeverages(beverage);
-        }
-    }
-
-    public void getBeveragesForPatient(int patientID){
-        if (checkConnection()){
-            String msgData = String.format("{\"patient_ID\":\"%d\"}", patientID);
-            sendMessage(MESSAGE_READ, CONTENT_BEVERAGE, msgData);
-        } else {
-            //offline mode, get data from internal file
-            offlineDataManager.getBeverages();
-        }
-    }
-
-    public void updateBeverage(Beverage beverage){
-        if (checkConnection()){
-            Gson gson = new Gson();
-            String msgData = gson.toJson(beverage );
-            sendMessage(MESSAGE_UPDATE, CONTENT_BEVERAGE, msgData);
-        } else {
-            offlineDataManager.updateBeverage(beverage);
-        }
-    }
-
-    public void deleteBeverage(int beverageID){
-        if (checkConnection()){
-            String msgData = String.format("{\"beverage_ID\":\"%d\"}", beverageID);
-            sendMessage(MESSAGE_DELETE, CONTENT_BEVERAGE, msgData);
-        } else {
-            offlineDataManager.deleteBeverage(beverageID);
         }
     }
 

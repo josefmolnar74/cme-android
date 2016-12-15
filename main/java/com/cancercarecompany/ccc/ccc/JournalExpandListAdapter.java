@@ -26,6 +26,7 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<JournalExpandListItem>> _listDataChild;
+
     public JournalExpandListAdapter(Context context, List<String> listDataHeader,
                                     HashMap<String, List<JournalExpandListItem>> listChildData) {
         this._context = context;

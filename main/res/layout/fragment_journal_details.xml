@@ -629,10 +629,6 @@
                     android:textColor="@drawable/custom_button_text_color"
                     android:id="@+id/btn_journal_detail_show_history" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"/>
-
             </LinearLayout>
 
         </ScrollView>

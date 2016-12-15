@@ -34,19 +34,19 @@ import java.util.List;
 public class JournalExpandListFragment extends Fragment {
 
 
-    TextView journalHeaderText;
-    ExpandableListAdapter expandListAdapter;
-    ExpandableListView expandListView;
+    private TextView journalHeaderText;
+    private ExpandableListAdapter expandListAdapter;
+    private ExpandableListView expandListView;
 
-    List<JournalExpandListItem> healthDataExpandList;
-    List<JournalExpandListItem> emotionalExpandList;
-    List<JournalExpandListItem> physicalExpandList;
-    List<JournalExpandListItem> otherExpandList;
-    List<JournalExpandListItem> distressExpandList;
+    private List<JournalExpandListItem> healthDataExpandList;
+    private List<JournalExpandListItem> emotionalExpandList;
+    private List<JournalExpandListItem> physicalExpandList;
+    private List<JournalExpandListItem> otherExpandList;
+    private List<JournalExpandListItem> distressExpandList;
 
-    List<String> listDataHeader;
-    HashMap<String, List<JournalExpandListItem>> listDataChild;
-    ConnectionHandler connectHandler;
+    private List<String> listDataHeader;
+    private HashMap<String, List<JournalExpandListItem>> listDataChild;
+    private ConnectionHandler connectHandler;
 
     private int calendarDays;
     private String journalDate;
@@ -318,7 +318,7 @@ public class JournalExpandListFragment extends Fragment {
         buildHealthDataExpandList(todaysHealthData, healthDataList, healthDataExpandList);
 
         // temp solution, add one empty element to emotional list so that whole list is shown
-        Sideeffect sideeffect = new Sideeffect(-1,
+/*        Sideeffect sideeffect = new Sideeffect(-1,
                 0,
                 0,
                 "",
@@ -328,7 +328,7 @@ public class JournalExpandListFragment extends Fragment {
                 "");
         JournalExpandListItem sideeffectItem = new JournalExpandListItem("", sideeffect, null);
         otherExpandList.add(sideeffectItem);
-
+*/
         listDataChild.put(listDataHeader.get(0), healthDataExpandList);
         listDataChild.put(listDataHeader.get(1), physicalExpandList);
         listDataChild.put(listDataHeader.get(2), emotionalExpandList);
@@ -345,7 +345,7 @@ public class JournalExpandListFragment extends Fragment {
         expandListView.expandGroup(0);
         expandListView.expandGroup(1);
         expandListView.expandGroup(2);
-        expandListView.expandGroup(3);
+//        expandListView.expandGroup(3);
     }
 
     private boolean matchDate(String targetDateString , String dateString) throws ParseException {
