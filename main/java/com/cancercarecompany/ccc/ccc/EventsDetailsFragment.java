@@ -613,7 +613,7 @@ public class EventsDetailsFragment extends Fragment {
         else{
             // new event, create new
             if (subCategoryClicked.isEmpty() ||
-                    !mDateButton.getText().toString().contains(":") ||
+                    !mDateButton.getText().toString().contains("-") ||
                     !mTimeButton.getText().toString().contains(":")){
                 // User has not given all input need for a new event
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
