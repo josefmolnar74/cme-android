@@ -169,6 +169,9 @@ public class EventsDetailsFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Need to fix this for tablet
+                saveEvent();
+
             }
         });
 
@@ -610,8 +613,8 @@ public class EventsDetailsFragment extends Fragment {
         else{
             // new event, create new
             if (subCategoryClicked.isEmpty() ||
-                    mDateButton.getText().toString().isEmpty() ||
-                    mTimeButton.getText().toString().isEmpty()){
+                    !mDateButton.getText().toString().contains(":") ||
+                    !mTimeButton.getText().toString().contains(":")){
                 // User has not given all input need for a new event
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                 String alertText = String.format(getResources().getString(R.string.all_event_data_not_provided));
