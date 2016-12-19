@@ -58,7 +58,7 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
         for (int i=0; i < connectHandler.sideeffects.sideeffect_data.size(); i++){
             if (connectHandler.sideeffects.sideeffect_data.get(i).type.matches(sideeffect_type)){
                 MyChartData data = new MyChartData();
-                data.date = connectHandler.sideeffects.sideeffect_data.get(i).date.substring(0,10);
+                data.date = connectHandler.sideeffects.sideeffect_data.get(i).date.substring(2,10);
                 if (connectHandler.sideeffects.sideeffect_data.get(i).value.length() == 1){
                     data.value = Integer.parseInt(connectHandler.sideeffects.sideeffect_data.get(i).value.substring(0,1));
                 } else if (connectHandler.sideeffects.sideeffect_data.get(i).value.length() >= 2){
@@ -83,6 +83,9 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new MyXAxisValueFormatter(xValues));
+        xAxis.setLabelRotationAngle(-90);
+//        xAxis.setTextColor(Color.RED);
+
         YAxis left = chart.getAxisLeft();
         left.setValueFormatter(new MyYAxisValueFormatter());
 
@@ -107,6 +110,7 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
         chart.getAxisRight().setAxisMinimum(0);
         chart.getAxisRight().setAxisMaximum(10);
         chart.getXAxis().setLabelCount(chartData.size());
+        chart.setExtraTopOffset(5f); //offset to assure that xAxis values fit
 
         BarDataSet dataSet = new BarDataSet(entries, "Josef"); // add entries to dataset
         BarData barData = new BarData(dataSet);

@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -51,7 +52,7 @@ public class HealthDataDialogFragment extends DialogFragment implements OnChartV
         for (int i=0; i < connectHandler.healthData.healthdata_data.size(); i++){
             if (connectHandler.healthData.healthdata_data.get(i).type.matches(healthdata_type)){
                 MyChartData data = new MyChartData();
-                data.date = connectHandler.healthData.healthdata_data.get(i).date.substring(0,10);
+                data.date = connectHandler.healthData.healthdata_data.get(i).date.substring(2,10);
                 data.value = Float.parseFloat(connectHandler.healthData.healthdata_data.get(i).value);
                 chartData.add(data);
             }
@@ -69,9 +70,10 @@ public class HealthDataDialogFragment extends DialogFragment implements OnChartV
 
         String[] xValues = new String[chartData.size()];
 
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setLabelRotationAngle(-90);
         chart.getXAxis().setValueFormatter(new MyXAxisValueFormatter(xValues));
-//        YAxis left = chart.getAxisLeft();
-//        left.setValueFormatter(new MyYAxisValueFormatter());
+        chart.setExtraTopOffset(5f); //offset to assure that xAxis values fit
 
         List<Entry> entries = new ArrayList<Entry>();
 
