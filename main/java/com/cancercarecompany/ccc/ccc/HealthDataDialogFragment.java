@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -39,11 +40,13 @@ public class HealthDataDialogFragment extends DialogFragment implements OnChartV
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().setCanceledOnTouchOutside(true);
         View rootView = inflater.inflate(R.layout.fragment_healthdata_dialog, container, false);
+        TextView headerText = (TextView) rootView.findViewById(R.id.txt_home_info_header);
         ImageButton dismissButton = (ImageButton) rootView.findViewById(R.id.btn_dialog_dismiss);
         ConnectionHandler connectHandler = ConnectionHandler.getInstance();
 
         chartData = new ArrayList<>();
         String healthdata_type = getArguments().getString(HEALTH_DATA_TYPE);
+        headerText.setText(getString(getActivity().getResources().getIdentifier("journal_health_data_"+ healthdata_type, "string", getActivity().getPackageName())));
 
         for (int i=0; i < connectHandler.healthData.healthdata_data.size(); i++){
             if (connectHandler.healthData.healthdata_data.get(i).type.matches(healthdata_type)){

@@ -46,12 +46,14 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().setCanceledOnTouchOutside(true);
         View rootView = inflater.inflate(R.layout.fragment_sideeffect_dialog, container, false);
+        TextView headerText = (TextView) rootView.findViewById(R.id.txt_home_info_header);
         ImageButton dismissButton = (ImageButton) rootView.findViewById(R.id.btn_dialog_dismiss);
         notesText = (TextView) rootView.findViewById(R.id.text_sideeffect_notes);
         ConnectionHandler connectHandler = ConnectionHandler.getInstance();
 
         chartData = new ArrayList<>();
         String sideeffect_type = getArguments().getString(SIDEEFFECT_TYPE);
+        headerText.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_"+ sideeffect_type, "string", getActivity().getPackageName())));
 
         for (int i=0; i < connectHandler.sideeffects.sideeffect_data.size(); i++){
             if (connectHandler.sideeffects.sideeffect_data.get(i).type.matches(sideeffect_type)){
