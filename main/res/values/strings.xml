@@ -254,6 +254,10 @@
     <string name="journal_emotion_scared">Rädd</string>
     <string name="journal_emotion_sick">Sjuk</string>
     <string name="journal_emotion_nauseous">Illamående</string>
+    <string name="journal_report">Rappport</string>
+    <string name="journal_history">Historik</string>
+    <string name="journal_show_history">Visa data</string>
+
 
     <string name="careteam_healthcare">Hälsovård</string>
     <string name="careteam_patient">Patient</string>

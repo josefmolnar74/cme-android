@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.cancercarecompany.ccc.ccc.JournalExpandListFragment">
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:id="@+id/linearLayout4">
+
+        <Button
+            android:id="@+id/btn_journal_show_history"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/journal_show_history"
+            android:background="@drawable/custom_button"
+            android:textColor="@drawable/custom_button_text_color"/>
+
+    </LinearLayout>
+
+    <ExpandableListView
+        android:id="@+id/explist_journal_history"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/linearLayout4" />
+
+</RelativeLayout>

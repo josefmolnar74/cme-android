@@ -9,11 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -26,7 +26,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,6 +74,7 @@ public class JournalExpandListFragment extends Fragment {
         final ImageButton dateBackButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_back);
         final ImageButton dateForwardButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_forward);
         final ImageButton calendarButton = (ImageButton) view.findViewById(R.id.img_calendar);
+        final Button historyButton = (Button) view.findViewById(R.id.btn_journal_show_history);
         final CalendarView calendar = (CalendarView) view.findViewById(R.id.cal_journal_calendar);
         calendar.setVisibility(View.GONE);
         journalHeaderText = (TextView) view.findViewById(R.id.txt_journal_date);
@@ -201,6 +201,28 @@ public class JournalExpandListFragment extends Fragment {
                     journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
                 }
                 prepareExpList();
+            }
+        });
+
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+                JournalHistoryFragment myJournalHistory = new JournalHistoryFragment();
+
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                    ft.replace(R.id.journal_placeholder2, myJournalHistory);
+                }
+                else{
+                    ft.replace(R.id.journal_placeholder1, myJournalHistory);
+                }
+                ft.addToBackStack(null);
+                // send family member data to fragment
+//                myJournalDetails.setDate(journalDate);
+
+                ft.commit();
             }
         });
 

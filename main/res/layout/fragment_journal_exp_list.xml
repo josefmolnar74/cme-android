@@ -81,13 +81,14 @@
         android:id="@+id/linearLayout4">
 
         <Button
-            android:id="@+id/journal_show_history"
+            android:id="@+id/btn_journal_show_history"
             android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="50dp"
             android:text="history"
             android:background="@drawable/custom_button"
-            android:textColor="@drawable/custom_button_text_color"/>
+            android:textColor="@drawable/custom_button_text_color"
+            android:onClick="onClickShowHistory"/>
 
         <Button
             android:id="@+id/journal_create_report"
