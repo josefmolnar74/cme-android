@@ -11,10 +11,11 @@ public class Sideeffect {
     String date;
     String time;
     String type;
+    int severity;
     String value;
     String notes;
 
-    public Sideeffect(int sideeffect_ID, int patient_ID, int person_ID, String date, String time, String type, String value, String notes){
+    public Sideeffect(int sideeffect_ID, int patient_ID, int person_ID, String date, String time, String type, int severity, String value, String notes){
 
         this.sideeffect_ID  = sideeffect_ID;
         this.patient_ID = patient_ID;
@@ -22,6 +23,7 @@ public class Sideeffect {
         this.date = date;
         this.time = time;
         this.type = type;
+        this.severity = severity;
         this.value = value;
         this.notes = notes;
     }

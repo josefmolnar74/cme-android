@@ -30,6 +30,7 @@ public class JournalFragment extends Fragment {
     final static public String SIDEEFFECT_PHYSICAL_MOBILITY  = "physical_mobility";
     final static public String SIDEEFFECT_PHYSICAL_DIGESTION  ="physical_digestion";
     final static public String SIDEEFFECT_PHYSICAL_MEMORY  = "physical_memory";
+    final static public String SIDEEFFECT_PHYSICAL_CONCENTRATION  = "physical_concentration";
     final static public String SIDEEFFECT_PHYSICAL_MOUTH  = "physical_mouth";
 //    final static public String SIDEEFFECT_PHYSICAL_NAUSEA  = "physical_nausea";
     final static public String SIDEEFFECT_PHYSICAL_VOMIT = "physical_vomit";

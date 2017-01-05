@@ -158,5 +158,4 @@ public class HealthDataDialogFragment extends DialogFragment implements OnChartV
         String notes;
     }
 
-
 }

@@ -1,6 +1,8 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
@@ -59,11 +61,7 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
             if (connectHandler.sideeffects.sideeffect_data.get(i).type.matches(sideeffect_type)){
                 MyChartData data = new MyChartData();
                 data.date = connectHandler.sideeffects.sideeffect_data.get(i).date.substring(2,10);
-                if (connectHandler.sideeffects.sideeffect_data.get(i).value.length() == 1){
-                    data.value = Integer.parseInt(connectHandler.sideeffects.sideeffect_data.get(i).value.substring(0,1));
-                } else if (connectHandler.sideeffects.sideeffect_data.get(i).value.length() >= 2){
-                    data.value = Integer.parseInt(connectHandler.sideeffects.sideeffect_data.get(i).value.substring(0,2));
-                }
+                data.value = connectHandler.sideeffects.sideeffect_data.get(i).severity;
                 data.notes = connectHandler.sideeffects.sideeffect_data.get(i).notes;
                 chartData.add(data);
             }
@@ -167,6 +165,42 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
         String date;
         Integer value;
         String notes;
+    }
+
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     */
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String mEmail;
+        private final String mPassword;
+
+        UserLoginTask(String email, String password) {
+            mEmail = email;
+            mPassword = password;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+
+            if (success) {
+
+            } else {
+                // error something went wrong
+            }
+        }
+        @Override
+        protected void onCancelled() {
+
+        }
     }
 
 

@@ -89,6 +89,7 @@ public class JournalDetailsFragment extends Fragment {
     private EditText sideeffectNotes;
 
     private TextView sideeffectQuestion;
+    private TextView sideeffectQuestion2;
     private TextView seekBarHeadline1;
     private TextView seekBarHeadline2;
     private TextView seekBarHeadline3;
@@ -186,6 +187,7 @@ public class JournalDetailsFragment extends Fragment {
         sideeffectNotes = (EditText) view.findViewById(R.id.txt_journal_notes);
 
         sideeffectQuestion = (TextView) view.findViewById(R.id.txt_journal_sideeffect_question);
+        sideeffectQuestion2 = (TextView) view.findViewById(R.id.txt_journal_sideeffect_question2);
         seekBarHeadline1 = (TextView) view.findViewById(R.id.txt_journal_sideeffect_seekbar_headline1);
         seekBarHeadline2 = (TextView) view.findViewById(R.id.txt_journal_sideeffect_seekbar_headline2);
         seekBarHeadline3 = (TextView) view.findViewById(R.id.txt_journal_sideeffect_seekbar_headline3);
@@ -313,11 +315,7 @@ public class JournalDetailsFragment extends Fragment {
         }
 
         if (listItem.sideeffect != null){
-            if (!(listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA) ||
-                    listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION) ||
-                    listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY) ||
-                    listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_VOMIT) ||
-                    listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_URINATION) ||
+            if (!(listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_URINATION) ||
                     listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION) ||
                     listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH) ||
                     listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_PAIN) ||
@@ -327,19 +325,22 @@ public class JournalDetailsFragment extends Fragment {
                     listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_APPERANCE) ||
                     listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_DIZZINESS) ||
                     listItem.sideeffect.type.matches(JournalFragment.SIDEEFFECT_PHYSICAL_APPETITE))){
-//            seekBarHeadline1.setText(
-//                    getString(getActivity().getResources().getIdentifier("journal_sideeffect_"+ listItem.sideeffect.type +"_seekbar_headline", "string", getActivity().getPackageName())));
+/*            seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_"+ listItem.sideeffect.type +"_seekbar_headline", "string", getActivity().getPackageName())));
                 seekBarMin1.setText(
                         getString(getActivity().getResources().getIdentifier("journal_sideeffect_"+ listItem.sideeffect.type +"_seekbar_min", "string", getActivity().getPackageName())));
                 seekBarMax1.setText(
                         getString(getActivity().getResources().getIdentifier("journal_sideeffect_"+ listItem.sideeffect.type +"_seekbar_max", "string", getActivity().getPackageName())));
+*/
+                initalizeSeekbars(String.valueOf(listItem.sideeffect.severity));
+                seekBarMin1.setText(getString(R.string.journal_sideeffect_seekbar_min));
+                seekBarMax1.setText(getString(R.string.journal_sideeffect_seekbar_max));
             }
 
             switch(listItem.sideeffect.type){
 
                 case JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION:
-                    seekBarsLayout.setVisibility(View.GONE);
-                    seekBarHeadline1.setVisibility(View.GONE);
+//                    seekBarsLayout.setVisibility(View.GONE);
+//                    seekBarHeadline1.setVisibility(View.GONE);
                     radioGroupLayout.setVisibility(View.VISIBLE);
                     radioButton1.setText(R.string.journal_sideeffect_physical_constipation_radioButton1);
                     radioButton2.setText(R.string.journal_sideeffect_physical_constipation_radioButton2);
@@ -350,8 +351,10 @@ public class JournalDetailsFragment extends Fragment {
                     break;
 
                 case JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA:
-                    seekBarsLayout.setVisibility(View.GONE);
-                    seekBarHeadline1.setVisibility(View.GONE);
+//                    seekBarsLayout.setVisibility(View.GONE);
+//                    seekBarHeadline1.setVisibility(View.GONE);
+                    sideeffectQuestion2.setVisibility(View.VISIBLE);
+                    sideeffectQuestion2.setText(getString(R.string.journal_sideeffect_physical_diarrhea_question2));
                     radioGroupLayout.setVisibility(View.VISIBLE);
                     radioButton1.setText(R.string.journal_sideeffect_physical_diarrhea_radioButton1);
                     radioButton2.setText(R.string.journal_sideeffect_physical_diarrhea_radioButton2);
@@ -384,25 +387,24 @@ public class JournalDetailsFragment extends Fragment {
                     break;
 
                 case JournalFragment.SIDEEFFECT_PHYSICAL_BLOATED:
-                    seekBarHeadline1.setText(getString(R.string.journal_sideeffect_physical_bloated_seekbar_headline));
+/*                    seekBarHeadline1.setText(getString(R.string.journal_sideeffect_physical_bloated_seekbar_headline));
                     seekBarMin1.setText(getString(R.string.journal_sideeffect_physical_bloated_seekbar_min));
                     seekBarMax1.setText(getString(R.string.journal_sideeffect_physical_bloated_seekbar_max));
                     initalizeSeekbars(listItem.sideeffect.value);
-                    break;
+*/                    break;
 
                 case JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY:
-                    seekBarsLayout.setVisibility(View.VISIBLE);
+/*                    seekBarsLayout.setVisibility(View.VISIBLE);
                     seekBarLayout2.setVisibility(View.GONE);
                     seekBarLayout3.setVisibility(View.GONE);
                     seekBarHeadline1.setText(getString(R.string.journal_sideeffect_physical_mobility_seekbar_headline));
                     seekBarMin1.setText(getString(R.string.journal_sideeffect_physical_mobility_seekbar_min));
                     seekBarMax1.setText(getString(R.string.journal_sideeffect_physical_mobility_seekbar_max));
-                    initalizeSeekbars(listItem.sideeffect.value);
-                    break;
+*/                    break;
 
                 case JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY:
                     seekBarsLayout.setVisibility(View.VISIBLE);
-                    seekBarLayout2.setVisibility(View.VISIBLE);
+/*                    seekBarLayout2.setVisibility(View.VISIBLE);
                     seekBarLayout3.setVisibility(View.GONE);
                     seekBarHeadline1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_physical_memory_seekbar_"
                             + SIDEEFFECT_MEMORY_SEEKBAR_HEADLINE_1, "string", getActivity().getPackageName())));
@@ -413,11 +415,12 @@ public class JournalDetailsFragment extends Fragment {
                     seekBarMin2.setText(getString(R.string.journal_sideeffect_physical_memory_seekbar_min));
                     seekBarMax2.setText(getString(R.string.journal_sideeffect_physical_memory_seekbar_max));
                     initalizeSeekbars(listItem.sideeffect.value);
-                    break;
+*/                    break;
 
                 case JournalFragment.SIDEEFFECT_PHYSICAL_MOUTH:
                     checkBoxLayout.setVisibility(View.VISIBLE);
-                    sideeffectQuestion.setText(R.string.journal_sideeffect_physical_mouth_question);
+                    sideeffectQuestion2.setVisibility(View.VISIBLE);
+                    sideeffectQuestion2.setText(getString(R.string.journal_sideeffect_physical_mouth_question2));
                     checkBox1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_mouth_checkbox_"
                             + SIDEEFFECT_MOUTH_CHECKBOX_VALUE1, "string", getActivity().getPackageName())));
                     checkBox2.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_mouth_checkbox_"
@@ -430,7 +433,9 @@ public class JournalDetailsFragment extends Fragment {
                     break;
 
                 case JournalFragment.SIDEEFFECT_PHYSICAL_VOMIT:
-                    seekBarsLayout.setVisibility(View.GONE);
+//                    seekBarsLayout.setVisibility(View.GONE);
+                    sideeffectQuestion2.setVisibility(View.VISIBLE);
+                    sideeffectQuestion2.setText(getString(R.string.journal_sideeffect_physical_vomit_question2));
                     radioGroupLayout.setVisibility(View.VISIBLE);
                     radioButton1.setText(R.string.journal_sideeffect_physical_vomit_radioButton1);
                     radioButton2.setText(R.string.journal_sideeffect_physical_vomit_radioButton2);
@@ -694,7 +699,6 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_BREATHING:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_URINATION:
@@ -715,18 +719,15 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_FATIGUE:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_BLOATED:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_FEVER:
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_DIGESTION:
@@ -885,7 +886,6 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_SLEEP:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_PHYSICAL_ABUSE:
@@ -903,34 +903,28 @@ public class JournalDetailsFragment extends Fragment {
                 break;
 
             case JournalFragment.SIDEEFFECT_EMOTIONAL_DEJECTION:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_EMOTIONAL_DEPRESSION:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_EMOTIONAL_FEAR:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_EMOTIONAL_ACTIVITIES:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_EMOTIONAL_NERVOUS:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_EMOTIONAL_WORRY:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
             case JournalFragment.SIDEEFFECT_DISTRESS:
-                sideeffectValue = "" + seekBar1.getProgress();
                 break;
 
         }
+        listItem.sideeffect.severity = seekBar1.getProgress();
         listItem.sideeffect.notes = sideeffectNotes.getText().toString();
 
         // Save or update sideffect on database

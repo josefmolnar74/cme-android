@@ -114,7 +114,7 @@ public class JournalHistoryFragment extends Fragment {
                 FragmentManager fm = getFragmentManager();
                 HistoryDialogFragment dialogFragment = new HistoryDialogFragment();
                 Bundle args = new Bundle();
-                args.putString("checkedJournalItems", listString);
+                args.putString(HistoryDialogFragment.SELECTED_JOURNAL_ITEMS, listString);
                 dialogFragment.setArguments(args);
                 dialogFragment.show(fm, "Josef");
 

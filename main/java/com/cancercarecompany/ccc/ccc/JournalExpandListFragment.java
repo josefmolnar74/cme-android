@@ -96,7 +96,7 @@ public class JournalExpandListFragment extends Fragment {
         listDataHeader.add(getResources().getString(R.string.journal_health_data));
         listDataHeader.add(getResources().getString(R.string.journal_sideeffect_physical));
         listDataHeader.add(getResources().getString(R.string.journal_sideeffect_emotional));
-        listDataHeader.add(getResources().getString(R.string.journal_sideeffect_other));
+//        listDataHeader.add(getResources().getString(R.string.journal_sideeffect_other));
 //        listDataHeader.add(getResources().getString(R.string.sideeffect_distress));
 
         prepareExpList();
@@ -245,6 +245,7 @@ public class JournalExpandListFragment extends Fragment {
                 JournalFragment.SIDEEFFECT_PHYSICAL_FATIGUE,
                 JournalFragment.SIDEEFFECT_PHYSICAL_MOBILITY,
                 JournalFragment.SIDEEFFECT_PHYSICAL_MEMORY,
+                JournalFragment.SIDEEFFECT_PHYSICAL_CONCENTRATION,
                 JournalFragment.SIDEEFFECT_PHYSICAL_VOMIT,
                 JournalFragment.SIDEEFFECT_PHYSICAL_SLEEP,
                 JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING
@@ -339,7 +340,7 @@ public class JournalExpandListFragment extends Fragment {
         listDataChild.put(listDataHeader.get(0), healthDataExpandList);
         listDataChild.put(listDataHeader.get(1), physicalExpandList);
         listDataChild.put(listDataHeader.get(2), emotionalExpandList);
-        listDataChild.put(listDataHeader.get(3), otherExpandList);
+//        listDataChild.put(listDataHeader.get(3), otherExpandList);
 //        listDataChild.put(listDataHeader.get(3), distressExpandList);
 
         expandListAdapter = new JournalExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
@@ -403,6 +404,7 @@ public class JournalExpandListFragment extends Fragment {
                         todaysSideeffects.get(todaysSideffectPosition).date,
                         todaysSideeffects.get(todaysSideffectPosition).time,
                         todaysSideeffects.get(todaysSideffectPosition).type,
+                        todaysSideeffects.get(todaysSideffectPosition).severity,
                         todaysSideeffects.get(todaysSideffectPosition).value,
                         todaysSideeffects.get(todaysSideffectPosition).notes);
                 JournalExpandListItem sideeffectItem = new JournalExpandListItem(header, sideeffect, null);
@@ -418,6 +420,7 @@ public class JournalExpandListFragment extends Fragment {
                         "",
                         "",
                         sideeffectList.get(i),
+                        0,
                         "",
                         "");
                 JournalExpandListItem sideeffectItem = new JournalExpandListItem(header, sideeffect, null);

@@ -89,7 +89,7 @@ public class ConnectionHandler {
 
     private void initializeSocket(){
         try {
-            String server_url = "http://cancermeapp-cancerme.rhcloud.com";
+            String server_url = "http://cancermeapp-cancerme.rhcloud.com/";
 //            String server_url = "http://127.0.0.1:8083/";
             socket = IO.socket(server_url);
             socket.connect();
