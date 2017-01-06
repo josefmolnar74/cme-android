@@ -133,7 +133,8 @@
     <string name="journal_sideeffect_physical_concentration_seekbar_min">Dåligt</string>
     <string name="journal_sideeffect_physical_concentration_seekbar_max">Jättebra</string>
     <string name="journal_sideeffect_physical_constipation">Förstoppning</string>
-    <string name="journal_sideeffect_physical_constipation_question">När hade * senast normal avföring?</string>
+    <string name="journal_sideeffect_physical_constipation_question">Beskriv *s avföringsvårigheter</string>
+    <string name="journal_sideeffect_physical_constipation_question2">När hade * senast normal avföring?</string>
     <string name="journal_sideeffect_physical_constipation_radioButton1">Igår</string>
     <string name="journal_sideeffect_physical_constipation_radioButton2">2 dagar sedan</string>
     <string name="journal_sideeffect_physical_constipation_radioButton3">3 dagar sedan</string>
@@ -232,7 +233,8 @@
     <string name="journal_sideeffect_physical_sleep_seekbar_min">Dåligt</string>
     <string name="journal_sideeffect_physical_sleep_seekbar_max">Jättebra</string>
     <string name="journal_sideeffect_physical_tingling">Stickningar</string>
-    <string name="journal_sideeffect_physical_tingling_question">Ange var * upplever stickningar</string>
+    <string name="journal_sideeffect_physical_tingling_question">Hur mycket upplever * stickningar?</string>
+    <string name="journal_sideeffect_physical_tingling_question2">Ange var * upplever stickningar</string>
     <string name="journal_sideeffect_physical_tingling_seekbar_min">Dåligt</string>
     <string name="journal_sideeffect_physical_tingling_seekbar_max">Jättebra</string>
     <string name="journal_sideeffect_physical_tingling_checkbox_hands">I händerna</string>

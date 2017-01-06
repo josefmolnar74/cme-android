@@ -341,6 +341,8 @@ public class JournalDetailsFragment extends Fragment {
                 case JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION:
 //                    seekBarsLayout.setVisibility(View.GONE);
 //                    seekBarHeadline1.setVisibility(View.GONE);
+                    sideeffectQuestion2.setVisibility(View.VISIBLE);
+                    sideeffectQuestion2.setText(getString(R.string.journal_sideeffect_physical_diarrhea_question2));
                     radioGroupLayout.setVisibility(View.VISIBLE);
                     radioButton1.setText(R.string.journal_sideeffect_physical_constipation_radioButton1);
                     radioButton2.setText(R.string.journal_sideeffect_physical_constipation_radioButton2);
@@ -503,8 +505,10 @@ public class JournalDetailsFragment extends Fragment {
                     break;
 
                 case JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING:
-                    seekBarsLayout.setVisibility(View.GONE);
-                    seekBarHeadline1.setVisibility(View.GONE);
+//                    seekBarsLayout.setVisibility(View.GONE);
+//                    seekBarHeadline1.setVisibility(View.GONE);
+                    sideeffectQuestion2.setVisibility(View.VISIBLE);
+                    sideeffectQuestion2.setText(getString(R.string.journal_sideeffect_physical_tingling_question2));
                     checkBoxLayout.setVisibility(View.VISIBLE);
                     checkBox1.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_physical_tingling_checkbox_"
                             + SIDEEFFECT_TINGLING_CHECKBOX_VALUE1, "string", getActivity().getPackageName())));
@@ -573,6 +577,9 @@ public class JournalDetailsFragment extends Fragment {
 
         // Replace x with patient name in Question text
         sideeffectQuestion.setText(sideeffectQuestion.getText().toString().replace("*", connectHandler.patient.patient_name));
+
+        // Replace x with patient name in Question text
+        sideeffectQuestion2.setText(sideeffectQuestion2.getText().toString().replace("*", connectHandler.patient.patient_name));
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override

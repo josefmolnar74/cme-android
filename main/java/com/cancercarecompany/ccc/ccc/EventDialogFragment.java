@@ -23,23 +23,22 @@ public class EventDialogFragment extends DialogFragment {
 
     public static final String SUB_CATEGORY = "sub_category";
 
-    String subCategory;
-    LinearLayout swipeLayout;
-    int currentPage = 1;
-    int pages = 0;
-    ImageView eventInfoImage;
-    TextView eventInfoText;
-    ImageView page1;
-    ImageView page2;
-    ImageView page3;
-    String eventText1;
-    String eventText2;
-    String eventText3;
-    int resource1;
-    int resource2;
-    int resource3;
+    private String subCategory;
+    private LinearLayout swipeLayout;
+    private int currentPage = 1;
+    private int pages = 0;
+    private ImageView eventInfoImage;
+    private TextView eventInfoText;
+    private ImageView page1;
+    private ImageView page2;
+    private ImageView page3;
+    private int resource1;
+    private int resource2;
+    private int resource3;
 
-    ImageButton soundButton;
+    private ImageButton soundButton;
+    private boolean mediaPlayActive = false;
+    private MediaPlayer mp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +57,13 @@ public class EventDialogFragment extends DialogFragment {
         eventInfoText = (TextView) rootView.findViewById(R.id.txt_subcategory_main);
         soundButton = (ImageButton) rootView.findViewById(R.id.btn_event_sound);
 
-        // find number of pages
+        // Prepare mediaplayer
+        int soundResourceId = context.getResources().getIdentifier("event_"+subCategory+currentPage, "raw", getActivity().getPackageName());
+        if (soundResourceId != 0) {
+            mp = MediaPlayer.create(context, soundResourceId);
+        }
+
+            // find number of pages
         resource1 = getResources().getIdentifier("event_"+subCategory+"_txt1", "string", getActivity().getPackageName());
         resource2 = getResources().getIdentifier("event_"+subCategory+"_txt2", "string", getActivity().getPackageName());
         resource3 = getResources().getIdentifier("event_"+subCategory+"_txt3", "string", getActivity().getPackageName());
@@ -167,8 +172,7 @@ public class EventDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 int soundResourceId = context.getResources().getIdentifier("event_"+subCategory+currentPage, "raw", getActivity().getPackageName());
-                if (soundResourceId != 0) {
-                    MediaPlayer mp = MediaPlayer.create(context, soundResourceId);
+                if (!mp.isPlaying()) {
                     mp.start();
                 }
             }
@@ -178,6 +182,9 @@ public class EventDialogFragment extends DialogFragment {
 
             @Override
             public void onClick(View v) {
+                if (mp.isPlaying()){
+                    mp.stop();
+                }
                 dismiss();
             }
         });
@@ -194,4 +201,5 @@ public class EventDialogFragment extends DialogFragment {
         window.setGravity(Gravity.CENTER);
         //TODO:
     }
+
 }
