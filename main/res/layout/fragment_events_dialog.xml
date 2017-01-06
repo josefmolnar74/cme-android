@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_event_sound"
-                    android:background="@drawable/speaker"
+                    android:background="@drawable/play"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true" />
 

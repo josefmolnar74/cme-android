@@ -172,7 +172,7 @@ public class EventDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 int soundResourceId = context.getResources().getIdentifier("event_"+subCategory+currentPage, "raw", getActivity().getPackageName());
-                if (!mp.isPlaying()) {
+                if ((mp != null) && (!mp.isPlaying())) {
                     mp.start();
                 }
             }
@@ -182,7 +182,7 @@ public class EventDialogFragment extends DialogFragment {
 
             @Override
             public void onClick(View v) {
-                if (mp.isPlaying()){
+                if ((mp != null) && (mp.isPlaying())){
                     mp.stop();
                 }
                 dismiss();
