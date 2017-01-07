@@ -1,5 +1,6 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
@@ -14,6 +15,8 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
@@ -63,11 +66,7 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
                 if (connectHandler.sideeffects.sideeffect_data.get(i).type.matches(journalSelectionDataList.get(j).type)) {
                     MyChartData data = new MyChartData();
                     data.date = connectHandler.sideeffects.sideeffect_data.get(i).date.substring(2, 10);
-                    if (connectHandler.sideeffects.sideeffect_data.get(i).value.length() == 1) {
-                        data.value = Float.parseFloat(connectHandler.sideeffects.sideeffect_data.get(i).value.substring(0, 1));
-                    } else if (connectHandler.sideeffects.sideeffect_data.get(i).value.length() >= 2) {
-                        data.value = Float.parseFloat(connectHandler.sideeffects.sideeffect_data.get(i).value.substring(0, 2));
-                    }
+                    data.value = (float) connectHandler.sideeffects.sideeffect_data.get(i).severity;
                     data.notes = connectHandler.sideeffects.sideeffect_data.get(i).notes;
                     journalSelectionDataList.get(j).chartData.add(data);
                 }
@@ -114,7 +113,7 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
             } catch (ParseException e) {
                 System.out.println("Failure when parsing the targetDateString");
             }
-            if (i==0){
+            if (i==0){ 
                 firstDate = selectionFirstDate;
                 lastDate = selectionLastDate;
             } else {
@@ -139,18 +138,22 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
 
         ArrayList<ArrayList<Entry>> entriesList = new ArrayList<ArrayList<Entry>>();
 
+        ArrayList<DataSet> mDataSetList = new ArrayList<DataSet>();
         for (int i=0; i < journalSelectionDataList.size(); i++) {
+            DataSet mDataSet = new DataSet();
             ArrayList<Entry> entries = new ArrayList<Entry>();
             ArrayList<MyChartData> chartData = journalSelectionDataList.get(i).chartData;
-            for (int j = 0; i < chartData.size(); j++) {
+            for (int j = 0; j < chartData.size(); j++) {
                 // Enter Data from Healthdata
-                if (chartData.get(i).value != null) {
-                    entries.add(new Entry(i, chartData.get(i).value));
+                if (chartData.get(j).value != null) {
+                    entries.add(new Entry(j, chartData.get(j).value));
                 } else {
-                    entries.add(new Entry(i, 0));
+                    entries.add(new Entry(j, 0));
                 }
 //            xValues[i] =  chartData.get(i).date;
             }
+            mDataSet.entries = entries;
+            mDataSetList.add(mDataSet);
         }
 
         //int max = findMaxYValue(yourdata); // figure out the max value in your dataset
@@ -166,8 +169,8 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
         } else{
             chart.getXAxis().setLabelCount(3);
         }
-
-        LineDataSet dataSet = new LineDataSet(entries, "Josef"); // add entries to dataset
+*/
+        LineDataSet dataSet = new LineDataSet(mDataSetList.get(0).entries, "Josef"); // add entries to dataset
         LineData lineData = new LineData(dataSet);
         dataSet.setColor(Color.parseColor("#7fc9cb")); // cme_light color
         dataSet.setDrawValues(false);
@@ -178,7 +181,7 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
 
         chart.setOnChartValueSelectedListener(this);
         chart.setDescription(null);
-*/
+
         dismissButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -217,14 +220,18 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
         System.out.println("onNothingSelected");
     };
 
-    public class MyChartData {
+    private class MyChartData {
         String date;
         Float value;
         String notes;
     }
 
-    public class JournalSelectionData {
+    private class JournalSelectionData {
         String type;
         ArrayList<MyChartData> chartData;
+    }
+
+    private class DataSet {
+        ArrayList<Entry> entries;
     }
 }
