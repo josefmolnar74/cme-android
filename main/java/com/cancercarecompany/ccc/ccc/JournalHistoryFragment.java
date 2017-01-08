@@ -19,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +55,7 @@ public class JournalHistoryFragment extends Fragment {
             ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.GONE);
             CustomViewPager viewPager = (CustomViewPager) getActivity().findViewById(R.id.container);
             viewPager.setPagingEnabled(false);
-            ((MainActivity) getActivity()).setActionBarTitle("History");
+            ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.journal_history_header));
 //            RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.lay_journal_detail);
 //            layout.setVisibility(View.GONE);
         }
@@ -106,18 +107,24 @@ public class JournalHistoryFragment extends Fragment {
                     }
                 }
 
-                String listString = "";
-                for (String s : checkedJournalItems)
-                {
-                    listString += s + ",";
+                if (checkedJournalItems.size() > 0){ //check that selection has been made
+                    String listString = "";
+                    for (String s : checkedJournalItems)
+                    {
+                        listString += s + ",";
+                    }
+                    FragmentManager fm = getFragmentManager();
+                    HistoryDialogFragment dialogFragment = new HistoryDialogFragment();
+                    Bundle args = new Bundle();
+                    args.putString(HistoryDialogFragment.SELECTED_JOURNAL_ITEMS, listString);
+                    dialogFragment.setArguments(args);
+                    dialogFragment.show(fm, "Josef");
                 }
-                FragmentManager fm = getFragmentManager();
-                HistoryDialogFragment dialogFragment = new HistoryDialogFragment();
-                Bundle args = new Bundle();
-                args.putString(HistoryDialogFragment.SELECTED_JOURNAL_ITEMS, listString);
-                dialogFragment.setArguments(args);
-                dialogFragment.show(fm, "Josef");
-
+                else{
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(MyApplication.getContext(), getString(R.string.toast_message_journal_history_no_selection), duration);
+                    toast.show();
+                }
             }
         });
 

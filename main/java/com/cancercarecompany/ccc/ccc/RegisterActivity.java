@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else{
             int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(getApplicationContext(), "User has been created!", duration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.toast_message_register_user_created), duration);
             toast.show();
 
             // During register user need to either create a new care team or join and existing

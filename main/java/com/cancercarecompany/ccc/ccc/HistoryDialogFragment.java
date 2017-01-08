@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -41,6 +42,7 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
     private ArrayList<JournalSelectionData> journalSelectionDataList;
     private TextView notesText;
     private LineChart chart;
+    private CombinedChart mChart; // Not completed yet, wait after Beta is out
     ArrayList<DataSet> mDataSetList;
     private String[] xValues;
     private float maxValue;
@@ -53,7 +55,7 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().setCanceledOnTouchOutside(true);
-        View rootView = inflater.inflate(R.layout.fragment_healthdata_dialog, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_history_dialog, container, false);
         TextView headerText = (TextView) rootView.findViewById(R.id.txt_home_info_header);
         ImageButton dismissButton = (ImageButton) rootView.findViewById(R.id.btn_dialog_dismiss);
         notesText = (TextView) rootView.findViewById(R.id.text_sideeffect_notes);
@@ -72,8 +74,16 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
             journalSelectionDataList.add(mJournalSelectionData);
         }
 
-        chart = (LineChart) rootView.findViewById(R.id.chart_healthdata);
+        chart = (LineChart) rootView.findViewById(R.id.linechart_history);
 
+        mChart = (CombinedChart) rootView.findViewById(R.id.combinedchart_history);
+        mChart.getDescription().setEnabled(false);
+        mChart.setBackgroundColor(Color.WHITE);
+        mChart.setDrawGridBackground(false);
+        mChart.setDrawBarShadow(false);
+        mChart.setHighlightFullBarEnabled(false);
+
+        // Start Async task to build up data
         mAuthTask = new UserLoginTask();
         mAuthTask.execute((Void) null);
 

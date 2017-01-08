@@ -97,7 +97,7 @@
             android:layout_height="50dp"
             android:text="report"
             android:background="@drawable/custom_button"
-            android:textColor="@drawable/custom_button_text_color"/>
+            android:textColor="@color/cme_light"/>
 
     </LinearLayout>
 
