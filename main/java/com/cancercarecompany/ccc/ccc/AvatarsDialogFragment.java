@@ -1,5 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
@@ -57,9 +59,9 @@ public class AvatarsDialogFragment extends DialogFragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id){
-
-                Bundle args = new Bundle();
-                args.putInt(AvatarsDialogFragment.AVATAR_ID, position);
+                Intent i = new Intent().putExtra("avatar", position+1);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
+                dismiss();
             }
         });
 

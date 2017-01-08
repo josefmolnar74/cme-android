@@ -1,5 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,10 +21,13 @@ import android.widget.TextView;
 
 public class CareTeamHealthcareFragment extends Fragment {
 
+    public static final int AVATARSDIALOG_FRAGMENT = 1; // class variable
+
     private CareTeamExpandListItem listItem;
     private ConnectionHandler connectHandler;
     private int position = 0;
     private boolean admin = false;
+    private int healthcareAvatarId;
 
     private TextView txtTitle;
     private TextView txtDepartment;
@@ -79,8 +84,6 @@ public class CareTeamHealthcareFragment extends Fragment {
         healthcareAvatar = (ImageButton) view.findViewById(R.id.img_careteam_healthcare_avatar);
         buttonDelete = (ImageButton) view.findViewById(R.id.btn_delete);
         buttonSave = (ImageButton) view.findViewById(R.id.btn_save);
-
-        int healthcareAvatarId = 0;
 
         // check admin
         for (int i=0; i < connectHandler.patient.care_team.size(); i++){
@@ -156,26 +159,7 @@ public class CareTeamHealthcareFragment extends Fragment {
             }
         }
 
-        switch (healthcareAvatarId) {
-            case 0:
-                healthcareAvatar.setImageResource(R.drawable.addcontact);
-                break;
-            case 1:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_female);
-                break;
-            case 2:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_nurse);
-                break;
-            case 3:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
-                break;
-            case 4:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
-                break;
-            case 5:
-                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
-                break;
-        }
+        setAvatarResource(healthcareAvatarId);
 
         if (listItem.type == "new") {
             buttonDelete.setVisibility(View.INVISIBLE);
@@ -213,17 +197,57 @@ public class CareTeamHealthcareFragment extends Fragment {
         healthcareAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Open avatar dialog fragment and use bundle to send family avatar type
-                FragmentManager fm = getFragmentManager();
-                AvatarsDialogFragment avatarFragment = new AvatarsDialogFragment();
-                Bundle args = new Bundle();
-                args.putString(AvatarsDialogFragment.AVATAR_TYPE, AvatarsDialogFragment.AVATAR_HEALTHCARE);
-                avatarFragment.setArguments(args);
-                avatarFragment.show(fm, "Josef");
+                startDialog();
             }
         });
         return view;
 
+    }
+
+    void setAvatarResource(int healthcareAvatarId){
+        switch (healthcareAvatarId) {
+            case 0:
+                healthcareAvatar.setImageResource(R.drawable.addcontact);
+                break;
+            case 1:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_female);
+                break;
+            case 2:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_nurse);
+                break;
+            case 3:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_anestetist);
+                break;
+            case 4:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_doctor_male);
+                break;
+            case 5:
+                healthcareAvatar.setImageResource(R.drawable.avatar_healthcare_surgeon);
+                break;
+        }
+    }
+
+    void startDialog() {
+        // Open avatar dialog fragment and use bundle to send family avatar type
+        AvatarsDialogFragment avatarFragment = new AvatarsDialogFragment();
+        Bundle args = new Bundle();
+        args.putString(AvatarsDialogFragment.AVATAR_TYPE, AvatarsDialogFragment.AVATAR_HEALTHCARE);
+        avatarFragment.setArguments(args);
+        avatarFragment.setTargetFragment(this, AVATARSDIALOG_FRAGMENT);
+        avatarFragment.show(getFragmentManager().beginTransaction(), "Josef");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case AVATARSDIALOG_FRAGMENT:
+                if (resultCode == Activity.RESULT_OK) {
+                    Bundle bundle = data.getExtras();
+                    healthcareAvatarId = bundle.getInt("avatar");
+                    setAvatarResource(healthcareAvatarId);
+                } else if (resultCode == Activity.RESULT_CANCELED) {}
+                break;
+        }
     }
 
     @Override
@@ -284,7 +308,7 @@ public class CareTeamHealthcareFragment extends Fragment {
                     editPhone2.getText().toString(),
                     editPhone3.getText().toString(),
                     editEmail.getText().toString(),
-                    connectHandler.healthcare.healthcare_data.get(position).avatar);
+                    healthcareAvatarId);
 
             connectHandler.updateHealthcare(updateHealthCare);
         }

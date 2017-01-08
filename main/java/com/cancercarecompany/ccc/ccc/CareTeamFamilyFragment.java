@@ -1,9 +1,10 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,12 +21,14 @@ import android.widget.TextView;
 
 public class CareTeamFamilyFragment extends Fragment {
 
+    public static final int AVATARSDIALOG_FRAGMENT = 1; // class variable
+
     private CareTeamExpandListItem listItem;
     private ConnectionHandler connectHandler;
     private int position;
     private boolean admin = false;
     private boolean myUser = false;
-    int familyAvatarId;
+    private int familyAvatarId;
 
     TextView txtName;
     TextView txtEmail;
@@ -177,6 +180,7 @@ public class CareTeamFamilyFragment extends Fragment {
                 if (myUser){
                     connectHandler.deleteUser(listItem.id);
                 }
+                getFragmentManager().popBackStack();
             }
         });
 
@@ -184,19 +188,14 @@ public class CareTeamFamilyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 saveUser();
+                getFragmentManager().popBackStack();
             }
         });
 
         familyAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Open avatar dialog fragment and use bundle to send family avatar type
-                FragmentManager fm = getFragmentManager();
-                AvatarsDialogFragment avatarFragment = new AvatarsDialogFragment();
-                Bundle args = new Bundle();
-                args.putString(AvatarsDialogFragment.AVATAR_TYPE, AvatarsDialogFragment.AVATAR_FAMILY);
-                avatarFragment.setArguments(args);
-                avatarFragment.show(fm, "Josef");
+                startDialog();
             }
         });
 
@@ -204,13 +203,32 @@ public class CareTeamFamilyFragment extends Fragment {
 
     }
 
+    void startDialog() {
+        // Open avatar dialog fragment and use bundle to send family avatar type
+        AvatarsDialogFragment avatarFragment = new AvatarsDialogFragment();
+        Bundle args = new Bundle();
+        args.putString(AvatarsDialogFragment.AVATAR_TYPE, AvatarsDialogFragment.AVATAR_FAMILY);
+        avatarFragment.setArguments(args);
+        avatarFragment.setTargetFragment(this, AVATARSDIALOG_FRAGMENT);
+        avatarFragment.show(getFragmentManager().beginTransaction(), "Josef");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case AVATARSDIALOG_FRAGMENT:
+                if (resultCode == Activity.RESULT_OK) {
+                    Bundle bundle = data.getExtras();
+                    familyAvatarId = bundle.getInt("avatar");
+                    setAvatarResource(familyAvatarId);
+                } else if (resultCode == Activity.RESULT_CANCELED) {}
+                break;
+        }
+    }
+
     @Override
     public void onStart(){
         super.onStart();
-//        Integer chosenAvatar = getArguments().getInt(AvatarsDialogFragment.AVATAR_ID);
-//        if (chosenAvatar != null){
-//            setAvatarResource(chosenAvatar);
-//        }
     }
 
     @Override
@@ -231,11 +249,13 @@ public class CareTeamFamilyFragment extends Fragment {
             if (myUser){
                 connectHandler.deleteUser(listItem.id);
             }
+            getFragmentManager().popBackStack();
             return true;
         }
 
         if (id == R.id.action_save) {
             saveUser();
+            getFragmentManager().popBackStack();
             return true;
         }
 
@@ -365,4 +385,5 @@ public class CareTeamFamilyFragment extends Fragment {
     public void setItem(CareTeamExpandListItem selectedListItem){
         listItem = selectedListItem;
     }
+
 }
