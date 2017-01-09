@@ -1,0 +1,425 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".SettingsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/careteam_family_header"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:padding="8dp"
+            android:background="@color/cme_dark">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Inställningar"
+                android:id="@+id/textView"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:visibility="gone"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/btn_delete"
+                android:background="@drawable/garbage_white"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/btn_save"  />
+
+            <ImageButton
+                android:visibility="gone"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/btn_save"
+                android:background="@drawable/mark_white"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:orientation="vertical"
+            android:focusableInTouchMode="true">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+
+                    <ImageButton
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:scaleType="centerInside"
+                        android:adjustViewBounds="true"
+                        android:onClick="onClickAvatar"
+                        android:id="@+id/img_settings_avatar"
+                        android:layout_gravity="left|top"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp" />
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#afafaf">
+
+                </FrameLayout>
+
+                <RelativeLayout
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/careteam_family_name"
+                        android:id="@+id/txt_settings_name"
+                        android:textColor="@color/cme_dark"
+                        android:textSize="20sp"
+                        android:layout_alignParentTop="true" />
+
+                    <EditText
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:inputType="textCapWords"
+                        android:hint="@string/careteam_family_name"
+                        android:id="@+id/etxt_settings_name"
+                        android:textSize="20sp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignStart="@+id/txt_settings_name" />
+
+                </RelativeLayout>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#afafaf">
+
+                </FrameLayout>
+
+                <RelativeLayout
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/careteam_family_email"
+                        android:id="@+id/txt_settings_family_email"
+                        android:textColor="@color/cme_dark"
+                        android:textSize="20sp"
+                        android:layout_alignParentTop="true" />
+
+                    <EditText
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:hint="@string/careteam_family_email"
+                        android:inputType="textEmailAddress"
+                        android:id="@+id/etx_settings_email"
+                        android:textSize="20sp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignStart="@+id/txt_settings_family_email" />
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#afafaf">
+
+                </FrameLayout>
+
+                <RelativeLayout
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+
+                    <TextView
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/careteam_family_relationship"
+                        android:id="@+id/txt_settings_family_relation"
+                        android:textColor="@color/cme_dark"
+                        android:textSize="20sp"
+                        android:layout_alignParentTop="true" />
+
+                    <EditText
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:hint="@string/careteam_family_relationship"
+                        android:inputType="textCapSentences"
+                        android:id="@+id/etxt_settings_relation"
+                        android:textSize="20sp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignStart="@+id/txt_settings_family_relation" />
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#afafaf">
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delete"
+                        android:background="@drawable/custom_button"
+                        android:textColor="@drawable/custom_button_text_color"
+                        android:id="@+id/btn_settings_person_delete"
+                        android:onClick="onClickSettingsDelete"/>
+
+                    <Button
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/update"
+                        android:background="@drawable/custom_button"
+                        android:textColor="@drawable/custom_button_text_color"
+                        android:id="@+id/btn_settings_person_update"
+                        android:onClick="onClickSettingsUpdate"/>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/cme_dark">
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:textSize="24sp"
+                        android:textColor="@color/cme_dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/update_password"
+                        android:onClick="onClickSettingsShowPassword"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/layout_settings_update_password"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:background="@android:color/transparent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:hint="@string/settings_write_password"
+                            android:inputType="textPassword"
+                            android:id="@+id/etx_settings_password"
+                            android:textSize="20sp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignStart="@+id/txt_careteam_family_email" />
+
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#afafaf">
+
+                    </FrameLayout>
+
+                    <RelativeLayout
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:background="@android:color/transparent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:hint="@string/settings_write_old_password"
+                            android:inputType="textPassword"
+                            android:id="@+id/etx_settings_old_password"
+                            android:textSize="20sp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignStart="@+id/txt_careteam_family_email" />
+
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#afafaf">
+
+                    </FrameLayout>
+
+                    <RelativeLayout
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:background="@android:color/transparent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:hint="@string/settings_write_old_password2"
+                            android:inputType="textPassword"
+                            android:id="@+id/etx_settings_old_password2"
+                            android:textSize="20sp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignStart="@+id/txt_careteam_family_email" />
+
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#afafaf">
+
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/update_password"
+                            android:background="@drawable/custom_button"
+                            android:textColor="@drawable/custom_button_text_color"
+                            android:id="@+id/btn_settings_person_update_password"
+                            android:onClick="onClickSettingsUpdatePassword"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -81,6 +81,19 @@ public class CareTeamFamilyFragment extends Fragment {
         buttonDelete.setVisibility(View.INVISIBLE);
         familyAvatarId = 0;
 
+        editName.setFocusable(false);
+        editName.setFocusableInTouchMode(false);
+        editName.setEnabled(false);
+        editEmail.setFocusable(false);
+        editEmail.setFocusableInTouchMode(false);
+        editEmail.setEnabled(false);
+        editRelation.setFocusable(false);
+        editRelation.setFocusableInTouchMode(false);
+        editRelation.setEnabled(false);
+        familyAvatar.setFocusable(false);
+        familyAvatar.setFocusableInTouchMode(false);
+        familyAvatar.setEnabled(false);
+
         switch(listItem.type) {
 
             case "family":
@@ -127,7 +140,7 @@ public class CareTeamFamilyFragment extends Fragment {
                     admin = true;
             }
         }
-
+/*
         if (myUser || admin){
             buttonDelete.setVisibility(View.VISIBLE);
             buttonSave.setVisibility(View.VISIBLE);
@@ -156,7 +169,7 @@ public class CareTeamFamilyFragment extends Fragment {
             editRelation.setFocusableInTouchMode(false);
             editRelation.setEnabled(false);
         }
-
+*/
         setAvatarResource(familyAvatarId);
 
         if (listItem.type == "new"){
@@ -195,7 +208,7 @@ public class CareTeamFamilyFragment extends Fragment {
         familyAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startDialog();
+//                startDialog();
             }
         });
 

@@ -9,7 +9,10 @@
     <string name="save">Spara</string>
     <string name="next">Nästa</string>
     <string name="send">Skicka</string>
+    <string name="update">Uppdatera</string>
+    <string name="update_password">Uppdatera lösenord</string>
     <string name="delete">Ta bort</string>
+
     <string name="remove">Ta bort</string>
     <string name="yes">Ja</string>
     <string name="no">Nej</string>
@@ -70,7 +73,8 @@
     <string name="journal_sideeffect_emotional_activities_question">Hur är *s intresse för vardaliga aktiviteter?</string>
     <string name="journal_sideeffect_emotional_activities_seekbar_headline"></string>
     <string name="journal_sideeffect_emotional_activities_seekbar_min">Ingen alls</string>
-    <string name="journal_sideeffect_emotional_activities_seekbar_max">Jätteycket</string>    <string name="journal_sideeffect_emotional_dejection">Nedstämdhet</string>
+    <string name="journal_sideeffect_emotional_activities_seekbar_max">Jätteycket</string>
+    <string name="journal_sideeffect_emotional_dejection">Nedstämdhet</string>
     <string name="journal_sideeffect_emotional_dejection_question">Hur nedstämd känner * sig?</string>
     <string name="journal_sideeffect_emotional_dejection_seekbar_headline"></string>
     <string name="journal_sideeffect_emotional_dejection_seekbar_min">Ingen nedstämdhet alls</string>
@@ -440,6 +444,13 @@
     <string name="event_hospital_txt2">Efter cellgifterna kan du ibland må jättedåligt och därför måste du in till sjukhuset igen, men det är bara för att få dig att må bättre och för att läkarna och sjuksköterskor ska bättre kunna ta hand om dig.</string>
     <string name="event_hospital_txt3">Mamma och pappa kommer att vara där för det mesta och du kommer att träffa andra barn som också är på sjukhuset. Om ni vill och orka så finns det många leksaker där man kan leka med! </string>
     <string name="events_explore_journey">Utforska cancerresa</string>
+
+    <string name="settings_password">Nuvarande lösenord</string>
+    <string name="settings_write_password">Ange nuvarande lösenord</string>
+    <string name="settings_old_password">Nytt lösenord</string>
+    <string name="settings_write_old_password">Ange nytt lösenord</string>
+    <string name="settings_old_password2">Nytt lösenord</string>
+    <string name="settings_write_old_password2">Upprepa nytt lösenord</string>
 
     <string name="toast_message_journal_history_no_selection">Du måste först välja data</string>
     <string name="toast_message_register_user_created">Användare har skapats</string>

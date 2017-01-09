@@ -1,6 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch(id){
             case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 break;
             case  R.id.action_logout:
                 SharedPreferences sharedPref = this.getSharedPreferences("login_settings", Context.MODE_PRIVATE);

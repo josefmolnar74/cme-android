@@ -18,6 +18,9 @@ import android.widget.ImageButton;
  */
 public class AvatarsDialogFragment extends DialogFragment {
 
+    private OnCompleteListener mListener;
+    private boolean familyAvatar = false;
+
     public static final String AVATAR_TYPE = "avatar_type";
     public static final String AVATAR_FAMILY = "family";
     public static final String AVATAR_HEALTHCARE = "healthcare";
@@ -52,6 +55,7 @@ public class AvatarsDialogFragment extends DialogFragment {
         GridView gridview = (GridView) rootView.findViewById(R.id.grid_avatars);
         if (getArguments().getString(AVATAR_TYPE).matches(AVATAR_FAMILY)){
             gridview.setAdapter(new AvatarsDialogAdapter(getContext(), mFamilyAvatars));
+            familyAvatar = true;
         } else{
             gridview.setAdapter(new AvatarsDialogAdapter(getContext(), mHealthcareAvatars));
         }
@@ -59,8 +63,12 @@ public class AvatarsDialogFragment extends DialogFragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id){
-                Intent i = new Intent().putExtra("avatar", position+1);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
+                if (familyAvatar){
+                    onAvatarIdSet(position+1);
+                } else{
+                    Intent i = new Intent().putExtra("avatar", position+1);
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
+                }
                 dismiss();
             }
         });
@@ -84,5 +92,27 @@ public class AvatarsDialogFragment extends DialogFragment {
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         window.setGravity(Gravity.CENTER);
         //TODO:
+    }
+
+    public interface OnCompleteListener {
+        void onComplete(int avatarId);
+    }
+
+    // make sure the Activity implemented it
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (familyAvatar){
+            try {
+                this.mListener = (OnCompleteListener)activity;
+            }
+            catch (final ClassCastException e) {
+                throw new ClassCastException(activity.toString() + " must implement OnCompleteListener");
+            }
+        }
+    }
+
+    public void onAvatarIdSet(int avatarId) {
+        this.mListener.onComplete(avatarId);
     }
 }

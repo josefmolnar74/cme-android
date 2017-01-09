@@ -667,7 +667,7 @@ public class JournalDetailsFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete) {
-//                deleteSideeffect();
+                deleteSideeffect();
             sideeffectNotes.setText("");
             return true;
         }
@@ -691,6 +691,38 @@ public class JournalDetailsFragment extends Fragment {
 
     public void setDate(String date){
         selectedDate = date;
+    }
+
+    private void deleteSideeffect(){
+        // Generate dialog to make sure user wants to delete
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        String alertText = String.format(getString(R.string.remove_question));
+        alertDialogBuilder.setMessage(alertText);
+
+        alertDialogBuilder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                if (listItem.sideeffect!=null){
+                    connectHandler.deleteSideeffect(listItem.sideeffect.sideeffect_ID);
+                }else if (listItem.healthData!=null){
+                    connectHandler.deleteHealthData(listItem.healthData.healthdata_ID);
+                }
+
+                while(connectHandler.socketBusy){}
+                getActivity().onBackPressed();
+                // remove item from list and from database
+                // removeItemFromList(listItem.event_ID);
+            }
+        });
+        alertDialogBuilder.setNegativeButton(getText(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     private void saveSideeffect(){

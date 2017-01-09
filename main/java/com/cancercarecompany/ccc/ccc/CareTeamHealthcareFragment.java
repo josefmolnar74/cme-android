@@ -1,11 +1,13 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -181,8 +183,7 @@ public class CareTeamHealthcareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (admin){
-                    connectHandler.deleteHealthcare(listItem.id);
-                }
+                    deleteHealthcare();                }
             }
 
         });
@@ -191,6 +192,7 @@ public class CareTeamHealthcareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 saveHealthcare();
+                getFragmentManager().popBackStack();
             }
         });
 
@@ -266,8 +268,9 @@ public class CareTeamHealthcareFragment extends Fragment {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete) {
             if (admin){
-                connectHandler.deleteHealthcare(listItem.id);
+                deleteHealthcare();
             }
+            getFragmentManager().popBackStack();
             return true;
         }
 
@@ -275,12 +278,36 @@ public class CareTeamHealthcareFragment extends Fragment {
             if (admin){
                 saveHealthcare();
             }
+            getFragmentManager().popBackStack();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    void deleteHealthcare(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        String alertText = String.format(getString(R.string.remove_question));
+
+        alertDialogBuilder.setMessage(alertText);
+
+        alertDialogBuilder.setPositiveButton(getText(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                connectHandler.deleteHealthcare(listItem.id);
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton(getText(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
     void saveHealthcare(){
         if (listItem.type == "new"){
             HealthCare newHealthCare = new HealthCare(
