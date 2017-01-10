@@ -701,7 +701,7 @@ public class EventsDetailsFragment extends Fragment {
         mTimeButton.setText(timeForButton);
     }
 
-    class DatePickerFragment extends DialogFragment implements
+    public class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
 
         @Override
@@ -736,7 +736,7 @@ public class EventsDetailsFragment extends Fragment {
         }
     }
 
-    class TimePickerFragment extends DialogFragment implements
+    public class TimePickerFragment extends DialogFragment implements
             TimePickerDialog.OnTimeSetListener {
 
         @Override

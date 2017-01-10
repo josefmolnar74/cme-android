@@ -23,6 +23,9 @@ public class SettingsActivity extends AppCompatActivity implements AvatarsDialog
     private EditText editRelation;
     private ImageButton familyAvatar;
     private LinearLayout passwordLayout;
+    private EditText editPassword;
+    private EditText editNewPassword;
+    private EditText editNewPassword2;
 
     public void onComplete(int avatarId) {
         familyAvatarId = avatarId;
@@ -40,6 +43,9 @@ public class SettingsActivity extends AppCompatActivity implements AvatarsDialog
         editRelation = (EditText) findViewById(R.id.etxt_settings_relation);
         familyAvatar = (ImageButton) findViewById(R.id.img_settings_avatar);
         passwordLayout = (LinearLayout) findViewById(R.id.layout_settings_update_password);
+        editPassword = (EditText) findViewById(R.id.etx_settings_password);
+        editNewPassword = (EditText) findViewById(R.id.etx_settings_new_password);
+        editNewPassword2 = (EditText) findViewById(R.id.etx_settings_new_password2);
         editName.setText(connectHandler.person.name);
         editEmail.setText(connectHandler.person.email);
         familyAvatarId = connectHandler.person.avatar;
@@ -64,7 +70,39 @@ public class SettingsActivity extends AppCompatActivity implements AvatarsDialog
     }
 
     public void onClickSettingsUpdate(View view){
+        String nameString = editName.getText().toString();
+        String emailString = editEmail.getText().toString();
 
+        //FirstName and email must be specified, the others will get empty string if not specified
+        boolean wrongInput = false;
+
+        if ((nameString.isEmpty()) || (emailString.isEmpty())){
+            wrongInput = true;
+        }
+
+        if (!wrongInput){
+            // update my information
+            Person updatedPerson = new Person(
+                    connectHandler.person.person_ID,
+                    nameString,
+                    emailString,
+                    null,
+                    familyAvatarId,
+                    null);
+            connectHandler.updateUser(updatedPerson);
+            while (connectHandler.socketBusy){}
+
+            CareTeamMember mCareTeamMember = new CareTeamMember(
+                    connectHandler.person.person_ID,
+                    nameString,
+                    emailString,
+                    editRelation.getText().toString(),
+                    familyAvatarId,
+                    1);
+
+            connectHandler.updateCareTeamMember(mCareTeamMember, connectHandler.patient.patient_ID);
+            this.onBackPressed();
+        }
     }
 
     public void onClickSettingsDelete(View view){
@@ -101,34 +139,30 @@ public class SettingsActivity extends AppCompatActivity implements AvatarsDialog
         }
     }
 
-    public void onClickSettingsUpdatePassword(View view){
+    public void onClickSettingsUpdatePassword(View view) {
+        String password = editPassword.getText().toString();
+        String newPassword = editNewPassword.getText().toString();
+        String newPassword2 = editNewPassword2.getText().toString();
 
-    }
-
-    private void saveUser() {
-
-        String nameString = editName.getText().toString();
-        String emailString = editEmail.getText().toString();
-
-        //FirstName and email must be specified, the others will get emptystring if not specified
+        //FirstName and email must be specified, the others will get empty string if not specified
         boolean wrongInput = false;
+        boolean passwordMatch = false;
 
-        if ((nameString.isEmpty()) || (emailString.isEmpty())){
+        if ((password.isEmpty()) || (newPassword.isEmpty()) || (newPassword.isEmpty())) {
             wrongInput = true;
         }
 
-        if (!wrongInput){
-            // update my information
-            Person updatedPerson = new Person(
-                    connectHandler.person.person_ID,
-                    nameString,
-                    emailString,
-                    null,
-                    familyAvatarId,
-                    null);
-            connectHandler.updateUser(updatedPerson);
-            this.onBackPressed();
+        if (newPassword.matches(newPassword2)){
+            passwordMatch = true;
         }
+
+        if (!wrongInput && passwordMatch){
+            connectHandler.updatePassword(connectHandler.person.person_ID, password, newPassword);
+        }
+        else{
+            // give some kind of an error message
+        }
+
     }
 
     private void setAvatarResource(Integer familyAvatarId){

@@ -48,7 +48,7 @@ public class ConnectionHandler {
     public static final String CONTENT_PATIENT = "patient";
     public static final String CONTENT_INVITE = "invite";
     public static final String CONTENT_HEALTHCARE = "healthcare";
-    public static final String CONTENT_CARE_TEAM = "careteam ";
+    public static final String CONTENT_CARETEAM = "careteam";
     public static final String CONTENT_EVENT = "event";
     public static final String CONTENT_STATUS = "status";
     public static final String CONTENT_SIDEEFFECT = "sideeffect";
@@ -56,6 +56,8 @@ public class ConnectionHandler {
     public static final String CONTENT_JOURNAL = "journal";
     public static final String CONTENT_QUESTION = "question";
     public static final String CONTENT_ARTICLE = "article";
+    public static final String CONTENT_PASSWORD = "password";
+
 
     public static ConnectionHandler getInstance() {
         return ourInstance;
@@ -184,20 +186,26 @@ public class ConnectionHandler {
                             case MESSAGE_UPDATE:
                                 switch (header.content){
                                     case CONTENT_PERSON:
-//                                        person = gson.fromJson(resultData, Person.class);
+                                        person = gson.fromJson(resultData, Person.class);
                                         break;
                                     case CONTENT_PATIENT:
 //                                        Patient patient = gson.fromJson(resultData, Patient.class);
                                         break;
-                                    case CONTENT_CARE_TEAM:
-//                                        CareTeamMember careTeam = gson.fromJson(resultData, CareTeamMember.class);
+                                    case CONTENT_CARETEAM:
+                                        CareTeamMember careTeam = gson.fromJson(resultData, CareTeamMember.class);
+                                        for (int i = 0; i < patient.care_team.size(); i++) {
+                                            if (patient.care_team.get(i).person_ID == careTeam.person_ID) {
+                                                patient.care_team.get(i).relationship = careTeam.relationship;
+                                                patient.care_team.get(i).admin = careTeam.admin;
+                                                break;
+                                            }
+                                        }
                                         break;
                                     case CONTENT_HEALTHCARE:
 //                                        healthcare = gson.fromJson(resultData, HealthCareData.class);
                                         break;
                                 }
                                 break;
-
                         }
 
                     }
@@ -226,7 +234,7 @@ public class ConnectionHandler {
         }
     }
 
-    public void login (Person newUser){
+    public void login (Person newUser){//
         if (checkConnection()){
             function = "login";
             Gson gson = new Gson();
@@ -289,12 +297,13 @@ public class ConnectionHandler {
         }
     }
 
-    public void createCareTeamMember(CareTeamMember newCareTeamMember, int patientID) {
+    public void updateCareTeamMember(CareTeamMember mCareTeamMember, int patientID) {
         if (checkConnection()){
             Gson gson = new Gson();
-            String msgData = gson.toJson(newCareTeamMember);
-            //Create patient with existing patient_ID only creates new care team junction
-            sendMessage(MESSAGE_CREATE, CONTENT_PATIENT, msgData);
+            String msgData = gson.toJson(mCareTeamMember);
+            String msgRelationshipData = String.format("\"patient_ID\":\"%d\",", patientID);
+            msgData = new StringBuilder(msgData).insert(1, msgRelationshipData).toString();
+            sendMessage(MESSAGE_UPDATE, CONTENT_CARETEAM, msgData);
         }
     }
 
@@ -574,6 +583,13 @@ public class ConnectionHandler {
         } else {
             //offline mode, get data from internal file
             journal =  offlineDataManager.getJournal();
+        }
+    }
+
+    public void updatePassword(int personID, String oldPassword, String  newPassword){
+        if (checkConnection()){
+            String msgData = String.format("{\"person_ID\":\"%d\",\"old_password\":\"%s\",\"new_password\":\"%s\"}", personID, oldPassword, newPassword);
+            sendMessage(MESSAGE_UPDATE, CONTENT_PASSWORD, msgData);
         }
     }
 

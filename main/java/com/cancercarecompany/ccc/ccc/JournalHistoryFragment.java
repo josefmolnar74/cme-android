@@ -301,10 +301,13 @@ public class JournalHistoryFragment extends Fragment {
 
     public class JournalHistoryExpandListAdapter extends BaseExpandableListAdapter {
 
+        private static final int JOURNAL_HISTORY_SELECTION_MAX = 2; // class variable
+
         private Context _context;
         private List<String> _listDataHeader; // header titles
         // child data in format of header title, child title
         private HashMap<String, List<JournalHistoryItem>> _listDataChild;
+        private int numberOfSelected = 0;
 
         public JournalHistoryExpandListAdapter(Context context, List<String> listDataHeader,
                                         HashMap<String, List<JournalHistoryItem>> listChildData) {
@@ -348,30 +351,54 @@ public class JournalHistoryFragment extends Fragment {
                     switch (groupPos) {
                         case 0:
                             if (checkBox.isChecked()){
-                                healthDataExpandList.get(childPos).isSelected = true;
+                                if (numberOfSelected >= JOURNAL_HISTORY_SELECTION_MAX){
+                                    checkBox.setChecked(false);
+                                }else{
+                                    healthDataExpandList.get(childPos).isSelected = true;
+                                    numberOfSelected++;
+                                }
                             }else{
                                 healthDataExpandList.get(childPos).isSelected = false;
+                                numberOfSelected--;
                             }
                             break;
                         case 1:
                             if (checkBox.isChecked()){
-                                physicalExpandList.get(childPos).isSelected = true;
+                                if (numberOfSelected >= JOURNAL_HISTORY_SELECTION_MAX){
+                                    checkBox.setChecked(false);
+                                }else{
+                                    physicalExpandList.get(childPos).isSelected = true;
+                                    numberOfSelected++;
+                                }
                             }else{
                                 physicalExpandList.get(childPos).isSelected = false;
+                                numberOfSelected--;
                             }
                             break;
                         case 2:
                             if (checkBox.isChecked()){
-                                otherExpandList.get(childPos).isSelected = true;
+                                if (numberOfSelected >= JOURNAL_HISTORY_SELECTION_MAX){
+                                    checkBox.setChecked(false);
+                                }else{
+                                    otherExpandList.get(childPos).isSelected = true;
+                                    numberOfSelected++;
+                                }
                             }else{
                                 otherExpandList.get(childPos).isSelected = false;
+                                numberOfSelected--;
                             }
                             break;
                         case 3:
                             if (checkBox.isChecked()){
-                                emotionalExpandList.get(childPos).isSelected = true;
+                                if (numberOfSelected >= JOURNAL_HISTORY_SELECTION_MAX){
+                                    checkBox.setChecked(false);
+                                }else{
+                                    emotionalExpandList.get(childPos).isSelected = true;
+                                    numberOfSelected++;
+                                }
                             }else{
                                 emotionalExpandList.get(childPos).isSelected = false;
+                                numberOfSelected--;
                             }
                             break;
                     }

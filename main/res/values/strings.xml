@@ -12,7 +12,6 @@
     <string name="update">Uppdatera</string>
     <string name="update_password">Uppdatera lösenord</string>
     <string name="delete">Ta bort</string>
-
     <string name="remove">Ta bort</string>
     <string name="yes">Ja</string>
     <string name="no">Nej</string>
@@ -447,10 +446,10 @@
 
     <string name="settings_password">Nuvarande lösenord</string>
     <string name="settings_write_password">Ange nuvarande lösenord</string>
-    <string name="settings_old_password">Nytt lösenord</string>
-    <string name="settings_write_old_password">Ange nytt lösenord</string>
-    <string name="settings_old_password2">Nytt lösenord</string>
-    <string name="settings_write_old_password2">Upprepa nytt lösenord</string>
+    <string name="settings_new_password">Nytt lösenord</string>
+    <string name="settings_write_new_password">Ange nytt lösenord</string>
+    <string name="settings_new_password2">Nytt lösenord</string>
+    <string name="settings_write_new_password2">Upprepa nytt lösenord</string>
 
     <string name="toast_message_journal_history_no_selection">Du måste först välja data</string>
     <string name="toast_message_register_user_created">Användare har skapats</string>
