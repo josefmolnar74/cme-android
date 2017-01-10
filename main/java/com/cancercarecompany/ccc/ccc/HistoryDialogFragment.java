@@ -15,11 +15,14 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.text.ParseException;
@@ -29,6 +32,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -45,8 +49,8 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
     private CombinedChart mChart; // Not completed yet, wait after Beta is out
     ArrayList<DataSet> mDataSetList;
     private String[] xValues;
-    private float maxValue;
-    private float minValue;
+    private float[] maxValue;
+    private float[] minValue;
     private ConnectionHandler connectHandler;
     private UserLoginTask mAuthTask = null;
 
@@ -77,11 +81,11 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
         chart = (LineChart) rootView.findViewById(R.id.linechart_history);
 
         mChart = (CombinedChart) rootView.findViewById(R.id.combinedchart_history);
-        mChart.getDescription().setEnabled(false);
-        mChart.setBackgroundColor(Color.WHITE);
-        mChart.setDrawGridBackground(false);
-        mChart.setDrawBarShadow(false);
-        mChart.setHighlightFullBarEnabled(false);
+//         mChart.getDescription().setEnabled(false);
+//        mChart.setBackgroundColor(Color.WHITE);
+//        mChart.setDrawGridBackground(false);
+//        mChart.setDrawBarShadow(false);
+//        mChart.setHighlightFullBarEnabled(false);
 
         // Start Async task to build up data
         mAuthTask = new UserLoginTask();
@@ -207,8 +211,13 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
 
             xValues = new String[days+1];
 
-            maxValue = 0;
-            minValue = Float.MAX_VALUE;
+            minValue = new float[journalSelectionDataList.size()];
+            maxValue = new float[journalSelectionDataList.size()];
+
+            for (int i=0; i < journalSelectionDataList.size(); i++){
+                maxValue[i] = 0;
+                minValue[i] = Float.MAX_VALUE;
+            }
 
             Date mDate = firstDate;
             Calendar cal = Calendar.getInstance();
@@ -233,11 +242,11 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
                 for (int j = 0; j < xValues.length; j++) {
                     if (xValues[j].matches(journalSelectionDataList.get(i).chartData.get(dataIndex).date)) {
                         float value = journalSelectionDataList.get(i).chartData.get(dataIndex).value;
-                        if ((value > maxValue)){
-                            maxValue = value;
+                        if ((value > maxValue[i])){
+                            maxValue[i] = value;
                         }
-                        if ((value < minValue)){
-                            minValue = value;
+                        if ((value < minValue[i])){
+                            minValue[i] = value;
                         }
                         entries.add(new Entry(j, value));
                         dataIndex++;
@@ -261,7 +270,9 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
         protected void onPostExecute(final Boolean success) {
 
             if (success) {
-                drawChart();
+                //drawChart();
+                drawChart2();
+                //drawCombinedChart();
             } else {
                 // error something went wrong
             }
@@ -274,33 +285,30 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
 
     private void drawChart(){
 
+        int i = 0;
         XAxis xAxis = chart.getXAxis();
         xAxis.setLabelRotationAngle(-90);
         xAxis.setValueFormatter(new MyXAxisValueFormatter(xValues));
 //        xAxis.setLabelCount(xValues.length-1);
         chart.setExtraTopOffset(5f); //offset to assure that xAxis values fit
 
-        if (maxValue < 10){
-            maxValue = 10;
+        if (maxValue[i] < 10){
+            maxValue[i] = 10;
         }
 
-        if (minValue < 10){
-            minValue = 0;
+        if (minValue[i] < 10){
+            minValue[i] = 0;
         }
 
 //        chart.getAxisLeft().setLabelCount(6); // replace 6 with max
-        chart.getAxisLeft().setAxisMinimum(minValue);
-        chart.getAxisLeft().setAxisMaximum(maxValue);
+        chart.getAxisLeft().setAxisMinimum(minValue[i]);
+        chart.getAxisLeft().setAxisMaximum(maxValue[i]);
 //        chart.getAxisRight().setLabelCount(6); // replace 6 with max
-        chart.getAxisRight().setAxisMinimum(minValue);
-        chart.getAxisRight().setAxisMaximum(maxValue);
-
-        for (int i=0; i < journalSelectionDataList.size(); i++) {
-
-        }
+        chart.getAxisRight().setAxisMinimum(minValue[i]);
+        chart.getAxisRight().setAxisMaximum(maxValue[i]);
 
         // Print one dataSet
-        LineDataSet dataSet = new LineDataSet(mDataSetList.get(0).entries, "Josef"); // add entries to dataset
+        LineDataSet dataSet = new LineDataSet(mDataSetList.get(i).entries, "Josef"); // add entries to dataset
         LineData lineData = new LineData(dataSet);
         dataSet.setColor(Color.parseColor("#7fc9cb")); // cme_light color
         dataSet.setDrawValues(false);
@@ -310,6 +318,100 @@ public class HistoryDialogFragment extends DialogFragment implements OnChartValu
         chart.invalidate(); // refresh
 //            chart.setOnChartValueSelectedListener(MyApplication.getContext());
         chart.setDescription(null);
+
+    }
+
+    private void drawChart2(){
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setLabelRotationAngle(-90);
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(xValues));
+//        xAxis.setLabelCount(xValues.length-1);
+        chart.setExtraTopOffset(5f); //offset to assure that xAxis values fit
+
+        List<ILineDataSet> dataSets= new ArrayList<>();
+        List<LineData> mLineDataList= new ArrayList<>();
+
+        for (int i=0; i<journalSelectionDataList.size(); i++){
+            if (maxValue[i] < 10){
+                maxValue[i] = 10;
+            }
+            if (minValue[i] < 10){
+                minValue[i] = 0;
+            }
+
+            LineDataSet mLineDataSet = new LineDataSet(mDataSetList.get(i).entries, "DataSet".concat(String.valueOf(i)));
+            mLineDataSet.setColor(Color.parseColor("#7fc9cb")); // cme_light color
+            mLineDataSet.setDrawValues(false);
+
+            if (i==0){
+                mLineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            } else{
+                mLineDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            }
+
+            dataSets.add(mLineDataSet);
+            LineData mLineData = new LineData(dataSets.get(i));
+            mLineDataList.add(mLineData);
+//        dataSet.setColor(Color.parseColor("#7fc9cb")); // cme_light color
+//        dataSet.setDrawValues(false);
+            if (i==0) {
+                chart.getAxisLeft().setAxisMinimum(minValue[i]);
+                chart.getAxisLeft().setAxisMaximum(maxValue[i]);
+            }
+            chart.getAxisRight().setAxisMinimum(minValue[i]);
+            chart.getAxisRight().setAxisMaximum(maxValue[i]);
+        }
+        chart.setData(new LineData(dataSets));
+        chart.getLegend().setEnabled(false);
+        chart.invalidate(); // refresh
+//            chart.setOnChartValueSelectedListener(MyApplication.getContext());
+        chart.setDescription(null);
+
+    }
+
+    private void drawCombinedChart(){
+
+        XAxis xAxis = mChart.getXAxis();
+        xAxis.setLabelRotationAngle(-90);
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(xValues));
+//        xAxis.setLabelCount(xValues.length-1);
+        mChart.setExtraTopOffset(5f); //offset to assure that xAxis values fit
+
+        CombinedData mCombinedData = new CombinedData();
+        ArrayList<LineDataSet> mLineDataSetList= new ArrayList<>();
+        ArrayList<LineData> mLineDataList= new ArrayList<>();
+
+        for (int i=0; i<journalSelectionDataList.size(); i++){
+            if (maxValue[i] < 10){
+                maxValue[i] = 10;
+            }
+            if (minValue[i] < 10){
+                minValue[i] = 0;
+            }
+
+            LineDataSet mLineDataSet = new LineDataSet(mDataSetList.get(i).entries, "History");
+            mLineDataSet.setColor(Color.parseColor("#7fc9cb")); // cme_light color
+            mLineDataSet.setDrawValues(false);
+            mLineDataSetList.add(mLineDataSet);
+            LineData mLineData = new LineData(mLineDataSetList.get(i));
+            mLineDataList.add(mLineData);
+
+            if (i==0){
+                mChart.getAxisLeft().setAxisMinimum(minValue[i]);
+                mChart.getAxisLeft().setAxisMaximum(maxValue[i]);
+            }else{
+                mChart.getAxisRight().setAxisMinimum(minValue[i]);
+                mChart.getAxisRight().setAxisMaximum(maxValue[i]);
+            }
+
+            mCombinedData.setData(mLineDataList.get(i));
+        }
+
+        mChart.setData(mCombinedData);
+        mChart.getLegend().setEnabled(false);
+        mChart.invalidate(); // refresh
+        mChart.setDescription(null);
 
     }
 
