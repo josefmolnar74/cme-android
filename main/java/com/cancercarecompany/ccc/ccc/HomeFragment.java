@@ -1,6 +1,8 @@
 package com.cancercarecompany.ccc.ccc;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -32,6 +34,8 @@ import java.util.Random;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
+
+    private OnTabSwitchToEventListener mListener;
 
     public static final String article_type_CME = "cme";
     public static final String article_type_INSPIRATION = "inspiration";
@@ -223,6 +227,27 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        eventLayout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.OnTabSwitchToEvent(1);
+            }
+        });
+
+        eventLayout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.OnTabSwitchToEvent(2);
+            }
+        });
+
+        eventLayout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            mListener.OnTabSwitchToEvent(3);
+            }
+        });
+
         showAllQuestionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -318,6 +343,10 @@ public class HomeFragment extends Fragment {
         }.start();
     }
 
+    private void startEventFragment(){
+        // start Event fragment
+    }
+
     void showInfoDialog(String type, String title, String text){
         FragmentManager fm = getFragmentManager();
         InfoDialogFragment dialogFragment = new InfoDialogFragment();
@@ -334,4 +363,20 @@ public class HomeFragment extends Fragment {
 //        ((MainActivity) getActivity()).setTitle("Hem");
     }
 
+    public interface OnTabSwitchToEventListener {
+        void OnTabSwitchToEvent(int eventIndex);
+    }
+
+    // make sure the Activity implemented it
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+            try {
+                this.mListener = (OnTabSwitchToEventListener)context;
+            }
+            catch (final ClassCastException e) {
+                throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
+            }
+    }
 }
+

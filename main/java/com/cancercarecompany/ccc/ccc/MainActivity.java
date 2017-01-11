@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.OnTabSwitchToEventListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -32,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private CustomViewPager mViewPager;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+
+    public void OnTabSwitchToEvent(int position) {
+        // The user selected the headline of an article from the HeadlinesFragment
+        // Do something here to display that article
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout.Tab tab = tabLayout.getTabAt(3);
+        tab.select();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
