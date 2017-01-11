@@ -54,13 +54,13 @@
 
     <string name="journal_health_data">Hälsodata</string>
     <string name="journal_health_data_body_weight">Kroppsvikt</string>
-    <string name="journal_health_data_body_weight_question">Ange *s kroppsvikt i kg</string>
+    <string name="journal_health_data_body_weight_question">Ange *s kroppsvikt (kg)</string>
     <string name="journal_health_data_body_temperature">Kroppstemperatur</string>
-    <string name="journal_health_data_body_temperature_question">Ange *s kroppstemperatur i grader C</string>
+    <string name="journal_health_data_body_temperature_question">Ange *s kroppstemperatur (°C)</string>
     <string name="journal_health_data_blood_pressure">Blodtryck</string>
-    <string name="journal_health_data_blood_pressure_question">Ange *s blodtryck i mm Hg </string>
+    <string name="journal_health_data_blood_pressure_question">Ange *s blodtryck (mmHg) </string>
     <string name="journal_health_data_heart_rate">Puls</string>
-    <string name="journal_health_data_heart_rate_question">Ange *s puls i hjärtslag/minut</string>
+    <string name="journal_health_data_heart_rate_question">Ange *s puls (hjärtslag/minut)</string>
 
     <string name="journal_status_header">Status</string>
     <string name="journal_patient_name">s cancerresa</string>
@@ -274,7 +274,7 @@
     <string name="journal_report">Rappport</string>
     <string name="journal_history">Historik</string>
     <string name="journal_show_history">Visa data</string>
-
+    <string name="journal_notes">Anteckningar</string>
 
     <string name="careteam_healthcare">Hälsovård</string>
     <string name="careteam_patient">Patient</string>

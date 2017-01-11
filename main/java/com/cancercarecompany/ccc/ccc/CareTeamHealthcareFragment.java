@@ -308,6 +308,7 @@ public class CareTeamHealthcareFragment extends Fragment {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
     void saveHealthcare(){
         if (listItem.type == "new"){
             HealthCare newHealthCare = new HealthCare(

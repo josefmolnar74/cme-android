@@ -1,10 +1,12 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -189,11 +191,7 @@ public class CareTeamFamilyFragment extends Fragment {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonDelete.setVisibility(View.INVISIBLE);
-                if (myUser){
-                    connectHandler.deleteUser(listItem.id);
-                }
-                getFragmentManager().popBackStack();
+                removeCareTeamMember();
             }
         });
 
@@ -259,10 +257,7 @@ public class CareTeamFamilyFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete) {
-            if (myUser){
-                connectHandler.deleteUser(listItem.id);
-            }
-            getFragmentManager().popBackStack();
+            removeCareTeamMember();
             return true;
         }
 
@@ -395,6 +390,42 @@ public class CareTeamFamilyFragment extends Fragment {
         }
     }
 
+    void removeCareTeamMember(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        String alertText = String.format(getString(R.string.remove_question));
+
+        alertDialogBuilder.setMessage(alertText);
+
+        alertDialogBuilder.setPositiveButton(getText(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+
+                switch(listItem.type){
+                    case "family":
+                        connectHandler.removeCareTeamMember(connectHandler.patient.patient_ID, listItem.id);
+                        break;
+
+                    case "invite":
+                        connectHandler.deleteCareTeamInvite(listItem.id);
+                        break;
+
+                }
+
+                while(connectHandler.socketBusy){}
+                getFragmentManager().popBackStack();
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton(getText(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
     public void setItem(CareTeamExpandListItem selectedListItem){
         listItem = selectedListItem;
     }

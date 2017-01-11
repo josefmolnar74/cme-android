@@ -275,66 +275,56 @@
                     android:orientation="vertical">
 
                     <RadioGroup
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/rg_journal_sideeffect_radiogroup"
                         android:layout_below="@+id/txt_journal_sideeffect_diarrhea_popup_question"
                         android:layout_centerHorizontal="true">
 
                         <RadioButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="One"
                             android:id="@+id/rb_journal_sideeffect_radiobutton1"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="244dp"
-                            android:layout_marginEnd="244dp" />
+                            android:layout_alignParentEnd="true" />
 
                         <RadioButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Two"
                             android:id="@+id/rb_journal_sideeffect_radiobutton2"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="244dp"
-                            android:layout_marginEnd="244dp" />
+                            android:layout_alignParentEnd="true"/>
 
                         <RadioButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Three"
                             android:id="@+id/rb_journal_sideeffect_radiobutton3"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="244dp"
-                            android:layout_marginEnd="244dp" />
+                            android:layout_alignParentEnd="true"/>
 
                         <RadioButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Four"
                             android:id="@+id/rb_journal_sideeffect_radiobutton4"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="244dp"
-                            android:layout_marginEnd="244dp" />
+                            android:layout_alignParentEnd="true"/>
 
                         <RadioButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="More than 4"
                             android:id="@+id/rb_journal_sideeffect_radiobutton5"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="244dp"
-                            android:layout_marginEnd="244dp" />
+                            android:layout_alignParentEnd="true"/>
 
                     </RadioGroup>
 
@@ -350,25 +340,25 @@
                     android:orientation="vertical">
 
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/cb_journal_sideeffect_checkbox1"
                         android:text="@string/journal_sideeffect_physical_mouth_checkbox_sore" />
 
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/cb_journal_sideeffect_checkbox2"
                         android:text="@string/journal_sideeffect_physical_mouth_checkbox_dry" />
 
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/cb_journal_sideeffect_checkbox3"
                         android:text="@string/journal_sideeffect_physical_mouth_checkbox_taste" />
 
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/cb_journal_sideeffect_checkbox4"
                         android:text="@string/journal_sideeffect_physical_mouth_checkbox_pain"/>
@@ -387,7 +377,7 @@
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txt_journal_sideeffect_popup_pain_question"
                         android:gravity="center"
@@ -614,7 +604,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:hint="Anteckningar"
+                    android:hint="@string/journal_notes"
                     android:layout_gravity="top"
                     android:gravity="top|left"
                     android:background="@android:drawable/editbox_background"
@@ -631,14 +621,16 @@
 
                 <Button
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Show history"
+                    android:text="@string/journal_show_history"
                     android:background="@drawable/custom_button"
                     android:textColor="@drawable/custom_button_text_color"
                     android:id="@+id/btn_journal_detail_show_history" />
+
 
             </LinearLayout>
 

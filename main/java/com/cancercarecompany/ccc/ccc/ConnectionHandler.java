@@ -206,6 +206,23 @@ public class ConnectionHandler {
                                         break;
                                 }
                                 break;
+
+                            case MESSAGE_DELETE:
+                                switch (header.content){
+                                    case CONTENT_PERSON:
+//                                        person = gson.fromJson(resultData, Person.class);
+                                        break;
+                                    case CONTENT_PATIENT:
+//                                        Patient patient = gson.fromJson(resultData, Patient.class);
+                                        break;
+                                    case CONTENT_CARETEAM:
+                                        break;
+                                    case CONTENT_HEALTHCARE:
+//                                        healthcare = gson.fromJson(resultData, HealthCareData.class);
+                                        break;
+                                }
+                                break;
+
                         }
 
                     }
@@ -307,6 +324,13 @@ public class ConnectionHandler {
         }
     }
 
+    public void removeCareTeamMember(int patientID, int personID) {
+        if (checkConnection()){
+            String msgData = String.format("{\"patient_ID\":\"%d\", \"person_ID\":\"%d\"}", patientID, personID);
+            sendMessage(MESSAGE_DELETE, CONTENT_CARETEAM, msgData);
+        }
+    }
+
     public void inviteCareTeamMember(Invite newInvite) {
         if (checkConnection()){
             Gson gson = new Gson();
@@ -329,6 +353,15 @@ public class ConnectionHandler {
             sendMessage(MESSAGE_READ, CONTENT_INVITE, msgData);
         } else {
             invites = offlineDataManager.getInvites();
+        }
+    }
+
+    public void deleteCareTeamInvite(int inviteID){
+        if (checkConnection()){
+            String msgData = String.format("{\"invite_ID\":\"%d\"}", inviteID);
+            sendMessage(MESSAGE_DELETE, CONTENT_INVITE, msgData);
+        } else {
+//            invites = offlineDataManager.deleteInvites();
         }
     }
 
