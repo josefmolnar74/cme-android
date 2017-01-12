@@ -342,7 +342,7 @@ public class JournalDetailsFragment extends Fragment {
 //                    seekBarsLayout.setVisibility(View.GONE);
 //                    seekBarHeadline1.setVisibility(View.GONE);
                     sideeffectQuestion2.setVisibility(View.VISIBLE);
-                    sideeffectQuestion2.setText(getString(R.string.journal_sideeffect_physical_diarrhea_question2));
+                    sideeffectQuestion2.setText(getString(R.string.journal_sideeffect_physical_constipation_question2));
                     radioGroupLayout.setVisibility(View.VISIBLE);
                     radioButton1.setText(R.string.journal_sideeffect_physical_constipation_radioButton1);
                     radioButton2.setText(R.string.journal_sideeffect_physical_constipation_radioButton2);

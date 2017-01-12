@@ -29,6 +29,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.cancercarecompany.ccc.ccc.JournalFragment.SIDEEFFECT_PHYSICAL_CONSTIPATION;
+import static com.cancercarecompany.ccc.ccc.JournalFragment.SIDEEFFECT_PHYSICAL_DIARRHEA;
+import static com.cancercarecompany.ccc.ccc.JournalFragment.SIDEEFFECT_PHYSICAL_TINGLING;
+import static com.cancercarecompany.ccc.ccc.JournalFragment.SIDEEFFECT_PHYSICAL_VOMIT;
+
 /**
  * Created by Josef on 2016-10-30.
  */
@@ -41,7 +46,10 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
     public static final String INFO_TEXT = "info_text";
 
     private ArrayList<MyChartData> chartData;
+    private ConnectionHandler connectHandler;
+    private String sideeffect_type;
     private TextView notesText;
+    private TextView valueText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,10 +59,12 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
         TextView headerText = (TextView) rootView.findViewById(R.id.txt_home_info_header);
         ImageButton dismissButton = (ImageButton) rootView.findViewById(R.id.btn_dialog_dismiss);
         notesText = (TextView) rootView.findViewById(R.id.text_sideeffect_notes);
-        ConnectionHandler connectHandler = ConnectionHandler.getInstance();
+        valueText = (TextView) rootView.findViewById(R.id.text_sideeffect_value);
+        valueText.setVisibility(View.GONE);
+        connectHandler = ConnectionHandler.getInstance();
 
         chartData = new ArrayList<>();
-        String sideeffect_type = getArguments().getString(SIDEEFFECT_TYPE);
+        sideeffect_type = getArguments().getString(SIDEEFFECT_TYPE);
         headerText.setText(getString(getActivity().getResources().getIdentifier("journal_sideeffect_"+ sideeffect_type, "string", getActivity().getPackageName())));
 
         for (int i=0; i < connectHandler.sideeffects.sideeffect_data.size(); i++){
@@ -62,6 +72,7 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
                 MyChartData data = new MyChartData();
                 data.date = connectHandler.sideeffects.sideeffect_data.get(i).date.substring(2,10);
                 data.value = connectHandler.sideeffects.sideeffect_data.get(i).severity;
+                data.sideeffect_value = connectHandler.sideeffects.sideeffect_data.get(i).value;
                 data.notes = connectHandler.sideeffects.sideeffect_data.get(i).notes;
                 chartData.add(data);
             }
@@ -151,7 +162,58 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
      */
     public void onValueSelected(Entry e, Highlight h){
         int i = (int) Math.floor(e.getX());
-        notesText.setText(chartData.get(i).notes);
+        if (chartData.get(i).notes.isEmpty()){
+            notesText.setText(getString(R.string.journal_notes_none));
+        }else{
+            notesText.setText(chartData.get(i).notes);
+        }
+
+        String valueString;
+        if (!chartData.get(i).sideeffect_value.isEmpty()){
+            switch(sideeffect_type){
+                case SIDEEFFECT_PHYSICAL_DIARRHEA:
+                    valueText.setVisibility(View.VISIBLE);
+                    valueText.setText(getString(R.string.journal_sideeffect_physical_diarrhea_answer));
+                    valueString = getString(getActivity().getResources().getIdentifier("journal_sideeffect_physical_diarrhea_radioButton"+ String.valueOf(chartData.get(i).sideeffect_value), "string", getActivity().getPackageName()));
+                    valueText.setText(valueText.getText().toString().replace("*2", valueString));
+                    valueText.setText(valueText.getText().toString().toLowerCase());
+                    valueText.setText(valueText.getText().toString().replace("*1", connectHandler.patient.patient_name));
+                    break;
+                case SIDEEFFECT_PHYSICAL_CONSTIPATION:
+                    valueText.setVisibility(View.VISIBLE);
+                    valueText.setText(getString(R.string.journal_sideeffect_physical_constipation_answer));
+                    valueText.setText(valueText.getText().toString().replace("*2", chartData.get(i).sideeffect_value));
+                    valueText.setText(valueText.getText().toString().toLowerCase());
+                    valueText.setText(valueText.getText().toString().replace("*1", connectHandler.patient.patient_name));
+                    break;
+                case SIDEEFFECT_PHYSICAL_VOMIT:
+                    valueText.setVisibility(View.VISIBLE);
+                    valueText.setText(getString(R.string.journal_sideeffect_physical_vomit_answer));
+                    valueString = getString(getActivity().getResources().getIdentifier("journal_sideeffect_physical_vomit_radioButton"+ String.valueOf(chartData.get(i).sideeffect_value), "string", getActivity().getPackageName()));
+                    valueText.setText(valueText.getText().toString().replace("*2", valueString));
+                    valueText.setText(valueText.getText().toString().toLowerCase());
+                    valueText.setText(valueText.getText().toString().replace("*1", connectHandler.patient.patient_name));
+                    break;
+                case SIDEEFFECT_PHYSICAL_TINGLING:
+                    String[] data = chartData.get(i).sideeffect_value.split(",");
+                    valueText.setVisibility(View.VISIBLE);
+                    valueText.setText(getString(R.string.journal_sideeffect_physical_tingling_answer));
+                    valueString = getString(getActivity().getResources().getIdentifier("journal_sideeffect_physical_tingling_checkbox_"+ data[0], "string", getActivity().getPackageName()));
+                    if (data.length > 1){
+                        valueString += " ";
+                        valueString += getString(R.string.and);
+                        valueString += " ";
+                        valueString += getString(getActivity().getResources().getIdentifier("journal_sideeffect_physical_tingling_checkbox_"+ data[1], "string", getActivity().getPackageName()));
+                    }
+
+                    valueText.setText(valueText.getText().toString().replace("*2", valueString));
+                    valueText.setText(valueText.getText().toString().toLowerCase());
+                    valueText.setText(valueText.getText().toString().replace("*1", connectHandler.patient.patient_name));
+                    break;
+                default:
+                    valueText.setVisibility(View.GONE);
+            }
+        }
     };
 
     /**
@@ -164,6 +226,7 @@ public class SideeffectDialogFragment extends DialogFragment implements OnChartV
     public class MyChartData {
         String date;
         Integer value;
+        String sideeffect_value;
         String notes;
     }
 

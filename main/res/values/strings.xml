@@ -19,6 +19,7 @@
     <string name="logout">Logga ut</string>
     <string name="settings">Inställningar</string>
     <string name="question">Fråga</string>
+    <string name="and">och</string>
 
     <string name="careteam_invited">Inbjuden</string>
     <string name="careteam_invite_not_accepted">Inbjuden, men ej accepterat</string>
@@ -141,13 +142,14 @@
     <string name="journal_sideeffect_physical_concentration_seekbar_min">Dåligt</string>
     <string name="journal_sideeffect_physical_concentration_seekbar_max">Jättebra</string>
     <string name="journal_sideeffect_physical_constipation">Förstoppning</string>
-    <string name="journal_sideeffect_physical_constipation_question">Beskriv *s avföringsvårigheter</string>
+    <string name="journal_sideeffect_physical_constipation_question">Beskriv *s förstoppningsbesvär</string>
     <string name="journal_sideeffect_physical_constipation_question2">När hade * senast normal avföring?</string>
+    <string name="journal_sideeffect_physical_constipation_answer">*1 hade senast normal avföring för *2</string>
     <string name="journal_sideeffect_physical_constipation_radioButton1">Igår</string>
     <string name="journal_sideeffect_physical_constipation_radioButton2">2 dagar sedan</string>
     <string name="journal_sideeffect_physical_constipation_radioButton3">3 dagar sedan</string>
     <string name="journal_sideeffect_physical_constipation_radioButton4">4 dagar sedan</string>
-    <string name="journal_sideeffect_physical_constipation_radioButton5">Mer än 4 </string>
+    <string name="journal_sideeffect_physical_constipation_radioButton5">Mer än 4 dagar sedan</string>
     <string name="journal_sideeffect_physical_dermal">Torr hud/klåda</string>
     <string name="journal_sideeffect_physical_dermal_question">Beskriv *s problem med torr hud eller klåda</string>
     <string name="journal_sideeffect_physical_dermal_seekbar_dry_skin">Torr hud</string>
@@ -158,11 +160,12 @@
     <string name="journal_sideeffect_physical_diarrhea_header">Diarré</string>
     <string name="journal_sideeffect_physical_diarrhea_question">Beskriv *s diarrébesvär</string>
     <string name="journal_sideeffect_physical_diarrhea_question2">Hur ofta har * haft diarré under det senaste dygnet?</string>
-    <string name="journal_sideeffect_physical_diarrhea_radioButton1">1</string>
-    <string name="journal_sideeffect_physical_diarrhea_radioButton2">2</string>
-    <string name="journal_sideeffect_physical_diarrhea_radioButton3">3</string>
-    <string name="journal_sideeffect_physical_diarrhea_radioButton4">4</string>
-    <string name="journal_sideeffect_physical_diarrhea_radioButton5">Mer än 4</string>
+    <string name="journal_sideeffect_physical_diarrhea_answer">*1 har haft diarré *2 det senaste dygnet</string>
+    <string name="journal_sideeffect_physical_diarrhea_radioButton1">1 gång</string>
+    <string name="journal_sideeffect_physical_diarrhea_radioButton2">2 gånger</string>
+    <string name="journal_sideeffect_physical_diarrhea_radioButton3">3 gånger</string>
+    <string name="journal_sideeffect_physical_diarrhea_radioButton4">4 gånger</string>
+    <string name="journal_sideeffect_physical_diarrhea_radioButton5">Mer än 4 gånger</string>
     <string name="journal_sideeffect_physical_digestion">Matsmältning</string>
     <string name="journal_sideeffect_physical_digestion_question">Beskriv hur *s matsmältnig har påverkats</string>
     <string name="journal_sideeffect_physical_dizziness">Yrsel</string>
@@ -243,6 +246,7 @@
     <string name="journal_sideeffect_physical_tingling">Stickningar</string>
     <string name="journal_sideeffect_physical_tingling_question">Beskriv *s besvär med stickningar</string>
     <string name="journal_sideeffect_physical_tingling_question2">Ange var * upplever stickningar</string>
+    <string name="journal_sideeffect_physical_tingling_answer">*1 har stickningar *2</string>
     <string name="journal_sideeffect_physical_tingling_seekbar_min">Dåligt</string>
     <string name="journal_sideeffect_physical_tingling_seekbar_max">Jättebra</string>
     <string name="journal_sideeffect_physical_tingling_checkbox_hands">I händerna</string>
@@ -254,8 +258,9 @@
     <string name="journal_sideeffect_physical_vomit">Kräkningar</string>
     <string name="journal_sideeffect_physical_vomit_question">Beskriv *s kräkbesvär?</string>
     <string name="journal_sideeffect_physical_vomit_question2">Hur ser *s kräk ut?</string>
+    <string name="journal_sideeffect_physical_vomit_answer">*1s kräk ser ut som *2</string>
     <string name="journal_sideeffect_physical_vomit_header">Kräkningar</string>
-    <string name="journal_sideeffect_physical_vomit_radioButton1">Blood/röd</string>
+    <string name="journal_sideeffect_physical_vomit_radioButton1">Blod/röd</string>
     <string name="journal_sideeffect_physical_vomit_radioButton2">Klar/grönaktig</string>
     <string name="journal_sideeffect_physical_vomit_radioButton3">Onedbruten mat</string>
     <string name="journal_sideeffect_practical">Praktiska problem</string>
@@ -278,6 +283,7 @@
     <string name="journal_history">Historik</string>
     <string name="journal_show_history">Visa data</string>
     <string name="journal_notes">Anteckningar</string>
+    <string name="journal_notes_none">Inga anteckningar</string>
 
     <string name="careteam_healthcare">Hälsovård</string>
     <string name="careteam_patient">Patient</string>
