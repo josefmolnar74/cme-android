@@ -92,9 +92,18 @@ public class CareTeamFamilyFragment extends Fragment {
         editRelation.setFocusable(false);
         editRelation.setFocusableInTouchMode(false);
         editRelation.setEnabled(false);
+
         familyAvatar.setFocusable(false);
         familyAvatar.setFocusableInTouchMode(false);
         familyAvatar.setEnabled(false);
+
+        TextView textInvited = (TextView) view.findViewById(R.id.text_careteam_invited);
+
+        if (listItem.type.matches("invite")){
+            textInvited.setVisibility(View.VISIBLE);
+        } else{
+            textInvited.setVisibility(View.INVISIBLE);
+        }
 
         switch(listItem.type) {
 
@@ -206,7 +215,9 @@ public class CareTeamFamilyFragment extends Fragment {
         familyAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startDialog();
+                if (listItem.type.matches("patient")){
+//                    startDialog();
+                }
             }
         });
 

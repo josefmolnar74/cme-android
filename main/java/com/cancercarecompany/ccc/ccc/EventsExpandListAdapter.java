@@ -54,9 +54,9 @@ public class EventsExpandListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.events_explist_item, null);
         }
 
-        TextView eventCategory = (TextView) convertView.findViewById(R.id.txt_event_explist_category);
+        TextView eventCategory = (TextView) convertView.findViewById(R.id.txt_careteam_explist_name);
         TextView eventDate = (TextView) convertView.findViewById(R.id.txt_event_explist_date);
-        TextView eventTime = (TextView) convertView.findViewById(R.id.txt_event_explist_time);
+        TextView eventTime = (TextView) convertView.findViewById(R.id.txt_careteam_explist_relationship);
         ImageView eventImage = (ImageView) convertView.findViewById(R.id.img_event_explist_avatar);
 
         if (listItem.sub_category.matches("create_new")){

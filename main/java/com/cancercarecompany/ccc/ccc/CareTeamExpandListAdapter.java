@@ -54,13 +54,20 @@ public class CareTeamExpandListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView txtListName = (TextView) convertView
-                .findViewById(R.id.txt_event_explist_category);
+                .findViewById(R.id.txt_careteam_explist_name);
         txtListName.setText(listItem.name);
 
         TextView txtListRelationship = (TextView) convertView
-                .findViewById(R.id.txt_event_explist_time);
+                .findViewById(R.id.txt_careteam_explist_relationship);
         txtListRelationship.setText(listItem.relationship);
 
+        if (listItem.type.matches("invite")){
+            if (txtListRelationship.getText().toString().isEmpty()){
+                txtListRelationship.setText("(" +MyApplication.getContext().getString(R.string.careteam_invited) + ")");
+            }else{
+                txtListRelationship.setText(txtListRelationship.getText().toString() + " (" +MyApplication.getContext().getString(R.string.careteam_invited) + ")");
+            }
+        }
 
         ImageView avatar = (ImageView) convertView.findViewById(R.id.img_careteam_family_avatar);
         avatar.setVisibility(View.VISIBLE);

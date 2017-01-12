@@ -101,6 +101,14 @@
                         android:layout_alignBottom="@+id/img_careteam_family_avatar"
                         android:layout_toEndOf="@+id/img_careteam_family_avatar" />
 
+                    <TextView
+                        android:text="@string/careteam_invite_not_accepted"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/img_careteam_family_avatar"
+                        android:id="@+id/text_careteam_invited" />
+
                 </RelativeLayout>
 
                 <FrameLayout

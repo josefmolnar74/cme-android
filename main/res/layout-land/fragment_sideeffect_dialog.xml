@@ -54,30 +54,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:weightSum="100"
                 android:orientation="vertical">
 
-                <TextView
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/chart_sideeffect"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:textSize="20sp"
-                    android:text="Titel"
-                    android:id = "@+id/text_dialog_title"
-                    android:textStyle="bold" />
+                    android:layout_height="0dp"
+                    android:layout_weight="80"/>
 
-                <TextView
+                <RelativeLayout
+                    android:id="@+id/layout_sideeffect_details"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:textSize="20sp"
-                    android:text="När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna."
-                    android:id = "@+id/text_dialog_info" />
+                    android:layout_height="0dp"
+                    android:layout_weight="20">
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:id="@+id/text_sideeffect_notes"
+                        android:hint="@string/journal_notes"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:background="@android:drawable/editbox_background" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 

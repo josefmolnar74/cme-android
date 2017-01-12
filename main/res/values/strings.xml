@@ -20,6 +20,9 @@
     <string name="settings">Inställningar</string>
     <string name="question">Fråga</string>
 
+    <string name="careteam_invited">Inbjuden</string>
+    <string name="careteam_invite_not_accepted">Inbjuden, men ej accepterat</string>
+
     <string name="home_question">Fråga oss vad som helst!</string>
     <string name="home_journey">Utforska *s cancerresa!</string>
     <string name="home_events">Kommande events</string>
