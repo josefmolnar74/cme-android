@@ -262,7 +262,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 showInfoDialog( getActivity().getString(getActivity().getResources().getIdentifier("info_school", "string", getActivity().getPackageName())),
                         cmeArticleList.get(infoIndex).title,
-                        cmeArticleList.get(infoIndex).text);
+                        cmeArticleList.get(infoIndex).text,
+                        cmeArticleList.get(infoIndex).source);
             }
         });
 
@@ -271,7 +272,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 showInfoDialog( getActivity().getString(getActivity().getResources().getIdentifier("info_inspiration", "string", getActivity().getPackageName())),
                         inspirationArticleList.get(infoIndex).title,
-                        inspirationArticleList.get(infoIndex).text);
+                        inspirationArticleList.get(infoIndex).text,
+                        inspirationArticleList.get(infoIndex).source);
             }
         });
 
@@ -280,7 +282,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 showInfoDialog( getActivity().getString(getActivity().getResources().getIdentifier("info_tips", "string", getActivity().getPackageName())),
                         tipsArticleList.get(infoIndex).title,
-                        tipsArticleList.get(infoIndex).text);
+                        tipsArticleList.get(infoIndex).text,
+                        tipsArticleList.get(infoIndex).source);
             }
         });
 
@@ -347,13 +350,14 @@ public class HomeFragment extends Fragment {
         // start Event fragment
     }
 
-    void showInfoDialog(String type, String title, String text){
+    void showInfoDialog(String type, String title, String text, String source){
         FragmentManager fm = getFragmentManager();
         InfoDialogFragment dialogFragment = new InfoDialogFragment();
         Bundle args = new Bundle();
         args.putString(InfoDialogFragment.INFO_TYPE, type);
         args.putString(InfoDialogFragment.INFO_TITLE, title);
         args.putString(InfoDialogFragment.INFO_TEXT, text);
+        args.putString(InfoDialogFragment.INFO_SOURCE, source);
         dialogFragment.setArguments(args);
         dialogFragment.show(fm, "Josef");
     }

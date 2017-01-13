@@ -79,6 +79,33 @@
                     android:text="När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna. När ett barn insjuknar i en cancersjukdom påverkas omgivningen både känslomässigt och socialt. Alla i den sjukes närhet får en ny verklighet att hantera och ofta saknas tid för att förbereda sig inför denna."
                     android:id = "@+id/text_dialog_info" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:textSize="20sp"
+                        android:text="@string/info_source_header" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:textSize="20sp"
+                        android:text="Source name"
+                        android:id = "@+id/text_dialog_source" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </ScrollView>

@@ -20,6 +20,7 @@ public class InfoDialogFragment extends DialogFragment {
     public static final String INFO_TYPE = "info_type";
     public static final String INFO_TITLE = "info_title";
     public static final String INFO_TEXT = "info_text";
+    public static final String INFO_SOURCE = "info_source";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,11 +31,13 @@ public class InfoDialogFragment extends DialogFragment {
         ImageButton dismissButton = (ImageButton) rootView.findViewById(R.id.btn_dialog_dismiss);
         TextView dialogText = (TextView) rootView.findViewById(R.id.text_dialog_info);
         TextView dialogTitle = (TextView) rootView.findViewById(R.id.text_dialog_title);
+        TextView dialogSource = (TextView) rootView.findViewById(R.id.text_dialog_source);
         TextView dialogHeader = (TextView) rootView.findViewById(R.id.txt_home_info_header);
 
         dialogHeader.setText(getArguments().getString(INFO_TYPE));
         dialogTitle.setText(getArguments().getString(INFO_TITLE));
         dialogText.setText(getArguments().getString(INFO_TEXT));
+        dialogSource.setText(getArguments().getString(INFO_SOURCE));
 
         dismissButton.setOnClickListener(new View.OnClickListener() {
 

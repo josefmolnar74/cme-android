@@ -105,10 +105,10 @@ public class RegisterActivity extends AppCompatActivity {
                 connectHandler.acceptCareTeamInvite();
                 while (connectHandler.socketBusy){}
                 //Ugly solution to solve that created careteammember is part of patient
-                connectHandler.login(newUser);
-                while (connectHandler.socketBusy){}
 
             }
+            connectHandler.login(newUser);
+            while (connectHandler.socketBusy){}
 
             Intent myIntent = new Intent(this, MainActivity.class);
             startActivity(myIntent);

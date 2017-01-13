@@ -47,6 +47,7 @@
     <string name="info_tips_content1">Information: Tips 1, text</string>
     <string name="info_tips_title2">Information: Tips 2, titel</string>
     <string name="info_tips_content2">Information: Livsbejakande 2, text</string>
+    <string name="info_source_header">Källa:</string>
 
     <string name="remove_question">Är du säker på att du vill ta bort?</string>
     <string name="created_question">Du har skapat en ny fråga.</string>
@@ -343,7 +344,7 @@
     <string name="question_question_label">Fråga:</string>
     <string name="question_answer_label">Svar:</string>
     <string name="question_answer">Vi kommer att svara så fort vi kan!</string>
-    <string name="create_careteam_header">Skapa nytt team</string>
+    <string name="create_careteam_header">Skapa ny patient</string>
     <string name="create_careteam_patient_name">Patientnamn</string>
     <string name="create_careteam_year_of_birth">Födelseår</string>
     <string name="create_careteam_diagnose">Diagnos</string>
@@ -352,6 +353,7 @@
     <string name="join_careteam_header">Vänligen ange din email</string>
     <string name="join_careteam_email">Email</string>
     <string name="join_careteam_find">Sök</string>
+    <string name="register_header">Skapa ny användare</string>
 
     <string name="careteam_contact">Kontaktinfo</string>
     <string name="careteam_family_name">Namn</string>
