@@ -314,6 +314,14 @@ public class ConnectionHandler {
         }
     }
 
+    public void updatePatient(Patient updatePatient) {
+        if (checkConnection()){
+            Gson gson = new Gson();
+            String messageData = gson.toJson(updatePatient);
+            sendMessage(MESSAGE_UPDATE, CONTENT_PATIENT, messageData);
+        }
+    }
+
     public void updateCareTeamMember(CareTeamMember mCareTeamMember, int patientID) {
         if (checkConnection()){
             Gson gson = new Gson();

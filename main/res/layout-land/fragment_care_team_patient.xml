@@ -135,6 +135,46 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:text="@string/create_careteam_year_of_birth"
+                        android:id="@+id/txt_careteam_year"
+                        android:textColor="@color/cme_dark"
+                        android:textSize="20sp"
+                        android:layout_alignParentTop="true" />
+
+                    <EditText
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:inputType="textCapWords"
+                        android:hint="@string/create_careteam_year_of_birth"
+                        android:id="@+id/etxt_careteam_year"
+                        android:textSize="20sp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignStart="@+id/txt_careteam_year" />
+
+                </RelativeLayout>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#afafaf">
+
+                </FrameLayout>
+
+                <RelativeLayout
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:text="@string/careteam_patient_diagnose"
                         android:id="@+id/txt_careteam_diagnose"
                         android:textColor="@color/cme_dark"

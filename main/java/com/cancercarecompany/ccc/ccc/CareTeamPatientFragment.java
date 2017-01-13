@@ -1,5 +1,6 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 public class CareTeamPatientFragment extends Fragment {
 
+    private OnCareTeamPatientCompletedListener mListener;
+    private ViewGroup mContainer;
     private CareTeamExpandListItem listItem;
     private ConnectionHandler connectHandler;
     private int position;
@@ -26,8 +28,10 @@ public class CareTeamPatientFragment extends Fragment {
     private boolean myUser = false;
 
     TextView txtName;
+    TextView txtYear;
     TextView txtDiagnose;
     EditText editName;
+    EditText editYear;
     EditText editDiagnose;
     ImageButton familyAvatar;
     ImageButton buttonDelete;
@@ -37,6 +41,7 @@ public class CareTeamPatientFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mContainer = container;
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         View view = inflater.inflate(R.layout.fragment_care_team_patient, container, false);
@@ -59,6 +64,8 @@ public class CareTeamPatientFragment extends Fragment {
 
         txtName = (TextView) view.findViewById(R.id.txt_careteam_name);
         editName = (EditText) view.findViewById(R.id.etxt_careteam_name);
+        txtYear = (TextView) view.findViewById(R.id.txt_careteam_year);
+        editYear = (EditText) view.findViewById(R.id.etxt_careteam_year);
         txtDiagnose = (TextView) view.findViewById(R.id.txt_careteam_diagnose);
         editDiagnose = (EditText) view.findViewById(R.id.etx_careteam_diagnose);
         familyAvatar = (ImageButton) view.findViewById(R.id.img_careteam_family_avatar);
@@ -67,6 +74,7 @@ public class CareTeamPatientFragment extends Fragment {
 
         //familyAvatarId = connectHandler.patient.care_team.get(position).avatar;
         editName.setText(connectHandler.patient.patient_name);
+        editYear.setText(connectHandler.patient.year_of_birth);
         editDiagnose.setText(connectHandler.patient.diagnose);
 
             // check admin
@@ -152,7 +160,7 @@ public class CareTeamPatientFragment extends Fragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // saveUser();
+                savePatient();
             }
         });
 
@@ -190,10 +198,43 @@ public class CareTeamPatientFragment extends Fragment {
     }
 
     public void savePatient() {
-        // code will follow
+//         code will follow
+                Patient updatePatient = new Patient(connectHandler.patient.patient_ID,
+                        editName.getText().toString(),
+                        editYear.getText().toString(),
+                        editDiagnose.getText().toString(),
+                        connectHandler.patient.care_team);
+        connectHandler.updatePatient(updatePatient);
+        while (connectHandler.socketBusy){}
+        closeFragment();
    }
 
     public void setItem(CareTeamExpandListItem selectedListItem){
         listItem = selectedListItem;
     }
+
+    private void closeFragment(){
+        getActivity().getSupportFragmentManager().popBackStack();
+        if (mContainer.getId() == R.id.careteam_placeholder2){
+            mListener.onCareTeamPatientComplete();
+        }
+    }
+
+    public interface OnCareTeamPatientCompletedListener {
+        // To call when save or delete has been completed to update exp list
+        void onCareTeamPatientComplete();
+    }
+
+    // make sure the Activity implemented it
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            this.mListener = (CareTeamPatientFragment.OnCareTeamPatientCompletedListener)context;
+        }
+        catch (final ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
+        }
+    }
+
 }
