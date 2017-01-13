@@ -38,9 +38,10 @@ import java.util.Calendar;
 public class EventsDetailsFragment extends Fragment {
 
     private OnEventsCompletedListener mListener;
-    private ViewGroup mContainer;
+    private static ViewGroup mContainer;
+    private static Event listItem;
+    private static Calendar mCalendar;
 
-    private Event listItem;
     private ConnectionHandler connectHandler;
     private int position;
 //    private boolean admin = true;
@@ -62,7 +63,6 @@ public class EventsDetailsFragment extends Fragment {
     private EditText notes;
     private Button mDateButton;
     private Button mTimeButton;
-    public Calendar mCalendar;
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "kk:mm";
     DialogFragment dateFragment;
@@ -692,18 +692,7 @@ public class EventsDetailsFragment extends Fragment {
         timeFragment.show(getFragmentManager(), "timePicker");
     }
 
-    public void updateDateButtonText() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-        String dateForButton = dateFormat.format(mCalendar.getTime());
-        mDateButton.setText(dateForButton);
-    }
-    private void updateTimeButtonText() {
-        SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT);
-        String timeForButton = timeFormat.format(mCalendar.getTime());
-        mTimeButton.setText(timeForButton);
-    }
-
-    public class DatePickerFragment extends DialogFragment implements
+    public static class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
 
         @Override
@@ -720,10 +709,11 @@ public class EventsDetailsFragment extends Fragment {
             }
             else
             {
-                String dateString = mDateButton.getText().toString();
+                TextView dateButton = (TextView) mContainer.findViewById(R.id.btn_pick_date);
+                String dateString = dateButton.getText().toString();
                 String[] parts = dateString.split("-");
                 year = Integer.parseInt(parts[0]);
-                month = Integer.parseInt(parts[1]);
+                month = Integer.parseInt(parts[1])-1; //remove one since january starts with 0
                 day = Integer.parseInt(parts[2]);
             }
             // Create a new instance of DatePickerDialog and return it
@@ -734,11 +724,15 @@ public class EventsDetailsFragment extends Fragment {
             mCalendar.set(Calendar.YEAR, year);
             mCalendar.set(Calendar.MONTH, month);
             mCalendar.set(Calendar.DAY_OF_MONTH, day);
-            updateDateButtonText();
+//            mContainer.updateDateButtonText();
+            SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+            String dateForButton = dateFormat.format(mCalendar.getTime());
+            TextView dateButton = (TextView) mContainer.findViewById(R.id.btn_pick_date);
+            dateButton.setText(dateForButton);
         }
     }
 
-    public class TimePickerFragment extends DialogFragment implements
+    public static class TimePickerFragment extends DialogFragment implements
             TimePickerDialog.OnTimeSetListener {
 
         @Override
@@ -753,7 +747,8 @@ public class EventsDetailsFragment extends Fragment {
             }
             else
             {
-                String timeString = mTimeButton.getText().toString();
+                TextView timeButton = (TextView) mContainer.findViewById(R.id.btn_pick_time);
+                String timeString = timeButton.getText().toString();
                 String[] parts = timeString.split(":");
                 hour = Integer.parseInt(parts[0]);
                 minute = Integer.parseInt(parts[1]);
@@ -766,7 +761,10 @@ public class EventsDetailsFragment extends Fragment {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
             mCalendar.set(Calendar.MINUTE, minute);
-            updateTimeButtonText();
+            SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT);
+            String timeForButton = timeFormat.format(mCalendar.getTime());
+            TextView timeButton = (TextView) mContainer.findViewById(R.id.btn_pick_time);
+            timeButton.setText(timeForButton);
         }
     }
 
