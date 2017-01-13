@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity implements
         HomeFragment.OnTabSwitchToEventListener,
         JournalDetailsFragment.OnJournalCompletedListener,
         EventsDetailsFragment.OnEventsCompletedListener,
-        CareTeamFamilyFragment.OnCareTeamFamilyCompletedListener {
+        CareTeamFamilyFragment.OnCareTeamFamilyCompletedListener,
+        CareTeamHealthcareFragment.OnCareTeamHealthcareCompletedListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -47,6 +48,22 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void onCareTeamFamilyComplete() {
+
+        CareTeamExpListFragment careTeamFragment = (CareTeamExpListFragment)
+                getSupportFragmentManager().findFragmentByTag("CareTeamExpListFragment");
+
+        if (careTeamFragment != null) {
+            // If article frag is available, we're in two-pane layout...
+
+            // Call a method in the ArticleFragment to update its content
+
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            careTeamFragment.updateExpList();
+        }
+    }
+
+    public void onCareTeamHealthcareComplete() {
 
         CareTeamExpListFragment careTeamFragment = (CareTeamExpListFragment)
                 getSupportFragmentManager().findFragmentByTag("CareTeamExpListFragment");

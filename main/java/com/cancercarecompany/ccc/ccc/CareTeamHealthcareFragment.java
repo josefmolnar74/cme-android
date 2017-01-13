@@ -1,6 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -24,6 +25,9 @@ import android.widget.TextView;
 public class CareTeamHealthcareFragment extends Fragment {
 
     public static final int AVATARSDIALOG_FRAGMENT = 1; // class variable
+
+    OnCareTeamHealthcareCompletedListener mListener;
+    ViewGroup mContainer;
 
     private CareTeamExpandListItem listItem;
     private ConnectionHandler connectHandler;
@@ -53,6 +57,7 @@ public class CareTeamHealthcareFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mContainer = container;
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         View view = inflater.inflate(R.layout.fragment_care_team_healthcare, container, false);
 
@@ -182,8 +187,7 @@ public class CareTeamHealthcareFragment extends Fragment {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (admin){
-                    deleteHealthcare();                }
+                deleteHealthcare();
             }
 
         });
@@ -192,7 +196,6 @@ public class CareTeamHealthcareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 saveHealthcare();
-                getFragmentManager().popBackStack();
             }
         });
 
@@ -270,7 +273,6 @@ public class CareTeamHealthcareFragment extends Fragment {
             if (admin){
                 deleteHealthcare();
             }
-            getFragmentManager().popBackStack();
             return true;
         }
 
@@ -278,7 +280,6 @@ public class CareTeamHealthcareFragment extends Fragment {
             if (admin){
                 saveHealthcare();
             }
-            getFragmentManager().popBackStack();
             return true;
         }
 
@@ -295,6 +296,8 @@ public class CareTeamHealthcareFragment extends Fragment {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 connectHandler.deleteHealthcare(listItem.id);
+                while (connectHandler.socketBusy){}
+                closeFragment();
             }
         });
 
@@ -339,10 +342,37 @@ public class CareTeamHealthcareFragment extends Fragment {
                     healthcareAvatarId);
 
             connectHandler.updateHealthcare(updateHealthCare);
+            while (connectHandler.socketBusy){}
+            closeFragment();
         }
     }
 
     public void setItem(CareTeamExpandListItem selectedListItem){
         listItem = selectedListItem;
     }
+
+    private void closeFragment(){
+        getActivity().getSupportFragmentManager().popBackStack();
+        if (mContainer.getId() == R.id.careteam_placeholder2){
+            mListener.onCareTeamHealthcareComplete();
+        }
+    }
+
+    public interface OnCareTeamHealthcareCompletedListener {
+        // To call when save or delete has been completed to update exp list
+        void onCareTeamHealthcareComplete();
+    }
+
+    // make sure the Activity implemented it
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            this.mListener = (OnCareTeamHealthcareCompletedListener)context;
+        }
+        catch (final ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
+        }
+    }
+
 }
