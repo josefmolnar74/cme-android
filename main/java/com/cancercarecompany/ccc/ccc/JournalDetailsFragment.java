@@ -1,10 +1,13 @@
 package com.cancercarecompany.ccc.ccc;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
@@ -32,6 +35,8 @@ import java.util.Date;
 
 public class JournalDetailsFragment extends Fragment {
 
+    private OnJournalCompletedListener mListener;
+    private ViewGroup mContainer;
     private static final String SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_1 = "breakfast";
     private static final String SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_2 = "lunch";
     private static final String SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_3 = "dinner";
@@ -155,6 +160,7 @@ public class JournalDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mContainer = container;
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         View view = inflater.inflate(R.layout.fragment_journal_details, container, false);
 
@@ -252,6 +258,9 @@ public class JournalDetailsFragment extends Fragment {
         seekBarResult2.setVisibility(View.GONE);
         seekBarResult3.setVisibility(View.GONE);
         healthDataValue.setVisibility(View.GONE);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.addToBackStack(null);
 
         InputFilter filter = new InputFilter() {
             final int maxDigitsBeforeDecimalPoint=3;
@@ -594,6 +603,13 @@ public class JournalDetailsFragment extends Fragment {
 
         });
 
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteSideeffect();
+            }
+        });
+
 
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -646,7 +662,6 @@ public class JournalDetailsFragment extends Fragment {
             }
         });
 
-
         return view;
 
     }
@@ -667,8 +682,12 @@ public class JournalDetailsFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete) {
+            if (listItem.sideeffect!=null){
                 deleteSideeffect();
-            sideeffectNotes.setText("");
+            }
+            else if (listItem.healthData!=null){
+                deleteSideeffect();
+            }
             return true;
         }
 
@@ -709,7 +728,8 @@ public class JournalDetailsFragment extends Fragment {
                 }
 
                 while(connectHandler.socketBusy){}
-                getActivity().onBackPressed();
+                closeFragment();
+//                getActivity().onBackPressed();
                 // remove item from list and from database
                 // removeItemFromList(listItem.event_ID);
             }
@@ -979,7 +999,8 @@ public class JournalDetailsFragment extends Fragment {
         }
 
         while (connectHandler.socketBusy) {}
-        getActivity().onBackPressed();
+        closeFragment();
+//        getActivity().onBackPressed();
 
     }
 
@@ -1203,5 +1224,27 @@ public class JournalDetailsFragment extends Fragment {
         }
     }
 
+    private void closeFragment(){
+        getActivity().getSupportFragmentManager().popBackStack();
+        if (mContainer.getId() == R.id.journal_placeholder2){
+            mListener.onJournalComplete();
+        }
+    }
 
+    public interface OnJournalCompletedListener {
+        // To call when save or delete has been completed to update exp list
+        void onJournalComplete();
+    }
+
+    // make sure the Activity implemented it
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            this.mListener = (OnJournalCompletedListener)context;
+        }
+        catch (final ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
+        }
+    }
 }

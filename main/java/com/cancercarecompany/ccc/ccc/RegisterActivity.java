@@ -44,7 +44,6 @@ public class RegisterActivity extends AppCompatActivity {
         registerEmail = (EditText) findViewById(R.id.text_register_email);
         registerRelationship = (EditText) findViewById(R.id.text_register_relationship);
 
-
         // Get values sent from Create team and join activity
         Intent intent = getIntent();
         patientName = intent.getStringExtra(PATIENT_NAME);
@@ -56,11 +55,11 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // Statusbar color
-        Window window = this.getWindow();
+/*        Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(this.getResources().getColor(R.color.black));
-
+*/
         registerButton = (TextView) findViewById(R.id.button_register);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +105,8 @@ public class RegisterActivity extends AppCompatActivity {
                 connectHandler.acceptCareTeamInvite();
                 while (connectHandler.socketBusy){}
                 //Ugly solution to solve that created careteammember is part of patient
-                connectHandler.getPatient(connectHandler.invites.invite_data.get(0).patient_ID);
+                connectHandler.login(newUser);
+                while (connectHandler.socketBusy){}
 
             }
 

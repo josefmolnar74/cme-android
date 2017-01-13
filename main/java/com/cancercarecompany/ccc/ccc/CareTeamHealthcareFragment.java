@@ -54,7 +54,6 @@ public class CareTeamHealthcareFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_care_team_healthcare, container, false);
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
@@ -65,6 +64,7 @@ public class CareTeamHealthcareFragment extends Fragment {
             ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.careteam_contact));
             RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.careteam_healthcare_header);
             layout.setVisibility(View.GONE);
+            setHasOptionsMenu(true);
         }
 
         connectHandler = ConnectionHandler.getInstance();

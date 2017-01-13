@@ -13,6 +13,7 @@
             android:id="@+id/lay_event_detail"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:padding="8dp"
             android:background="@color/cme_dark">
 
             <TextView
@@ -28,25 +29,30 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"/>
 
-            <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                android:id="@+id/btn_save"
-                android:background="@drawable/mark_white"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true" />
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                android:id="@+id/btn_delete"
-                android:background="@drawable/garbage_white"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/btn_save" />
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/btn_delete"
+                    android:background="@drawable/garbage_white" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/btn_save"
+                    android:background="@drawable/mark_white" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 

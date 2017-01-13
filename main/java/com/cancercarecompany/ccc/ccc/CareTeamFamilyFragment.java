@@ -1,6 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -25,6 +26,8 @@ public class CareTeamFamilyFragment extends Fragment {
 
     public static final int AVATARSDIALOG_FRAGMENT = 1; // class variable
 
+    OnCareTeamFamilyCompletedListener mListener;
+    ViewGroup mContainer;
     private CareTeamExpandListItem listItem;
     private ConnectionHandler connectHandler;
     private int position;
@@ -39,8 +42,8 @@ public class CareTeamFamilyFragment extends Fragment {
     EditText editEmail;
     EditText editRelation;
     ImageButton familyAvatar;
-    ImageButton buttonDelete;
-    ImageButton buttonSave;
+    ImageButton deleteButton;
+    ImageButton saveButton;
     TextView alertText1;
     TextView alertText2;
     CheckBox chkAdmin;
@@ -49,6 +52,7 @@ public class CareTeamFamilyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mContainer = container;
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         View view = inflater.inflate(R.layout.fragment_care_team_family, container, false);
@@ -73,14 +77,13 @@ public class CareTeamFamilyFragment extends Fragment {
         editEmail = (EditText) view.findViewById(R.id.etx_careteamt_email);
         editRelation = (EditText) view.findViewById(R.id.etxt_careteam_relation);
         familyAvatar = (ImageButton) view.findViewById(R.id.img_careteam_family_avatar);
-        buttonDelete = (ImageButton) view.findViewById(R.id.btn_delete);
-        buttonSave = (ImageButton) view.findViewById(R.id.btn_save);
+        deleteButton = (ImageButton) view.findViewById(R.id.btn_delete);
+        saveButton = (ImageButton) view.findViewById(R.id.btn_save);
         alertText1 = (TextView) view.findViewById(R.id.txt_careteam_invite_alert);
         alertText2 = (TextView) view.findViewById(R.id.txt_careteam_edit_alert);
         chkAdmin = (CheckBox) view.findViewById(R.id.chkbx_careteam);
         alertText1.setVisibility(View.INVISIBLE);
         alertText2.setVisibility(View.INVISIBLE);
-        buttonDelete.setVisibility(View.INVISIBLE);
         familyAvatarId = 0;
 
         editName.setFocusable(false);
@@ -108,6 +111,8 @@ public class CareTeamFamilyFragment extends Fragment {
         switch(listItem.type) {
 
             case "family":
+                saveButton.setVisibility(View.GONE);
+                deleteButton.setVisibility(View.VISIBLE);
                 for (int i = 0; i < connectHandler.patient.care_team.size(); i++) {
                     if (connectHandler.patient.care_team.get(i).person_ID == listItem.id) {
                         position = i;
@@ -126,6 +131,8 @@ public class CareTeamFamilyFragment extends Fragment {
                 }
                 break;
             case "invite":
+                saveButton.setVisibility(View.GONE);
+                deleteButton.setVisibility(View.VISIBLE);
                 for (int i = 0; i < connectHandler.invites.invite_data.size(); i++) {
                     if (connectHandler.invites.invite_data.get(i).invite_ID == listItem.id) {
                         position = i;
@@ -142,6 +149,19 @@ public class CareTeamFamilyFragment extends Fragment {
                 break;
             case "healthcare":
                 break;
+            case "new":
+                saveButton.setVisibility(View.VISIBLE);
+                editName.setFocusable(true);
+                editName.setFocusableInTouchMode(true);
+                editName.setEnabled(true);
+                editName.requestFocus();
+                editEmail.setFocusable(true);
+                editEmail.setFocusableInTouchMode(true);
+                editEmail.setEnabled(true);
+                editRelation.setFocusable(true);
+                editRelation.setFocusableInTouchMode(true);
+                editRelation.setEnabled(true);
+                break;
         }
 
             // check admin
@@ -153,8 +173,8 @@ public class CareTeamFamilyFragment extends Fragment {
         }
 /*
         if (myUser || admin){
-            buttonDelete.setVisibility(View.VISIBLE);
-            buttonSave.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.VISIBLE);
+            saveButton.setVisibility(View.VISIBLE);
             if (myUser){
                 editName.setFocusable(true);
                 editName.setFocusableInTouchMode(true);
@@ -168,8 +188,8 @@ public class CareTeamFamilyFragment extends Fragment {
                 editRelation.setEnabled(true);
             }
         }else{
-            buttonDelete.setVisibility(View.INVISIBLE);
-            buttonSave.setVisibility(View.INVISIBLE);
+            deleteButton.setVisibility(View.INVISIBLE);
+            saveButton.setVisibility(View.INVISIBLE);
             editName.setFocusable(false);
             editName.setFocusableInTouchMode(false);
             editName.setEnabled(false);
@@ -184,7 +204,7 @@ public class CareTeamFamilyFragment extends Fragment {
         setAvatarResource(familyAvatarId);
 
         if (listItem.type == "new"){
-            buttonDelete.setVisibility(View.INVISIBLE);
+            deleteButton.setVisibility(View.INVISIBLE);
             editName.requestFocus();
             txtName.setVisibility(View.INVISIBLE);
             txtEmail.setVisibility(View.INVISIBLE);
@@ -197,18 +217,17 @@ public class CareTeamFamilyFragment extends Fragment {
             chkAdmin.setEnabled(false);
         }
 
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 removeCareTeamMember();
             }
         });
 
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveUser();
-                getFragmentManager().popBackStack();
             }
         });
 
@@ -274,7 +293,7 @@ public class CareTeamFamilyFragment extends Fragment {
 
         if (id == R.id.action_save) {
             saveUser();
-            getFragmentManager().popBackStack();
+//            getFragmentManager().popBackStack();
             return true;
         }
 
@@ -315,14 +334,12 @@ public class CareTeamFamilyFragment extends Fragment {
                         emailString,
                         editRelation.getText().toString(),
                         0,
-                        admin,
+                        1, // force admin to 1, replace with admin later
                         0,
                         0);
 
                 connectHandler.inviteCareTeamMember(newInvite);
-                buttonDelete.setVisibility(View.VISIBLE);
-                getActivity().onBackPressed();
-
+                while (connectHandler.socketBusy){}
             }
             else if (myUser){
                 // update my information
@@ -336,6 +353,8 @@ public class CareTeamFamilyFragment extends Fragment {
                 );
                 connectHandler.updateUser(updatedPerson);
             }
+            closeFragment();
+//            getActivity().onBackPressed();
         }
     }
 
@@ -413,17 +432,16 @@ public class CareTeamFamilyFragment extends Fragment {
 
                 switch(listItem.type){
                     case "family":
-                        connectHandler.removeCareTeamMember(connectHandler.patient.patient_ID, listItem.id);
+                        connectHandler.deleteUser(listItem.id);
                         break;
 
                     case "invite":
                         connectHandler.deleteCareTeamInvite(listItem.id);
                         break;
-
                 }
-
                 while(connectHandler.socketBusy){}
-                getFragmentManager().popBackStack();
+                closeFragment();
+//                getFragmentManager().popBackStack();
             }
         });
 
@@ -437,8 +455,34 @@ public class CareTeamFamilyFragment extends Fragment {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
     public void setItem(CareTeamExpandListItem selectedListItem){
         listItem = selectedListItem;
+    }
+
+
+    private void closeFragment(){
+        getActivity().getSupportFragmentManager().popBackStack();
+        if (mContainer.getId() == R.id.careteam_placeholder2){
+            mListener.onCareTeamFamilyComplete();
+        }
+    }
+
+    public interface OnCareTeamFamilyCompletedListener {
+        // To call when save or delete has been completed to update exp list
+        void onCareTeamFamilyComplete();
+    }
+
+    // make sure the Activity implemented it
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            this.mListener = (OnCareTeamFamilyCompletedListener)context;
+        }
+        catch (final ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
+        }
     }
 
 }

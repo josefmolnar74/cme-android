@@ -1,7 +1,6 @@
 package com.cancercarecompany.ccc.ccc;
 
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,7 +27,7 @@ public class EventsExpandListFragment extends Fragment {
 
 
     ExpandableListAdapter eventsExpandListAdapter;
-    ExpandableListView expListView;
+    ExpandableListView eventsExpandListView;
 
     List<Event> eventExpList;
     List<Event> passedEventExpList;
@@ -54,7 +51,7 @@ public class EventsExpandListFragment extends Fragment {
             viewPager.setPagingEnabled(true);
         }
 
-        expListView = (ExpandableListView) view.findViewById(R.id.explv_events);
+        eventsExpandListView = (ExpandableListView) view.findViewById(R.id.explv_events);
         eventExpList = new ArrayList<Event>();
         passedEventExpList = new ArrayList<Event>();
 
@@ -65,107 +62,14 @@ public class EventsExpandListFragment extends Fragment {
         listDataHeader.add(getResources().getString(R.string.events_all));
         listDataHeader.add(getResources().getString(R.string.events_passed));
 
-        if (connectHandler.patient != null) {
-            connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
-            while (connectHandler.socketBusy){}
-            if (connectHandler.patient.care_team != null) {
-                // check admin
-                for (int i=0; i < connectHandler.patient.care_team.size(); i++){
-                    if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
-                            (connectHandler.patient.care_team.get(i).admin == 1)){
-                        admin = true;
-                    }
-                }
-                if (connectHandler.patient != null) {
-                    Date todaysDate = new Date();
-                    // Step one day back so that todays events are not displayed in passed events list
-                    Calendar c = Calendar.getInstance();
-                    c.setTime(todaysDate);
-                    c.add(Calendar.DATE, -1);
-                    todaysDate = c.getTime();
-                    for (int i = 0; i < connectHandler.events.event_data.size(); i++) {
-                        Date date = null;
-                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-                        try{
-                            date = format.parse(connectHandler.events.event_data.get(i).date);
-                        } catch (Exception e){
-                            System.out.println("Date conversion unsuccesfull");
-                        }
-                        Date compareDate = null;
-                        // Sort the events in date order
-                        if ((date != null) && (todaysDate.after(date))){
-                            // put event in passed list
-                            if (passedEventExpList.size()==0){
-                                passedEventExpList.add(connectHandler.events.event_data.get(i));
-                            }else{
-                                for (int j = 0; j < passedEventExpList.size(); j++){
-                                    try{
-                                        compareDate = format.parse(passedEventExpList.get(j).date);
-                                    } catch (Exception e){
-                                        System.out.println("Date conversion unsuccesfull");
-                                    }
-
-                                    if (compareDate.after(date)){
-                                        passedEventExpList.add(j, connectHandler.events.event_data.get(i));
-                                        break;
-                                    }
-                                    if (j==passedEventExpList.size()-1){
-                                        // new event is later than all others in list
-                                        passedEventExpList.add(connectHandler.events.event_data.get(i));
-                                        break;
-                                    }
-                                }
-                            }
-                        }else{
-                            // put event in future list
-                            if (eventExpList.size()==0){
-                                eventExpList.add(connectHandler.events.event_data.get(i));
-                            }
-                            else{
-                                for (int j = 0; j < eventExpList.size(); j++){
-                                    try{
-                                        compareDate = format.parse(eventExpList.get(j).date);
-                                    } catch (Exception e){
-                                        System.out.println("Date conversion unsuccesfull");
-                                    }
-
-                                    if (compareDate.after(date)){
-                                        eventExpList.add(j, connectHandler.events.event_data.get(i));
-                                        break;
-                                    }
-                                    if (j==eventExpList.size()-1){
-                                        // new event is later than all others in list
-                                        eventExpList.add(connectHandler.events.event_data.get(i));
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if ((admin) && (eventExpList.isEmpty() || (eventExpList.get(0).event_ID != 0))){
-                //add position to invite new member
-                Event newListItem = new Event(0, 0, 0, 0, null, "",
-                        "create_new",
-                        "", "", null, null, null);
-                eventExpList.add(0, newListItem);
-            }
-
-            // Sort events in the different lists
-            listDataChild.put(listDataHeader.get(0), eventExpList); // Header, Child data
-            listDataChild.put(listDataHeader.get(1), passedEventExpList);
-        }
-
         eventsExpandListAdapter = new EventsExpandListAdapter(inflater.getContext(), listDataHeader, listDataChild);
 
-        expListView.setAdapter(eventsExpandListAdapter);
+        eventsExpandListView.setAdapter(eventsExpandListAdapter);
 
-        expListView.expandGroup(0);
+        prepareEventList();
 
         // Listview on child click listener
-        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        eventsExpandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
@@ -200,7 +104,110 @@ public class EventsExpandListFragment extends Fragment {
         return view;
     }
 
+    void prepareEventList(){
 
+        if (!passedEventExpList.isEmpty()){
+            passedEventExpList.clear();
+        }
+
+        if (!eventExpList.isEmpty()){
+            eventExpList.clear();
+        }
+
+        if (connectHandler.patient != null) {
+            connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
+            while (connectHandler.socketBusy){}
+
+            Date todaysDate = new Date();
+            // Step one day back so that todays events are not displayed in passed events list
+            Calendar c = Calendar.getInstance();
+            c.setTime(todaysDate);
+            c.add(Calendar.DATE, -1);
+            todaysDate = c.getTime();
+            for (int i = 0; i < connectHandler.events.event_data.size(); i++) {
+                Date date = null;
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                try{
+                    date = format.parse(connectHandler.events.event_data.get(i).date);
+                } catch (Exception e){
+                    System.out.println("Date conversion unsuccesfull");
+                }
+                Date compareDate = null;
+                // Sort the events in date order
+                if ((date != null) && (todaysDate.after(date))){
+                    // put event in passed list
+                    if (passedEventExpList.size()==0){
+                        passedEventExpList.add(connectHandler.events.event_data.get(i));
+                    }else{
+                        for (int j = 0; j < passedEventExpList.size(); j++){
+                            try{
+                                compareDate = format.parse(passedEventExpList.get(j).date);
+                            } catch (Exception e){
+                                System.out.println("Date conversion unsuccesfull");
+                            }
+
+                            if (compareDate.after(date)){
+                                passedEventExpList.add(j, connectHandler.events.event_data.get(i));
+                                break;
+                            }
+                            if (j==passedEventExpList.size()-1){
+                                // new event is later than all others in list
+                                passedEventExpList.add(connectHandler.events.event_data.get(i));
+                                break;
+                            }
+                        }
+                    }
+                }else{
+                    // put event in future list
+                    if (eventExpList.size()==0){
+                        eventExpList.add(connectHandler.events.event_data.get(i));
+                    }
+                    else{
+                        for (int j = 0; j < eventExpList.size(); j++){
+                            try{
+                                compareDate = format.parse(eventExpList.get(j).date);
+                            } catch (Exception e){
+                                System.out.println("Date conversion unsuccesfull");
+                            }
+
+                            if (compareDate.after(date)){
+                                eventExpList.add(j, connectHandler.events.event_data.get(i));
+                                break;
+                            }
+                            if (j==eventExpList.size()-1){
+                                // new event is later than all others in list
+                                eventExpList.add(connectHandler.events.event_data.get(i));
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+//            if ((admin) && (eventExpList.isEmpty() || (eventExpList.get(0).event_ID != 0))){
+            if ((eventExpList.isEmpty() || (eventExpList.get(0).event_ID != 0))){
+                //add position to invite new member
+                Event newListItem = new Event(0, 0, 0, 0, null, "",
+                        "create_new",
+                        "", "", null, null, null);
+                eventExpList.add(0, newListItem);
+            }
+
+            // Sort events in the different lists
+            listDataChild.put(listDataHeader.get(0), eventExpList); // Header, Child data
+            listDataChild.put(listDataHeader.get(1), passedEventExpList);
+        }
+
+        eventsExpandListView.collapseGroup(0);
+        eventsExpandListView.collapseGroup(1);
+        eventsExpandListView.expandGroup(0);
+    }
+
+    public void updateExpList(){
+        if (eventsExpandListAdapter != null) {
+            prepareEventList();
+        }
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

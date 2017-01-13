@@ -14,8 +14,13 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.OnTabSwitchToEventListener{
+public class MainActivity extends AppCompatActivity implements
+        HomeFragment.OnTabSwitchToEventListener,
+        JournalDetailsFragment.OnJournalCompletedListener,
+        EventsDetailsFragment.OnEventsCompletedListener,
+        CareTeamFamilyFragment.OnCareTeamFamilyCompletedListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -39,6 +44,60 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnTa
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         TabLayout.Tab tab = tabLayout.getTabAt(3);
         tab.select();
+    }
+
+    public void onCareTeamFamilyComplete() {
+
+        CareTeamExpListFragment careTeamFragment = (CareTeamExpListFragment)
+                getSupportFragmentManager().findFragmentByTag("CareTeamExpListFragment");
+
+        if (careTeamFragment != null) {
+            // If article frag is available, we're in two-pane layout...
+
+            // Call a method in the ArticleFragment to update its content
+
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            careTeamFragment.updateExpList();
+        }
+    }
+
+    public void onJournalComplete() {
+        // The user selected the headline of an article from the HeadlinesFragment
+        // The user selected the headline of an article from the HeadlinesFragment
+        // Do something here to display that article
+
+        JournalExpandListFragment journalFragment = (JournalExpandListFragment)
+                getSupportFragmentManager().findFragmentByTag("JournalExpListFragment");
+
+        if (journalFragment != null) {
+            // If article frag is available, we're in two-pane layout...
+
+            // Call a method in the ArticleFragment to update its content
+
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            journalFragment.updateExpList();
+        }
+    }
+
+    public void onEventsComplete() {
+        // The user selected the headline of an article from the HeadlinesFragment
+        // The user selected the headline of an article from the HeadlinesFragment
+        // Do something here to display that article
+
+        EventsExpandListFragment eventsFragment = (EventsExpandListFragment)
+                getSupportFragmentManager().findFragmentByTag("EventsExpListFragment");
+
+        if (eventsFragment != null) {
+            // If article frag is available, we're in two-pane layout...
+
+            // Call a method in the ArticleFragment to update its content
+
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            eventsFragment.updateExpList();
+        }
     }
 
     @Override

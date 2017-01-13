@@ -68,8 +68,97 @@ public class CareTeamExpListFragment extends Fragment {
         listDataHeader.add(getResources().getString(R.string.careteam_healthcare));
         listDataHeader.add(getResources().getString(R.string.careteam_cancer_friends));
 
-        // check admin
+        expListAdapter = new CareTeamExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
 
+        expListView.setAdapter(expListAdapter);
+
+        prepareCareTeamExpandList();
+
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+
+                // Begin the transaction
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+                switch (groupPosition){
+                    case 0:
+                        // Patient
+                        CareTeamPatientFragment mycareTeamShowPatient = new CareTeamPatientFragment();
+                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                            ft.replace(R.id.careteam_placeholder2, mycareTeamShowPatient);
+                        }
+                        else{
+                            ft.replace(R.id.careteam_placeholder1, mycareTeamShowPatient);
+                        }
+                        ft.addToBackStack(null);
+                        // send family member data to fragment
+                        mycareTeamShowPatient.setItem(familyExpList.get(childPosition));
+
+                        break;
+
+                    case 1:
+                        // Family or invited user
+                        CareTeamFamilyFragment mycareTeamShowFamily = new CareTeamFamilyFragment();
+                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                            ft.replace(R.id.careteam_placeholder2, mycareTeamShowFamily);
+                        }
+                        else{
+                            ft.replace(R.id.careteam_placeholder1, mycareTeamShowFamily);
+                        }
+                        ft.addToBackStack(null);
+                        // send family member data to fragment
+                        mycareTeamShowFamily.setItem(familyExpList.get(childPosition));
+
+                        break;
+
+                    case 2:
+                        CareTeamHealthcareFragment mycareTeamShowHealthcare = new CareTeamHealthcareFragment();
+                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                            ft.replace(R.id.careteam_placeholder2, mycareTeamShowHealthcare);
+                        }
+                        else{
+                            ft.replace(R.id.careteam_placeholder1, mycareTeamShowHealthcare);
+                        }
+                        ft.addToBackStack(null);
+                        // send healthcare item to fragment
+                        mycareTeamShowHealthcare.setItem(healthCareExpList.get(childPosition));
+                        break;
+                }
+                ft.commit();
+                return false;
+            }
+        });
+
+        return view;
+    }
+
+    private void prepareCareTeamExpandList(){
+
+        if (!patientExpList.isEmpty()){
+            patientExpList.clear();
+        }
+
+        if (!familyExpList.isEmpty()){
+            familyExpList.clear();
+        }
+
+        if (!healthCareExpList.isEmpty()){
+            healthCareExpList.clear();
+        }
+
+        if (!cancerFriendsExpList.isEmpty()){
+            cancerFriendsExpList.clear();
+        }
+
+
+        connectHandler.getPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy)
+
+        // check admin
         if (connectHandler.patient.care_team != null){
             for (int i=0; i < connectHandler.patient.care_team.size(); i++){
                 if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
@@ -181,75 +270,14 @@ public class CareTeamExpListFragment extends Fragment {
             listDataChild.put(listDataHeader.get(3), cancerFriendsExpList);
         }
 
-        expListAdapter = new CareTeamExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
-
-        expListView.setAdapter(expListAdapter);
-
+//        expListView.collapseGroup(0);
+        expListView.collapseGroup(1);
+        expListView.collapseGroup(2);
+//        expListView.collapseGroup(3);
         expListView.expandGroup(0);
         expListView.expandGroup(1);
         expListView.expandGroup(2);
         expListView.expandGroup(3);
-
-        // Listview on child click listener
-        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-
-                // Begin the transaction
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-                switch (groupPosition){
-                    case 0:
-                        // Patient
-                        CareTeamPatientFragment mycareTeamShowPatient = new CareTeamPatientFragment();
-                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-                            ft.replace(R.id.careteam_placeholder2, mycareTeamShowPatient);
-                        }
-                        else{
-                            ft.replace(R.id.careteam_placeholder1, mycareTeamShowPatient);
-                        }
-                        ft.addToBackStack(null);
-                        // send family member data to fragment
-                        mycareTeamShowPatient.setItem(familyExpList.get(childPosition));
-
-                        break;
-
-                    case 1:
-                        // Family or invited user
-                        CareTeamFamilyFragment mycareTeamShowFamily = new CareTeamFamilyFragment();
-                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-                            ft.replace(R.id.careteam_placeholder2, mycareTeamShowFamily);
-                        }
-                        else{
-                            ft.replace(R.id.careteam_placeholder1, mycareTeamShowFamily);
-                        }
-                        ft.addToBackStack(null);
-                        // send family member data to fragment
-                        mycareTeamShowFamily.setItem(familyExpList.get(childPosition));
-
-                        break;
-
-                    case 2:
-                        CareTeamHealthcareFragment mycareTeamShowHealthcare = new CareTeamHealthcareFragment();
-                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-                            ft.replace(R.id.careteam_placeholder2, mycareTeamShowHealthcare);
-                        }
-                        else{
-                            ft.replace(R.id.careteam_placeholder1, mycareTeamShowHealthcare);
-                        }
-                        ft.addToBackStack(null);
-                        // send healthcare item to fragment
-                        mycareTeamShowHealthcare.setItem(healthCareExpList.get(childPosition));
-                        break;
-                }
-                ft.commit();
-                return false;
-            }
-        });
-
-        return view;
     }
 
     private class CancerFriend{
@@ -264,6 +292,11 @@ public class CareTeamExpListFragment extends Fragment {
             this.phone = phone;
         }
 
+    }
+
+    public void updateExpList(){
+        // prepare the careteam list and update the exp list
+        prepareCareTeamExpandList();
     }
 
     private void prepareCancerFriends(){

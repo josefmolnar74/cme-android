@@ -40,6 +40,7 @@ public class EventsFragment extends Fragment {
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         EventsExpandListFragment myEventsExpList = new EventsExpandListFragment();
+        ft.add(myEventsExpList, "EventsExpListFragment");
         ft.replace(R.id.events_placeholder1, myEventsExpList);
         ft.commit();
         return view;

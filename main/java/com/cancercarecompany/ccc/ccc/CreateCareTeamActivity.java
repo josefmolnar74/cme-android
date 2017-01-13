@@ -21,13 +21,6 @@ public class CreateCareTeamActivity extends AppCompatActivity {
         diagnose = (EditText) findViewById(R.id.text_create_careteam_diagnose);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Intent intent = new Intent(this, WelcomeActivity.class);
-        startActivity(intent);
-    }
-
     public void onClickCreateCareTeamNext(View view){
         // Go to login window only when all input has been filled in
         Intent intent = new Intent(this, RegisterActivity.class);

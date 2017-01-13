@@ -80,6 +80,7 @@ public class JournalFragment extends Fragment {
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         JournalExpandListFragment myJournalExpList = new JournalExpandListFragment();
+        ft.add(myJournalExpList, "JournalExpListFragment");
         ft.replace(R.id.journal_placeholder1, myJournalExpList);
         ft.commit();
         return view;

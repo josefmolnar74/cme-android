@@ -37,10 +37,13 @@ import java.util.Calendar;
 
 public class EventsDetailsFragment extends Fragment {
 
+    private OnEventsCompletedListener mListener;
+    private ViewGroup mContainer;
+
     private Event listItem;
     private ConnectionHandler connectHandler;
     private int position;
-    private boolean admin = false;
+//    private boolean admin = true;
     private GridLayout selectionLayout;
     private String category;
     private ImageView eventImage;
@@ -71,7 +74,7 @@ public class EventsDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        mContainer = container;
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         View view = inflater.inflate(R.layout.fragment_events_details, container, false);
         RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.lay_event_detail);
@@ -92,11 +95,9 @@ public class EventsDetailsFragment extends Fragment {
 
         final ImageButton deleteButton = (ImageButton) view.findViewById(R.id.btn_delete);
         final ImageButton saveButton = (ImageButton) view.findViewById(R.id.btn_save);
-        saveButton.setVisibility(View.VISIBLE);
-        deleteButton.setVisibility(View.VISIBLE);
 
             // check admin
-        for (int i=0; i < connectHandler.patient.care_team.size(); i++){
+/*        for (int i=0; i < connectHandler.patient.care_team.size(); i++){
             if ((connectHandler.person.person_ID == connectHandler.patient.care_team.get(i).person_ID) &&
                 (connectHandler.patient.care_team.get(i).admin == 1)){
                     admin = true;
@@ -106,6 +107,7 @@ public class EventsDetailsFragment extends Fragment {
         if (admin){
             deleteButton.setVisibility(View.VISIBLE);
         }
+*/
         Context context = MyApplication.getContext();
 
         eventImage = (ImageView) view.findViewById(R.id.img_event);
@@ -161,8 +163,7 @@ public class EventsDetailsFragment extends Fragment {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteButton.setVisibility(View.VISIBLE);
-                saveButton.setVisibility(View.VISIBLE);
+                deleteEvent();
             }
         });
 
@@ -261,15 +262,13 @@ public class EventsDetailsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {        // Inflate the menu; this adds items to the action bar if it is present.
-        if (admin){
-            //only admin can save or delete
-            inflater.inflate(R.menu.menu_details, menu);
-            if (listItem.sub_category.matches("create_new")){
-                MenuItem nextItem = menu.findItem(R.id.action_delete);
-                nextItem.setVisible(false);
-            }
-            super.onCreateOptionsMenu(menu, inflater);
+        //only admin can save or delete
+        inflater.inflate(R.menu.menu_details, menu);
+        if (listItem.sub_category.matches("create_new")){
+            MenuItem nextItem = menu.findItem(R.id.action_delete);
+            nextItem.setVisible(false);
         }
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -608,7 +607,8 @@ public class EventsDetailsFragment extends Fragment {
 
             connectHandler.updateEvent(updatedEvent);
             while(connectHandler.socketBusy){}
-            getActivity().onBackPressed();
+            closeFragment();
+//            getActivity().onBackPressed();
         }
         else{
             // new event, create new
@@ -646,7 +646,8 @@ public class EventsDetailsFragment extends Fragment {
                         "");
                 connectHandler.createEvent(newEvent);
                 while(connectHandler.socketBusy){}
-                getActivity().onBackPressed();
+                closeFragment();
+//                getActivity().onBackPressed();
             }
         }
     }
@@ -662,7 +663,8 @@ public class EventsDetailsFragment extends Fragment {
             public void onClick(DialogInterface arg0, int arg1) {
                 connectHandler.deleteEvent(listItem.event_ID);
                 while(connectHandler.socketBusy){}
-                getActivity().onBackPressed();
+                closeFragment();
+//                getActivity().onBackPressed();
                 // remove item from list and from database
                 // removeItemFromList(listItem.event_ID);
             }
@@ -768,4 +770,27 @@ public class EventsDetailsFragment extends Fragment {
         }
     }
 
+    private void closeFragment(){
+        getActivity().getSupportFragmentManager().popBackStack();
+        if (mContainer.getId() == R.id.events_placeholder2){
+            mListener.onEventsComplete();
+        }
+    }
+
+    public interface OnEventsCompletedListener {
+        // To call when save or delete has been completed to update exp list
+        void onEventsComplete();
+    }
+
+    // make sure the Activity implemented it
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            this.mListener = (OnEventsCompletedListener)context;
+        }
+        catch (final ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
+        }
+    }
 }

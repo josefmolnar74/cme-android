@@ -288,7 +288,7 @@ public class ConnectionHandler {
     public void deleteUser(int userID){
         if (checkConnection()){
             String msgData = String.format("{\"person_ID\":\"%d\"}", userID);
-            sendMessage(MESSAGE_DELETE, CONTENT_HEALTHCARE, msgData);
+            sendMessage(MESSAGE_DELETE, CONTENT_PERSON, msgData);
         } else {
 //            offlineDataManager.deleteUser(userID);
         }
@@ -563,8 +563,8 @@ public class ConnectionHandler {
 
     public void deleteHealthData(int healthDataID){
         if (checkConnection()){
-            String msgData = String.format("{\"healthdata_ID\":\"%d\"}", healthData);
-            sendMessage(MESSAGE_DELETE, CONTENT_SIDEEFFECT, msgData);
+            String msgData = String.format("{\"healthdata_ID\":\"%d\"}", healthDataID);
+            sendMessage(MESSAGE_DELETE, CONTENT_HEALTH_DATA, msgData);
         } else {
             offlineDataManager.deleteHealthData(healthDataID);
         }

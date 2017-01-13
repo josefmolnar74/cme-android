@@ -29,13 +29,6 @@ public class JoinCareTeamActivity extends AppCompatActivity {
         connectHandler = ConnectionHandler.getInstance();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Intent intent = new Intent(this, WelcomeActivity.class);
-        startActivity(intent);
-    }
-
     public void onClickJoinCareTeamNext(View view){
         connectHandler.findCareTeamInvite(inputEmail.getText().toString());
    //     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -97,6 +90,6 @@ public class JoinCareTeamActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterActivity.class);
         intent.putExtra(RegisterActivity.INVITED_EMAIL, inputEmail.getText().toString());
         startActivity(intent);
-        finish();
+        this.finish();
     }
 }

@@ -4,6 +4,7 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -30,7 +31,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class JournalExpandListFragment extends Fragment {
+public class JournalExpandListFragment extends Fragment implements FragmentManager.OnBackStackChangedListener{
 
 
     private TextView journalHeaderText;
@@ -62,14 +63,6 @@ public class JournalExpandListFragment extends Fragment {
             CustomViewPager viewPager = (CustomViewPager) getActivity().findViewById(R.id.container);
             viewPager.setPagingEnabled(true);
         }
-
-        // find todays sideeffects
-        connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy){}
-
-        // find todays sideeffects
-        connectHandler.getHealthDataForPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy){}
 
         final ImageButton dateBackButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_back);
         final ImageButton dateForwardButton = (ImageButton) view.findViewById(R.id.img_journal_navigate_forward);
@@ -119,6 +112,7 @@ public class JournalExpandListFragment extends Fragment {
                 else{
                     ft.replace(R.id.journal_placeholder1, myJournalDetails);
                 }
+
                 ft.addToBackStack(null);
                 // send family member data to fragment
                 myJournalDetails.setDate(journalDate);
@@ -231,6 +225,14 @@ public class JournalExpandListFragment extends Fragment {
 
     private void prepareExpList(){
 
+        // find todays sideeffects
+        connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy){}
+
+        // find todays sideeffects
+        connectHandler.getHealthDataForPatient(connectHandler.patient.patient_ID);
+        while (connectHandler.socketBusy){}
+
         List<String> healthDataList = Arrays.asList(
                 JournalFragment.HEALTH_DATA_WEIGHT,
                 JournalFragment.HEALTH_DATA_TEMPERATURE,
@@ -278,7 +280,7 @@ public class JournalExpandListFragment extends Fragment {
         );
 
         if (!healthDataExpandList.isEmpty()){
-            healthDataExpandList .clear();
+            healthDataExpandList.clear();
         }
 
         if (!physicalExpandList.isEmpty()){
@@ -494,5 +496,15 @@ public class JournalExpandListFragment extends Fragment {
     public void onResume(){
         super.onResume();
         ((MainActivity) getActivity()).setActionBarTitle((connectHandler.patient.patient_name.concat(getString(R.string.patient_journey))));
+    }
+
+    public void updateExpList() {
+        if (expandListAdapter != null){
+            prepareExpList();
+        }
+    }
+
+    public void onBackStackChanged(){
+        System.out.println("Josef");
     }
 }
