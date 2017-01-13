@@ -162,7 +162,7 @@ public class CareTeamPatientFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.menu_details, menu);
+        inflater.inflate(R.menu.menu_details_save, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

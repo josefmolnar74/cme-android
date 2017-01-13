@@ -110,6 +110,11 @@ public class CareTeamFamilyFragment extends Fragment {
 
         switch(listItem.type) {
 
+            case "patient":
+                saveButton.setVisibility(View.GONE);
+                deleteButton.setVisibility(View.GONE);
+                break;
+
             case "family":
                 saveButton.setVisibility(View.GONE);
                 deleteButton.setVisibility(View.VISIBLE);
@@ -274,7 +279,22 @@ public class CareTeamFamilyFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.menu_details, menu);
+        switch(listItem.type){
+
+            case "patient":
+                inflater.inflate(R.menu.menu_details_save, menu);
+                break;
+            case "family":
+                inflater.inflate(R.menu.menu_details_delete, menu);
+                break;
+            case "invite":
+                inflater.inflate(R.menu.menu_details_delete, menu);
+                break;
+            case "cancer_friend":
+                inflater.inflate(R.menu.menu_details_none, menu);
+                break;
+        }
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -341,7 +361,7 @@ public class CareTeamFamilyFragment extends Fragment {
                 connectHandler.inviteCareTeamMember(newInvite);
                 while (connectHandler.socketBusy){}
             }
-            else if (myUser){
+/*            else if (myUser){
                 // update my information
                 Person updatedPerson = new Person(
                         listItem.id,
@@ -353,7 +373,7 @@ public class CareTeamFamilyFragment extends Fragment {
                 );
                 connectHandler.updateUser(updatedPerson);
             }
-            closeFragment();
+*/            closeFragment();
 //            getActivity().onBackPressed();
         }
     }
