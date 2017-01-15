@@ -18,7 +18,7 @@ import android.widget.ImageButton;
  */
 public class AvatarsDialogFragment extends DialogFragment {
 
-    private OnCompleteListener mListener;
+    public OnCompleteListener mListener;
     private boolean familyAvatar = false;
 
     public static final String AVATAR_TYPE = "avatar_type";
@@ -102,7 +102,8 @@ public class AvatarsDialogFragment extends DialogFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (familyAvatar){
+        String name = activity.getClass().getSimpleName();
+        if (name.matches("SettingsActivity")){
             try {
                 this.mListener = (OnCompleteListener)activity;
             }

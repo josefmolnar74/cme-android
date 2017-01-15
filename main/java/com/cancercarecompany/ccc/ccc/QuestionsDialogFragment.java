@@ -47,11 +47,6 @@ public class QuestionsDialogFragment extends DialogFragment {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<Question>>();
 
-        if (connectHandler.questions == null){
-            connectHandler.getQuestionsForPatient(connectHandler.patient.patient_ID);
-            while (connectHandler.pendingMessage){}
-        }
-
         for (int i = 0; i < connectHandler.questions.question_data.size(); i++){
             ArrayList<Question> questionExpList = new ArrayList<Question>();
             listDataHeader.add(connectHandler.questions.question_data.get(i).question);

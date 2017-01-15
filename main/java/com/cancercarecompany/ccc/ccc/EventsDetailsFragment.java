@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,7 @@ import java.util.Calendar;
 
 public class EventsDetailsFragment extends Fragment {
 
+    private UserLoginTask mAuthTask = null;
     private OnEventsCompletedListener mListener;
     private static ViewGroup mContainer;
     private static Event listItem;
@@ -78,6 +80,8 @@ public class EventsDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_events_details, container, false);
         RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.lay_event_detail);
 
+        connectHandler = ConnectionHandler.getInstance();
+
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             setHasOptionsMenu(true);
             // Disable viewpager scrolling, disable tabs in order to use the action bar for vertical use
@@ -88,7 +92,6 @@ public class EventsDetailsFragment extends Fragment {
             layout.setVisibility(View.GONE);
         }
 
-        connectHandler = ConnectionHandler.getInstance();
 
         mCalendar = Calendar.getInstance();
 
@@ -605,9 +608,9 @@ public class EventsDetailsFragment extends Fragment {
                     listItem.emotion);
 
             connectHandler.updateEvent(updatedEvent);
-            while(connectHandler.pendingMessage){}
-            closeFragment();
-//            getActivity().onBackPressed();
+            mAuthTask = new UserLoginTask();
+            mAuthTask.execute((Void) null);
+
         }
         else{
             // new event, create new
@@ -644,9 +647,8 @@ public class EventsDetailsFragment extends Fragment {
                         "",
                         "");
                 connectHandler.createEvent(newEvent);
-                while(connectHandler.pendingMessage){}
-                closeFragment();
-//                getActivity().onBackPressed();
+                mAuthTask = new UserLoginTask();
+                mAuthTask.execute((Void) null);
             }
         }
     }
@@ -663,7 +665,6 @@ public class EventsDetailsFragment extends Fragment {
                 connectHandler.deleteEvent(listItem.event_ID);
                 while(connectHandler.pendingMessage){}
                 closeFragment();
-//                getActivity().onBackPressed();
                 // remove item from list and from database
                 // removeItemFromList(listItem.event_ID);
             }
@@ -790,4 +791,32 @@ public class EventsDetailsFragment extends Fragment {
             throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
         }
     }
+
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            while(connectHandler.pendingMessage){}
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+                closeFragment();
+            } else {
+                //
+            }
+        }
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+        }
+    }
+
 }

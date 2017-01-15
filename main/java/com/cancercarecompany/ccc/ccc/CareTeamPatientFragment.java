@@ -2,6 +2,7 @@ package com.cancercarecompany.ccc.ccc;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 public class CareTeamPatientFragment extends Fragment {
 
+    private UserLoginTask mAuthTask = null;
     private OnCareTeamPatientCompletedListener mListener;
     private ViewGroup mContainer;
     private CareTeamExpandListItem listItem;
@@ -58,9 +60,6 @@ public class CareTeamPatientFragment extends Fragment {
         }
 
         connectHandler = ConnectionHandler.getInstance();
-
-        connectHandler.getPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.pendingMessage){}
 
         txtName = (TextView) view.findViewById(R.id.txt_careteam_name);
         editName = (EditText) view.findViewById(R.id.etxt_careteam_name);
@@ -205,8 +204,8 @@ public class CareTeamPatientFragment extends Fragment {
                         editDiagnose.getText().toString(),
                         connectHandler.patient.care_team);
         connectHandler.updatePatient(updatePatient);
-        while (connectHandler.pendingMessage){}
-        closeFragment();
+        mAuthTask = new UserLoginTask();
+        mAuthTask.execute((Void) null);
    }
 
     public void setItem(CareTeamExpandListItem selectedListItem){
@@ -234,6 +233,33 @@ public class CareTeamPatientFragment extends Fragment {
         }
         catch (final ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
+        }
+    }
+
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            while(connectHandler.pendingMessage){}
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+                closeFragment();
+            } else {
+                //
+            }
+        }
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
         }
     }
 

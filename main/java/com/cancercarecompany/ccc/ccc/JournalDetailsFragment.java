@@ -3,6 +3,7 @@ package com.cancercarecompany.ccc.ccc;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,6 +35,7 @@ import java.util.Date;
 
 public class JournalDetailsFragment extends Fragment {
 
+    private UserLoginTask mAuthTask = null;
     private OnJournalCompletedListener mListener;
     private ViewGroup mContainer;
     private static final String SIDEEFFECT_APPETITE_SEEKBAR_HEADLINE_1 = "breakfast";
@@ -725,10 +727,8 @@ public class JournalDetailsFragment extends Fragment {
                 }else if (listItem.healthData!=null){
                     connectHandler.deleteHealthData(listItem.healthData.healthdata_ID);
                 }
-
-                while(connectHandler.pendingMessage){}
-                closeFragment();
-//                getActivity().onBackPressed();
+                mAuthTask = new UserLoginTask();
+                mAuthTask.execute((Void) null);
                 // remove item from list and from database
                 // removeItemFromList(listItem.event_ID);
             }
@@ -997,8 +997,8 @@ public class JournalDetailsFragment extends Fragment {
             connectHandler.createSideeffect(listItem.sideeffect);
         }
 
-        while (connectHandler.pendingMessage) {}
-        closeFragment();
+        mAuthTask = new UserLoginTask();
+        mAuthTask.execute((Void) null);
 
     }
 
@@ -1019,8 +1019,8 @@ public class JournalDetailsFragment extends Fragment {
             connectHandler.createHealthData(listItem.healthData);
         }
 
-        while (connectHandler.pendingMessage) {}
-        getActivity().onBackPressed();
+        mAuthTask = new UserLoginTask();
+        mAuthTask.execute((Void) null);
     }
 
     private String getRadioButtonData(){
@@ -1243,6 +1243,33 @@ public class JournalDetailsFragment extends Fragment {
         }
         catch (final ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
+        }
+    }
+
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            while(connectHandler.pendingMessage){}
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+                closeFragment();
+            } else {
+                //
+            }
+        }
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
         }
     }
 }

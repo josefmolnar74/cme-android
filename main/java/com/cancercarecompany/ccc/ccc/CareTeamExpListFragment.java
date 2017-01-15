@@ -292,7 +292,8 @@ public class CareTeamExpListFragment extends Fragment {
 
     public void updateExpList(){
         // prepare the careteam list and update the exp list
-        prepareCareTeamExpandList();
+        mAuthTask = new UserLoginTask();
+        mAuthTask.execute((Void) null);
     }
 
     private void prepareCancerFriends(){

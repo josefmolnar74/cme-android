@@ -43,7 +43,10 @@ public class EventsExpandListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         connectHandler = ConnectionHandler.getInstance();
+        mAuthTask = new UserLoginTask();
+        mAuthTask.execute((Void) null);
 
         View view = inflater.inflate(R.layout.fragment_events_exp_list, container, false);
 
@@ -211,8 +214,8 @@ public class EventsExpandListFragment extends Fragment {
 
     public void updateExpList(){
         if (eventsExpandListAdapter != null) {
-            prepareEventList();
-        }
+            mAuthTask = new UserLoginTask();
+            mAuthTask.execute((Void) null);        }
     }
 
     @Override

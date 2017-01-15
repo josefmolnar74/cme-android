@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +27,7 @@ public class CareTeamFamilyFragment extends Fragment {
 
     public static final int AVATARSDIALOG_FRAGMENT = 1; // class variable
 
+    private UserLoginTask mAuthTask = null;
     OnCareTeamFamilyCompletedListener mListener;
     ViewGroup mContainer;
     private CareTeamExpandListItem listItem;
@@ -362,22 +364,9 @@ public class CareTeamFamilyFragment extends Fragment {
                         0);
 
                 connectHandler.inviteCareTeamMember(newInvite);
-                while (connectHandler.pendingMessage){}
+                mAuthTask = new UserLoginTask();
+                mAuthTask.execute((Void) null);
             }
-/*            else if (myUser){
-                // update my information
-                Person updatedPerson = new Person(
-                        listItem.id,
-                        nameString,
-                        emailString,
-                        null,
-                        familyAvatarId,
-                        null
-                );
-                connectHandler.updateUser(updatedPerson);
-            }
-*/            closeFragment();
-//            getActivity().onBackPressed();
         }
     }
 
@@ -462,8 +451,8 @@ public class CareTeamFamilyFragment extends Fragment {
                         connectHandler.deleteCareTeamInvite(listItem.id);
                         break;
                 }
-                while(connectHandler.pendingMessage){}
-                closeFragment();
+                mAuthTask = new UserLoginTask();
+                mAuthTask.execute((Void) null);
 //                getFragmentManager().popBackStack();
             }
         });
@@ -505,6 +494,33 @@ public class CareTeamFamilyFragment extends Fragment {
         }
         catch (final ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
+        }
+    }
+
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            while(connectHandler.pendingMessage){}
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+                closeFragment();
+            } else {
+                //
+            }
+        }
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
         }
     }
 

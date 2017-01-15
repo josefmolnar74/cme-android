@@ -1,6 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,11 @@ public class CreateCareTeamActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else{
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
         setContentView(R.layout.activity_create_care_team);
         patientName = (EditText) findViewById(R.id.text_create_careteam_patientname);
         yearOfBirth = (EditText) findViewById(R.id.text_create_careteam_year_of_birth);

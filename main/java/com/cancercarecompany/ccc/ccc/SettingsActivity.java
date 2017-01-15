@@ -1,6 +1,7 @@
 package com.cancercarecompany.ccc.ccc;
 
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 public class SettingsActivity extends AppCompatActivity implements AvatarsDialogFragment.OnCompleteListener {
 
     public static final int AVATARSDIALOG_FRAGMENT = 1; // class variable
+    private UserLoginTask mAuthTask = null;
 
     private ConnectionHandler connectHandler;
     private boolean passwordUpdate = false;
@@ -24,6 +26,10 @@ public class SettingsActivity extends AppCompatActivity implements AvatarsDialog
     private EditText editPassword;
     private EditText editNewPassword;
     private EditText editNewPassword2;
+    private String nameString;
+    private String emailString;
+    private String relationString;
+
 
     public void onComplete(int avatarId) {
         familyAvatarId = avatarId;
@@ -68,8 +74,9 @@ public class SettingsActivity extends AppCompatActivity implements AvatarsDialog
     }
 
     public void onClickSettingsUpdate(View view){
-        String nameString = editName.getText().toString();
-        String emailString = editEmail.getText().toString();
+        nameString = editName.getText().toString();
+        emailString = editEmail.getText().toString();
+        relationString = editRelation.getText().toString();
 
         //FirstName and email must be specified, the others will get empty string if not specified
         boolean wrongInput = false;
@@ -79,27 +86,8 @@ public class SettingsActivity extends AppCompatActivity implements AvatarsDialog
         }
 
         if (!wrongInput){
-            // update my information
-            Person updatedPerson = new Person(
-                    connectHandler.person.person_ID,
-                    nameString,
-                    emailString,
-                    null,
-                    familyAvatarId,
-                    null);
-            connectHandler.updateUser(updatedPerson);
-            while (connectHandler.pendingMessage){}
-
-            CareTeamMember mCareTeamMember = new CareTeamMember(
-                    connectHandler.person.person_ID,
-                    nameString,
-                    emailString,
-                    editRelation.getText().toString(),
-                    familyAvatarId,
-                    1);
-
-            connectHandler.updateCareTeamMember(mCareTeamMember, connectHandler.patient.patient_ID);
-            this.onBackPressed();
+            mAuthTask = new UserLoginTask();
+            mAuthTask.execute((Void) null);
         }
     }
 
@@ -224,4 +212,57 @@ public class SettingsActivity extends AppCompatActivity implements AvatarsDialog
                 break;
         }
     }
+
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            // update my information
+            Person updatedPerson = new Person(
+                    connectHandler.person.person_ID,
+                    nameString,
+                    emailString,
+                    null,
+                    familyAvatarId,
+                    null);
+            connectHandler.updateUser(updatedPerson);
+            while (connectHandler.pendingMessage){}
+
+            CareTeamMember mCareTeamMember = new CareTeamMember(
+                    connectHandler.person.person_ID,
+                    nameString,
+                    emailString,
+                    relationString,
+                    familyAvatarId,
+                    1);
+
+            connectHandler.updateCareTeamMember(mCareTeamMember, connectHandler.patient.patient_ID);
+
+            while (connectHandler.pendingMessage) {
+            }
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+                stepBack();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+        }
+    }
+
+    private void stepBack() {
+        this.onBackPressed();
+    }
+
 }

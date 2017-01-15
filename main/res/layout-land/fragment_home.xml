@@ -124,10 +124,10 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
                             android:id="@+id/layout_home_event1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
@@ -177,10 +177,10 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
                             android:id="@+id/layout_home_event2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
@@ -230,10 +230,10 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
                             android:id="@+id/layout_home_event3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">

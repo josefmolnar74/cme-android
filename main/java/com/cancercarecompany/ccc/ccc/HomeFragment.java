@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -217,8 +218,18 @@ public class HomeFragment extends Fragment {
                     // needs implementation in backend
                     connectHandler.createQuestion(newQuestion);
                     questionText.setText("");
-                    while (connectHandler.pendingMessage){}
-                    questionCreatedDialog();
+                    final Handler handler = new Handler();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!connectHandler.pendingMessage) {
+                                questionCreatedDialog();
+                            }
+                            else {
+                                handler.postDelayed(this,1000);
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -228,7 +239,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onStart() {
-
+        super.onStart();
         if ((connectHandler.patient != null) && (connectHandler.events != null) && (connectHandler.questions != null) && (connectHandler.articles != null)){
             cmeArticleList = new ArrayList<Article>();
             inspirationArticleList = new ArrayList<Article>();
@@ -333,7 +344,6 @@ public class HomeFragment extends Fragment {
             infoIndex = r.nextInt(tipsArticleList.size());
             tipsText.setText(tipsArticleList.get(infoIndex).title);
         }
-        super.onStart();
     }
 
     private void questionCreatedDialog(){

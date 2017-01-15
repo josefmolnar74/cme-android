@@ -503,7 +503,8 @@ public class JournalExpandListFragment extends Fragment{
 
     public void updateExpList() {
         if (expandListAdapter != null){
-            prepareEventsExpandList();
+            mAuthTask = new UserLoginTask();
+            mAuthTask.execute((Void) null);
         }
     }
 

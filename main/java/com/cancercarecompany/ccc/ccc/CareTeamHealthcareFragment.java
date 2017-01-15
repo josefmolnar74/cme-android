@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -21,13 +22,14 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class CareTeamHealthcareFragment extends Fragment {
+public class CareTeamHealthcareFragment extends Fragment{
 
     public static final int AVATARSDIALOG_FRAGMENT = 1; // class variable
 
     OnCareTeamHealthcareCompletedListener mListener;
     ViewGroup mContainer;
 
+    private UserLoginTask mAuthTask = null;
     private CareTeamExpandListItem listItem;
     private ConnectionHandler connectHandler;
     private int position = 0;
@@ -303,8 +305,8 @@ public class CareTeamHealthcareFragment extends Fragment {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 connectHandler.deleteHealthcare(listItem.id);
-                while (connectHandler.pendingMessage){}
-                closeFragment();
+                mAuthTask = new UserLoginTask();
+                mAuthTask.execute((Void) null);
             }
         });
 
@@ -349,8 +351,8 @@ public class CareTeamHealthcareFragment extends Fragment {
                     healthcareAvatarId);
 
             connectHandler.updateHealthcare(updateHealthCare);
-            while (connectHandler.pendingMessage){}
-            closeFragment();
+            mAuthTask = new UserLoginTask();
+            mAuthTask.execute((Void) null);
         }
     }
 
@@ -381,5 +383,30 @@ public class CareTeamHealthcareFragment extends Fragment {
             throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
         }
     }
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            while(connectHandler.pendingMessage){}
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+                closeFragment();
+            } else {
+                //
+            }
+        }
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+        }
+    }
 }
