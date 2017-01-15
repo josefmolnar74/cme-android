@@ -47,6 +47,11 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else{
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
         SharedPreferences sharedPref = this.getSharedPreferences("login_settings", Context.MODE_PRIVATE);
         autoLogin = sharedPref.getBoolean(getString(R.string.login_auto_login), false);
         if (autoLogin){

@@ -66,8 +66,16 @@ public class EventsExpandListAdapter extends BaseExpandableListAdapter {
             eventDate.setText("");
         }else if (!listItem.sub_category.isEmpty()){
             eventCategory.setText(context.getString(context.getResources().getIdentifier("event_"+listItem.sub_category, "string", context.getPackageName())));
-            eventDate.setText(listItem.date.substring(0,10));
-            eventTime.setText(listItem.time.substring(0,5));
+            if (!eventDate.getText().toString().matches(MyApplication.getContext().getString(R.string.event_pick_date))){
+                if (listItem.date.length() >= 10){
+                    eventDate.setText(listItem.date.substring(0,10));
+                }
+            }
+            if (!eventTime.getText().toString().matches(MyApplication.getContext().getString(R.string.event_pick_time))){
+                if (listItem.time.length() >= 5){
+                    eventTime.setText(listItem.time.substring(0,5));
+                }
+            }
             eventImage.setImageResource(context.getResources().getIdentifier("event_"+listItem.sub_category+"_bubble", "drawable", context.getPackageName()));
         }
 
