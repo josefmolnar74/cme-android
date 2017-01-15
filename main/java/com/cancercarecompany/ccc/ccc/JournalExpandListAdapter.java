@@ -93,7 +93,7 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
                 ConnectionHandler connectHandler = ConnectionHandler.getInstance();
                 journalItemExists.setVisibility(View.GONE);
                 distressLayout.setVisibility(View.VISIBLE);
-                txtListName.setText(MyApplication.getContext().getString(R.string.journal_sideeffects_distress_question));
+                txtListName.setText(MyApplication.getContext().getString(R.string.journal_sideeffect_distress_question));
                 txtListName.setText(txtListName.getText().toString().replace("*", connectHandler.patient.patient_name));
                 String[] parts = listItem.sideeffect.value.split(",");
                 if ((parts.length > 0) && (!parts[0].isEmpty())){
@@ -121,7 +121,7 @@ public class JournalExpandListAdapter extends BaseExpandableListAdapter {
                     connectHandler.createSideeffect(listItem.sideeffect);
                 }
 
-                while (connectHandler.socketBusy) {}
+                while (connectHandler.pendingMessage) {}
             }
 
             @Override

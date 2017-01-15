@@ -284,6 +284,9 @@ public class CareTeamFamilyFragment extends Fragment {
             case "patient":
                 inflater.inflate(R.menu.menu_details_save, menu);
                 break;
+            case "new":
+                inflater.inflate(R.menu.menu_details_save, menu);
+                break;
             case "family":
                 inflater.inflate(R.menu.menu_details_delete, menu);
                 break;
@@ -359,7 +362,7 @@ public class CareTeamFamilyFragment extends Fragment {
                         0);
 
                 connectHandler.inviteCareTeamMember(newInvite);
-                while (connectHandler.socketBusy){}
+                while (connectHandler.pendingMessage){}
             }
 /*            else if (myUser){
                 // update my information
@@ -459,7 +462,7 @@ public class CareTeamFamilyFragment extends Fragment {
                         connectHandler.deleteCareTeamInvite(listItem.id);
                         break;
                 }
-                while(connectHandler.socketBusy){}
+                while(connectHandler.pendingMessage){}
                 closeFragment();
 //                getFragmentManager().popBackStack();
             }

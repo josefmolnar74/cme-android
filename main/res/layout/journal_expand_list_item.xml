@@ -76,7 +76,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/sb_journal_sideeffects_distress_seekbar1"
-                android:text="@string/journal_sideeffects_distress_seekbar_min" />
+                android:text="@string/journal_sideeffect_distress_seekbar_min" />
 
             <TextView
 
@@ -86,7 +86,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/sb_journal_sideeffects_distress_seekbar1"
-                android:text="@string/journal_sideeffects_distress_seekbar_max"/>
+                android:text="@string/journal_sideeffect_distress_seekbar_max"/>
 
         </RelativeLayout>
 

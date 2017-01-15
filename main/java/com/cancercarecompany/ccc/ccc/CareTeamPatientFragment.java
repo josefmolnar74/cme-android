@@ -60,7 +60,7 @@ public class CareTeamPatientFragment extends Fragment {
         connectHandler = ConnectionHandler.getInstance();
 
         connectHandler.getPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy){}
+        while (connectHandler.pendingMessage){}
 
         txtName = (TextView) view.findViewById(R.id.txt_careteam_name);
         editName = (EditText) view.findViewById(R.id.etxt_careteam_name);
@@ -205,7 +205,7 @@ public class CareTeamPatientFragment extends Fragment {
                         editDiagnose.getText().toString(),
                         connectHandler.patient.care_team);
         connectHandler.updatePatient(updatePatient);
-        while (connectHandler.socketBusy){}
+        while (connectHandler.pendingMessage){}
         closeFragment();
    }
 

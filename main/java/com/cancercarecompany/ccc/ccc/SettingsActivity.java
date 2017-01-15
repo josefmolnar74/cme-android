@@ -5,11 +5,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class SettingsActivity extends AppCompatActivity implements AvatarsDialogFragment.OnCompleteListener {
 
@@ -90,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity implements AvatarsDialog
                     familyAvatarId,
                     null);
             connectHandler.updateUser(updatedPerson);
-            while (connectHandler.socketBusy){}
+            while (connectHandler.pendingMessage){}
 
             CareTeamMember mCareTeamMember = new CareTeamMember(
                     connectHandler.person.person_ID,

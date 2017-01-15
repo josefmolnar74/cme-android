@@ -2,6 +2,7 @@ package com.cancercarecompany.ccc.ccc;
 
 
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -25,16 +26,17 @@ import java.util.List;
  */
 public class EventsExpandListFragment extends Fragment {
 
+    private UserLoginTask mAuthTask = null;
 
     ExpandableListAdapter eventsExpandListAdapter;
     ExpandableListView eventsExpandListView;
 
-    List<Event> eventExpList;
-    List<Event> passedEventExpList;
+    private List<Event> eventExpList;
+    private List<Event> passedEventExpList;
 
-    List<String> listDataHeader;
-    HashMap<String, List<Event>> listDataChild;
-    ConnectionHandler connectHandler;
+    private List<String> listDataHeader;
+    private HashMap<String, List<Event>> listDataChild;
+    private ConnectionHandler connectHandler;
     private boolean admin;
 
     @Override
@@ -61,12 +63,6 @@ public class EventsExpandListFragment extends Fragment {
 
         listDataHeader.add(getResources().getString(R.string.events_all));
         listDataHeader.add(getResources().getString(R.string.events_passed));
-
-        eventsExpandListAdapter = new EventsExpandListAdapter(inflater.getContext(), listDataHeader, listDataChild);
-
-        eventsExpandListView.setAdapter(eventsExpandListAdapter);
-
-        prepareEventList();
 
         // Listview on child click listener
         eventsExpandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -104,6 +100,14 @@ public class EventsExpandListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if ((connectHandler.patient != null) && (connectHandler.events != null)) {
+            prepareEventList();
+        }
+    }
+
     void prepareEventList(){
 
         if (!passedEventExpList.isEmpty()){
@@ -115,8 +119,6 @@ public class EventsExpandListFragment extends Fragment {
         }
 
         if (connectHandler.patient != null) {
-            connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
-            while (connectHandler.socketBusy){}
 
             Date todaysDate = new Date();
             // Step one day back so that todays events are not displayed in passed events list
@@ -198,6 +200,10 @@ public class EventsExpandListFragment extends Fragment {
             listDataChild.put(listDataHeader.get(1), passedEventExpList);
         }
 
+        eventsExpandListAdapter = new EventsExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
+
+        eventsExpandListView.setAdapter(eventsExpandListAdapter);
+
         eventsExpandListView.collapseGroup(0);
         eventsExpandListView.collapseGroup(1);
         eventsExpandListView.expandGroup(0);
@@ -225,5 +231,42 @@ public class EventsExpandListFragment extends Fragment {
         ((MainActivity) getActivity()).setActionBarTitle((connectHandler.patient.patient_name.concat(getString(R.string.patient_journey))));
     }
 
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
+
+            while(connectHandler.pendingMessage){}
+
+            if ((connectHandler.patient != null) && (connectHandler.events != null)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+                startFragment();
+            } else {
+
+            }
+        }
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+        }
+
+        private void startFragment(){
+            onStart();
+        }
+    }
 }
 

@@ -2,6 +2,7 @@ package com.cancercarecompany.ccc.ccc;
 
 
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,12 +32,13 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class JournalExpandListFragment extends Fragment implements FragmentManager.OnBackStackChangedListener{
+public class JournalExpandListFragment extends Fragment{
 
+    private UserLoginTask mAuthTask = null;
+    private ConnectionHandler connectHandler;
 
-    private TextView journalHeaderText;
-    private ExpandableListAdapter expandListAdapter;
-    private ExpandableListView expandListView;
+    public ExpandableListAdapter expandListAdapter;
+    public ExpandableListView expandListView;
 
     private List<JournalExpandListItem> healthDataExpandList;
     private List<JournalExpandListItem> emotionalExpandList;
@@ -46,17 +48,20 @@ public class JournalExpandListFragment extends Fragment implements FragmentManag
 
     private List<String> listDataHeader;
     private HashMap<String, List<JournalExpandListItem>> listDataChild;
-    private ConnectionHandler connectHandler;
 
     private int calendarDays;
     private String journalDate;
+    private TextView journalHeaderText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_journal_exp_list, container, false);
+
         connectHandler = ConnectionHandler.getInstance();
+        mAuthTask = new UserLoginTask();
+        mAuthTask.execute((Void) null);
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.VISIBLE);
@@ -91,8 +96,6 @@ public class JournalExpandListFragment extends Fragment implements FragmentManag
         listDataHeader.add(getResources().getString(R.string.journal_sideeffect_emotional));
 //        listDataHeader.add(getResources().getString(R.string.journal_sideeffect_other));
 //        listDataHeader.add(getResources().getString(R.string.sideeffect_distress));
-
-        prepareExpList();
 
         // Listview on child click listener
         expandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -159,7 +162,7 @@ public class JournalExpandListFragment extends Fragment implements FragmentManag
                 } else{
                     journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
                 }
-                prepareExpList();
+                prepareEventsExpandList();
             }
         });
 
@@ -177,7 +180,7 @@ public class JournalExpandListFragment extends Fragment implements FragmentManag
                 } else{
                     journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
                 }
-                prepareExpList();
+                prepareEventsExpandList();
             }
         });
 
@@ -194,7 +197,7 @@ public class JournalExpandListFragment extends Fragment implements FragmentManag
                 } else{
                     journalHeaderText.setText(journalHeaderText.getText().toString().concat(" ".concat(journalDate)));
                 }
-                prepareExpList();
+                prepareEventsExpandList();
             }
         });
 
@@ -223,15 +226,15 @@ public class JournalExpandListFragment extends Fragment implements FragmentManag
         return view;
     }
 
-    private void prepareExpList(){
+    @Override
+    public void onStart() {
+        super.onStart();
+        if ((connectHandler.patient != null) && (connectHandler.sideeffects != null) && (connectHandler.healthData != null)){
+            prepareEventsExpandList();
+        }
+    }
 
-        // find todays sideeffects
-        connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy){}
-
-        // find todays sideeffects
-        connectHandler.getHealthDataForPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy){}
+    private void prepareEventsExpandList(){
 
         List<String> healthDataList = Arrays.asList(
                 JournalFragment.HEALTH_DATA_WEIGHT,
@@ -500,11 +503,46 @@ public class JournalExpandListFragment extends Fragment implements FragmentManag
 
     public void updateExpList() {
         if (expandListAdapter != null){
-            prepareExpList();
+            prepareEventsExpandList();
         }
     }
 
-    public void onBackStackChanged(){
-        System.out.println("Josef");
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            connectHandler.getSideeffectForPatient(connectHandler.patient.patient_ID);
+            connectHandler.getHealthDataForPatient(connectHandler.patient.patient_ID);
+
+            while(connectHandler.pendingMessage){}
+
+            if ((connectHandler.patient != null) && (connectHandler.sideeffects != null) && (connectHandler.healthData != null)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+                startFragment();
+            } else {
+
+            }
+        }
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+        }
+
+        private void startFragment(){
+            onStart();
+        }
     }
 }

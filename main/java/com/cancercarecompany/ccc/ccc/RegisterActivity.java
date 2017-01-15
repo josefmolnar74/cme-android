@@ -2,12 +2,11 @@ package com.cancercarecompany.ccc.ccc;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,11 +70,23 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register(){
-        Person newUser = new Person(0 , registerName.getText().toString(), registerEmail.getText().toString(), registerPassword.getText().toString(), 0, null);
+        final Person newUser = new Person(0 , registerName.getText().toString(), registerEmail.getText().toString(), registerPassword.getText().toString(), 0, null);
         connectHandler.createUser(newUser);
-        while (connectHandler.socketBusy){}
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!connectHandler.pendingMessage) {
+                    connectUser();
+                } else {
+                    handler.postDelayed(this, 1000);
+                }
+            }
+        });
+    }
 
-        if (connectHandler.person == null){
+    private void connectUser(){
+        if (connectHandler.person == null) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             String alertText = String.format("Login failed, user already exists");
             alertDialogBuilder.setMessage(alertText);
@@ -83,44 +94,72 @@ public class RegisterActivity extends AppCompatActivity {
             alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
-                    login();
+                    backToWelcome();
                 }
             });
 
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
-        }
-        else{
+        } else {
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.toast_message_register_user_created), duration);
             toast.show();
 
             // During register user need to either create a new care team or join and existing
-            if (patientName != null){
+            if (patientName != null) {
                 // User tries to create new patient
-                Patient newPatient = new Patient(0,patientName,yearOfBirth,diagnose,null);
+                Patient newPatient = new Patient(0, patientName, yearOfBirth, diagnose, null);
                 connectHandler.createPatient(newPatient, registerRelationship.getText().toString());
-            }
-            else if (invitedEmail != null){//replace with invite object
+            } else if (invitedEmail != null) {//replace with invite object
                 connectHandler.acceptCareTeamInvite();
-                while (connectHandler.socketBusy){}
-                //Ugly solution to solve that created careteammember is part of patient
-
             }
-            connectHandler.login(newUser);
-            while (connectHandler.socketBusy){}
-
-            Intent myIntent = new Intent(this, MainActivity.class);
-            startActivity(myIntent);
-            finish();
+            login();
         }
     }
 
-    private void login(){
+    private void backToWelcome(){
         //User email already exist please use another email
         Intent myIntent = new Intent(this, WelcomeActivity.class);
         startActivity(myIntent);
         finish();
+    }
+
+    private void login(){
+        final Person newUser = new Person(0 , registerName.getText().toString(), registerEmail.getText().toString(), registerPassword.getText().toString(), 0, null);
+        connectHandler.login(newUser);
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!connectHandler.pendingMessage) {
+                    if (connectHandler.patient != null){
+                        getallPatientData(connectHandler.patient.patient_ID);
+                    }
+                }
+                else {
+                    handler.postDelayed(this,1000);
+                }
+            }
+        });
+    }
+
+    private void getallPatientData(int patientID){
+        // Get all patient data after login
+        connectHandler.getAllPatientData(patientID);
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!connectHandler.pendingMessage) {
+                    Intent myIntent = new Intent(MyApplication.getContext(), MainActivity.class);
+                    startActivity(myIntent);
+                    finish();
+                }
+                else {
+                    handler.postDelayed(this,1000);
+                }
+            }
+        });
     }
 
 }

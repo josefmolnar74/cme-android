@@ -2,17 +2,16 @@ package com.cancercarecompany.ccc.ccc;
 
 
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +23,7 @@ import java.util.List;
  */
 public class CareTeamExpListFragment extends Fragment {
 
+    private UserLoginTask mAuthTask = null;
 
     ExpandableListAdapter expListAdapter;
     ExpandableListView expListView;
@@ -34,7 +34,7 @@ public class CareTeamExpListFragment extends Fragment {
     List<CareTeamExpandListItem> cancerFriendsExpList;
     List<String> listDataHeader;
     HashMap<String, List<CareTeamExpandListItem>> listDataChild;
-    ConnectionHandler connectHandler;
+    private ConnectionHandler connectHandler;
     private boolean admin;
     private ArrayList<CancerFriend> cancerFriends = new ArrayList<CancerFriend>();
 
@@ -43,7 +43,10 @@ public class CareTeamExpListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_care_team_exp_list, container, false);
+
         connectHandler = ConnectionHandler.getInstance();
+        mAuthTask = new UserLoginTask();
+        mAuthTask.execute((Void) null);
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             ((AppCompatActivity) getActivity()).findViewById(R.id.tabs).setVisibility(View.VISIBLE);
@@ -67,12 +70,6 @@ public class CareTeamExpListFragment extends Fragment {
         listDataHeader.add(getResources().getString(R.string.careteam_family));
         listDataHeader.add(getResources().getString(R.string.careteam_healthcare));
         listDataHeader.add(getResources().getString(R.string.careteam_cancer_friends));
-
-        expListAdapter = new CareTeamExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
-
-        expListView.setAdapter(expListAdapter);
-
-        prepareCareTeamExpandList();
 
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -136,6 +133,14 @@ public class CareTeamExpListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if ((connectHandler.patient != null) && (connectHandler.invites != null) && (connectHandler.healthcare != null)){
+            prepareCareTeamExpandList();
+        }
+    }
+
     private void prepareCareTeamExpandList(){
 
         if (!patientExpList.isEmpty()){
@@ -153,10 +158,6 @@ public class CareTeamExpListFragment extends Fragment {
         if (!cancerFriendsExpList.isEmpty()){
             cancerFriendsExpList.clear();
         }
-
-
-        connectHandler.getPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy)
 
         // check admin
         if (connectHandler.patient.care_team != null){
@@ -192,10 +193,6 @@ public class CareTeamExpListFragment extends Fragment {
                 }
             }
 
-            connectHandler.getInvitedCareTeamMembers(connectHandler.patient.patient_ID);
-            while (connectHandler.socketBusy) {
-            }
-
             if (connectHandler.invites != null) {
                 for (int i = 0; i < connectHandler.invites.invite_data.size(); i++) {
                     CareTeamExpandListItem listItem = new CareTeamExpandListItem();
@@ -206,10 +203,6 @@ public class CareTeamExpListFragment extends Fragment {
                     listItem.relationship = connectHandler.invites.invite_data.get(i).invited_relationship;
                     familyExpList.add(listItem);
                 }
-            }
-
-            connectHandler.getHealthcareForPatient(connectHandler.patient.patient_ID);
-            while (connectHandler.socketBusy) {
             }
 
             if (connectHandler.healthcare != null) {
@@ -270,6 +263,9 @@ public class CareTeamExpListFragment extends Fragment {
             listDataChild.put(listDataHeader.get(3), cancerFriendsExpList);
         }
 
+        expListAdapter = new CareTeamExpandListAdapter(this.getContext(), listDataHeader, listDataChild);
+        expListView.setAdapter(expListAdapter);
+
 //        expListView.collapseGroup(0);
         expListView.collapseGroup(1);
         expListView.collapseGroup(2);
@@ -313,5 +309,46 @@ public class CareTeamExpListFragment extends Fragment {
         super.onResume();
         ((MainActivity) getActivity()).setActionBarTitle((connectHandler.patient.patient_name.concat(getString(R.string.patient_journey))));
     }
+
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            connectHandler.getPatient(connectHandler.person.patient.get(0).patient_ID);
+            connectHandler.getInvitedCareTeamMembers(connectHandler.patient.patient_ID);
+            connectHandler.getHealthcareForPatient(connectHandler.patient.patient_ID);
+
+            while(connectHandler.pendingMessage){}
+
+            if ((connectHandler.patient != null) && (connectHandler.invites != null) && (connectHandler.healthcare != null)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+                startFragment();
+            } else {
+
+            }
+        }
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+        }
+
+        private void startFragment(){
+            onStart();
+        }
+    }
+
 }
 

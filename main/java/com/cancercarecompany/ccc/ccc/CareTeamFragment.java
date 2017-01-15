@@ -45,11 +45,17 @@ public class CareTeamFragment extends Fragment {
         System.out.println("LANGUAGE SETTINGS: " + languageString);
         //////////////////////////
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("[JOSEF] CareTeamFragment onResume");
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         CareTeamExpListFragment myCareTeamExpList = new CareTeamExpListFragment();
         ft.add(myCareTeamExpList, "CareTeamExpListFragment");
         ft.replace(R.id.careteam_placeholder1, myCareTeamExpList);
         ft.commit();
-        return view;
     }
 }

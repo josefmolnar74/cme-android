@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -257,7 +256,15 @@ public class CareTeamHealthcareFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.menu_details, menu);
+        switch(listItem.type){
+
+            case "new":
+                inflater.inflate(R.menu.menu_details_save, menu);
+                break;
+            default:
+                inflater.inflate(R.menu.menu_details, menu);
+                break;
+        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -296,7 +303,7 @@ public class CareTeamHealthcareFragment extends Fragment {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 connectHandler.deleteHealthcare(listItem.id);
-                while (connectHandler.socketBusy){}
+                while (connectHandler.pendingMessage){}
                 closeFragment();
             }
         });
@@ -342,7 +349,7 @@ public class CareTeamHealthcareFragment extends Fragment {
                     healthcareAvatarId);
 
             connectHandler.updateHealthcare(updateHealthCare);
-            while (connectHandler.socketBusy){}
+            while (connectHandler.pendingMessage){}
             closeFragment();
         }
     }

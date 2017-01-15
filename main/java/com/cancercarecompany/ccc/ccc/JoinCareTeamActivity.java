@@ -2,6 +2,7 @@ package com.cancercarecompany.ccc.ccc;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,20 +32,30 @@ public class JoinCareTeamActivity extends AppCompatActivity {
 
     public void onClickJoinCareTeamNext(View view){
         connectHandler.findCareTeamInvite(inputEmail.getText().toString());
-   //     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        while (connectHandler.socketBusy){}
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!connectHandler.pendingMessage) {
+                    if (connectHandler.invites.invite_data.size() != 0){
+                        invite = connectHandler.invites.invite_data.get(0); //support only 1 patient
+                    }
 
-        if (connectHandler.invites.invite_data.size() != 0){
-            invite = connectHandler.invites.invite_data.get(0); //support only 1 patient
-        }
+                    if (invite == null)
+                    {
+                        alertNoCareTeam();
+                    }else
+                    {
+                        joinCareTeam(invite.patient_name);
+                    }
+                }
+                else {
+                    handler.postDelayed(this,1000);
+                }
+            }
+        });
 
-        if (invite == null)
-        {
-            alertNoCareTeam();
-        }else
-        {
-            joinCareTeam(invite.patient_name);
-        }
+
     }
 
     public void alertNoCareTeam(){

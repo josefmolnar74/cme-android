@@ -20,9 +20,10 @@ public class ConnectionHandler {
 
     public io.socket.client.Socket socket;
 
-    String result;
-    String function;
-    Boolean socketBusy = false;
+    private String result;
+    private String function;
+    Boolean pendingMessage = false;
+    private int messageCounter;
 
     // To be moved to data management Singleton class TBD
     LoginData loginData;
@@ -85,7 +86,11 @@ public class ConnectionHandler {
 //        Gson gson = new Gson();
 //        message = new StringBuilder(message).insert(0, gson.toJson(msgHeader)).toString();
         message = new StringBuilder(message).insert(1, messageHeader).toString();
-        socketBusy = true;
+        System.out.println("[JOSEF} Send message: " +message);
+        messageCounter++;
+        if (!pendingMessage && (messageCounter > 0)){
+            pendingMessage = true;
+        }
         socket.emit(function, message);
     };
 
@@ -129,54 +134,61 @@ public class ConnectionHandler {
                                         patient = recievedPatient;
                                         break;
                                     case CONTENT_HEALTHCARE:
-                                        // Must find a solution how to handle reponse message when creating and updating
-//                                        HealthCareData createdHealthcare =  gson.fromJson(resultData, HealthCareData.class);
-//                                        person.person_ID = createdPerson.person_ID; // update ID
                                         break;
                                     case CONTENT_EVENT:
-//                                        event = gson.fromJson(resultData, EventData.class);
                                         break;
                                 }
                                 break;
                             case MESSAGE_READ:
                                 switch (header.content){
                                     case CONTENT_PERSON:
+                                        System.out.println("[JOSEF] connectHandler: MESSAGE_READ, PERSON");
                                         person = gson.fromJson(resultData, Person.class);
                                         offlineDataManager.savePersonData(resultData);
                                         break;
                                     case CONTENT_PATIENT:
+                                        System.out.println("[JOSEF] connectHandler: MESSAGE_READ, PATIENT");
                                         patient = gson.fromJson(resultData, Patient.class);
                                         offlineDataManager.savePatientData(resultData);
                                         break;
                                     case CONTENT_INVITE:
+                                        System.out.println("[JOSEF] connectHandler: MESSAGE_READ, INVITE");
                                         invites = gson.fromJson(resultData, InviteData.class);
                                         offlineDataManager.saveInviteData(resultData);
                                         break;
                                     case CONTENT_HEALTHCARE:
+                                        System.out.println("[JOSEF] connectHandler: MESSAGE_READ, HEALTHCARE");
                                         healthcare = gson.fromJson(resultData, HealthCareData.class);
                                         offlineDataManager.saveHealthCareData(resultData);
                                         break;
                                     case CONTENT_EVENT:
+                                        System.out.println("[JOSEF] connectHandler: MESSAGE_READ, EVENT");
                                         offlineDataManager.saveEventsData(resultData);
                                         events = gson.fromJson(resultData, EventData.class);
                                         break;
                                     case CONTENT_STATUS:
-                                          status = gson.fromJson(resultData, StatusData.class);
+                                        System.out.println("[JOSEF] connectHandler: MESSAGE_READ, STATUS");
+                                        status = gson.fromJson(resultData, StatusData.class);
                                         break;
                                     case CONTENT_SIDEEFFECT:
+                                        System.out.println("[JOSEF] connectHandler: MESSAGE_READ, SIDEEFFECTS");
                                         sideeffects = gson.fromJson(resultData, SideeffectData.class);
                                         break;
                                     case CONTENT_HEALTH_DATA:
+                                        System.out.println("[JOSEF] connectHandler: MESSAGE_READ, HEALTH_DATA");
                                         healthData = gson.fromJson(resultData, HealthDataData.class);
                                         break;
                                     case CONTENT_QUESTION:
+                                        System.out.println("[JOSEF] connectHandler: MESSAGE_READ, QUESTIONS");
                                         questions = gson.fromJson(resultData, QuestionData.class);
                                         break;
                                     case CONTENT_ARTICLE:
+                                        System.out.println("[JOSEF] connectHandler: MESSAGE_READ, ARTICLE");
                                         articles = gson.fromJson(resultData, ArticleData.class);
                                         break;
 
                                     case CONTENT_JOURNAL:
+                                        System.out.println("[JOSEF] connectHandler: MESSAGE_READ, JOURNAL");
                                         journal = gson.fromJson(resultData, JournalData.class);
                                           offlineDataManager.saveJournalData(resultData);
                                         break;
@@ -241,7 +253,15 @@ public class ConnectionHandler {
                                 break;
                         }
                     }
-                    socketBusy = false;
+                    if (messageCounter > 0){
+                        messageCounter--;
+                    }else{
+                        //something is wrong
+                    }
+
+                    if (messageCounter == 0){
+                        pendingMessage = false;
+                    }
                 }
             });
 
@@ -251,6 +271,11 @@ public class ConnectionHandler {
         }
     }
 
+    public void clearSocket(){
+        if (pendingMessage){
+            pendingMessage = false;
+        }
+    }
     public void login (Person newUser){//
         if (checkConnection()){
             function = "login";
@@ -642,4 +667,14 @@ public class ConnectionHandler {
         return isConnected;
     }
 
+    public void getAllPatientData(int patientID){
+        getSideeffectForPatient(patientID);
+        getQuestionsForPatient(patientID);
+        getInvitedCareTeamMembers(patientID);
+        getEventsForPatient(patientID);
+        getArticles(patientID);
+        getHealthcareForPatient(patientID);
+        getHealthDataForPatient(patientID);
+        getSideeffectForPatient(patientID);
+    }
 }

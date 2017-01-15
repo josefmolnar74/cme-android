@@ -1,6 +1,5 @@
 package com.cancercarecompany.ccc.ccc;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
@@ -727,7 +726,7 @@ public class JournalDetailsFragment extends Fragment {
                     connectHandler.deleteHealthData(listItem.healthData.healthdata_ID);
                 }
 
-                while(connectHandler.socketBusy){}
+                while(connectHandler.pendingMessage){}
                 closeFragment();
 //                getActivity().onBackPressed();
                 // remove item from list and from database
@@ -998,9 +997,8 @@ public class JournalDetailsFragment extends Fragment {
             connectHandler.createSideeffect(listItem.sideeffect);
         }
 
-        while (connectHandler.socketBusy) {}
+        while (connectHandler.pendingMessage) {}
         closeFragment();
-//        getActivity().onBackPressed();
 
     }
 
@@ -1021,7 +1019,7 @@ public class JournalDetailsFragment extends Fragment {
             connectHandler.createHealthData(listItem.healthData);
         }
 
-        while (connectHandler.socketBusy) {}
+        while (connectHandler.pendingMessage) {}
         getActivity().onBackPressed();
     }
 

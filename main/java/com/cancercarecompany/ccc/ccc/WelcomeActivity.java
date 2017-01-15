@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,11 +17,16 @@ import android.widget.EditText;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    ConnectionHandler connectHandler;
-    EditText loginEmail;
-    EditText loginPassword;
-    CheckBox loginSave;
-    boolean autoLogin;
+    private ConnectionHandler connectHandler;
+    private EditText loginEmail;
+    private EditText loginPassword;
+    private CheckBox loginSave;
+    private boolean autoLogin;
+
+    /**
+     * Keep track of the login task to ensure we can cancel it if requested.
+     */
+    private UserLoginTask mAuthTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +52,7 @@ public class WelcomeActivity extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (!connectHandler.socketBusy) {
+                    if (!connectHandler.pendingMessage) {
                         login();
                     }
                     else {
@@ -84,19 +90,8 @@ public class WelcomeActivity extends AppCompatActivity {
     public void onClickLogin(View view){
         Person newUser = new Person(0, null, loginEmail.getText().toString(), loginPassword.getText().toString(), 0, null);
         connectHandler.login(newUser);
-
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (!connectHandler.socketBusy) {
-                    login();
-                }
-                else {
-                    handler.postDelayed(this,1000);
-                }
-            }
-        });
+        mAuthTask = new UserLoginTask();
+        mAuthTask.execute((Void) null);
     }
 
     private void login(){
@@ -128,15 +123,78 @@ public class WelcomeActivity extends AppCompatActivity {
                 } else{
                     editor.putBoolean(getString(R.string.login_auto_login), false);
                 }
-
                 editor.commit();
+                onRestart();
             }
 
-            Intent myIntent = new Intent(this, MainActivity.class);
-            startActivity(myIntent);
-            finish();
+            // Get all patient data after login
+            connectHandler.getAllPatientData(connectHandler.patient.patient_ID);
+            final Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (!connectHandler.pendingMessage) {
+                        Intent myIntent = new Intent(MyApplication.getContext(), MainActivity.class);
+                        startActivity(myIntent);
+                        finish();
+                    }
+                    else {
+                        handler.postDelayed(this,1000);
+                    }
+                }
+            });
         }
     }
 
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     */
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            while(connectHandler.pendingMessage){}
+            if (connectHandler.person != null){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+                login();
+            } else {
+                // Login failed
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MyApplication.getContext());
+                String alertText = String.format("Server not responding");
+                alertDialogBuilder.setMessage(alertText);
+
+                alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        SharedPreferences sharedPref = MyApplication.getContext().getSharedPreferences("login_settings", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putBoolean(getString(R.string.login_auto_login), false);
+                        editor.commit();
+                        onRestart();
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        }
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+        }
+    }
 }

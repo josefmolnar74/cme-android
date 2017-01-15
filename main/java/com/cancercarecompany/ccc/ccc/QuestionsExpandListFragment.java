@@ -64,7 +64,7 @@ public class QuestionsExpandListFragment extends Fragment {
 
         if (connectHandler.patient != null) {
             connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
-            while (connectHandler.socketBusy){}
+            while (connectHandler.pendingMessage){}
             if (connectHandler.patient.care_team != null) {
                 // check admin
                 for (int i=0; i < connectHandler.patient.care_team.size(); i++){

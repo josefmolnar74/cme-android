@@ -3,7 +3,6 @@ package com.cancercarecompany.ccc.ccc;
 
 import android.content.ClipData;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -11,13 +10,11 @@ import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -180,7 +177,7 @@ public class JourneyActivity extends AppCompatActivity {
         //////////////////////////
 
         connectHandler.getEventsForPatient(connectHandler.patient.patient_ID);
-        while (connectHandler.socketBusy) {}
+        while (connectHandler.pendingMessage) {}
 
         if ((connectHandler.events != null) && (connectHandler.events.event_data != null)){
             for (int i = 0; i < connectHandler.events.event_data.size(); i++) {

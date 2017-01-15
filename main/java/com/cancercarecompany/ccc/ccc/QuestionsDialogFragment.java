@@ -12,8 +12,6 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +49,7 @@ public class QuestionsDialogFragment extends DialogFragment {
 
         if (connectHandler.questions == null){
             connectHandler.getQuestionsForPatient(connectHandler.patient.patient_ID);
-            while (connectHandler.socketBusy){}
+            while (connectHandler.pendingMessage){}
         }
 
         for (int i = 0; i < connectHandler.questions.question_data.size(); i++){

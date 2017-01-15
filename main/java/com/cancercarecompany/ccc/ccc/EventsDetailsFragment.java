@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
@@ -606,7 +605,7 @@ public class EventsDetailsFragment extends Fragment {
                     listItem.emotion);
 
             connectHandler.updateEvent(updatedEvent);
-            while(connectHandler.socketBusy){}
+            while(connectHandler.pendingMessage){}
             closeFragment();
 //            getActivity().onBackPressed();
         }
@@ -645,7 +644,7 @@ public class EventsDetailsFragment extends Fragment {
                         "",
                         "");
                 connectHandler.createEvent(newEvent);
-                while(connectHandler.socketBusy){}
+                while(connectHandler.pendingMessage){}
                 closeFragment();
 //                getActivity().onBackPressed();
             }
@@ -662,7 +661,7 @@ public class EventsDetailsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 connectHandler.deleteEvent(listItem.event_ID);
-                while(connectHandler.socketBusy){}
+                while(connectHandler.pendingMessage){}
                 closeFragment();
 //                getActivity().onBackPressed();
                 // remove item from list and from database
